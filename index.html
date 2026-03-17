@@ -10,28 +10,28 @@
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     :root {
-      --bg: #0f1722;
-      --panel: rgba(18, 28, 41, 0.86);
-      --card: #162234;
-      --ink: #e4edf8;
-      --muted: #98a8bc;
-      --line: #2c3d52;
-      --accent: #7ec7d9;
-      --accent-soft: #1d3347;
-      --navy: #9ec6ec;
-      --gold: #8aa5c7;
-      --warm: #202f42;
-      --blue: #6e8fb8;
-      --orange: #9eb7d5;
-      --red: #6e89ab;
-      --viz-doc: #8cb3de;
-      --viz-stress: #7b97ba;
-      --viz-explore: #8ac7bf;
-      --viz-alert: #5c7ea6;
-      --viz-neutral: #607791;
-      --chapter-1: #172636;
-      --chapter-2: #1a293b;
-      --chapter-3: #162a2e;
+      --bg: #0f1a16;
+      --panel: rgba(18, 33, 27, 0.86);
+      --card: #162a21;
+      --ink: #e4efe8;
+      --muted: #9db3a4;
+      --line: #2e4a3b;
+      --accent: #9cc6a4;
+      --accent-soft: #1e392d;
+      --navy: #a7ccb1;
+      --gold: #89ad93;
+      --warm: #22362b;
+      --blue: #6c9777;
+      --orange: #9fbea3;
+      --red: #64856d;
+      --viz-doc: #92bd9c;
+      --viz-stress: #5f8f6e;
+      --viz-explore: #7eae8d;
+      --viz-alert: #3f7050;
+      --viz-neutral: #6f8c79;
+      --chapter-1: #172c22;
+      --chapter-2: #1a3025;
+      --chapter-3: #173127;
     }
 
     * { box-sizing: border-box; }
@@ -41,30 +41,30 @@
       font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
       color: var(--ink);
       background:
-        radial-gradient(900px 500px at 90% -120px, rgba(62, 92, 122, 0.38) 0%, rgba(15, 23, 34, 0) 68%),
-        linear-gradient(180deg, #0d1522 0%, #0f1722 100%);
+        radial-gradient(900px 500px at 90% -120px, rgba(62, 103, 80, 0.38) 0%, rgba(15, 26, 22, 0) 68%),
+        linear-gradient(180deg, #0d1713 0%, #0f1a16 100%);
       transition: background 420ms ease;
     }
 
     body[data-scene="2"],
     body[data-scene="3"] {
       background:
-        radial-gradient(900px 500px at 90% -120px, rgba(68, 94, 125, 0.42) 0%, rgba(15, 23, 34, 0) 68%),
-        linear-gradient(180deg, #0e1827 0%, #101c2a 100%);
+        radial-gradient(900px 500px at 90% -120px, rgba(77, 112, 89, 0.42) 0%, rgba(15, 26, 22, 0) 68%),
+        linear-gradient(180deg, #0e1915 0%, #112018 100%);
     }
 
     body[data-scene="4"],
     body[data-scene="5"] {
       background:
-        radial-gradient(900px 500px at 90% -120px, rgba(75, 101, 130, 0.44) 0%, rgba(15, 23, 34, 0) 68%),
-        linear-gradient(180deg, #0f1826 0%, #122233 100%);
+        radial-gradient(900px 500px at 90% -120px, rgba(83, 120, 94, 0.44) 0%, rgba(15, 26, 22, 0) 68%),
+        linear-gradient(180deg, #0f1b16 0%, #12241a 100%);
     }
 
     body[data-scene="6"],
     body[data-scene="7"] {
       background:
-        radial-gradient(900px 500px at 90% -120px, rgba(59, 108, 113, 0.38) 0%, rgba(15, 23, 34, 0) 68%),
-        linear-gradient(180deg, #0e1a26 0%, #10202b 100%);
+        radial-gradient(900px 500px at 90% -120px, rgba(67, 125, 100, 0.38) 0%, rgba(15, 26, 22, 0) 68%),
+        linear-gradient(180deg, #0e1c16 0%, #11231a 100%);
     }
 
     .ambient {
@@ -86,7 +86,7 @@
     .orb-a {
       width: 340px;
       height: 340px;
-      background: #5f7a98;
+      background: #5f8e72;
       top: -90px;
       right: 8%;
     }
@@ -94,7 +94,7 @@
     .orb-b {
       width: 260px;
       height: 260px;
-      background: #6a86a7;
+      background: #6c9b7d;
       bottom: 9%;
       left: 5%;
       animation-delay: -6s;
@@ -103,7 +103,7 @@
     .orb-c {
       width: 220px;
       height: 220px;
-      background: #4d6f8f;
+      background: #4f7f64;
       bottom: -60px;
       right: 22%;
       animation-delay: -3s;
@@ -220,7 +220,7 @@
     .progress-fill {
       height: 100%;
       width: 14%;
-      background: linear-gradient(90deg, #7ec7d9 0%, #8cb3de 55%, #7b97ba 100%);
+      background: linear-gradient(90deg, #9cc6a4 0%, #92bd9c 55%, #5f8f6e 100%);
       transition: width 260ms ease;
     }
 
@@ -241,7 +241,7 @@
     }
 
     .mode-toggle {
-      border: 1px solid rgba(126, 199, 217, 0.34);
+      border: 1px solid rgba(156, 198, 164, 0.34);
       background: rgba(20, 31, 45, 0.92);
       color: #c7d6e7;
       padding: 5px 10px;
@@ -270,7 +270,7 @@
       top: 40px;
       bottom: 60px;
       width: 2px;
-      background: linear-gradient(180deg, rgba(19,111,99,0.35), rgba(60,115,179,0.35), rgba(217, 222, 213, 0.2));
+      background: linear-gradient(180deg, rgba(58,124,89,0.35), rgba(95,143,110,0.35), rgba(217, 228, 218, 0.2));
       border-radius: 999px;
     }
 
@@ -292,9 +292,9 @@
       font-weight: 700;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #b9d7ef;
+      color: #c5decb;
       background: rgba(16, 28, 43, 0.9);
-      border: 1px solid rgba(126, 199, 217, 0.28);
+      border: 1px solid rgba(156, 198, 164, 0.28);
       box-shadow: 0 8px 20px rgba(5, 10, 16, 0.35);
     }
 
@@ -302,7 +302,7 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #7ec7d9;
+      background: #9cc6a4;
     }
 
     .chapter-block {
@@ -341,7 +341,7 @@
     .step.is-active .step-card {
       opacity: 1;
       transform: translateY(0);
-      border-color: rgba(126, 199, 217, 0.34);
+      border-color: rgba(156, 198, 164, 0.34);
       box-shadow: 0 26px 60px rgba(6, 12, 20, 0.4);
     }
 
@@ -390,7 +390,7 @@
     }
 
     .bullet strong {
-      color: #9fc7ea;
+      color: #a8cfb0;
     }
 
     .sticky-panel {
@@ -424,7 +424,7 @@
       inset: 0;
       border-radius: 20px;
       padding: 1px;
-      background: linear-gradient(120deg, rgba(19,111,99,0.26), rgba(60,115,179,0.22), rgba(217, 134, 47, 0.2));
+      background: linear-gradient(120deg, rgba(58,124,89,0.26), rgba(95,143,110,0.22), rgba(156, 198, 164, 0.2));
       -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       -webkit-mask-composite: xor;
@@ -485,7 +485,7 @@
     }
 
     .delta-chip strong {
-      color: #9fc7ea;
+      color: #a8cfb0;
     }
 
     .metric {
@@ -525,7 +525,7 @@
       min-height: clamp(400px, 52vh, 620px);
       border-radius: 20px;
       border: 1px solid var(--line);
-      background: linear-gradient(180deg, #132033 0%, #101a2a 100%);
+      background: linear-gradient(180deg, #12231a 0%, #0f1d16 100%);
       overflow: hidden;
     }
 
@@ -945,14 +945,14 @@
     };
 
     const VIZ = {
-      doc: "#8cb3de",
-      stress: "#7b97ba",
-      explore: "#8ac7bf",
-      alert: "#5c7ea6",
-      neutral: "#607791",
-      softDoc: "rgba(140,179,222,0.26)",
-      softStress: "rgba(123,151,186,0.24)",
-      softExplore: "rgba(138,199,191,0.22)",
+      doc: "#92bd9c",
+      stress: "#5f8f6e",
+      explore: "#7eae8d",
+      alert: "#3f7050",
+      neutral: "#6f8c79",
+      softDoc: "rgba(146,189,156,0.26)",
+      softStress: "rgba(95,143,110,0.24)",
+      softExplore: "rgba(126,174,141,0.22)",
     };
 
     function requiredFirmSuccess(eta, theta = DOC.theta, k = DOC.k) {
@@ -1139,7 +1139,7 @@
         type: "bar",
         x,
         y,
-        marker: { color: ["#7b97ba", "#8cb3de", "#8ac7bf"] },
+        marker: { color: [VIZ.stress, VIZ.doc, VIZ.explore] },
         text: y.map(v => `$${v.toFixed(0)}`),
         textposition: "outside",
         hovertemplate: "%{x} value<br>$%{y:.0f} per animal-year<extra></extra>",
@@ -1170,8 +1170,8 @@
           color: [
             VIZ.softDoc,
             VIZ.softStress,
-            "rgba(92,126,166,0.28)",
-            "rgba(123,151,186,0.18)",
+            "rgba(63,112,80,0.28)",
+            "rgba(95,143,110,0.18)",
             VIZ.softExplore,
           ],
         },
@@ -1180,11 +1180,11 @@
         title: {
           text: "Why high-value science can still be underfunded",
           x: 0.02,
-          font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#d6e4f4" },
+          font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#d6e4dc" },
         },
-        paper_bgcolor: "#101a2a",
+        paper_bgcolor: "#0f1d16",
         margin: { l: 22, r: 22, t: 66, b: 26 },
-        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#b9c8da", size: 12 },
+        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#bdd0c3", size: 12 },
       });
     }
 
@@ -1227,7 +1227,7 @@
       const scenarios = ["Baseline / infrequent", "Annual", "Prime + booster"];
       const amcVals = scenarios.map(name => SCENARIOS[name].amc_m);
       const typeVals = scenarios.map(name => SCENARIOS[name].stress ? "Stress-Test" : "Document-Derived");
-      const colors = typeVals.map(t => t === "Stress-Test" ? "#7b97ba" : "#8cb3de");
+      const colors = typeVals.map(t => t === "Stress-Test" ? VIZ.stress : VIZ.doc);
       const patterns = typeVals.map(t => t === "Stress-Test" ? "/" : "");
 
       Plotly.react("storyChart", [{
@@ -1246,7 +1246,7 @@
           x1: 2.5,
           y0: SCENARIOS["Baseline / infrequent"].amc_m,
           y1: SCENARIOS["Baseline / infrequent"].amc_m,
-          line: { color: "#8ac7bf", dash: "dot", width: 2 },
+          line: { color: VIZ.explore, dash: "dot", width: 2 },
         }],
         annotations: [{
           x: 2,
@@ -1254,7 +1254,7 @@
           text: "Baseline AMC",
           showarrow: false,
           yshift: 10,
-          font: { color: "#8ac7bf", size: 11 },
+          font: { color: VIZ.explore, size: 11 },
         }],
         xaxis: { title: "Dosing Scenario", gridcolor: "#2b3a4f" },
         yaxis: { title: "AMC (M USD)", gridcolor: "#2b3a4f" },
@@ -1281,8 +1281,8 @@
         ...baseLayout("BCR sensitivity to adoption", "BCR"),
         xaxis: { title: "Adoption rate", tickformat: ".0%", gridcolor: "#2b3a4f" },
         yaxis: { title: "BCR", gridcolor: "#2b3a4f" },
-        shapes: [{ type: "line", x0: 0.50, x1: 0.50, y0: 0, y1: Math.max(...bcrGrid), line: { color: "#8fa2b8", dash: "dash", width: 2 } }],
-        annotations: [{ x: 0.50, y: Math.max(...bcrGrid), text: "Baseline adoption", showarrow: false, yshift: 12, font: { color: "#8fa2b8" } }],
+        shapes: [{ type: "line", x0: 0.50, x1: 0.50, y0: 0, y1: Math.max(...bcrGrid), line: { color: "#88a995", dash: "dash", width: 2 } }],
+        annotations: [{ x: 0.50, y: Math.max(...bcrGrid), text: "Baseline adoption", showarrow: false, yshift: 12, font: { color: "#88a995" } }],
       });
     }
 
@@ -1433,7 +1433,7 @@
           x: ad,
           y: sv,
           z,
-          colorscale: [[0, "#1b2b3d"], [0.5, "#4e6e90"], [1, "#9bc7ef"]],
+          colorscale: [[0, "#18281f"], [0.5, "#4f7d5f"], [1, "#a8d0b2"]],
           contours: { coloring: "heatmap", showlabels: true, labelfont: { size: 10 } },
           colorbar: { title: "BCR" },
           hovertemplate: "Adoption=%{x:.0%}<br>Social value=$%{y:.1f}<br>BCR=%{z:.2f}<extra></extra>",
@@ -1507,13 +1507,13 @@
 
     function baseLayout(title, yTitle) {
       return {
-        title: { text: title.toUpperCase(), x: 0.5, xanchor: "center", font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#d6e4f4" } },
-        paper_bgcolor: "#101a2a",
-        plot_bgcolor: "#101a2a",
+        title: { text: title.toUpperCase(), x: 0.5, xanchor: "center", font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#d6e4dc" } },
+        paper_bgcolor: "#0f1d16",
+        plot_bgcolor: "#0f1d16",
         margin: { l: 64, r: 30, t: 66, b: 56 },
-        xaxis: { gridcolor: "#2b3a4f", zeroline: false, color: "#c7d6e7" },
-        yaxis: { title: yTitle, gridcolor: "#2b3a4f", zeroline: false, color: "#c7d6e7" },
-        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#c7d6e7", size: 13 },
+        xaxis: { gridcolor: "#2f4a3c", zeroline: false, color: "#c9dccc" },
+        yaxis: { title: yTitle, gridcolor: "#2f4a3c", zeroline: false, color: "#c9dccc" },
+        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#c9dccc", size: 13 },
         showlegend: false,
       };
     }
