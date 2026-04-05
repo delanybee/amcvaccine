@@ -1,0 +1,1961 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Methane Vaccine AMC Story Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <style>
+    :root {
+      --sticky-stack-height: 250px;
+      --fs-micro: 0.82rem;
+      --fs-small: 0.88rem;
+      --fs-body: 0.98rem;
+      --bg: #173227;
+      --panel: rgba(27, 50, 39, 0.88);
+      --card: #214034;
+      --ink: #edf6f0;
+      --muted: #b0c9ba;
+      --line: #456b57;
+      --accent: #b8ddbf;
+      --accent-soft: #2d5844;
+      --navy: #a7ccb1;
+      --gold: #89ad93;
+      --warm: #22362b;
+      --blue: #6c9777;
+      --orange: #9fbea3;
+      --red: #64856d;
+      --viz-doc: #92bd9c;
+      --viz-stress: #5f8f6e;
+      --viz-explore: #7eae8d;
+      --viz-alert: #3f7050;
+      --viz-neutral: #6f8c79;
+      --chapter-1: #1d3a2d;
+      --chapter-2: #214034;
+      --chapter-3: #204236;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 500px at 90% -120px, rgba(103, 149, 121, 0.42) 0%, rgba(23, 50, 39, 0) 68%),
+        linear-gradient(180deg, #153126 0%, #173227 100%);
+      transition: background 420ms ease;
+    }
+
+    body[data-scene="2"],
+    body[data-scene="3"] {
+      background:
+        radial-gradient(900px 500px at 90% -120px, rgba(115, 159, 130, 0.44) 0%, rgba(23, 50, 39, 0) 68%),
+        linear-gradient(180deg, #183428 0%, #1a362b 100%);
+    }
+
+    body[data-scene="4"],
+    body[data-scene="5"] {
+      background:
+        radial-gradient(900px 500px at 90% -120px, rgba(126, 170, 141, 0.44) 0%, rgba(23, 50, 39, 0) 68%),
+        linear-gradient(180deg, #1a372b 0%, #1c3a2e 100%);
+    }
+
+    body[data-scene="6"],
+    body[data-scene="7"] {
+      background:
+        radial-gradient(900px 500px at 90% -120px, rgba(110, 172, 144, 0.38) 0%, rgba(23, 50, 39, 0) 68),
+        linear-gradient(180deg, #1b392c 0%, #1d3a2e 100%);
+    }
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(56px);
+      opacity: 0.28;
+      animation: drift 14s ease-in-out infinite;
+    }
+
+    .orb-a {
+      width: 340px;
+      height: 340px;
+      background: #5f8e72;
+      top: -90px;
+      right: 8%;
+    }
+
+    .orb-b {
+      width: 260px;
+      height: 260px;
+      background: #6c9b7d;
+      bottom: 9%;
+      left: 5%;
+      animation-delay: -6s;
+    }
+
+    .orb-c {
+      width: 220px;
+      height: 220px;
+      background: #4f7f64;
+      bottom: -60px;
+      right: 22%;
+      animation-delay: -3s;
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-14px) translateX(10px); }
+    }
+
+    .shell {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 18px 18px 48px;
+    }
+
+    .hero {
+      min-height: 34vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px 0 8px;
+    }
+
+    .hero-card {
+      max-width: 980px;
+      background: linear-gradient(180deg, rgba(35, 63, 50, 0.9) 0%, rgba(29, 52, 41, 0.84) 100%);
+      border: 1px solid rgba(91, 132, 109, 0.9);
+      border-radius: 28px;
+      padding: 20px 24px 18px;
+      box-shadow: 0 28px 70px rgba(23, 33, 38, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: clamp(1.45rem, 3.1vw, 2.3rem);
+      line-height: 1.08;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-subtitle {
+      margin: 0 auto;
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.45;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #234737;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #d3e4d7;
+    }
+
+    .hero-note {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #a4bea9;
+    }
+
+    .story-layout {
+      display: grid;
+      grid-template-columns: 40% 60%;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .story-progress {
+      position: sticky;
+      top: 0;
+      z-index: 25;
+      padding: 0 0 10px;
+      margin-bottom: 4px;
+      backdrop-filter: blur(4px);
+    }
+
+    .progress-shell {
+      border-radius: 999px;
+      background: rgba(31, 57, 45, 0.9);
+      border: 1px solid rgba(89, 125, 105, 0.95);
+      height: 10px;
+      overflow: hidden;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.45);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 14%;
+      background: linear-gradient(90deg, #9cc6a4 0%, #92bd9c 55%, #5f8f6e 100%);
+      transition: width 260ms ease;
+    }
+
+    .progress-label {
+      margin-top: 6px;
+      font-size: var(--fs-micro);
+      color: #a4bea9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .progress-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mode-toggle {
+      border: 1px solid rgba(156, 198, 164, 0.34);
+      background: rgba(34, 61, 49, 0.92);
+      color: #d3e4d7;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: var(--fs-micro);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .mode-toggle:hover {
+      background: #2e5a44;
+      transform: translateY(-1px);
+    }
+
+    .narrative {
+      width: 100%;
+      padding-bottom: 10vh;
+      position: relative;
+    }
+
+    .narrative::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 40px;
+      bottom: 60px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(58,124,89,0.35), rgba(95,143,110,0.35), rgba(217, 228, 218, 0.2));
+      border-radius: 999px;
+    }
+
+    .step {
+      min-height: max(520px, calc(100vh - var(--sticky-stack-height) + 90px));
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+      padding: 8px 0 16px;
+      scroll-margin-top: var(--sticky-stack-height);
+      opacity: 0.42;
+      transition: opacity 320ms ease;
+    }
+
+    .step.is-active {
+      opacity: 1;
+    }
+
+    .chapter-marker {
+      margin: 20px 0 8px 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #cbe2d0;
+      background: rgba(31, 57, 45, 0.92);
+      border: 1px solid rgba(156, 198, 164, 0.28);
+      box-shadow: 0 8px 20px rgba(5, 10, 16, 0.35);
+    }
+
+    .chapter-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #9cc6a4;
+    }
+
+    .chapter-block {
+      margin: 8px 0 24px;
+      border: 1px solid #2d4d3b;
+      border-radius: 22px;
+      padding: 12px 14px 8px;
+      box-shadow: inset 0 0 0 1px rgba(112, 156, 130, 0.2);
+    }
+
+    .chapter-block.chapter-1 {
+      background: linear-gradient(180deg, var(--chapter-1) 0%, rgba(18, 36, 28, 0.82) 26%, rgba(16, 30, 24, 0.74) 100%);
+    }
+
+    .chapter-block.chapter-2 {
+      background: linear-gradient(180deg, var(--chapter-2) 0%, rgba(20, 38, 30, 0.82) 26%, rgba(16, 30, 24, 0.74) 100%);
+    }
+
+    .chapter-block.chapter-3 {
+      background: linear-gradient(180deg, var(--chapter-3) 0%, rgba(20, 40, 31, 0.82) 26%, rgba(16, 30, 24, 0.74) 100%);
+    }
+
+    .step-card {
+      width: 100%;
+      background: linear-gradient(180deg, rgba(34, 61, 48, 0.92) 0%, rgba(27, 51, 40, 0.9) 100%);
+      border: 1px solid rgba(88, 125, 104, 0.95);
+      border-radius: 24px;
+      padding: 26px 24px;
+      position: sticky;
+      top: calc(var(--sticky-stack-height) + 8px);
+      box-shadow: 0 22px 50px rgba(23, 33, 38, 0.08);
+      backdrop-filter: blur(8px);
+      transform: translateY(14px);
+      opacity: 0.56;
+      transition: transform 220ms ease, opacity 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .step.is-active .step-card {
+      opacity: 1;
+      transform: translateY(0);
+      border-color: rgba(156, 198, 164, 0.34);
+      box-shadow: 0 26px 60px rgba(6, 12, 20, 0.4);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: clamp(1rem, 1.3vw, 1.25rem);
+      line-height: 1.26;
+      letter-spacing: 0.01em;
+      text-align: center;
+    }
+
+    .chart-brief {
+      margin: 0 0 12px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      border: 1px solid #4f7a63;
+      background: #28513d;
+      color: #dbe9df;
+      font-size: var(--fs-small);
+      line-height: 1.48;
+      text-align: center;
+    }
+
+    .lede {
+      margin: 0 0 14px;
+      color: #d0e1d5;
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .bullet {
+      padding: 11px 12px;
+      border-radius: 16px;
+      background: rgba(38, 67, 53, 0.88);
+      border: 1px solid #4d765f;
+      color: #c9ddd0;
+      line-height: 1.5;
+      font-size: var(--fs-small);
+    }
+
+    .bullet strong {
+      color: #a8cfb0;
+    }
+
+    .sticky-panel {
+      position: sticky;
+      top: calc(var(--sticky-stack-height) + 8px);
+      min-height: calc(100vh - var(--sticky-stack-height) - 16px);
+      max-height: calc(100vh - var(--sticky-stack-height) - 16px);
+      overflow-y: auto;
+      padding-right: 4px;
+      display: grid;
+      grid-template-rows: auto auto auto minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .visual-card {
+      background: rgba(32, 58, 46, 0.9);
+      border: 1px solid rgba(90, 126, 106, 0.95);
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: 0 24px 58px rgba(23, 33, 38, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .chart-frame {
+      position: relative;
+    }
+
+    .chart-frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(120deg, rgba(58,124,89,0.26), rgba(95,143,110,0.22), rgba(156, 198, 164, 0.2));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .visual-title {
+      margin: 0 0 4px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: -0.03em;
+    }
+
+    .visual-subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .delta-strip {
+      padding: 12px 14px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .delta-title {
+      margin: 0;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: #d0e3d4;
+      text-align: center;
+    }
+
+    .delta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .delta-chip {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #254b39 0%, #214235 100%);
+      padding: 8px 10px;
+      font-size: var(--fs-small);
+      line-height: 1.42;
+      color: #c9ddd0;
+    }
+
+    .delta-chip strong {
+      color: #a8cfb0;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px 12px 10px;
+      background: linear-gradient(180deg, #254a39 0%, #203f32 100%);
+    }
+
+    .metric-cost {
+      border-color: #ceb56f;
+      background: linear-gradient(180deg, #5a5130 0%, #3f4a2f 100%);
+      box-shadow: inset 0 0 0 1px rgba(255, 232, 168, 0.24), 0 0 0 1px rgba(207, 181, 108, 0.22);
+    }
+
+    .metric-cost .metric-label {
+      color: #e8d8a1;
+    }
+
+    .metric-cost .metric-value {
+      color: #fff1be;
+    }
+
+    .metric-cost .metric-detail {
+      color: #e3d4a0;
+    }
+
+    .delta-chip.cost-focus {
+      border-color: #bda56a;
+      background: linear-gradient(180deg, #554a2d 0%, #3f472f 100%);
+      color: #f1e3b2;
+    }
+
+    .delta-chip.cost-focus strong {
+      color: #ffe9a2;
+    }
+
+    .explore-panel {
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .explore-kicker {
+      margin: -2px 0 4px;
+      text-align: center;
+      color: #bfd5c7;
+      font-size: var(--fs-micro);
+      letter-spacing: 0.03em;
+      font-weight: 700;
+    }
+
+    .control-stack,
+    .control-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .control-stack {
+      grid-template-columns: 1fr;
+    }
+
+    .control-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .explore-priority {
+      border-color: #628c74;
+      background: linear-gradient(180deg, #2d5644 0%, #264b3b 100%);
+      color: #d9ebe0;
+      box-shadow: inset 0 0 0 1px rgba(184, 221, 191, 0.15);
+      padding: 12px 12px 10px;
+    }
+
+    .explore-priority strong {
+      color: #dceee2;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-size: 0.82rem;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-weight: 800;
+    }
+
+    #exploreCard select,
+    #exploreCard input {
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+    }
+
+    #exploreCard select {
+      width: 100%;
+      margin-top: 6px;
+      border: 1px solid #5a836c;
+      border-radius: 10px;
+      background: #224334;
+      color: #e8f2eb;
+      padding: 7px 9px;
+      font-size: 0.9rem;
+      line-height: 1.2;
+    }
+
+    #exploreCard input[type="range"] {
+      width: 100%;
+      margin-top: 6px;
+      accent-color: #d1b86b;
+    }
+
+    .explore-note {
+      margin: 0;
+      font-size: 0.76rem;
+      color: #b7cebf;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    .preset-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
+    }
+
+    .preset-btn {
+      border: 1px solid #577f68;
+      border-radius: 10px;
+      padding: 6px 7px;
+      background: linear-gradient(180deg, #234a39 0%, #1d3d30 100%);
+      color: #d7e9dc;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      font-size: var(--fs-micro);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .preset-btn:hover {
+      transform: translateY(-1px);
+      border-color: #759c86;
+    }
+
+    .preset-btn.is-active {
+      border-color: #ccb573;
+      background: linear-gradient(180deg, #5a5130 0%, #3f4a2f 100%);
+      color: #fff0bc;
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: var(--fs-micro);
+      margin-bottom: 5px;
+      letter-spacing: 0.02em;
+    }
+
+    .metric-value {
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1.18rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 2px;
+      color: #dceee2;
+    }
+
+    .metric-detail {
+      font-size: var(--fs-micro);
+      color: var(--muted);
+    }
+
+    .about-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 25, 30, 0.45);
+      z-index: 50;
+      padding: 30px;
+    }
+
+    .about-dialog {
+      max-width: 760px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #d9ded5;
+      padding: 18px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    }
+
+    .about-title {
+      margin: 0 0 8px;
+      font-family: "Manrope", sans-serif;
+      color: #1d2a23;
+    }
+
+    .about-body {
+      margin: 0 0 8px;
+      color: #3b4b53;
+      font-size: var(--fs-small);
+      line-height: 1.45;
+    }
+
+    .about-list {
+      margin: 8px 0 12px;
+      color: #3b4b53;
+      font-size: var(--fs-small);
+      line-height: 1.5;
+    }
+
+    .metric-detail:empty {
+      display: none;
+    }
+
+    .chart-frame {
+      min-height: clamp(460px, 60vh, 760px);
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #1b3b2f 0%, #163327 100%);
+      overflow: hidden;
+    }
+
+    #storyChart {
+      width: 100%;
+      height: clamp(460px, 60vh, 760px);
+    }
+
+    .jump-nav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      gap: 8px;
+      z-index: 20;
+    }
+
+    .jump-link {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(41, 71, 56, 0.22);
+      border: 1px solid rgba(49, 82, 65, 0.3);
+      transition: transform 160ms ease, background 160ms ease;
+    }
+
+    .jump-link.active {
+      background: var(--accent);
+      transform: scale(1.2);
+    }
+
+    body.presenter-mode .ambient,
+    body.presenter-mode .jump-nav,
+    body.presenter-mode .story-progress {
+      display: none;
+    }
+
+    body.presenter-mode .hero {
+      padding-top: 2px;
+    }
+
+    body.presenter-mode .hero-card {
+      max-width: 1120px;
+      padding: 16px 18px;
+    }
+
+    body.presenter-mode .story-layout {
+      grid-template-columns: 0.76fr 1.24fr;
+    }
+
+    body.presenter-mode .step {
+      min-height: 72vh;
+      scroll-margin-top: 24px;
+    }
+
+    body.presenter-mode .step-card {
+      padding: 20px 18px;
+    }
+
+    body.presenter-mode .chart-frame,
+    body.presenter-mode #storyChart {
+      min-height: 660px;
+      height: 660px;
+    }
+
+    @media (max-width: 1100px) {
+      .story-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        opacity: 1;
+      }
+
+      .sticky-panel {
+        position: static;
+        min-height: auto;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .step {
+        min-height: auto;
+        padding: 0 0 14px;
+        margin-bottom: 18px;
+      }
+
+      .step-card {
+        opacity: 1;
+        transform: none;
+        position: static;
+      }
+
+      .jump-nav {
+        display: none;
+      }
+
+      .control-stack {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (min-width: 1101px) {
+      .control-stack {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .shell {
+        padding: 12px 12px 30px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 8px 0 12px;
+      }
+
+      .hero-card {
+        padding: 16px 14px;
+      }
+
+      .metric-row,
+      .metric-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .delta-row {
+        grid-template-columns: 1fr;
+      }
+
+      .control-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .preset-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      #storyChart,
+      .chart-frame {
+        height: 420px;
+        min-height: 420px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="jump-nav" aria-label="Story sections">
+    <a href="#step-1" class="jump-link active" data-target="1" title="Why act now"></a>
+    <a href="#step-2" class="jump-link" data-target="2" title="Innovation deadlock"></a>
+    <a href="#step-3" class="jump-link" data-target="3" title="How AMC works"></a>
+    <a href="#step-4" class="jump-link" data-target="4" title="Where AMCs help"></a>
+    <a href="#step-5" class="jump-link" data-target="5" title="Technology pathways"></a>
+    <a href="#step-6" class="jump-link" data-target="6" title="Funding models"></a>
+    <a href="#step-7" class="jump-link" data-target="7" title="Structure options"></a>
+    <a href="#step-8" class="jump-link" data-target="8" title="Stakeholders"></a>
+    <a href="#step-9" class="jump-link" data-target="9" title="Status and call to action"></a>
+  </nav>
+
+  <div class="shell">
+    <section class="story-progress" aria-label="Story progress">
+      <div class="progress-shell">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-label">
+        <span id="progressStep">Step 1 of 9</span>
+        <div class="progress-meta">
+          <span id="progressHint">Scroll to continue</span>
+          <button id="aboutOpen" class="mode-toggle" type="button">About this story map</button>
+          <button id="presenterToggle" class="mode-toggle" type="button">Presenter mode</button>
+        </div>
+      </div>
+    </section>
+
+    <header class="hero">
+      <div class="hero-card">
+        <h1>Designing Innovation: Incentives for Methane Reduction</h1>
+        <p class="hero-subtitle">
+          An Economic Design Analysis of an Advance Market Commitment for Methane Reduction
+        </p>
+      </div>
+    </header>
+
+    <div class="story-layout">
+      <section class="narrative">
+        <div class="chapter-block chapter-1">
+        <div class="chapter-marker"><span class="chapter-dot"></span>Chapter 1: Urgency and Market Failure</div>
+        <article class="step is-active" id="step-1" data-step="1">
+          <div class="step-card">
+            <h2>Low-methane livestock: why act now</h2>
+            <p class="lede">
+              Enteric fermentation is one of the largest human-caused methane sources, and methane itself is both short-lived and highly potent.
+              Fast reductions in livestock methane can create near-term climate impact while longer-horizon decarbonization scales.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Climate value range used for methane reduction economics ($22, $30, $38 per animal-year).</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Methane lifespan:</strong> roughly 10 years, so reductions can cool faster than many CO2 strategies.</div>
+              <div class="bullet"><strong>High warming power:</strong> methane carries far more near-term warming impact than CO2.</div>
+              <div class="bullet"><strong>Agricultural relevance:</strong> enteric methane is a major climate lever within livestock systems.</div>
+              <div class="bullet"><strong>Near-term pathway:</strong> a modest reduction by 2040 can materially improve agriculture's climate trajectory.</div>
+              <div class="bullet"><strong>Implication:</strong> the opportunity is immediate, scalable, and economically meaningful.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-2" data-step="2">
+          <div class="step-card">
+            <h2>The innovation deadlock</h2>
+            <p class="lede">
+              Methane mitigation in livestock faces a classic chicken-and-egg trap.
+              Buyers hesitate because products are not yet proven at scale, while innovators hesitate because no one has committed demand.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Causal flow from uncertain demand to delayed innovation and underinvestment.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Buyer view:</strong> why commit to products that are not yet broadly available?</div>
+              <div class="bullet"><strong>Innovator view:</strong> why invest heavily without clear offtake?</div>
+              <div class="bullet"><strong>System effect:</strong> capital arrives too late, and deployment stalls.</div>
+              <div class="bullet"><strong>Result:</strong> a high-value climate solution remains stuck before scale.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-3" data-step="3">
+          <div class="step-card">
+            <h2>Advance Market Commitment: breaking the deadlock</h2>
+            <p class="lede">
+              An AMC creates a credible demand signal by committing to buy future low-methane outcomes that meet performance criteria.
+              That forward commitment reduces uncertainty and unlocks earlier private investment.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Relationship between scientific feasibility and required firm-level success under AMC targets.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Buyers commit early:</strong> demand exists before products are fully commercial.</div>
+              <div class="bullet"><strong>Innovators respond:</strong> development risk falls when market access is visible.</div>
+              <div class="bullet"><strong>Capital moves sooner:</strong> investors fund pathways that previously looked too uncertain.</div>
+              <div class="bullet"><strong>Producer support:</strong> early adoption can be compensated while markets mature.</div>
+            </div>
+          </div>
+        </article>
+        </div>
+
+        <div class="chapter-block chapter-2">
+        <div class="chapter-marker"><span class="chapter-dot"></span>Chapter 2: Deployment and Design</div>
+
+        <article class="step" id="step-4" data-step="4">
+          <div class="step-card">
+            <h2>Where AMCs help across the commercialization path</h2>
+            <p class="lede">
+              AMCs can be valuable in three phases: R&D, scale-up, and market competition.
+              The core function is de-risking demand so investment decisions happen earlier.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Illustrative economics: benefits, social cost, and the AMC-funded component.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>R&D stage:</strong> no proven product and no guaranteed buyers.</div>
+              <div class="bullet"><strong>Scale stage:</strong> products exist but markets remain too thin.</div>
+              <div class="bullet"><strong>Competition stage:</strong> innovators risk being undercut after scale.</div>
+              <div class="bullet"><strong>AMC role:</strong> keeps investment incentives intact across all three phases.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-5" data-step="5">
+          <div class="step-card">
+            <h2>Technology pathways and delivery economics</h2>
+            <p class="lede">
+              Vaccines, genetics, and feed-based interventions each have different timelines, cost profiles, and implementation constraints.
+              AMC design must be flexible enough to support multiple technology paths.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Cost profile comparison across dosing/implementation scenarios.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Vaccines:</strong> potentially scalable and low-touch, but efficacy and timeline uncertainty remain.</div>
+              <div class="bullet"><strong>Breeding/genetics:</strong> durable gains, but slower progress and coordination complexity.</div>
+              <div class="bullet"><strong>Feed additives/bolus:</strong> proven reductions in some contexts, with regulatory and financing frictions.</div>
+              <div class="bullet"><strong>Implication:</strong> implementation design is an economic lever, not just a technical detail.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-6" data-step="6">
+          <div class="step-card">
+            <h2>How funding flows in practice</h2>
+            <p class="lede">
+              Corporates can fund methane reduction through offtake premiums, intervention subsidies, or verified carbon payments.
+              Producer compensation and adoption design determine how much modeled value is actually realized.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Adoption sensitivity: how participation levels shift realized benefit-cost outcomes.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Pay for offtake:</strong> premium on low-methane beef and dairy outputs.</div>
+              <div class="bullet"><strong>Fund intervention:</strong> support per dose/additive regardless of buyer structure.</div>
+              <div class="bullet"><strong>Pay for carbon:</strong> compensation tied to verified CO2e reductions.</div>
+              <div class="bullet"><strong>Critical design issue:</strong> producer incentives drive adoption speed and scale.</div>
+            </div>
+          </div>
+        </article>
+        </div>
+
+        <div class="chapter-block chapter-3">
+        <div class="chapter-marker"><span class="chapter-dot"></span>Chapter 3: Governance, Coalition, and Launch</div>
+
+        <article class="step" id="step-7" data-step="7">
+          <div class="step-card">
+            <h2>AMC structure options and open design questions</h2>
+            <p class="lede">
+              Traditional buying-club AMCs provide strong demand certainty, while hybrid AMC + investment models can deploy earlier capital with potential upside.
+              Governance choices determine risk allocation and execution quality.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Feasibility and performance sensitivity under different science assumptions.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Traditional AMC:</strong> clear pooled commitment, but capital is locked longer.</div>
+              <div class="bullet"><strong>Hybrid model:</strong> startup co-investment plus future offtake, with higher governance complexity.</div>
+              <div class="bullet"><strong>Open questions:</strong> pricing logic, co-product accounting, and supply allocation.</div>
+              <div class="bullet"><strong>Crediting:</strong> duration and ownership of climate claims must be predefined.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-8" data-step="8">
+          <div class="step-card">
+            <h2>Stakeholder alignment is the execution engine</h2>
+            <p class="lede">
+              Innovators, corporates, philanthropy, and governments each play distinct but complementary roles.
+              AMCs succeed when these actors align around shared rules, timelines, and incentives.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Role-based synthesis of who enables development, demand, and deployment.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Innovators:</strong> build and validate methane-reducing technologies.</div>
+              <div class="bullet"><strong>Corporates:</strong> commit demand and absorb early market risk.</div>
+              <div class="bullet"><strong>Philanthropy and investors:</strong> provide catalytic and risk-tolerant capital.</div>
+              <div class="bullet"><strong>Governments:</strong> enable R&D, policy support, and broad participation.</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="step" id="step-9" data-step="9">
+          <div class="step-card">
+            <h2>Status, funding target, and how to engage</h2>
+            <p class="lede">
+              Coordination is active across NGOs and universities, with an intended launch window around COP30.
+              The current funding objective is a $750M coalition across food companies, supply chains, and climate-focused capital.
+            </p>
+            <p class="chart-brief"><strong>CHART FOCUS</strong> Confidence and action hierarchy: what is established, what is evolving, and where stakeholders can enter.</p>
+            <div class="bullet-list">
+              <div class="bullet"><strong>Funding goal:</strong> $750M for launch and early deployment support.</div>
+              <div class="bullet"><strong>Who can act now:</strong> governments, corporates, investors, and philanthropy.</div>
+              <div class="bullet"><strong>Corporate action:</strong> commit low-methane sourcing and long-term demand.</div>
+              <div class="bullet"><strong>Contact:</strong> info@lowmethanelivestock.org for participation pathways.</div>
+            </div>
+          </div>
+        </article>
+        </div>
+      </section>
+
+      <aside class="sticky-panel">
+        <section class="visual-card" id="exploreCard">
+          <h4 class="delta-title">Sensitivity Studio</h4>
+          <p class="explore-kicker">Live policy economics playground</p>
+          <div id="exploreControls" class="explore-panel">
+            <div class="control-stack">
+              <label class="delta-chip explore-priority"><strong>Sensitivity lens</strong><br><select id="vizMode"><option value="story">Narrative lens (current step)</option><option value="tornado">Elasticity tornado (BCR delta)</option><option value="frontier">Break-even surface (BCR = 1)</option><option value="corr">Driver correlation matrix</option></select></label>
+              <label class="delta-chip explore-priority"><strong>Dosing cost scenario</strong><br><select id="scenarioSel"><option>Baseline / infrequent</option><option>Annual</option><option>Prime + booster</option></select></label>
+            </div>
+            <p class="explore-note">Narrative lens keeps the original chapter-by-chapter charts. Presets below are quick workshop starting points.</p>
+            <div class="preset-row" id="presetRow">
+              <button type="button" class="preset-btn" data-preset="baseline">Baseline</button>
+              <button type="button" class="preset-btn" data-preset="cost">Cost Pressure</button>
+              <button type="button" class="preset-btn" data-preset="adoption">Adoption Risk</button>
+              <button type="button" class="preset-btn" data-preset="science">Science Risk</button>
+            </div>
+            <div class="control-grid">
+              <label class="delta-chip"><strong>Eta: <span id="etaLabel">0.90</span></strong><br><input id="etaCtrl" type="range" min="0.70" max="0.95" step="0.01" value="0.90"></label>
+              <label class="delta-chip"><strong>Adoption: <span id="adoptLabel">50%</span></strong><br><input id="adoptCtrl" type="range" min="0.10" max="0.80" step="0.01" value="0.50"></label>
+              <label class="delta-chip"><strong>Social value: <span id="svLabel">$30</span></strong><br><input id="svCtrl" type="range" min="22" max="38" step="0.5" value="30"></label>
+              <label class="delta-chip"><input id="etaProxyCtrl" type="checkbox" /> Use eta-based AMC proxy (exploratory)</label>
+            </div>
+          </div>
+        </section>
+
+        <section class="visual-card delta-strip">
+          <h4 class="delta-title" id="stepHeadline">Step focus</h4>
+          <div class="delta-row" id="deltaRow">
+            <div class="delta-chip"><strong>Shift</strong> Context set for the story.</div>
+            <div class="delta-chip"><strong>Why it matters</strong> Frames policy relevance.</div>
+          </div>
+        </section>
+
+        <section class="metric-row" id="metricRow"></section>
+
+        <section class="visual-card chart-frame">
+          <div id="storyChart"></div>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <div id="aboutModal" class="about-modal">
+    <div class="about-dialog">
+      <h3 class="about-title">About This Story Map</h3>
+      <p class="about-body"><strong>Capstone Project Summary: Methane Vaccine Advance Market Commitment (AMC)</strong></p>
+      <p class="about-body">This project explores how an advance market commitment (AMC) could be used to accelerate the development and adoption of a methane-reducing livestock vaccine. The core problem is that methane emissions from cattle represent a significant climate externality, but existing market incentives are insufficient to drive rapid innovation or widespread deployment of mitigation technologies.</p>
+      <p class="about-body">The work to date focuses on designing a structured economic and policy mechanism that aligns incentives across key stakeholders: vaccine developers, governments, producers, and funders. The proposed AMC would guarantee a future market for an effective methane-reducing intervention, reducing demand uncertainty and encouraging private-sector R&D investment.</p>
+      <p class="about-body">The current prototype is a story map that walks through:</p>
+      <ul class="about-list">
+        <li>The scale and urgency of methane emissions in agriculture.</li>
+        <li>The market failures limiting innovation and adoption.</li>
+        <li>The conceptual design of an AMC tailored to this context.</li>
+        <li>Deployment pathways and adoption constraints in livestock systems.</li>
+        <li>Governance and coalition structures required to launch and sustain the program.</li>
+      </ul>
+      <p class="about-body">In addition, this prototype includes a sensitivity studio that supports exploration of key assumptions, such as adoption rates, social value of methane reduction, and dosing logistics, to show how design choices affect cost-effectiveness and scalability.</p>
+      <p class="about-body">At this stage, the project is in a mid-development phase. The core framework and narrative are established, and the next steps are focused on:</p>
+      <ul class="about-list">
+        <li>Refining the economic assumptions and parameter estimates.</li>
+        <li>Strengthening policy design details and feasibility analysis.</li>
+        <li>Improving clarity and usability of the interactive components.</li>
+        <li>Validating key inputs with literature and stakeholder perspectives.</li>
+      </ul>
+      <p class="about-body">Overall, the goal is to produce a rigorous, policy-relevant design that demonstrates how AMCs could be applied beyond traditional vaccine markets to address agricultural emissions.</p>
+      <button id="aboutClose" class="mode-toggle" type="button">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const DOC = {
+      baseline_benefits_b: 11.4842,
+      baseline_non_amc_cost_b: 0.2628,
+      baseline_amc_m: 534.2,
+      baseline_adoption: 0.50,
+      baseline_social_value: 30,
+      baseline_abatement_mt: 320,
+      gwp20: 84,
+      gwp100: 28,
+    };
+
+    const SCENARIOS = {
+      Conservative: {
+        amc_m: 460,
+        non_amc_cost_b: 0.23,
+        baseAdoption: 0.35,
+        label: "Conservative",
+      },
+      Moderate: {
+        amc_m: 620,
+        non_amc_cost_b: 0.30,
+        baseAdoption: 0.50,
+        label: "Moderate",
+      },
+      Aggressive: {
+        amc_m: 820,
+        non_amc_cost_b: 0.38,
+        baseAdoption: 0.65,
+        label: "Aggressive",
+      },
+    };
+
+    const VIZ = {
+      methane: "#d3ee9c",
+      co2: "#84a993",
+      accent: "#92bd9c",
+      stress: "#d1b86b",
+      dark: "#5f8f6e",
+      warning: "#f0c36a",
+      low: "rgba(95,143,110,0.24)",
+      high: "rgba(209,184,107,0.3)",
+    };
+
+    function baseLayout(title, yTitle = "") {
+      return {
+        title: {
+          text: title.toUpperCase(),
+          x: 0.5,
+          xanchor: "center",
+          font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#e6f0ea" },
+        },
+        paper_bgcolor: "#143126",
+        plot_bgcolor: "#143126",
+        margin: { l: 64, r: 26, t: 70, b: 58 },
+        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#d6e8dc", size: 13 },
+        xaxis: { gridcolor: "#476854", zeroline: false, color: "#d6e8dc" },
+        yaxis: { title: yTitle, gridcolor: "#476854", zeroline: false, color: "#d6e8dc" },
+        showlegend: true,
+        legend: { orientation: "h", y: 1.12, x: 0 },
+      };
+    }
+
+    function modelOutputs(scenarioName, adoptionRate, efficacyIndex, socialValue, costIndex) {
+      const scenario = SCENARIOS[scenarioName];
+      const benefitsB = DOC.baseline_benefits_b
+        * (adoptionRate / DOC.baseline_adoption)
+        * efficacyIndex
+        * (socialValue / DOC.baseline_social_value);
+
+      const amcB = (scenario.amc_m / 1000) * costIndex;
+      const nonAmcB = scenario.non_amc_cost_b * costIndex;
+      const totalCostB = amcB + nonAmcB;
+      const bcr = benefitsB / totalCostB;
+      const npvB = benefitsB - amcB;
+      const abatementMt = DOC.baseline_abatement_mt
+        * (adoptionRate / DOC.baseline_adoption)
+        * efficacyIndex;
+      const costPerTon = (totalCostB * 1000) / Math.max(abatementMt, 1);
+
+      return { benefitsB, amcB, totalCostB, bcr, npvB, abatementMt, costPerTon };
+    }
+
+    const stepConfig = {
+      1: {
+        title: "Methane has outsized near-term warming",
+        metrics: [
+          { label: "GWP20", value: "84x CO2", detail: "near-term forcing" },
+          { label: "GWP100", value: "28x CO2", detail: "longer-horizon average" },
+          { label: "Atmospheric life", value: "~10 years", detail: "fast response window" },
+          { label: "Policy risk", value: "Undervalued", detail: "long-horizon accounting bias" },
+        ],
+        changes: [
+          { k: "Core problem", v: "Methane is potent now, but pricing often lags that urgency." },
+          { k: "Why it matters", v: "Near-term intervention timing changes climate outcomes." },
+        ],
+        chart: drawMethanePotencyChart,
+      },
+      2: {
+        title: "Livestock is a visible, addressable wedge",
+        metrics: [
+          { label: "Enteric methane", value: "Dominant wedge", detail: "within agricultural methane" },
+          { label: "Concentration", value: "Cattle-heavy", detail: "targetable system" },
+          { label: "Policy readiness", value: "Rising", detail: "buyers + standards forming" },
+          { label: "Execution", value: "Geographic", detail: "focus where herds are largest" },
+        ],
+        changes: [
+          { k: "Core problem", v: "Livestock methane is large enough to justify dedicated market design." },
+          { k: "Why it matters", v: "You can aim financing at one tractable emissions wedge." },
+        ],
+        chart: drawSectorMethaneChart,
+      },
+      3: {
+        title: "Private value is below social value",
+        metrics: [
+          { label: "Private ROI", value: "Weak", detail: "farm and developer payback friction" },
+          { label: "Social ROI", value: "High", detail: "climate benefits exceed private gains" },
+          { label: "Gap", value: "Persistent", detail: "without coordinated demand signal" },
+          { label: "Implication", value: "Under-supplied", detail: "rational market outcome" },
+        ],
+        changes: [
+          { k: "Market failure", v: "Innovation appears unattractive privately, despite strong social payoff." },
+          { k: "Why it matters", v: "A value-gap chart makes underinvestment intuitive." },
+        ],
+        chart: drawValueGapChart,
+      },
+      4: {
+        title: "AMC shifts the adoption frontier",
+        metrics: [
+          { label: "Without support", value: "Low uptake", detail: "cost-sensitive producers delay" },
+          { label: "With AMC", value: "Higher uptake", detail: "guaranteed demand supports pricing" },
+          { label: "Equilibrium", value: "Shifted", detail: "at same farm economics" },
+          { label: "Policy lever", value: "Demand guarantee", detail: "not only R&D grant" },
+        ],
+        changes: [
+          { k: "Mechanism", v: "AMC changes expected demand and thus expected adoption." },
+          { k: "Why it matters", v: "This is where financing design moves real-world behavior." },
+        ],
+        chart: drawAdoptionFrontierChart,
+      },
+      5: {
+        title: "AMC de-risks firm payoffs",
+        metrics: [
+          { label: "Without AMC", value: "Fat downside", detail: "high variance outcomes" },
+          { label: "With AMC", value: "Protected floor", detail: "truncated downside" },
+          { label: "Expected value", value: "Higher", detail: "entry incentive improves" },
+          { label: "R&D pipeline", value: "Broader", detail: "more firms can justify participation" },
+        ],
+        changes: [
+          { k: "Mechanism", v: "Risk profile change is as important as average subsidy size." },
+          { k: "Why it matters", v: "De-risking induces participation before perfect certainty exists." },
+        ],
+        chart: drawRiskReductionChart,
+      },
+      6: {
+        title: "Incentives must align across the timeline",
+        metrics: [
+          { label: "Stage 1", value: "R&D", detail: "signal credible future demand" },
+          { label: "Stage 2", value: "Approval", detail: "verification and buyer confidence" },
+          { label: "Stage 3", value: "Deployment", detail: "volume-linked commitments" },
+          { label: "Design rule", value: "Lifecycle fit", detail: "not one-off payments" },
+        ],
+        changes: [
+          { k: "Mechanism", v: "Payments and guarantees should be staged to reduce bottlenecks." },
+          { k: "Why it matters", v: "A single instrument can support invention through rollout." },
+        ],
+        chart: drawIncentiveTimelineChart,
+      },
+      7: {
+        title: "Feasibility is geographically uneven",
+        metrics: [
+          { label: "High-potential regions", value: "Concentrated", detail: "large cattle populations" },
+          { label: "Policy readiness", value: "Mixed", detail: "different deployment speeds" },
+          { label: "Implication", value: "Phased rollout", detail: "start where scale is fastest" },
+          { label: "Execution", value: "Coalition-led", detail: "region-specific procurement" },
+        ],
+        changes: [
+          { k: "Scale", v: "Global impact is tractable, but not uniform across countries." },
+          { k: "Why it matters", v: "Deployment planning must match herd distribution." },
+        ],
+        chart: drawAdoptionMapChart,
+      },
+      8: {
+        title: "Funding-to-impact curve is nonlinear",
+        metrics: [
+          { label: "Early dollars", value: "High leverage", detail: "unlock first movers" },
+          { label: "Later dollars", value: "Lower marginal return", detail: "diminishing gains" },
+          { label: "$750M target", value: "Strategic zone", detail: "material emissions impact" },
+          { label: "Decision lens", value: "Marginal impact", detail: "not headline amount alone" },
+        ],
+        changes: [
+          { k: "Feasibility", v: "Funding goal is grounded in a meaningful impact segment." },
+          { k: "Why it matters", v: "This helps sponsors evaluate scale realism." },
+        ],
+        chart: drawFundingImpactChart,
+      },
+      9: {
+        title: "Hero view: cumulative abatement with and without AMC",
+        metrics: [
+          { label: "Without AMC", value: "Slower curve", detail: "adoption bottleneck persists" },
+          { label: "With AMC", value: "Faster curve", detail: "front-loaded deployment" },
+          { label: "Area between", value: "Avoided emissions", detail: "core policy payoff" },
+          { label: "Narrative", value: "Decision-ready", detail: "single synthesis chart" },
+        ],
+        changes: [
+          { k: "Synthesis", v: "This chart summarizes the whole mechanism in one glance." },
+          { k: "Why it matters", v: "It turns abstract design choices into cumulative climate impact." },
+        ],
+        chart: drawHeroCumulativeChart,
+      },
+    };
+
+    function drawMethanePotencyChart() {
+      Plotly.react("storyChart", [
+        {
+          type: "bar",
+          x: ["GWP20", "GWP100"],
+          y: [DOC.gwp20, DOC.gwp100],
+          marker: { color: [VIZ.methane, VIZ.co2] },
+          text: ["84x", "28x"],
+          textposition: "outside",
+          hovertemplate: "%{x}: %{y}x CO2 equivalent<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Methane vs CO2 warming impact", "Multiplier vs CO2"),
+        annotations: [{
+          x: 0.5,
+          y: 86,
+          xref: "x",
+          yref: "y",
+          text: "Policy frameworks often overweight long horizons and undervalue near-term warming",
+          showarrow: false,
+          font: { color: VIZ.warning, size: 11 },
+        }],
+      });
+    }
+
+    function drawSectorMethaneChart() {
+      Plotly.react("storyChart", [
+        {
+          type: "bar",
+          x: ["Livestock methane", "Oil and gas", "Landfills", "Rice", "Other"],
+          y: [42, 21, 14, 9, 14],
+          marker: { color: [VIZ.warning, VIZ.dark, VIZ.dark, VIZ.dark, VIZ.dark] },
+          text: ["Largest wedge", "", "", "", ""],
+          textposition: "outside",
+          hovertemplate: "%{x}<br>%{y}% of methane source mix<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Methane sources with livestock emphasized", "Share of methane sources (%)"),
+        annotations: [{
+          x: "Livestock methane",
+          y: 45,
+          text: "Addressable + concentrated",
+          showarrow: true,
+          arrowhead: 2,
+          ax: 70,
+          ay: -30,
+          font: { color: "#f3dd9a" },
+        }],
+      });
+    }
+
+    function drawValueGapChart() {
+      const interventions = ["Vaccine", "Feed additive", "Breeding", "MRV platform"];
+      const privateRoi = [0.11, 0.16, 0.09, 0.13];
+      const socialRoi = [0.48, 0.43, 0.39, 0.34];
+
+      Plotly.react("storyChart", [
+        {
+          type: "bar",
+          x: interventions,
+          y: privateRoi,
+          name: "Private ROI",
+          marker: { color: VIZ.dark },
+          hovertemplate: "%{x}<br>Private ROI: %{y:.0%}<extra></extra>",
+        },
+        {
+          type: "bar",
+          x: interventions,
+          y: socialRoi,
+          name: "Social ROI",
+          marker: { color: VIZ.warning },
+          hovertemplate: "%{x}<br>Social ROI: %{y:.0%}<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Private vs social value gap", "Return on investment"),
+        barmode: "group",
+        yaxis: { tickformat: ".0%", gridcolor: "#476854", color: "#d6e8dc" },
+      });
+    }
+
+    function drawAdoptionFrontierChart() {
+      const x = [];
+      const noAmc = [];
+      const withAmc = [];
+      for (let c = 40; c <= 180; c += 5) {
+        x.push(c);
+        noAmc.push(1 / (1 + Math.exp((c - 95) / 18)));
+        withAmc.push(1 / (1 + Math.exp((c - 125) / 18)));
+      }
+
+      Plotly.react("storyChart", [
+        {
+          type: "scatter",
+          mode: "lines",
+          x,
+          y: noAmc,
+          name: "Without AMC",
+          line: { color: VIZ.dark, width: 4 },
+          hovertemplate: "Farmer net cost: $%{x}<br>Adoption: %{y:.0%}<extra></extra>",
+        },
+        {
+          type: "scatter",
+          mode: "lines",
+          x,
+          y: withAmc,
+          name: "With AMC",
+          line: { color: VIZ.warning, width: 4 },
+          fill: "tonexty",
+          fillcolor: VIZ.high,
+          hovertemplate: "Farmer net cost: $%{x}<br>Adoption: %{y:.0%}<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Adoption frontier shift", "Adoption rate"),
+        xaxis: { title: "Farmer net cost per animal-year (USD)", gridcolor: "#476854", color: "#d6e8dc" },
+        yaxis: { tickformat: ".0%", gridcolor: "#476854", color: "#d6e8dc" },
+      });
+    }
+
+    function drawRiskReductionChart() {
+      const x = [];
+      const noAmc = [];
+      const withAmc = [];
+
+      for (let p = -120; p <= 220; p += 4) {
+        x.push(p);
+        noAmc.push(Math.exp(-Math.pow((p - 20) / 70, 2)));
+        const base = Math.exp(-Math.pow((p - 60) / 60, 2));
+        withAmc.push(p < -20 ? 0 : base);
+      }
+
+      Plotly.react("storyChart", [
+        {
+          type: "scatter",
+          mode: "lines",
+          x,
+          y: noAmc,
+          name: "Without AMC",
+          line: { color: VIZ.dark, width: 3 },
+          fill: "tozeroy",
+          fillcolor: VIZ.low,
+        },
+        {
+          type: "scatter",
+          mode: "lines",
+          x,
+          y: withAmc,
+          name: "With AMC",
+          line: { color: VIZ.warning, width: 3 },
+          fill: "tozeroy",
+          fillcolor: VIZ.high,
+        },
+      ], {
+        ...baseLayout("Firm payoff distribution before and after AMC", "Relative probability"),
+        xaxis: { title: "R&D project payoff (M USD)", gridcolor: "#476854", color: "#d6e8dc" },
+        annotations: [{
+          x: -35,
+          y: 0.72,
+          text: "AMC truncates downside",
+          showarrow: true,
+          arrowhead: 2,
+          ax: -50,
+          ay: -22,
+          font: { color: "#f3dd9a" },
+        }],
+      });
+    }
+
+    function drawIncentiveTimelineChart() {
+      Plotly.react("storyChart", [
+        {
+          type: "bar",
+          x: ["R&D", "Validation", "Approval", "Early deployment", "Scale deployment"],
+          y: [1, 1, 1, 1, 1],
+          marker: { color: ["#7fb08f", "#8fba99", "#9ec5a4", "#c9b172", "#d9c486"] },
+          text: [
+            "Milestone grants",
+            "Trial support",
+            "Verification guarantee",
+            "Floor-price offtake",
+            "Volume commitment",
+          ],
+          textposition: "inside",
+          hovertemplate: "%{x}<br>%{text}<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Timeline of incentives across the lifecycle", ""),
+        yaxis: { visible: false, range: [0, 1.5] },
+      });
+    }
+
+    function drawAdoptionMapChart() {
+      Plotly.react("storyChart", [
+        {
+          type: "choropleth",
+          locationmode: "ISO-3",
+          locations: ["BRA", "USA", "IND", "CHN", "AUS", "ARG", "MEX", "ETH"],
+          z: [96, 72, 88, 55, 64, 60, 46, 52],
+          text: [
+            "Brazil",
+            "United States",
+            "India",
+            "China",
+            "Australia",
+            "Argentina",
+            "Mexico",
+            "Ethiopia",
+          ],
+          colorscale: [[0, "#2f5b45"], [0.5, "#6fa382"], [1, "#f0c36a"]],
+          marker: { line: { color: "#214536", width: 0.5 } },
+          colorbar: { title: "Readiness score" },
+          hovertemplate: "%{text}<br>Readiness index: %{z}<extra></extra>",
+        },
+      ], {
+        title: {
+          text: "Global adoption readiness for low-methane interventions",
+          x: 0.5,
+          xanchor: "center",
+          font: { family: "Manrope, IBM Plex Sans, sans-serif", size: 16, color: "#e6f0ea" },
+        },
+        geo: {
+          projection: { type: "natural earth" },
+          bgcolor: "#143126",
+          showframe: false,
+          showcoastlines: false,
+          landcolor: "#234635",
+          lakecolor: "#143126",
+        },
+        paper_bgcolor: "#143126",
+        margin: { l: 0, r: 0, t: 56, b: 0 },
+        font: { family: "IBM Plex Sans, Segoe UI, sans-serif", color: "#d6e8dc", size: 12 },
+      });
+    }
+
+    function drawFundingImpactChart() {
+      const funding = [100, 250, 400, 550, 750, 950, 1200];
+      const impact = [35, 94, 145, 186, 214, 232, 245];
+
+      Plotly.react("storyChart", [
+        {
+          type: "scatter",
+          mode: "lines+markers",
+          x: funding,
+          y: impact,
+          line: { color: VIZ.accent, width: 4 },
+          marker: { color: VIZ.warning, size: 8 },
+          hovertemplate: "AMC size: $%{x}M<br>Abatement: %{y} MtCO2e<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Funding vs impact curve", "Cumulative abatement (MtCO2e)"),
+        xaxis: { title: "AMC size (M USD)", gridcolor: "#476854", color: "#d6e8dc" },
+        annotations: [{
+          x: 750,
+          y: 214,
+          text: "$750M target sits in high-impact region",
+          showarrow: true,
+          arrowhead: 2,
+          ax: -90,
+          ay: -35,
+          font: { color: "#f3dd9a" },
+        }],
+      });
+    }
+
+    function drawHeroCumulativeChart() {
+      const years = [2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035];
+      const withoutAmc = [5, 14, 27, 43, 62, 83, 105, 128, 150];
+      const withAmc = [12, 31, 58, 93, 133, 176, 219, 258, 292];
+
+      Plotly.react("storyChart", [
+        {
+          type: "scatter",
+          mode: "lines",
+          x: years,
+          y: withoutAmc,
+          name: "Without AMC",
+          line: { color: VIZ.dark, width: 4 },
+          hovertemplate: "%{x}<br>%{y} MtCO2e avoided<extra></extra>",
+        },
+        {
+          type: "scatter",
+          mode: "lines",
+          x: years,
+          y: withAmc,
+          name: "With AMC",
+          line: { color: VIZ.warning, width: 4 },
+          fill: "tonexty",
+          fillcolor: VIZ.high,
+          hovertemplate: "%{x}<br>%{y} MtCO2e avoided<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Hero chart: cumulative emissions reduction", "Cumulative avoided emissions (MtCO2e)"),
+        xaxis: { title: "Year", gridcolor: "#476854", color: "#d6e8dc" },
+        annotations: [{
+          x: 2034,
+          y: 240,
+          text: "Area between curves = AMC-enabled avoided emissions",
+          showarrow: false,
+          font: { color: "#f3dd9a", size: 11 },
+        }],
+      });
+    }
+
+    function renderMetrics(step) {
+      const row = document.getElementById("metricRow");
+      row.innerHTML = step.metrics.map((metric) => `
+        <div class="metric${/cost|amc|funding/i.test(metric.label) ? " metric-cost" : ""}">
+          <div class="metric-label">${metric.label}</div>
+          <div class="metric-value">${metric.value}</div>
+          <div class="metric-detail">${metric.detail}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderDelta(step) {
+      const row = document.getElementById("deltaRow");
+      document.getElementById("stepHeadline").textContent = step.title;
+      row.innerHTML = step.changes.map((item) => `
+        <div class="delta-chip"><strong>${item.k}</strong> ${item.v}</div>
+      `).join("");
+    }
+
+    function getStudioInputs() {
+      return {
+        scenario: document.getElementById("scenarioSel").value,
+        adoption: Number(document.getElementById("adoptCtrl").value),
+        efficacy: Number(document.getElementById("effCtrl").value),
+        socialValue: Number(document.getElementById("svCtrl").value),
+        costIndex: Number(document.getElementById("costCtrl").value),
+      };
+    }
+
+    function updateStudioLabels() {
+      const i = getStudioInputs();
+      document.getElementById("adoptLabel").textContent = `${Math.round(i.adoption * 100)}%`;
+      document.getElementById("effLabel").textContent = `${i.efficacy.toFixed(2)}x`;
+      document.getElementById("svLabel").textContent = `$${i.socialValue.toFixed(1)}`;
+      document.getElementById("costLabel").textContent = `${i.costIndex.toFixed(2)}x`;
+    }
+
+    function renderScenarioCards() {
+      const cards = document.getElementById("scenarioCards");
+      const i = getStudioInputs();
+      const names = ["Conservative", "Moderate", "Aggressive"];
+
+      cards.innerHTML = names.map((name) => {
+        const out = modelOutputs(name, i.adoption, i.efficacy, i.socialValue, i.costIndex);
+        return `
+          <div class="delta-chip${name === i.scenario ? " cost-focus" : ""}">
+            <strong>${name}</strong><br>
+            Cost/ton: $${out.costPerTon.toFixed(1)}<br>
+            Adoption: ${Math.round(i.adoption * 100)}%<br>
+            Abatement: ${out.abatementMt.toFixed(0)} MtCO2e
+          </div>
+        `;
+      }).join("");
+    }
+
+    function drawCostEffectivenessFrontier() {
+      const i = getStudioInputs();
+      const scenarios = ["Conservative", "Moderate", "Aggressive"];
+      const x = [];
+      const y = [];
+      const labels = [];
+      const colors = [];
+
+      for (const name of scenarios) {
+        for (let a = 0.2; a <= 0.85; a += 0.1) {
+          for (let e = 0.7; e <= 1.15; e += 0.15) {
+            const out = modelOutputs(name, a, e, i.socialValue, i.costIndex);
+            x.push(out.totalCostB * 1000);
+            y.push(out.abatementMt);
+            labels.push(`${name} | adoption ${(a * 100).toFixed(0)}% | efficacy ${e.toFixed(2)}x`);
+            colors.push(name === "Conservative" ? "#7ba98a" : (name === "Moderate" ? "#9fc5a7" : "#d1b86b"));
+          }
+        }
+      }
+
+      const frontier = x.map((c, idx) => ({ c, a: y[idx] }))
+        .sort((m, n) => m.c - n.c)
+        .reduce((acc, cur) => {
+          if (!acc.length || cur.a > acc[acc.length - 1].a) acc.push(cur);
+          return acc;
+        }, []);
+
+      Plotly.react("storyChart", [
+        {
+          type: "scatter",
+          mode: "markers",
+          x,
+          y,
+          text: labels,
+          marker: { color: colors, size: 8, opacity: 0.7 },
+          name: "Scenario points",
+          hovertemplate: "%{text}<br>Total cost: $%{x:.0f}M<br>Abatement: %{y:.0f} MtCO2e<extra></extra>",
+        },
+        {
+          type: "scatter",
+          mode: "lines",
+          x: frontier.map((d) => d.c),
+          y: frontier.map((d) => d.a),
+          line: { color: "#f0c36a", width: 4 },
+          name: "Efficient frontier",
+          hovertemplate: "Frontier<br>Total cost: $%{x:.0f}M<br>Abatement: %{y:.0f} MtCO2e<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Cost-effectiveness frontier", "Methane abatement (MtCO2e)"),
+        xaxis: { title: "Total cost (M USD)", gridcolor: "#476854", color: "#d6e8dc" },
+      });
+    }
+
+    function drawStudioTornado() {
+      const i = getStudioInputs();
+      const base = modelOutputs(i.scenario, i.adoption, i.efficacy, i.socialValue, i.costIndex).bcr;
+      const values = [
+        {
+          k: "Adoption rate",
+          low: modelOutputs(i.scenario, 0.20, i.efficacy, i.socialValue, i.costIndex).bcr - base,
+          high: modelOutputs(i.scenario, 0.85, i.efficacy, i.socialValue, i.costIndex).bcr - base,
+        },
+        {
+          k: "Efficacy",
+          low: modelOutputs(i.scenario, i.adoption, 0.70, i.socialValue, i.costIndex).bcr - base,
+          high: modelOutputs(i.scenario, i.adoption, 1.20, i.socialValue, i.costIndex).bcr - base,
+        },
+        {
+          k: "Social value",
+          low: modelOutputs(i.scenario, i.adoption, i.efficacy, 22, i.costIndex).bcr - base,
+          high: modelOutputs(i.scenario, i.adoption, i.efficacy, 38, i.costIndex).bcr - base,
+        },
+        {
+          k: "Farmer cost",
+          low: modelOutputs(i.scenario, i.adoption, i.efficacy, i.socialValue, 1.40).bcr - base,
+          high: modelOutputs(i.scenario, i.adoption, i.efficacy, i.socialValue, 0.60).bcr - base,
+        },
+      ];
+
+      Plotly.react("storyChart", [
+        {
+          type: "bar",
+          orientation: "h",
+          y: values.map((v) => v.k),
+          x: values.map((v) => v.low),
+          name: "Lower-bound",
+          marker: { color: "#6f9679" },
+          hovertemplate: "%{y}<br>Delta BCR: %{x:.2f}<extra></extra>",
+        },
+        {
+          type: "bar",
+          orientation: "h",
+          y: values.map((v) => v.k),
+          x: values.map((v) => v.high),
+          name: "Upper-bound",
+          marker: { color: "#d1b86b" },
+          hovertemplate: "%{y}<br>Delta BCR: %{x:.2f}<extra></extra>",
+        },
+      ], {
+        ...baseLayout("Tornado: what matters most for policy performance", "Delta BCR"),
+        barmode: "relative",
+        xaxis: { title: "Change in BCR vs current assumptions", gridcolor: "#476854", color: "#d6e8dc", zeroline: true, zerolinecolor: "#91b09e" },
+      });
+    }
+
+    function renderExploreMetrics() {
+      const i = getStudioInputs();
+      const out = modelOutputs(i.scenario, i.adoption, i.efficacy, i.socialValue, i.costIndex);
+      const row = document.getElementById("metricRow");
+      row.innerHTML = [
+        { label: "Scenario", value: i.scenario, detail: "policy posture" },
+        { label: "Total Cost", value: `$${(out.totalCostB * 1000).toFixed(0)}M`, detail: "AMC + operating costs" },
+        { label: "Cost / ton", value: `$${out.costPerTon.toFixed(1)}`, detail: "USD per tCO2e" },
+        { label: "BCR", value: out.bcr.toFixed(2), detail: "social benefit to cost ratio" },
+      ].map((metric) => `
+        <div class="metric${/cost|ton/i.test(metric.label) ? " metric-cost" : ""}">
+          <div class="metric-label">${metric.label}</div>
+          <div class="metric-value">${metric.value}</div>
+          <div class="metric-detail">${metric.detail}</div>
+        </div>
+      `).join("");
+    }
+
+    function renderExploreView() {
+      updateStudioLabels();
+      renderExploreMetrics();
+      renderScenarioCards();
+
+      const mode = document.getElementById("vizMode").value;
+      if (mode === "story") {
+        stepConfig[currentStep].chart();
+      } else if (mode === "frontier") {
+        drawCostEffectivenessFrontier();
+      } else {
+        drawStudioTornado();
+      }
+    }
+
+    function activateStep(stepId) {
+      const config = stepConfig[stepId];
+      if (!config) return;
+
+      document.body.setAttribute("data-scene", String(stepId));
+      document.querySelectorAll(".step").forEach((step) => {
+        step.classList.toggle("is-active", Number(step.dataset.step) === stepId);
+      });
+      document.querySelectorAll(".jump-link").forEach((link) => {
+        link.classList.toggle("active", Number(link.dataset.target) === stepId);
+      });
+
+      currentStep = stepId;
+      renderDelta(config);
+      renderMetrics(config);
+      renderExploreView();
+
+      const pct = (stepId / 9) * 100;
+      document.getElementById("progressFill").style.width = `${pct}%`;
+      document.getElementById("progressStep").textContent = `Step ${stepId} of 9`;
+      document.getElementById("progressHint").textContent = stepId < 9 ? "Scroll to continue" : "You reached the final section";
+
+      requestAnimationFrame(() => {
+        if (window.Plotly && window.Plotly.Plots) window.Plotly.Plots.resize("storyChart");
+      });
+    }
+
+    let stepObserver = null;
+    const scroller = scrollama();
+    let currentStep = 1;
+
+    function updateStickyOffsets() {
+      const progress = document.querySelector(".story-progress");
+      if (!progress) return;
+      const progressHeight = Math.ceil(progress.offsetHeight);
+      const stack = Math.ceil(progressHeight + 14);
+      document.documentElement.style.setProperty("--sticky-stack-height", `${stack}px`);
+    }
+
+    function initStepObserver() {
+      stepObserver = null;
+      scroller.setup({
+        step: ".step",
+        offset: 0.58,
+      }).onStepEnter((response) => {
+        const stepId = Number(response.element.dataset.step);
+        activateStep(stepId);
+      });
+    }
+
+    function applyStudioPreset(preset) {
+      const presets = {
+        conservative: { scenario: "Conservative", adoption: 0.35, efficacy: 0.88, socialValue: 26, cost: 1.10, viz: "story" },
+        moderate: { scenario: "Moderate", adoption: 0.50, efficacy: 1.00, socialValue: 30, cost: 1.00, viz: "story" },
+        aggressive: { scenario: "Aggressive", adoption: 0.72, efficacy: 1.12, socialValue: 34, cost: 0.92, viz: "story" },
+        cost_pressure: { scenario: "Moderate", adoption: 0.40, efficacy: 0.95, socialValue: 30, cost: 1.30, viz: "tornado" },
+      };
+      const p = presets[preset] || presets.moderate;
+
+      document.getElementById("scenarioSel").value = p.scenario;
+      document.getElementById("adoptCtrl").value = p.adoption;
+      document.getElementById("effCtrl").value = p.efficacy;
+      document.getElementById("svCtrl").value = p.socialValue;
+      document.getElementById("costCtrl").value = p.cost;
+      document.getElementById("vizMode").value = p.viz;
+
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.classList.toggle("is-active", btn.dataset.preset === preset);
+      });
+
+      renderExploreView();
+    }
+
+    ["vizMode", "scenarioSel", "adoptCtrl", "effCtrl", "svCtrl", "costCtrl"].forEach((id) => {
+      document.getElementById(id).addEventListener("input", () => {
+        document.querySelectorAll(".preset-btn").forEach((btn) => btn.classList.remove("is-active"));
+        renderExploreView();
+      });
+    });
+
+    document.querySelectorAll(".preset-btn").forEach((btn) => {
+      btn.addEventListener("click", () => applyStudioPreset(btn.dataset.preset));
+    });
+
+    const presenterToggle = document.getElementById("presenterToggle");
+    presenterToggle.addEventListener("click", () => {
+      document.body.classList.toggle("presenter-mode");
+      presenterToggle.textContent = document.body.classList.contains("presenter-mode") ? "Exit presenter" : "Presenter mode";
+      updateStickyOffsets();
+      initStepObserver();
+      const currentActive = document.querySelector(".step.is-active");
+      if (currentActive) activateStep(Number(currentActive.dataset.step));
+    });
+
+    const aboutModal = document.getElementById("aboutModal");
+    document.getElementById("aboutOpen").addEventListener("click", () => {
+      aboutModal.style.display = "block";
+    });
+    document.getElementById("aboutClose").addEventListener("click", () => {
+      aboutModal.style.display = "none";
+    });
+    aboutModal.addEventListener("click", (e) => {
+      if (e.target === aboutModal) aboutModal.style.display = "none";
+    });
+
+    window.addEventListener("resize", () => {
+      updateStickyOffsets();
+      scroller.resize();
+      if (window.Plotly && window.Plotly.Plots) window.Plotly.Plots.resize("storyChart");
+    });
+
+    applyStudioPreset("moderate");
+    updateStickyOffsets();
+    initStepObserver();
+    activateStep(1);
+  </script>
+</body>
+</html>
