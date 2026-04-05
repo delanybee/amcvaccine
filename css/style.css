@@ -129,6 +129,7 @@ main {
   display: grid;
   gap: 16px;
   align-content: start;
+  scroll-snap-type: y proximity;
 }
 
 .step {
@@ -137,10 +138,19 @@ main {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 20px;
-  min-height: 180px;
-  opacity: 0.45;
+  min-height: 80vh;
+  opacity: 0.55;
   transform: translateY(16px);
   transition: opacity var(--ease), transform var(--ease), border-color var(--ease);
+  scroll-snap-align: start;
+}
+
+#chapter3 .step {
+  min-height: 100vh;
+}
+
+.step[data-step-id="s1"] {
+  min-height: 120vh;
 }
 
 .step.active {
@@ -170,7 +180,7 @@ main {
   display: none;
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity var(--ease), transform var(--ease);
+  transition: opacity 600ms ease 200ms, transform 600ms ease 200ms;
 }
 
 .visual-scene.active {
@@ -276,36 +286,6 @@ main {
   font-weight: 700;
 }
 
-.phase-cards {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.phase-card {
-  font-size: 0.84rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity var(--ease), transform var(--ease);
-}
-
-.phase-cards.enter .phase-card {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.phase-cards.enter .phase-card:nth-child(2) {
-  transition-delay: 80ms;
-}
-
-.phase-cards.enter .phase-card:nth-child(3) {
-  transition-delay: 160ms;
-}
-
 .legend-inline {
   display: flex;
   flex-wrap: wrap;
@@ -406,33 +386,69 @@ main {
   font-weight: 700;
 }
 
-.structure-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+.compact-card {
+  padding: 16px;
 }
 
-.structure-card {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 12px;
-  background: #fff;
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-bottom: 10px;
 }
 
-.structure-card h5 {
-  margin: 0 0 8px;
+.compare-table th,
+.compare-table td {
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line);
 }
 
-.structure-card p {
-  margin: 4px 0;
+.compare-table thead th {
+  font-weight: 700;
+  font-size: 13px;
+  padding-bottom: 8px;
 }
 
-.teal-border { border-left: 3px solid var(--teal); }
-.purple-border { border-left: 3px solid var(--purple); }
+.col-teal {
+  border-top: 3px solid var(--teal);
+  color: var(--teal);
+}
 
-.inline-questions {
-  margin: 12px 0;
-  font-size: 0.9rem;
+.col-purple {
+  border-top: 3px solid var(--purple);
+  color: var(--purple);
+}
+
+.row-label {
+  font-weight: 500;
+  color: var(--heading);
+  white-space: nowrap;
+}
+
+.val-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.teal-pill {
+  background: rgba(29, 158, 117, 0.14);
+  color: var(--teal);
+}
+
+.purple-pill {
+  background: rgba(127, 119, 221, 0.14);
+  color: var(--purple);
+}
+
+.inline-questions-sm {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+  color: var(--body);
 }
 
 .matrix-wrap {
@@ -441,37 +457,60 @@ main {
 
 .role-table {
   width: 100%;
+  min-width: 500px;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .role-table th,
 .role-table td {
   border: 1px solid var(--line);
-  padding: 8px;
+  padding: 10px 12px;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  min-height: 60px;
+  height: 60px;
 }
 
 .role-table thead th {
   font-weight: 700;
+  font-size: 14px;
 }
 
 .role-row {
   opacity: 0;
-  transition: opacity var(--ease);
+  transition: opacity var(--ease), background 200ms ease;
 }
 
 .role-row.visible {
   opacity: 1;
 }
 
+.role-row--coral { background: rgba(216, 90, 48, 0.08); }
+.role-row--blue  { background: rgba(55, 138, 221, 0.08); }
+.role-row--purple { background: rgba(127, 119, 221, 0.08); }
+.role-row--teal  { background: rgba(29, 158, 117, 0.08); }
+
 .role-table:hover .role-row {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 .role-table .role-row:hover {
   opacity: 1;
+}
+
+.role-row--coral:hover { background: rgba(216, 90, 48, 0.15); }
+.role-row--blue:hover  { background: rgba(55, 138, 221, 0.15); }
+.role-row--purple:hover { background: rgba(127, 119, 221, 0.15); }
+.role-row--teal:hover  { background: rgba(29, 158, 117, 0.15); }
+
+.role-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 2px;
+  vertical-align: middle;
 }
 
 .confidence-stack {
@@ -482,7 +521,8 @@ main {
 .band {
   border-radius: 10px;
   border: 1px solid var(--line);
-  padding: 12px;
+  padding: 14px 16px;
+  min-height: 80px;
   transform: translateX(16px);
   opacity: 0;
   transition: opacity var(--ease), transform var(--ease);
@@ -490,17 +530,28 @@ main {
 
 .band h5 {
   margin: 0 0 6px;
-  font-size: 1rem;
+  font-size: 1.05rem;
 }
 
 .band p {
   margin: 4px 0;
-  font-size: 0.88rem;
+  font-size: 15px;
 }
 
-.teal-lite { background: rgba(29, 158, 117, 0.12); }
-.amber-lite { background: rgba(239, 159, 39, 0.12); }
-.coral-lite { background: rgba(216, 90, 48, 0.12); }
+.teal-lite {
+  background: #E1F5EE;
+  border-left: 4px solid var(--teal);
+}
+
+.amber-lite {
+  background: #FAEEDA;
+  border-left: 4px solid var(--amber);
+}
+
+.coral-lite {
+  background: #FAECE7;
+  border-left: 4px solid var(--coral);
+}
 
 .confidence-stack.enter .band {
   opacity: 1;
@@ -520,6 +571,7 @@ main {
   border-left: 3px solid var(--teal);
   opacity: 0;
   transition: opacity var(--ease);
+  text-align: center;
 }
 
 .cta-card.enter {
@@ -528,7 +580,7 @@ main {
 
 .cta-value {
   margin: 0;
-  font-size: 2rem;
+  font-size: 48px;
   color: var(--teal);
   font-weight: 700;
 }
@@ -540,6 +592,7 @@ main {
 .pill-row {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
 }
 
@@ -556,84 +609,70 @@ main {
   font-weight: 600;
 }
 
-.studio {
+.contact-line a {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.contact-line a:hover {
+  text-decoration: underline;
+}
+
+/* Studio CTA section (links to separate page) */
+.studio-cta {
   margin-top: 38px;
+  text-align: center;
+  padding: 48px 24px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 24px;
   max-width: 900px;
 }
 
-.studio h2 {
-  margin: 0 0 6px;
+.studio-cta h2 {
+  margin: 0 0 8px;
 }
 
-.studio-sub {
-  margin: 0 0 14px;
+.studio-cta p {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
-.studio-controls {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.studio-controls label {
-  display: grid;
-  gap: 6px;
-  font-size: 0.88rem;
-}
-
-.studio-controls input,
-.studio-controls select,
-.preset-btn {
-  font-family: inherit;
-}
-
-.preset-row {
-  margin: 12px 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.preset-btn {
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 6px 12px;
-  background: #fff;
-  cursor: pointer;
-}
-
-.studio-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.summary-card .metric-grid {
-  display: grid;
-  gap: 10px;
-}
-
-.summary-card .metric-grid p {
-  margin: 0;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
+/* Studio link button (used at top hero and bottom CTA) */
+.studio-link-btn {
+  display: inline-flex;
   align-items: center;
-}
-
-.summary-card .metric-grid span {
+  gap: 6px;
+  font-family: var(--sans);
   font-size: 0.85rem;
+  font-weight: 500;
+  color: #1D9E75;
+  background: #E1F5EE;
+  border: 1px solid rgba(29,158,117,0.25);
+  border-radius: 8px;
+  padding: 8px 18px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
 }
 
-.summary-card .metric-grid strong {
-  font-size: 1.05rem;
+.studio-link-btn:hover {
+  background: #1D9E75;
+  color: #fff;
+}
+
+.studio-link-btn.lg {
+  font-size: 1rem;
+  padding: 12px 28px;
+  border-radius: 10px;
+}
+
+/* Hero button row */
+.hero-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 
 .modal {
@@ -687,10 +726,6 @@ main {
 
 @media (max-width: 980px) {
   .pathway-grid,
-  .phase-cards,
-  .structure-grid,
-  .studio-controls,
-  .studio-grid,
   .metrics-row {
     grid-template-columns: 1fr;
   }
@@ -717,7 +752,7 @@ main {
   .page-hero,
   .chapter-card,
   .card,
-  .studio {
+  .studio-cta {
     padding: 18px;
   }
 }

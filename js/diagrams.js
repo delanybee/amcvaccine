@@ -95,14 +95,14 @@
     }
 
     setOpacity(nodes.node1, 1);
-    setOpacity(nodes.node2, ["s2b", "s2c", "s2d", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
-    setOpacity(nodes.node3, ["s2c", "s2d", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
+    setOpacity(nodes.node2, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
+    setOpacity(nodes.node3, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
 
     const arrowDim = ["s3b", "s3c"].includes(stepId) ? 0.25 : 1;
-    setOpacity(nodes.a12, ["s2b", "s2c", "s2d", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.a23, ["s2c", "s2d", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.a31, ["s2d", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.cycleLabel, ["s2d", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
+    setOpacity(nodes.a12, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
+    setOpacity(nodes.a23, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
+    setOpacity(nodes.a31, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
+    setOpacity(nodes.cycleLabel, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
 
     setOpacity(nodes.amcNode, ["s3b", "s3c"].includes(stepId) ? 1 : 0);
     setOpacity(nodes.amcArrow, ["s3b", "s3c"].includes(stepId) ? 1 : 0);
@@ -143,19 +143,33 @@
 </svg>`;
   }
 
+  function dots(n, color) {
+    return '<span class="role-dot" style="background:' + color + '"></span>'.repeat(n);
+  }
+
   function createStakeholderMatrix(containerId) {
     const root = document.getElementById(containerId);
     if (!root) return;
+
+    const rows = [
+      { cls: "role-row--coral", color: "#D85A30", name: "Innovators", cells: [[3, "Build"], [2, "Validate"], [1, "Compete"]] },
+      { cls: "role-row--blue",  color: "#378ADD", name: "Corporates", cells: [[1, "Signal"], [2, "Commit"], [3, "Absorb"]] },
+      { cls: "role-row--purple", color: "#7F77DD", name: "Philanthropy", cells: [[3, "Catalyze"], [2, "Bridge"], [1, "Exit"]] },
+      { cls: "role-row--teal",  color: "#1D9E75", name: "Governments", cells: [[2, "Fund R&D"], [2, "Policy"], [3, "Enable"]] },
+    ];
+
+    const tbody = rows.map((r) => {
+      const tds = r.cells.map((c) => `<td>${dots(c[0], r.color)} ${c[1]}</td>`).join("");
+      return `<tr class="role-row ${r.cls}"><th style="color:${r.color}">${r.name}</th>${tds}</tr>`;
+    }).join("\n    ");
+
     root.innerHTML = `
 <table class="role-table" aria-label="Stakeholder contribution matrix">
   <thead>
-    <tr><th>Stakeholder</th><th>R&D</th><th>Scale-up</th><th>Competition</th></tr>
+    <tr><th>Stakeholder</th><th>R&amp;D</th><th>Scale-up</th><th>Competition</th></tr>
   </thead>
   <tbody>
-    <tr class="role-row" style="color:#D85A30"><th>Innovators</th><td>●●● Build</td><td>●● Validate</td><td>● Compete</td></tr>
-    <tr class="role-row" style="color:#378ADD"><th>Corporates</th><td>● Signal</td><td>●● Commit</td><td>●●● Absorb</td></tr>
-    <tr class="role-row" style="color:#7F77DD"><th>Philanthropy</th><td>●●● Catalyze</td><td>●● Bridge</td><td>● Exit</td></tr>
-    <tr class="role-row" style="color:#1D9E75"><th>Governments</th><td>●● Fund R&D</td><td>●● Policy</td><td>●●● Enable</td></tr>
+    ${tbody}
   </tbody>
 </table>`;
   }

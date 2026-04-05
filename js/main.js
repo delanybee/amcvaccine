@@ -22,12 +22,6 @@
     stepEl.classList.add("active");
   }
 
-  function updateStudioLabels() {
-    document.getElementById("studioEtaValue").textContent = Number(document.getElementById("studioEta").value).toFixed(2);
-    document.getElementById("studioAdoptionValue").textContent = `${document.getElementById("studioAdoption").value}%`;
-    document.getElementById("studioSocialValue").textContent = `$${document.getElementById("studioSocial").value}`;
-  }
-
   function buildPathwayCards() {
     const data = [
       {
@@ -86,7 +80,7 @@
 
     const scroller = scrollama();
     scroller
-      .setup({ step: ".step", offset: 0.58, progress: false })
+      .setup({ step: ".step", offset: 0.5, threshold: 4, debug: false })
       .onStepEnter((res) => {
         const stepEl = res.element;
         const stepId = stepEl.dataset.stepId;
@@ -104,7 +98,7 @@
           card.classList.add("enter");
         }
 
-        if (["s2a", "s2b", "s2c", "s2d"].includes(stepId)) {
+        if (["s2a", "s2b"].includes(stepId)) {
           window.AmcDiagrams.updateDeadlockState(deadlockBase, stepId);
         }
 
@@ -113,10 +107,6 @@
           const chartWrap = document.getElementById("feasibilityChart").closest(".canvas-wrap");
           chartWrap.style.opacity = stepId === "s3c" ? "1" : "0.35";
           chartWrap.style.transition = "opacity 600ms ease";
-        }
-
-        if (stepId === "s4") {
-          document.getElementById("phaseTextCards").classList.add("enter");
         }
 
         if (stepId === "s5") {
@@ -153,29 +143,9 @@
     refresh();
   }
 
-  function initStudio() {
-    const controls = ["dosingScenario", "studioEta", "studioAdoption", "studioSocial"];
-    controls.forEach((id) => {
-      document.getElementById(id).addEventListener("input", () => {
-        updateStudioLabels();
-        window.AmcCharts.updateStudioCharts();
-      });
-    });
-
-    document.querySelectorAll(".preset-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        window.AmcCharts.applyStudioPreset(btn.dataset.preset);
-        updateStudioLabels();
-        window.AmcCharts.updateStudioCharts();
-      });
-    });
-
-    updateStudioLabels();
-  }
-
   function initLenis() {
     if (typeof Lenis === "undefined") return;
-    const lenis = new Lenis({ smoothWheel: true, lerp: 0.09 });
+    const lenis = new Lenis({ lerp: 0.06, duration: 1.4, smoothWheel: true, wheelMultiplier: 0.8 });
     function raf(time) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -220,10 +190,8 @@
     window.AmcDiagrams.createStakeholderMatrix("stakeholderMatrix");
 
     window.AmcCharts.initSectionCharts();
-    window.AmcCharts.initStudioCharts();
 
     initChapterAdoption();
-    initStudio();
     initScroll();
     initLenis();
     initAboutModal();

@@ -22,7 +22,10 @@
         <h1>Designing Innovation: Incentives for Methane Reduction</h1>
         <p>An Economic Design Analysis of an Advance Market Commitment for Methane Reduction</p>
       </div>
-      <button type="button" id="aboutStoryBtn" class="about-btn" aria-haspopup="dialog" aria-controls="aboutModal">About this story map</button>
+      <div class="hero-actions">
+        <a href="sensitivity-studio.html" class="studio-link-btn">Sensitivity Studio</a>
+        <button type="button" id="aboutStoryBtn" class="about-btn" aria-haspopup="dialog" aria-controls="aboutModal">About this story map</button>
+      </div>
     </div>
   </header>
 
@@ -41,23 +44,13 @@
         </article>
 
         <article class="step" data-step-id="s2a" data-scene="scene2" tabindex="0">
-          <h3>The innovation deadlock, part 1</h3>
-          <p>Buyers hesitate because products are not proven at scale and innovators hesitate because no one commits demand. The loop starts with uncertain demand, and the market holds back.</p>
+          <h3>The innovation deadlock</h3>
+          <p>Buyers hesitate because products are not proven at scale and innovators hesitate because no one commits demand. Without reliable offtake, innovation stalls and capital arrives too late.</p>
         </article>
 
         <article class="step" data-step-id="s2b" data-scene="scene2" tabindex="0">
-          <h3>The innovation deadlock, part 2</h3>
-          <p>Without reliable offtake, delayed innovation follows. Teams with promising science struggle to justify deployment investment.</p>
-        </article>
-
-        <article class="step" data-step-id="s2c" data-scene="scene2" tabindex="0">
-          <h3>The innovation deadlock, part 3</h3>
-          <p>Capital arrives too late and underinvestment deepens. Momentum slows when finance waits for market proof that cannot happen yet.</p>
-        </article>
-
-        <article class="step" data-step-id="s2d" data-scene="scene2" tabindex="0">
-          <h3>The innovation deadlock, part 4</h3>
-          <p>The cycle reinforces itself and repeats. The result is a high-value climate pathway stuck in a predictable loop.</p>
+          <h3>The deadlock deepens</h3>
+          <p>Underinvestment compounds as finance waits for market proof that cannot exist yet. The cycle reinforces itself, leaving a high-value climate pathway stuck in a predictable loop.</p>
         </article>
 
         <article class="step" data-step-id="s3a" data-scene="scene3" tabindex="0">
@@ -85,11 +78,6 @@
             </div>
             <div class="canvas-wrap short">
               <canvas id="lifespanChart" aria-label="Methane versus CO2 atmospheric lifespan chart"></canvas>
-            </div>
-            <div class="metrics-row" id="socialValueCards">
-              <article class="metric-card"><p class="metric-value">$22</p><p class="metric-label">Low social cost of methane</p></article>
-              <article class="metric-card"><p class="metric-value">$30</p><p class="metric-label">Central social cost of methane</p></article>
-              <article class="metric-card"><p class="metric-value">$38</p><p class="metric-label">High social cost of methane</p></article>
             </div>
           </div>
         </section>
@@ -142,11 +130,6 @@
           <div class="card">
             <h4>AMC role by commercialization phase</h4>
             <div class="canvas-wrap medium"><canvas id="phaseChart" aria-label="Commercialization phase stacked economics"></canvas></div>
-            <div class="phase-cards" id="phaseTextCards">
-              <article class="phase-card">R and D, AMC support is highest because proof and demand are both weak.</article>
-              <article class="phase-card">In scale-up, AMC demand commitments stabilize commercialization decisions.</article>
-              <article class="phase-card">In competition, AMC support narrows and pricing discipline matters most.</article>
-            </div>
           </div>
         </section>
 
@@ -166,7 +149,6 @@
         <section class="visual-scene" id="scene6" aria-live="polite">
           <div class="card">
             <h4>Funding flow and adoption sensitivity</h4>
-            <p class="target-callout">$750M coalition target across all sources</p>
             <div id="fundingFlowDiagram" class="svg-wrap"></div>
             <div class="adoption-tools">
               <label for="chapterAdoption">Adoption rate: <span id="chapterAdoptionValue">50%</span></label>
@@ -205,26 +187,34 @@
 
       <div class="visual sticky">
         <section class="visual-scene active" id="scene7" aria-live="polite">
-          <div class="card">
+          <div class="card compact-card">
             <h4>Structure comparison</h4>
-            <div class="structure-grid">
-              <article class="structure-card teal-border">
-                <h5>Traditional AMC</h5>
-                <p><strong>Demand certainty:</strong> High</p>
-                <p><strong>Capital lock-up:</strong> Longer</p>
-                <p><strong>Governance complexity:</strong> Low</p>
-                <p><strong>Best for:</strong> Proven pathways</p>
-              </article>
-              <article class="structure-card purple-border">
-                <h5>Hybrid AMC + Investment</h5>
-                <p><strong>Demand certainty:</strong> Moderate</p>
-                <p><strong>Capital lock-up:</strong> Shorter</p>
-                <p><strong>Governance complexity:</strong> Higher</p>
-                <p><strong>Best for:</strong> Early-stage technologies</p>
-              </article>
-            </div>
-            <p class="inline-questions"><strong>Open design questions:</strong> Pricing logic for heterogeneous technologies, co-product accounting across beef and dairy, and supply allocation rules across producers.</p>
-            <div class="canvas-wrap short"><canvas id="feasibilityRadar" aria-label="Feasibility sensitivity radar chart"></canvas></div>
+            <table class="compare-table" aria-label="AMC structure comparison">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th class="col-teal">Traditional AMC</th>
+                  <th class="col-purple">Hybrid AMC + Investment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-label">Demand certainty</td>
+                  <td><span class="val-pill teal-pill">High</span></td>
+                  <td><span class="val-pill purple-pill">Moderate</span></td>
+                </tr>
+                <tr>
+                  <td class="row-label">Capital timeline</td>
+                  <td>Longer</td>
+                  <td>Shorter</td>
+                </tr>
+                <tr>
+                  <td class="row-label">Governance complexity</td>
+                  <td>Low</td>
+                  <td>Higher</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
@@ -241,85 +231,37 @@
             <div class="confidence-stack" id="confidenceStack">
               <article class="band teal-lite">
                 <h5>Established</h5>
-                <p>Enteric methane is a major, addressable climate lever.</p>
-                <p>AMC design principles are well-understood.</p>
-                <p>Stakeholder coordination is underway.</p>
+                <p>Methane is addressable; AMC design principles are well-understood; coordination is underway.</p>
               </article>
               <article class="band amber-lite">
                 <h5>Evolving</h5>
-                <p>Vaccine and feed additive efficacy timelines.</p>
-                <p>Optimal dosing economics and cost profiles.</p>
-                <p>Governance structure for hybrid models.</p>
+                <p>Vaccine and additive efficacy timelines, dosing economics, hybrid governance design.</p>
               </article>
               <article class="band coral-lite">
                 <h5>Open for engagement</h5>
-                <p>Corporate demand commitments needed.</p>
-                <p>Government R and D and policy support.</p>
-                <p>Philanthropic catalytic capital.</p>
+                <p>Corporate demand commitments, government R&amp;D support, philanthropic catalytic capital.</p>
               </article>
             </div>
             <article class="cta-card" id="ctaCard">
               <p class="cta-value">$750M</p>
-              <p class="cta-sub">Coalition funding target for launch and early deployment</p>
+              <p class="cta-sub">Coalition funding target</p>
               <div class="pill-row">
                 <span>Governments</span>
                 <span>Corporates</span>
                 <span>Investors</span>
                 <span>Philanthropy</span>
               </div>
-              <p class="contact-line">info@lowmethanelivestock.org</p>
+              <p class="contact-line"><a href="mailto:info@lowmethanelivestock.org">info@lowmethanelivestock.org</a></p>
             </article>
           </div>
         </section>
       </div>
     </section>
 
-    <section class="studio" id="studio">
-      <h2>Sensitivity studio: explore the economics</h2>
-      <p class="studio-sub">Adjust scenario assumptions, then inspect how BCR, NPV, and required support shift in real time.</p>
-
-      <div class="studio-controls" role="group" aria-label="Sensitivity controls">
-        <label>Dosing scenario
-          <select id="dosingScenario" aria-label="Dosing scenario">
-            <option value="baseline">Baseline/infrequent</option>
-            <option value="annual">Annual</option>
-            <option value="booster">Prime + booster</option>
-          </select>
-        </label>
-
-        <label>Eta <span id="studioEtaValue">0.90</span>
-          <input id="studioEta" type="range" min="0.5" max="1.0" step="0.05" value="0.90" aria-label="Eta slider" />
-        </label>
-
-        <label>Adoption rate <span id="studioAdoptionValue">50%</span>
-          <input id="studioAdoption" type="range" min="10" max="90" step="5" value="50" aria-label="Adoption slider" />
-        </label>
-
-        <label>Social value of methane <span id="studioSocialValue">$30</span>
-          <input id="studioSocial" type="range" min="15" max="50" step="1" value="30" aria-label="Social value slider" />
-        </label>
-      </div>
-
-      <div class="preset-row" aria-label="Sensitivity presets">
-        <button type="button" class="preset-btn" data-preset="baseline">Baseline</button>
-        <button type="button" class="preset-btn" data-preset="cost">Cost pressure</button>
-        <button type="button" class="preset-btn" data-preset="adoption">Adoption risk</button>
-        <button type="button" class="preset-btn" data-preset="science">Science risk</button>
-      </div>
-
-      <div class="studio-grid">
-        <article class="card"><h4>Tornado sensitivity</h4><div class="canvas-wrap medium"><canvas id="studioTornado"></canvas></div></article>
-        <article class="card"><h4>Break-even surface</h4><div class="canvas-wrap medium"><canvas id="studioSurface"></canvas></div></article>
-        <article class="card"><h4>BCR by adoption across dosing paths</h4><div class="canvas-wrap medium"><canvas id="studioAdoptionLines"></canvas></div></article>
-        <article class="card summary-card">
-          <h4>Summary metrics</h4>
-          <div class="metric-grid">
-            <p><span>Current BCR</span><strong id="metricBcr">0.00</strong></p>
-            <p><span>Current NPV</span><strong id="metricNpv">$0.00B</strong></p>
-            <p><span>AMC cost per animal-year</span><strong id="metricCost">$0.00</strong></p>
-          </div>
-        </article>
-      </div>
+    <section class="studio-cta" id="studio-cta">
+      <h2>Explore the economics</h2>
+      <p>Adjust scenario assumptions and inspect how BCR, NPV, and required support shift in real time.</p>
+      <a href="sensitivity-studio.html" class="studio-link-btn lg">Open Sensitivity Studio</a>
     </section>
   </main>
   <div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
