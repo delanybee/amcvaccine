@@ -211,9 +211,8 @@
     if (!flow) return;
 
     var phase = 0;
-    if (stepId === "s3a") phase = 2;
-    if (stepId === "s3b") phase = 4;
-    if (stepId === "s3c") phase = 6;
+    if (stepId === "s3a") phase = 3;
+    if (stepId === "s3b") phase = 6;
 
     flow.querySelectorAll(".pw-node").forEach(function (node) {
       var idx = parseInt(node.dataset.index, 10);
@@ -226,6 +225,45 @@
     });
   }
 
+
+  function createEmissionsFunnel(containerId) {
+    var root = document.getElementById(containerId);
+    if (!root) return;
+    var ROWS = [
+      { label: "Global GHG emissions", pct: "100%", w: 440, x: 20, color: "rgba(198,40,40,0.12)" },
+      { label: "Human methane", pct: "~16%", w: 370, x: 55, color: "rgba(198,40,40,0.18)" },
+      { label: "Agricultural methane", pct: "~40% of human CH\u2084", w: 300, x: 90, color: "rgba(184,134,11,0.16)" },
+      { label: "Enteric fermentation", pct: "~70%", w: 230, x: 125, color: "rgba(46,125,50,0.14)" },
+      { label: "Cattle", pct: "75%", w: 160, x: 160, color: "rgba(46,125,50,0.25)", accent: true }
+    ];
+    var rects = ROWS.map(function(r, i) {
+      var y = 10 + i * 54;
+      var stroke = r.accent ? ' stroke="#2E7D32" stroke-width="2"' : '';
+      var fw = r.accent ? 700 : 600;
+      var fill = r.accent ? '#2E7D32' : '#1B2A1C';
+      var pfill = r.accent ? '#2E7D32' : '#8A7D6B';
+      return '<g class="funnel-row" style="opacity:0;transform:translateY(8px)">' +
+        '<rect x="' + r.x + '" y="' + y + '" width="' + r.w + '" height="42" rx="4" fill="' + r.color + '"' + stroke + ' />' +
+        '<text x="' + (r.x + 10) + '" y="' + (y + 26) + '" font-size="13" font-weight="' + fw + '" fill="' + fill + '">' + r.label + '</text>' +
+        '<text x="' + (r.x + r.w - 10) + '" y="' + (y + 26) + '" font-size="12" fill="' + pfill + '" text-anchor="end">' + r.pct + '</text>' +
+        '</g>';
+    }).join("\n");
+    root.innerHTML = '<svg viewBox="0 0 480 296" width="100%" role="img" aria-label="Emissions narrowing funnel from global GHGs to cattle">' +
+      rects +
+      '<text x="240" y="288" font-size="11" fill="#8A7D6B" text-anchor="middle" font-style="italic">AMC intervention target &#x2191;</text>' +
+      '</svg>';
+  }
+
+  function animateFunnel() {
+    var rows = document.querySelectorAll('#emissionsFunnel .funnel-row');
+    rows.forEach(function(r, i) {
+      setTimeout(function() {
+        r.style.transition = 'opacity 500ms ease, transform 500ms ease';
+        r.style.opacity = '1';
+        r.style.transform = 'translateY(0)';
+      }, i * 180);
+    });
+  }
   window.AmcDiagrams = {
     setupDeadlock,
     updateDeadlockState,

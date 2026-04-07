@@ -77,6 +77,7 @@
   function initScroll() {
     const deadlockBase = window.AmcDiagrams.setupDeadlock("deadlockDiagramBase");
     window.AmcDiagrams.createAmcPathway("amcPathwayFlow");
+    window.AmcDiagrams.createEmissionsFunnel("emissionsFunnel");
 
     const scroller = scrollama();
     scroller
@@ -91,6 +92,10 @@
         activateStep(stepEl);
         activateScene(scrolly, sceneId);
 
+        if (stepId === "s0") {
+          window.AmcDiagrams.animateFunnel();
+        }
+
         if (stepId === "s1") {
           const methane = document.getElementById("methanePower");
           const socialCost = document.getElementById("socialCostStat");
@@ -104,10 +109,10 @@
           window.AmcDiagrams.updateDeadlockState(deadlockBase, stepId);
         }
 
-        if (["s3a", "s3b", "s3c"].includes(stepId)) {
+        if (["s3a", "s3b"].includes(stepId)) {
           window.AmcDiagrams.updateAmcPathway(stepId);
           const chartWrap = document.getElementById("methaneWarmingChart").closest(".canvas-wrap");
-          chartWrap.style.opacity = stepId === "s3c" ? "1" : "0.35";
+          chartWrap.style.opacity = stepId === "s3b" ? "1" : "0.35";
           chartWrap.style.transition = "opacity 600ms ease";
         }
 
@@ -149,10 +154,10 @@
 
   function initAboutModal() {
     const modal = document.getElementById("aboutModal");
-    const openBtn = document.getElementById("aboutStoryBtn");
+    const openBtn = document.getElementById("navAboutBtn");
     const bottomOpenBtn = document.getElementById("bottomAboutBtn");
     const closeBtn = document.getElementById("aboutCloseBtn");
-    if (!modal || !openBtn || !closeBtn) return;
+    if (!modal || !closeBtn) return;
 
     function openModal() {
       modal.hidden = false;
@@ -166,7 +171,7 @@
       openBtn.focus();
     }
 
-    openBtn.addEventListener("click", openModal);
+    if (openBtn) openBtn.addEventListener("click", openModal);
     if (bottomOpenBtn) bottomOpenBtn.addEventListener("click", openModal);
     closeBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (event) => {
