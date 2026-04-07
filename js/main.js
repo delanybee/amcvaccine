@@ -145,15 +145,7 @@
     refresh();
   }
 
-  function initLenis() {
-    if (typeof Lenis === "undefined") return;
-    const lenis = new Lenis({ lerp: 0.06, duration: 1.4, smoothWheel: true, wheelMultiplier: 0.8 });
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  }
+  /* Lenis removed -- it conflicts with Scrollama and CSS scroll-snap */
 
   function initAboutModal() {
     const modal = document.getElementById("aboutModal");
@@ -228,7 +220,6 @@
     initScroll();
     initClickToNavigate();
     initProgress();
-    initLenis();
     initAboutModal();
 
     const firstStep = document.querySelector(".step");

@@ -20,7 +20,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior: smooth removed -- conflicts with Scrollama triggers */
 }
 
 html,
@@ -160,7 +160,6 @@ main {
   display: grid;
   gap: 12px;
   align-content: start;
-  scroll-snap-type: y proximity;
 }
 
 .step {
@@ -174,20 +173,19 @@ main {
   border-radius: 0;
   box-shadow: none;
   padding: 24px 20px 24px 24px;
-  min-height: 60vh;
+  min-height: 50vh;
   opacity: 0.35;
   transform: none;
   transition: opacity var(--ease), border-color var(--ease);
-  scroll-snap-align: start;
   cursor: pointer;
 }
 
 #chapter3 .step {
-  min-height: 70vh;
+  min-height: 55vh;
 }
 
 .step[data-step-id="s1"] {
-  min-height: 80vh;
+  min-height: 65vh;
 }
 
 .step::before {
