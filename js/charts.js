@@ -27,7 +27,7 @@
 
   const chartState = {
     lifespan: null,
-    feasibility: null,
+    methaneWarming: null,
     phase: null,
     adoptionLine: null,
     radar: null,
@@ -113,42 +113,48 @@
       },
     });
 
-    chartState.feasibility = new Chart(document.getElementById("feasibilityChart"), {
-      type: "scatter",
+    chartState.methaneWarming = new Chart(document.getElementById("methaneWarmingChart"), {
+      type: "line",
       data: {
+        labels: ["2024", "2026", "2028", "2030", "2032", "2034", "2036", "2038", "2040"],
         datasets: [
           {
-            label: "Illustrative projects",
-            data: [
-              { x: 72, y: 46 },
-              { x: 78, y: 41 },
-              { x: 84, y: 36 },
-              { x: 90, y: 31 },
-              { x: 95, y: 27 },
-            ],
-            backgroundColor: COLORS.teal,
-            pointRadius: 5,
+            label: "Baseline (no intervention)",
+            data: [0.19, 0.195, 0.20, 0.205, 0.21, 0.215, 0.22, 0.225, 0.23],
+            borderColor: COLORS.gray,
+            backgroundColor: "rgba(180,180,175,0.08)",
+            borderWidth: 2.5,
+            fill: false,
+            pointRadius: 0,
+            tension: 0.35,
           },
           {
-            type: "line",
-            label: "Threshold trend",
-            data: [
-              { x: 70, y: 48 },
-              { x: 95, y: 26 },
-            ],
-            borderColor: COLORS.amber,
-            borderDash: [6, 4],
-            borderWidth: 2,
+            label: "With AMC intervention",
+            data: [0.19, 0.193, 0.192, 0.186, 0.178, 0.168, 0.157, 0.146, 0.135],
+            borderColor: COLORS.teal,
+            backgroundColor: "rgba(29,158,117,0.08)",
+            borderWidth: 2.5,
+            fill: "-1",
             pointRadius: 0,
+            tension: 0.35,
           },
         ],
       },
       options: {
         ...defaultOptions(),
-        plugins: { legend: { display: true, position: "bottom", labels: { color: COLORS.text } } },
+        plugins: {
+          legend: { display: true, position: "bottom", labels: { color: COLORS.text, usePointStyle: true, pointStyle: "line" } },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) {
+                return ctx.dataset.label + ": " + ctx.parsed.y.toFixed(3) + " W/m2";
+              }
+            }
+          }
+        },
         scales: {
-          x: { ...defaultOptions().scales.x, min: 68, max: 96, title: { display: true, text: "Scientific feasibility (%)", color: COLORS.text } },
-          y: { ...defaultOptions().scales.y, min: 24, max: 50, title: { display: true, text: "Required firm-level success (%)", color: COLORS.text } },
+          x: { ...defaultOptions().scales.x, title: { display: true, text: "Year", color: COLORS.text } },
+          y: { ...defaultOptions().scales.y, min: 0.12, max: 0.24, title: { display: true, text: "Livestock methane radiative forcing (W/m2)", color: COLORS.text } },
         },
       },
     });
@@ -209,46 +215,6 @@
         },
       },
       plugins: [verticalMarkerPlugin],
-    });
-
-    chartState.radar = new Chart(document.getElementById("feasibilityRadar"), {
-      type: "radar",
-      data: {
-        labels: ["Feasibility", "Cost", "Adoption", "Policy", "Scale"],
-        datasets: [
-          {
-            label: "Optimistic",
-            data: [80, 72, 78, 62, 76],
-            borderColor: COLORS.teal,
-            backgroundColor: "rgba(29,158,117,0.18)",
-          },
-          {
-            label: "Baseline",
-            data: [66, 58, 61, 54, 60],
-            borderColor: COLORS.blue,
-            backgroundColor: "rgba(55,138,221,0.16)",
-          },
-          {
-            label: "Conservative",
-            data: [52, 46, 44, 49, 43],
-            borderColor: COLORS.coral,
-            backgroundColor: "rgba(216,90,48,0.16)",
-          },
-        ],
-      },
-      options: {
-        ...defaultOptions(),
-        scales: {
-          r: {
-            min: 0,
-            max: 100,
-            ticks: { color: COLORS.text, backdropColor: "transparent" },
-            pointLabels: { color: COLORS.text },
-            grid: { color: COLORS.grid },
-            angleLines: { color: COLORS.grid },
-          },
-        },
-      },
     });
 
     updateChapterAdoption(50);

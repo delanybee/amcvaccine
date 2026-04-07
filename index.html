@@ -16,6 +16,7 @@
   <script defer src="js/main.js"></script>
 </head>
 <body>
+  <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
   <header class="page-hero">
     <div class="hero-top">
       <div>
@@ -24,6 +25,7 @@
       </div>
       <div class="hero-actions">
         <a href="sensitivity-studio.html" class="studio-link-btn">Sensitivity Studio</a>
+        <a href="data-explorer.html" class="studio-link-btn" style="background:var(--blue)">Data Explorer</a>
         <button type="button" id="aboutStoryBtn" class="about-btn" aria-haspopup="dialog" aria-controls="aboutModal">About this story map</button>
       </div>
     </div>
@@ -38,42 +40,46 @@
 
     <section class="scrolly" id="chapter1">
       <div class="narrative">
-        <article class="step" data-step-id="s1" data-scene="scene1" tabindex="0">
+        <article class="step" data-step-id="s1" data-scene="scene1" data-step-number="01" tabindex="0">
           <h3>Why act now</h3>
-          <p>Enteric fermentation is one of the largest human-caused methane sources. Methane remains in the atmosphere for roughly 10 years, but its near-term warming effect is much stronger than CO2. Fast livestock methane cuts can deliver climate gains while longer-term decarbonization scales.</p>
+          <p>A single cow emits 154 to 264 pounds of methane per year, generating over $100 in annual climate damages. With U.S. cattle producing 6.64 million tons of methane in 2022, that adds up to more than $10 billion in social cost. Methane stays in the atmosphere for roughly 10 years, but its near-term warming effect is far stronger than CO2. Fast livestock methane cuts can deliver climate gains while longer-term decarbonization scales.</p>
         </article>
 
-        <article class="step" data-step-id="s2a" data-scene="scene2" tabindex="0">
+        <article class="step" data-step-id="s2a" data-scene="scene2" data-step-number="02" tabindex="0">
           <h3>The innovation deadlock</h3>
-          <p>Buyers hesitate because products are not proven at scale and innovators hesitate because no one commits demand. Without reliable offtake, innovation stalls and capital arrives too late.</p>
+          <p>The deadlock boils down to two questions no one can answer first. Buyers ask: "How can I buy something that doesn't exist?" Innovators ask: "Why should I build something no one is buying?" Without reliable offtake, innovation stalls and capital arrives too late.</p>
         </article>
 
-        <article class="step" data-step-id="s2b" data-scene="scene2" tabindex="0">
-          <h3>The deadlock deepens</h3>
-          <p>Underinvestment compounds as finance waits for market proof that cannot exist yet. The cycle reinforces itself, leaving a high-value climate pathway stuck in a predictable loop.</p>
+        <article class="step" data-step-id="s2b" data-scene="scene2" data-step-number="03" tabindex="0">
+          <h3>AMC breaks the cycle</h3>
+          <p>An Advance Market Commitment disrupts the loop by inserting a credible demand signal. When buyers commit to purchase future low-methane outcomes, innovators no longer need to wait for a market that does not exist yet. Capital moves earlier, and the deadlock unwinds.</p>
         </article>
 
-        <article class="step" data-step-id="s3a" data-scene="scene3" tabindex="0">
+        <article class="step" data-step-id="s3a" data-scene="scene3" data-step-number="04" tabindex="0">
           <h3>Breaking the deadlock with an AMC</h3>
-          <p>An Advance Market Commitment creates a credible demand signal by committing to buy future low-methane outcomes that meet performance criteria. The forward signal reduces uncertainty and helps private investment move earlier.</p>
+          <p>An Advance Market Commitment creates a credible demand signal by committing to buy future low-methane outcomes that meet performance criteria. Critically, sponsors pay nothing if no firm succeeds or producers do not adopt. That zero-downside structure is one of the strongest selling points for funders. The forward signal reduces uncertainty and helps private investment move earlier.</p>
         </article>
 
-        <article class="step" data-step-id="s3b" data-scene="scene3" tabindex="0">
+        <article class="step" data-step-id="s3b" data-scene="scene3" data-step-number="05" tabindex="0">
           <h3>Intervention enters the system</h3>
           <p>When AMC demand is visible, the loop dynamics change. Investors can underwrite commercialization with clearer downside protection.</p>
         </article>
 
-        <article class="step" data-step-id="s3c" data-scene="scene3" tabindex="0">
-          <h3>Stringency and feasibility</h3>
-          <p>The science still matters, target stringency must match feasibility. The scatter view shows how required firm-level success shifts as scientific feasibility changes.</p>
+        <article class="step" data-step-id="s3c" data-scene="scene3" data-step-number="06" tabindex="0">
+          <h3>Why methane, why now</h3>
+          <p>Methane is responsible for roughly 30% of global warming since pre-industrial times, but it only persists in the atmosphere for about 12 years. That short lifespan means cutting livestock methane delivers measurable temperature benefits within a decade. No other single intervention offers that speed at this scale.</p>
         </article>
       </div>
 
-      <div class="visual sticky">
-        <section class="visual-scene active" id="scene1" aria-live="polite">
+      <div class="visual-panel">
+        <section class="visual-scene is-visible" id="scene1" aria-live="polite">
           <div class="card methane-card">
             <div class="stat-callout">
-              <p class="stat-number" id="methanePower">0x</p>
+              <p class="stat-number" id="socialCostStat">$0B</p>
+              <p class="stat-sub">annual social cost of U.S. cattle methane (2022)</p>
+            </div>
+            <div class="stat-callout" style="padding-top:0">
+              <p class="stat-number" id="methanePower" style="font-size:clamp(1.6rem,4vw,2.8rem)">0x</p>
               <p class="stat-sub">methane warming power vs CO2 over 20 years</p>
             </div>
             <div class="canvas-wrap short">
@@ -92,9 +98,9 @@
         <section class="visual-scene" id="scene3" aria-live="polite">
           <div class="card">
             <h4>AMC intervention pathway</h4>
-            <div id="deadlockDiagramAmc" class="svg-wrap"></div>
+            <div id="amcPathwayFlow" class="pathway-flow"></div>
             <div class="canvas-wrap short">
-              <canvas id="feasibilityChart" aria-label="Scientific feasibility versus required firm level success chart"></canvas>
+              <canvas id="methaneWarmingChart" aria-label="Livestock methane warming contribution with and without intervention"></canvas>
             </div>
           </div>
         </section>
@@ -109,24 +115,24 @@
 
     <section class="scrolly" id="chapter2">
       <div class="narrative">
-        <article class="step" data-step-id="s4" data-scene="scene4" tabindex="0">
+        <article class="step" data-step-id="s4" data-scene="scene4" data-step-number="07" tabindex="0">
           <h3>Where AMCs help across commercialization</h3>
           <p>AMCs support R and D when products are unproven, scale-up when demand is thin, and market competition when innovators risk being undercut. The common function is demand de-risking so investment decisions happen earlier.</p>
         </article>
 
-        <article class="step" data-step-id="s5" data-scene="scene5" tabindex="0">
+        <article class="step" data-step-id="s5" data-scene="scene5" data-step-number="08" tabindex="0">
           <h3>Technology pathways and delivery economics</h3>
-          <p>Vaccines, genetics, and feed interventions have different timelines, implementation friction, and cost structures. AMC design has to be flexible because implementation choices are economic levers, not only technical details.</p>
+          <p>The AMC is technology-agnostic by design: vaccines, genetics, feed additives, and slow-release boluses all qualify if they meet performance criteria. Each pathway has different timelines, implementation friction, and cost structures. AMC design has to be flexible because implementation choices are economic levers, not only technical details.</p>
         </article>
 
-        <article class="step" data-step-id="s6" data-scene="scene6" tabindex="0">
+        <article class="step" data-step-id="s6" data-scene="scene6" data-step-number="09" tabindex="0">
           <h3>How funding flows in practice</h3>
           <p>Corporates can pay via offtake premiums, intervention subsidies, or verified carbon payments. Producer compensation and adoption design determine how much modeled value is realized in the field.</p>
         </article>
       </div>
 
-      <div class="visual sticky">
-        <section class="visual-scene active" id="scene4" aria-live="polite">
+      <div class="visual-panel">
+        <section class="visual-scene is-visible" id="scene4" aria-live="polite">
           <div class="card">
             <h4>AMC role by commercialization phase</h4>
             <div class="canvas-wrap medium"><canvas id="phaseChart" aria-label="Commercialization phase stacked economics"></canvas></div>
@@ -136,12 +142,6 @@
         <section class="visual-scene" id="scene5" aria-live="polite">
           <div class="card">
             <h4>Technology pathway comparison</h4>
-            <div class="legend-inline">
-              <span><i class="dot teal"></i>Scalability</span>
-              <span><i class="dot blue"></i>Timeline certainty</span>
-              <span><i class="dot amber"></i>Cost efficiency</span>
-              <span><i class="dot purple"></i>Regulatory readiness</span>
-            </div>
             <div class="pathway-grid" id="pathwayGrid"></div>
           </div>
         </section>
@@ -169,24 +169,24 @@
 
     <section class="scrolly" id="chapter3">
       <div class="narrative">
-        <article class="step" data-step-id="s7" data-scene="scene7" tabindex="0">
+        <article class="step" data-step-id="s7" data-scene="scene7" data-step-number="10" tabindex="0">
           <h3>AMC structure options</h3>
-          <p>Traditional buying-club AMCs provide stronger demand certainty while hybrid AMC plus investment models can deploy capital earlier. Governance design determines how risk and upside are allocated.</p>
+          <p>Sponsors can fund through three mechanisms: paying per pound of low-methane beef (offtake premium), paying per dose administered (intervention subsidy), or paying per ton of verified CO2e reduced (carbon payment). A traditional buying-club structure provides stronger demand certainty while a hybrid AMC plus investment arm can deploy capital earlier. Governance design determines how risk and upside are allocated.</p>
         </article>
 
-        <article class="step" data-step-id="s8" data-scene="scene8" tabindex="0">
+        <article class="step" data-step-id="s8" data-scene="scene8" data-step-number="11" tabindex="0">
           <h3>Stakeholder alignment</h3>
           <p>Innovators, corporates, philanthropy, and governments each play distinct and complementary roles. AMCs succeed when shared rules, timelines, and incentives are aligned across these actors.</p>
         </article>
 
-        <article class="step" data-step-id="s9" data-scene="scene9" tabindex="0">
+        <article class="step" data-step-id="s9" data-scene="scene9" data-step-number="12" tabindex="0">
           <h3>Status, funding target, and how to engage</h3>
-          <p>Coordination is active across NGOs and universities with a launch window around COP30. The current objective is a $750M coalition across food companies, supply chains, and climate-focused capital.</p>
+          <p>Coordination is led by the Market Shaping Accelerator, Spark Climate Solutions, Global Methane Hub, and The Nature Conservancy, with design input from Nobel Laureate Michael Kremer, CGD President Rachel Glennerster, and Professor Chris Snyder. The launch window targets COP30, and the current objective is a $750M coalition across food companies, supply chains, and climate-focused capital.</p>
         </article>
       </div>
 
-      <div class="visual sticky">
-        <section class="visual-scene active" id="scene7" aria-live="polite">
+      <div class="visual-panel">
+        <section class="visual-scene is-visible" id="scene7" aria-live="polite">
           <div class="card compact-card">
             <h4>Structure comparison</h4>
             <table class="compare-table" aria-label="AMC structure comparison">
@@ -258,10 +258,14 @@
       </div>
     </section>
 
-    <section class="studio-cta" id="studio-cta">
-      <h2>Explore the economics</h2>
+    <section class="bottom-cta" id="bottom-cta">
+      <h2>Explore the economics yourself</h2>
       <p>Adjust scenario assumptions and inspect how BCR, NPV, and required support shift in real time.</p>
-      <a href="sensitivity-studio.html" class="studio-link-btn lg">Open Sensitivity Studio</a>
+      <div class="btn-row">
+        <a href="sensitivity-studio.html" class="studio-link-btn lg">Open Sensitivity Studio</a>
+        <a href="data-explorer.html" class="studio-link-btn lg" style="background:var(--blue)">Data Explorer</a>
+        <button type="button" class="secondary-btn" id="bottomAboutBtn">About this story map</button>
+      </div>
     </section>
   </main>
   <div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>

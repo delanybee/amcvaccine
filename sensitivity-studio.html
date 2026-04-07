@@ -203,6 +203,24 @@
     .formulas-card h3 {
       font-size: 15px; font-weight: 600; margin-bottom: 16px;
     }
+    .model-details { }
+    .model-summary {
+      font-size: 15px; font-weight: 600; cursor: pointer;
+      padding: 6px 0; margin-bottom: 16px; list-style: none;
+      display: flex; align-items: center; gap: 8px;
+      color: var(--teal-dark);
+    }
+    .model-summary::-webkit-details-marker { display: none; }
+    .model-summary::before {
+      content: '\25B6'; font-size: 10px; transition: transform 0.25s ease;
+      display: inline-block;
+    }
+    .model-details[open] > .model-summary::before {
+      transform: rotate(90deg);
+    }
+    .model-details .source-card {
+      margin-top: 20px;
+    }
     .formula-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
     }
@@ -223,6 +241,53 @@
     .footer {
       max-width: 820px; margin: 0 auto; padding: 40px 28px;
       border-top: 1px solid var(--border); text-align: center;
+    }
+
+    /* GUIDE SECTION */
+    .guide-section {
+      margin-bottom: 28px;
+    }
+    .guide-section h3 {
+      font-size: 14px; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.4px;
+      margin-bottom: 12px;
+    }
+    .guide-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+    }
+    .guide-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .guide-card summary {
+      padding: 16px 18px; font-size: 14px; font-weight: 600;
+      color: var(--text); cursor: pointer; list-style: none;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: color 0.2s;
+    }
+    .guide-card summary::-webkit-details-marker { display: none; }
+    .guide-card summary::after {
+      content: '+'; font-size: 18px; font-weight: 400;
+      color: var(--text-muted); transition: transform 0.2s;
+    }
+    .guide-card[open] summary::after {
+      content: '\2212'; /* minus sign */
+    }
+    .guide-card summary:hover { color: var(--teal); }
+    .guide-card .guide-body {
+      padding: 0 18px 18px; font-size: 13px; line-height: 1.75;
+      color: var(--gray-600);
+    }
+    .guide-card .guide-body p { margin: 0 0 10px; }
+    .guide-card .guide-body p:last-child { margin-bottom: 0; }
+    .guide-card .guide-body strong { color: var(--text); font-weight: 600; }
+    .guide-highlight {
+      display: inline-block; background: var(--teal-light);
+      color: var(--teal-dark); font-weight: 600; font-size: 12px;
+      padding: 2px 8px; border-radius: 4px; margin: 0 2px;
+    }
+    @media (max-width: 900px) {
+      .guide-grid { grid-template-columns: 1fr; }
     }
     .footer p {
       font-size: 13px; color: var(--text-muted); margin-bottom: 16px;
@@ -258,6 +323,9 @@
     Back to story map
   </a>
   <span class="nav-title">Methane Vaccine AMC</span>
+  <a href="data-explorer.html" class="nav-back" style="color:var(--blue)">Data Explorer
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4L10 8L6 12"/></svg>
+  </a>
 </nav>
  
 <!-- HERO -->
@@ -271,7 +339,7 @@
  
   <!-- SOURCE DATA -->
   <div class="source-card">
-    <strong>Model basis:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&D programs.
+    <strong>Model basis:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&amp;D programs. Social discount rate = 2%. Firm WACC = 9.37% (Damodaran biotechnology 2025). Development lag = 8 years. AMC sales window = 10 years. Per-attempt R&amp;D cost = $1.78M. Methane reduction target = 20%. Social cost of methane = $1,600/ton. Annual methane per head = 154 lb (0.07 metric tons).
   </div>
  
   <!-- PRESETS -->
@@ -351,6 +419,42 @@
     </div>
   </div>
  
+  <!-- GUIDE -->
+  <div class="guide-section">
+    <h3>Reading the studio</h3>
+    <div class="guide-grid">
+
+      <details class="guide-card">
+        <summary>What is the benefit-cost ratio?</summary>
+        <div class="guide-body">
+          <p>BCR is the total present value of social benefits divided by the total present value of social costs. A BCR of <span class="guide-highlight">14.41</span> means every dollar spent generates about $14.41 in avoided climate damages.</p>
+          <p>For reference, most public infrastructure investments are considered strong at a BCR of 2 to 3. This ratio is so high because methane abatement is a pure public good with enormous positive externalities, the intervention cost is modest relative to the herd, and the social cost of methane ($1,600/ton) captures real damages that no individual producer has any financial reason to address on their own.</p>
+          <p>The <strong>break-even adoption</strong> metric tells you the minimum adoption rate where BCR equals exactly 1. Under baseline assumptions that is around 3.5%, meaning the investment pays for itself even if adoption disappoints dramatically.</p>
+        </div>
+      </details>
+
+      <details class="guide-card">
+        <summary>What counts as social cost?</summary>
+        <div class="guide-body">
+          <p>Social cost here is the total resource cost that society bears to make the intervention happen. It is not the same as the social cost of methane ($1,600/ton, representing climate damages). It is the cost of the <em>solution</em>.</p>
+          <p>It has two pieces. <strong>First</strong>, the AMC outlay (<span class="guide-highlight">$534M</span> at baseline): the commitment funders make to compensate firms for R&amp;D risk and to subsidize adoption during a 10-year sales window. <strong>Second</strong>, the ongoing manufacturing and deployment costs (<span class="guide-highlight">$263M</span> at baseline) that society bears after the AMC window closes.</p>
+          <p>Under annual dosing, the non-AMC component jumps to $761M because far more doses are manufactured and administered over each animal's lifetime.</p>
+        </div>
+      </details>
+
+      <details class="guide-card">
+        <summary>What do the sliders change?</summary>
+        <div class="guide-body">
+          <p><strong>Adoption rate</strong> scales benefits linearly. More animals vaccinated means more methane avoided, but costs stay the same, so BCR rises.</p>
+          <p><strong>Social value</strong> also scales benefits linearly. Higher climate damage estimates per animal mean larger avoided damages for the same spend.</p>
+          <p><strong>Dosing scenario</strong> is the biggest cost lever. Switching from baseline to annual dosing jumps the AMC from $534M to $832M and non-AMC costs from $263M to $761M, nearly doubling total costs while benefits stay the same. That roughly halves the BCR.</p>
+          <p><strong>Feasibility (eta)</strong> adjusts risk. Lower scientific feasibility means firms need a larger risk premium to justify entering, which pushes AMC costs up and BCR down.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
   <!-- CHARTS -->
   <div class="chart-grid">
  
@@ -382,7 +486,8 @@
  
   <!-- FORMULAS -->
   <div class="formulas-card">
-    <h3>Model equations (from midpoint assessment)</h3>
+    <details class="model-details">
+      <summary class="model-summary">Under the hood: model equations</summary>
     <div class="formula-grid">
       <div class="formula-block">
         <div class="formula-title">Benefits scaling</div>
@@ -416,10 +521,38 @@
           Scale factor = 17.78x
         </code>
       </div>
+      <div class="formula-block">
+        <div class="formula-title">R&amp;D entry model</div>
+        <code>
+          Pr(&ge;1 success) = eta * (1 - [1 - gamma*(1-(1-beta)^n)]^k)<br>
+          eta = 0.90 (scientific feasibility)<br>
+          gamma = 0.90 (firm competence)<br>
+          k = 15 (potential entrants)<br>
+          theta = 2/3 (target probability)<br>
+          Cost per attempt = $1.78M (risk-adjusted PV)
+        </code>
+      </div>
+      <div class="formula-block">
+        <div class="formula-title">Social benefit per dose</div>
+        <code>
+          Annual CH4/head = 154 lb = 0.07 metric tons<br>
+          Reduction = 20%<br>
+          Social cost of methane = $1,600/ton<br>
+          Value/animal-year = $22<br>
+          Lifespan weights: slaughter=2yr, bulls=5yr,<br>
+          &nbsp;&nbsp;beef cows=8yr, milk cows=6yr<br>
+          Social discount rate = 2%
+        </code>
+      </div>
     </div>
+
+  <!-- KEY UNCERTAINTIES -->
+  <div class="source-card" style="background: #FAECE7; border-color: rgba(216,90,48,0.15); color: #712B13;">
+    <strong>Key uncertainties flagged by reviewers:</strong> The vaccination regimen (single dose vs. annual vs. prime + booster) is the most consequential open parameter. Reviewers note that a single lifetime dose assumption may be unrealistic, and that annual or multi-dose regimens could push the AMC above $1 billion. The feasibility parameter eta = 0.90 may be optimistic given available data. Adoption dynamics, pricing logic, and global scaling assumptions are not yet fully incorporated.
   </div>
- 
-</div>
+
+    </details>
+  </div>
  
 <!-- FOOTER -->
 <div class="footer">

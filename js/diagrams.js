@@ -11,52 +11,50 @@
 
   function deadlockSvgMarkup() {
     return `
-<svg viewBox="0 0 760 420" width="100%" role="img" aria-label="Innovation deadlock cycle">
+<svg viewBox="0 0 520 280" width="100%" role="img" aria-label="Innovation deadlock cycle">
   <defs>
-    <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="#8a8a8a"></path>
+    <marker id="arrowHead" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 z" fill="#8a8a8a"></path>
     </marker>
-    <marker id="arrowHeadTeal" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L10,5 L0,10 z" fill="${COLORS.teal}"></path>
+    <marker id="arrowHeadTeal" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 z" fill="${COLORS.teal}"></path>
     </marker>
   </defs>
 
   <g id="node1" opacity="0">
-    <rect x="280" y="42" width="200" height="68" rx="8" fill="#D85A30" fill-opacity="0.18" stroke="#D85A30" />
-    <text x="292" y="71" font-size="14" font-weight="500" fill="#1A1A1A">Uncertain demand</text>
-    <text x="292" y="92" font-size="12" fill="#4A4A4A">No buyer commitment</text>
+    <rect x="20" y="20" width="190" height="52" rx="6" fill="#D85A30" fill-opacity="0.14" stroke="#D85A30" stroke-opacity="0.5" />
+    <text x="30" y="42" font-size="11" font-weight="600" fill="#1A1A1A">Buyers</text>
+    <text x="30" y="58" font-size="10" fill="#4A4A4A">"How can I buy what doesn't exist?"</text>
   </g>
 
   <g id="node2" opacity="0">
-    <rect x="506" y="170" width="212" height="68" rx="8" fill="#EF9F27" fill-opacity="0.20" stroke="#EF9F27" />
-    <text x="518" y="199" font-size="14" font-weight="500" fill="#1A1A1A">Delayed innovation</text>
-    <text x="518" y="220" font-size="12" fill="#4A4A4A">Why invest without offtake?</text>
+    <rect x="310" y="20" width="190" height="52" rx="6" fill="#EF9F27" fill-opacity="0.16" stroke="#EF9F27" stroke-opacity="0.5" />
+    <text x="320" y="42" font-size="11" font-weight="600" fill="#1A1A1A">Innovators</text>
+    <text x="320" y="58" font-size="10" fill="#4A4A4A">"Why build what no one is buying?"</text>
   </g>
 
   <g id="node3" opacity="0">
-    <rect x="280" y="292" width="212" height="68" rx="8" fill="#C64533" fill-opacity="0.18" stroke="#C64533" />
-    <text x="292" y="321" font-size="14" font-weight="500" fill="#1A1A1A">Underinvestment</text>
-    <text x="292" y="342" font-size="12" fill="#4A4A4A">Capital arrives too late</text>
+    <rect x="165" y="100" width="190" height="44" rx="6" fill="#C64533" fill-opacity="0.14" stroke="#C64533" stroke-opacity="0.5" />
+    <text x="197" y="126" font-size="11" font-weight="600" fill="#1A1A1A">Underinvestment</text>
   </g>
 
-  <path id="a12" d="M 470 104 C 550 120, 570 150, 580 170" stroke="#8a8a8a" stroke-width="2" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
-  <path id="a23" d="M 540 238 C 510 270, 470 292, 430 305" stroke="#8a8a8a" stroke-width="2" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
-  <path id="a31" d="M 312 290 C 250 230, 240 140, 290 100" stroke="#8a8a8a" stroke-width="2" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
-  <text id="cycleLabel" x="188" y="175" font-size="12" fill="#4A4A4A" opacity="0">Cycle reinforces</text>
+  <path id="a12" d="M 210 46 L 308 46" stroke="#8a8a8a" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
+  <path id="a23" d="M 380 72 C 370 88, 350 100, 335 108" stroke="#8a8a8a" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
+  <path id="a31" d="M 185 100 C 160 88, 140 72, 130 66" stroke="#8a8a8a" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
+  <text id="cycleLabel" x="222" y="88" font-size="10" fill="#8a8a8a" opacity="0" text-anchor="middle">cycle reinforces</text>
 
   <g id="amcNode" opacity="0">
-    <rect x="40" y="314" width="208" height="68" rx="8" fill="#1D9E75" fill-opacity="0.18" stroke="#1D9E75"/>
-    <text x="52" y="343" font-size="14" font-weight="500" fill="#1A1A1A">AMC: credible demand signal</text>
-    <text x="52" y="364" font-size="12" fill="#4A4A4A">Forward commitment to buy</text>
+    <rect x="130" y="170" width="260" height="52" rx="6" fill="#1D9E75" fill-opacity="0.14" stroke="#1D9E75" stroke-opacity="0.6" />
+    <text x="180" y="193" font-size="12" font-weight="600" fill="${COLORS.teal}">AMC: credible demand signal</text>
+    <text x="186" y="210" font-size="10" fill="#4A4A4A">Forward commitment breaks the deadlock</text>
   </g>
 
-  <path id="amcArrow" d="M 248 342 C 270 340, 290 334, 304 326" stroke="${COLORS.teal}" stroke-width="2.5" fill="none" marker-end="url(#arrowHeadTeal)" opacity="0"/>
-  <text id="breakLoop" x="214" y="314" font-size="12" fill="${COLORS.teal}" opacity="0">Breaks the loop</text>
+  <path id="amcArrow" d="M 260 170 L 260 148" stroke="${COLORS.teal}" stroke-width="2" fill="none" marker-end="url(#arrowHeadTeal)" opacity="0"/>
+  <text id="breakLoop" x="275" y="162" font-size="10" fill="${COLORS.teal}" opacity="0">disrupts</text>
 
   <g id="earlyNode" opacity="0">
-    <rect x="518" y="294" width="200" height="68" rx="8" fill="#1D9E75" fill-opacity="0.18" stroke="#1D9E75"/>
-    <text x="530" y="323" font-size="14" font-weight="500" fill="#1A1A1A">Earlier investment</text>
-    <text x="530" y="344" font-size="12" fill="#4A4A4A">Risk falls, capital moves</text>
+    <rect x="130" y="236" width="260" height="36" rx="6" fill="#1D9E75" fill-opacity="0.08" stroke="${COLORS.teal}" stroke-opacity="0.3" />
+    <text x="182" y="259" font-size="11" fill="${COLORS.teal}" font-weight="500">Risk falls, capital moves earlier</text>
   </g>
 </svg>`;
   }
@@ -88,26 +86,30 @@
   function updateDeadlockState(nodes, stepId) {
     if (!nodes) return;
 
-    const showCycle = ["s2a", "s2b", "s2c", "s2d", "s3a", "s3b", "s3c"].includes(stepId);
+    const showCycle = ["s2a", "s2b"].includes(stepId);
     if (!showCycle) {
       Object.values(nodes).forEach((el) => setOpacity(el, 0));
       return;
     }
 
+    // s2a: show the three deadlock nodes + arrows (full cycle)
+    // s2b: dim the cycle arrows, show AMC breaking in + earlier investment
+    var isBreak = stepId === "s2b";
+
     setOpacity(nodes.node1, 1);
-    setOpacity(nodes.node2, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
-    setOpacity(nodes.node3, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
+    setOpacity(nodes.node2, 1);
+    setOpacity(nodes.node3, 1);
 
-    const arrowDim = ["s3b", "s3c"].includes(stepId) ? 0.25 : 1;
-    setOpacity(nodes.a12, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.a23, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.a31, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? arrowDim : 0);
-    setOpacity(nodes.cycleLabel, ["s2b", "s3a", "s3b", "s3c"].includes(stepId) ? 1 : 0);
+    var arrowDim = isBreak ? 0.2 : 1;
+    setOpacity(nodes.a12, arrowDim);
+    setOpacity(nodes.a23, arrowDim);
+    setOpacity(nodes.a31, arrowDim);
+    setOpacity(nodes.cycleLabel, isBreak ? 0 : 1);
 
-    setOpacity(nodes.amcNode, ["s3b", "s3c"].includes(stepId) ? 1 : 0);
-    setOpacity(nodes.amcArrow, ["s3b", "s3c"].includes(stepId) ? 1 : 0);
-    setOpacity(nodes.breakLoop, ["s3b", "s3c"].includes(stepId) ? 1 : 0);
-    setOpacity(nodes.earlyNode, stepId === "s3c" ? 1 : 0);
+    setOpacity(nodes.amcNode, isBreak ? 1 : 0);
+    setOpacity(nodes.amcArrow, isBreak ? 1 : 0);
+    setOpacity(nodes.breakLoop, isBreak ? 1 : 0);
+    setOpacity(nodes.earlyNode, isBreak ? 1 : 0);
   }
 
   function createFundingFlow(containerId) {
@@ -174,10 +176,62 @@
 </table>`;
   }
 
+  function createAmcPathway(containerId) {
+    const root = document.getElementById(containerId);
+    if (!root) return;
+
+    const steps = [
+      { id: "pw1", label: "Market failure", sub: "No buyer, no builder", color: COLORS.coral, icon: "!" },
+      { id: "pw2", label: "AMC commitment", sub: "Credible demand signal", color: COLORS.teal, icon: "\u2713" },
+      { id: "pw3", label: "R&D investment", sub: "Capital moves earlier", color: COLORS.blue, icon: "$" },
+      { id: "pw4", label: "Innovation", sub: "Vaccines, additives, genetics", color: COLORS.purple, icon: "\u2606" },
+      { id: "pw5", label: "Producer adoption", sub: "Herd-level deployment", color: COLORS.amber, icon: "\u2191" },
+      { id: "pw6", label: "Methane reduction", sub: "Measurable climate impact", color: COLORS.teal, icon: "\u2193" },
+    ];
+
+    const html = `
+      <div class="pw-track">
+        ${steps.map((s, i) => `
+          <div class="pw-node" id="${s.id}" data-index="${i}">
+            <div class="pw-icon" style="border-color:${s.color};color:${s.color}">${s.icon}</div>
+            <div class="pw-text">
+              <span class="pw-label">${s.label}</span>
+              <span class="pw-sub">${s.sub}</span>
+            </div>
+          </div>
+          ${i < steps.length - 1 ? `<div class="pw-connector" data-after="${i}"><div class="pw-connector-fill"></div></div>` : ""}
+        `).join("")}
+      </div>`;
+
+    root.innerHTML = html;
+  }
+
+  function updateAmcPathway(stepId) {
+    const flow = document.getElementById("amcPathwayFlow");
+    if (!flow) return;
+
+    var phase = 0;
+    if (stepId === "s3a") phase = 2;
+    if (stepId === "s3b") phase = 4;
+    if (stepId === "s3c") phase = 6;
+
+    flow.querySelectorAll(".pw-node").forEach(function (node) {
+      var idx = parseInt(node.dataset.index, 10);
+      node.classList.toggle("pw-active", idx < phase);
+    });
+
+    flow.querySelectorAll(".pw-connector").forEach(function (conn) {
+      var idx = parseInt(conn.dataset.after, 10);
+      conn.classList.toggle("pw-active", idx < phase - 1);
+    });
+  }
+
   window.AmcDiagrams = {
     setupDeadlock,
     updateDeadlockState,
     createFundingFlow,
     createStakeholderMatrix,
+    createAmcPathway,
+    updateAmcPathway,
   };
 })();

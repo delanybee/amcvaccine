@@ -1,25 +1,25 @@
 (function () {
-  function animateCountUp(target, toValue, suffix) {
+  function animateCountUp(target, toValue, suffix, prefix) {
     let start = null;
     const duration = 900;
+    const pre = prefix || "";
     function tick(ts) {
       if (start == null) start = ts;
       const t = Math.min((ts - start) / duration, 1);
       const val = Math.round(t * toValue);
-      target.textContent = `${val}${suffix}`;
+      target.textContent = `${pre}${val}${suffix}`;
       if (t < 1) requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
   }
 
   function activateScene(scrolly, sceneId) {
-    scrolly.querySelectorAll(".visual-scene").forEach((s) => s.classList.toggle("active", s.id === sceneId));
+    scrolly.querySelectorAll(".visual-scene").forEach((s) => s.classList.toggle("is-visible", s.id === sceneId));
   }
 
   function activateStep(stepEl) {
-    const scrolly = stepEl.closest(".scrolly");
-    scrolly.querySelectorAll(".step").forEach((s) => s.classList.remove("active"));
-    stepEl.classList.add("active");
+    document.querySelectorAll(".step.is-active").forEach((s) => s.classList.remove("is-active"));
+    stepEl.classList.add("is-active");
   }
 
   function buildPathwayCards() {
@@ -76,7 +76,7 @@
 
   function initScroll() {
     const deadlockBase = window.AmcDiagrams.setupDeadlock("deadlockDiagramBase");
-    const deadlockAmc = window.AmcDiagrams.setupDeadlock("deadlockDiagramAmc");
+    window.AmcDiagrams.createAmcPathway("amcPathwayFlow");
 
     const scroller = scrollama();
     scroller
@@ -93,8 +93,10 @@
 
         if (stepId === "s1") {
           const methane = document.getElementById("methanePower");
+          const socialCost = document.getElementById("socialCostStat");
           const card = document.querySelector("#scene1 .methane-card");
           animateCountUp(methane, 84, "x");
+          animateCountUp(socialCost, 10, "B", "$");
           card.classList.add("enter");
         }
 
@@ -103,8 +105,8 @@
         }
 
         if (["s3a", "s3b", "s3c"].includes(stepId)) {
-          window.AmcDiagrams.updateDeadlockState(deadlockAmc, stepId);
-          const chartWrap = document.getElementById("feasibilityChart").closest(".canvas-wrap");
+          window.AmcDiagrams.updateAmcPathway(stepId);
+          const chartWrap = document.getElementById("methaneWarmingChart").closest(".canvas-wrap");
           chartWrap.style.opacity = stepId === "s3c" ? "1" : "0.35";
           chartWrap.style.transition = "opacity 600ms ease";
         }
@@ -156,6 +158,7 @@
   function initAboutModal() {
     const modal = document.getElementById("aboutModal");
     const openBtn = document.getElementById("aboutStoryBtn");
+    const bottomOpenBtn = document.getElementById("bottomAboutBtn");
     const closeBtn = document.getElementById("aboutCloseBtn");
     if (!modal || !openBtn || !closeBtn) return;
 
@@ -172,6 +175,7 @@
     }
 
     openBtn.addEventListener("click", openModal);
+    if (bottomOpenBtn) bottomOpenBtn.addEventListener("click", openModal);
     closeBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (event) => {
       if (event.target && event.target.dataset.closeModal === "true") {
@@ -184,6 +188,35 @@
     });
   }
 
+  function updateProgress() {
+    const bar = document.getElementById("progressBar");
+    if (!bar) return;
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+    bar.style.width = pct + "%";
+  }
+
+  function initClickToNavigate() {
+    document.querySelectorAll(".step").forEach((step) => {
+      step.addEventListener("click", () => {
+        step.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+
+      step.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          step.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+    });
+  }
+
+  function initProgress() {
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+  }
+
   function init() {
     buildPathwayCards();
     window.AmcDiagrams.createFundingFlow("fundingFlowDiagram");
@@ -193,12 +226,15 @@
 
     initChapterAdoption();
     initScroll();
+    initClickToNavigate();
+    initProgress();
     initLenis();
     initAboutModal();
 
     const firstStep = document.querySelector(".step");
     if (firstStep) {
-      firstStep.classList.add("active");
+      firstStep.classList.add("is-active");
+      animateCountUp(document.getElementById("socialCostStat"), 10, "B", "$");
       animateCountUp(document.getElementById("methanePower"), 84, "x");
       document.querySelector("#scene1 .methane-card").classList.add("enter");
     }
