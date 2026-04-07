@@ -221,7 +221,7 @@ main {
 
 .visual-panel {
   position: sticky;
-  top: 12px;
+  top: 64px;
   height: fit-content;
   align-self: start;
 }
@@ -258,11 +258,11 @@ main {
 }
 
 .canvas-wrap.short {
-  height: 220px;
+  height: 300px;
 }
 
 .canvas-wrap.medium {
-  height: 280px;
+  height: 380px;
 }
 
 .stat-callout {
@@ -661,7 +661,7 @@ main {
 
 .band {
   border-radius: 10px;
-  border: 1px solid var(--line);
+  border: none;
   padding: 14px 16px;
   min-height: 80px;
   transform: translateX(16px);
@@ -690,8 +690,8 @@ main {
 }
 
 .coral-lite {
-  background: #FAECE7;
-  border-left: 4px solid var(--coral);
+  background: #F1F8E9;
+  border-left: 4px solid var(--sage);
 }
 
 .confidence-stack.enter .band {
@@ -934,7 +934,7 @@ main {
 
   .visual-panel {
     position: sticky;
-    top: 10px;
+    top: 60px;
   }
 
   .step {
