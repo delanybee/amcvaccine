@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytical Frameworks | Methane Vaccine AMC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #2E7D32;
+      --teal-light: #E8F5E9;
+      --teal-dark: #1B3F1C;
+      --coral: #C62828;
+      --coral-light: #FFEBEE;
+      --amber: #B8860B;
+      --amber-light: #FDF3E0;
+      --blue: #378ADD;
+      --blue-light: #E6F1FB;
+      --purple: #7F77DD;
+      --purple-light: #EEEDFE;
+      --gray-50: #F5F0E8;
+      --gray-100: #E0DDD4;
+      --gray-200: #D1CCC2;
+      --gray-400: #8A7D6B;
+      --gray-600: #5F5A50;
+      --gray-800: #1B3F1C;
+      --bg: #FAFAF5;
+      --card-bg: #FFFFFF;
+      --border: #E0DDD4;
+      --text: #1B2A1C;
+      --text-muted: #8A7D6B;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-display: 'Lora', serif;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --forest: #1B3F1C;
+      --meadow: #2E7D32;
+      --spring: #4CAF50;
+      --sage: #A5D6A7;
+      --mist: #E8F5E9;
+      --harvest: #B8860B;
+      --goldenrod: #DAA520;
+      --wheat: #F5E6C8;
+      --wheat-light: #FDF3E0;
+      --urgency: #C62828;
+      --warning: #E65100;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* SITE NAV */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 28px; height: 52px;
+      background: #1B3F1C;
+      border-bottom: 1px solid rgba(165, 214, 167, 0.15);
+    }
+    .nav-brand {
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      color: #A5D6A7;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-link {
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 13px; font-weight: 500;
+      color: rgba(165, 214, 167, 0.75); text-decoration: none;
+      padding: 6px 14px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover { color: #FFFFFF; background: rgba(165, 214, 167, 0.1); }
+    .nav-link.active { color: #FFFFFF; background: rgba(165, 214, 167, 0.15); }
+    .nav-icon { display: flex; align-items: center; opacity: 0.7; }
+    .nav-link:hover .nav-icon, .nav-link.active .nav-icon { opacity: 1; }
+    .nav-link::after {
+      content: attr(data-tooltip);
+      position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 14px; background: #FFFFFF; color: #1B2A1C;
+      font-size: 12px; font-weight: 400; line-height: 1.5;
+      border-radius: 6px; white-space: normal;
+      width: max-content; max-width: 240px; text-align: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 200;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #E0DDD4;
+    }
+    .nav-link::before {
+      content: ''; position: absolute;
+      top: calc(100% + 3px); left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent; border-bottom-color: #FFFFFF;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 201;
+    }
+    .nav-link:hover::after, .nav-link:hover::before { opacity: 1; visibility: visible; }
+    .nav-links .nav-link:last-child::after { left: auto; right: 0; transform: none; }
+    .nav-links .nav-link:last-child::before { left: auto; right: 20px; transform: none; }
+    @media (max-width: 768px) {
+      .site-nav .nav-link span:not(.nav-icon) { display: none; }
+      .site-nav .nav-link { padding: 8px; }
+      .site-nav .nav-links { gap: 2px; }
+    }
+
+    /* HERO */
+    .hero {
+      max-width: 820px; margin: 0 auto; padding: 56px 28px 40px; text-align: center;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: 42px; font-weight: 400;
+      letter-spacing: -0.5px; margin-bottom: 8px;
+    }
+    .hero .subtitle {
+      font-size: 16px; color: var(--text-muted); margin-bottom: 20px;
+      max-width: 56ch; margin-left: auto; margin-right: auto;
+    }
+    .hero-rule {
+      width: 60px; height: 1px; background: var(--gray-200); margin: 0 auto;
+    }
+
+    /* FRAMEWORK SECTIONS */
+    .framework-section {
+      max-width: 820px;
+      margin: 0 auto 60px;
+      padding: 0 28px;
+    }
+
+    .framework-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--teal);
+      background: rgba(46, 125, 50, 0.08);
+      border: 1px solid rgba(46, 125, 50, 0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+      margin-right: 8px;
+    }
+
+    .wip-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #8A6914;
+      background: rgba(184, 134, 11, 0.08);
+      border: 1px solid rgba(184, 134, 11, 0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .framework-section h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .framework-section h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 32px 0 8px;
+    }
+
+    .framework-section h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .framework-section p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #4A4539;
+      margin-bottom: 16px;
+    }
+
+    /* PLAYBOOK STEPS */
+    .playbook-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .playbook-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .playbook-card h3 {
+      font-size: 15px;
+      margin: 0 0 8px;
+    }
+
+    .playbook-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .section-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-top: 8px;
+    }
+
+    .section-link:hover { color: var(--teal-dark); }
+
+    /* BARRIER GRID */
+    .barrier-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .barrier-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .barrier-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .barrier-status {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .barrier-status.resolved {
+      background: rgba(46, 125, 50, 0.08);
+      color: #1B3F1C;
+    }
+
+    .barrier-status.partial {
+      background: rgba(184, 134, 11, 0.08);
+      color: #6B4E0A;
+    }
+
+    .barrier-status.open {
+      background: rgba(198, 40, 40, 0.08);
+      color: #8B1C1C;
+    }
+
+    /* CO-BENEFITS GRID */
+    .cobenefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .cobenefit-card {
+      background: var(--gray-50);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .cobenefit-card p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .wip-note {
+      font-size: 13px;
+      color: #8A6914;
+      font-style: italic;
+    }
+
+    /* LITERATURE LIST */
+    .lit-list { margin: 16px 0; }
+
+    .lit-item {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #4A4539;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lit-item strong { color: var(--text); }
+
+    /* LCA BOUNDARY DIAGRAM */
+    .lca-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+    .lca-stage {
+      flex: 1;
+      min-width: 100px;
+      border-radius: var(--radius-sm);
+      padding: 16px 12px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .lca-stage.source {
+      background: var(--gray-50);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .lca-stage.benefit {
+      background: rgba(46, 125, 50, 0.1);
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      color: var(--teal-dark);
+      flex: 1.8;
+      font-weight: 600;
+    }
+    .lca-arrow {
+      display: flex;
+      align-items: center;
+      color: var(--gray-200);
+      font-size: 18px;
+    }
+    .lca-note {
+      text-align: center;
+      font-size: 13px;
+      color: var(--teal);
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    /* FOOTER */
+    .footer {
+      max-width: 820px; margin: 40px auto 0; padding: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--text-muted); line-height: 1.6;
+    }
+    .footer a {
+      color: var(--teal); text-decoration: none; font-weight: 500;
+      display: inline-block; margin-top: 8px;
+    }
+    .footer a:hover { color: var(--teal-dark); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .playbook-steps { grid-template-columns: 1fr; }
+      .barrier-grid { grid-template-columns: 1fr; }
+      .cobenefit-grid { grid-template-columns: 1fr; }
+      .lca-flow { flex-direction: column; }
+      .lca-arrow { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav">
+  <span class="nav-brand">Methane Vaccine AMC</span>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link" data-tooltip="The narrative: why methane, how the AMC works, and who is building it">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12M2 8h12M2 13h8"/></svg>
+      </span>
+      <span>Story map</span>
+    </a>
+    <a href="data-explorer.html" class="nav-link" data-tooltip="Interactive charts and raw data behind the AMC model assumptions">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13H2V3M5 9l3-3 2 2 4-4"/></svg>
+      </span>
+      <span>Data explorer</span>
+    </a>
+    <a href="sensitivity-studio.html" class="nav-link" data-tooltip="Techno-economic analysis: adjust parameters and see BCR, NPV, and costs respond in real time">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="4" r="1.5"/><circle cx="11" cy="8" r="1.5"/><circle cx="5" cy="12" r="1.5"/><line x1="2" y1="4" x2="3.5" y2="4"/><line x1="6.5" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="9.5" y2="8"/><line x1="12.5" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="3.5" y2="12"/><line x1="6.5" y1="12" x2="14" y2="12"/></svg>
+      </span>
+      <span>Sensitivity studio</span>
+    </a>
+    <a href="frameworks.html" class="nav-link active" data-tooltip="MCS analytical frameworks: TEA, lifecycle assessment, pathways and barriers, co-benefits">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+      </span>
+      <span>Frameworks</span>
+    </a>
+    <a href="index.html" class="nav-link" data-tooltip="Project background, methodology, and status">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 11V8M8 5.5V5"/></svg>
+      </span>
+      <span>About</span>
+    </a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Analytical frameworks</h1>
+  <p class="subtitle">MCS program frameworks applied to the methane vaccine advance market commitment</p>
+  <div class="hero-rule"></div>
+</div>
+
+<main>
+
+  <!-- SECTION 1: THE MCS PLAYBOOK / TEA OVERVIEW -->
+  <section class="framework-section">
+    <span class="framework-tag">Core framework</span>
+    <h2>The MCS Playbook: techno-economic analysis</h2>
+    <p>The MCS Playbook provides the integrative analytical spine for this project. Developed in the UC Berkeley MCS curriculum, it structures climate solution evaluation into three steps.</p>
+
+    <div class="playbook-steps">
+      <div class="playbook-card">
+        <div class="step-number">1</div>
+        <h3>Technical potential</h3>
+        <p>Compute avoided CO2e: 20% methane reduction across 90M U.S. cattle (or 1.6B globally), weighted by lifespan and adoption rate. At baseline, this yields $11.48B in social benefits.</p>
+      </div>
+      <div class="playbook-card">
+        <div class="step-number">2</div>
+        <h3>Cost per ton CO2e avoided</h3>
+        <p>Total social cost ($797M baseline) divided by lifetime abatement tonnage. This metric enables comparison with other climate interventions on a standardized basis.</p>
+      </div>
+      <div class="playbook-card">
+        <div class="step-number">3</div>
+        <h3>Caveats and sensitivity</h3>
+        <p>Dosing frequency, scientific feasibility, and adoption dynamics are the three most consequential uncertainties. The Sensitivity Studio stress-tests each one interactively.</p>
+      </div>
+    </div>
+
+    <a href="sensitivity-studio.html" class="section-link">
+      Explore the full TEA in the Sensitivity Studio &rarr;
+    </a>
+  </section>
+
+  <!-- SECTION 2: LIFECYCLE ASSESSMENT -->
+  <section class="framework-section">
+    <span class="framework-tag">Framework 1</span>
+    <h2>Lifecycle assessment</h2>
+    <p>A simplified LCA defines the system boundary for the methane vaccine intervention and evaluates whether the lifecycle emissions of vaccine production and deployment are justified by the methane abatement achieved.</p>
+
+    <h3>System boundary</h3>
+    <p>The LCA boundary encompasses five stages: R&amp;D inputs (lab energy, materials, clinical trials), manufacturing (bioreactor energy, raw materials, cold chain), distribution (transport to farms, refrigeration), administration (veterinary labor, animal handling), and the use phase (methane reduction over the animal's productive lifespan). End-of-life considerations are minimal since the vaccine is metabolized by the animal.</p>
+
+    <div class="lca-flow">
+      <div class="lca-stage source">R&amp;D inputs</div>
+      <div class="lca-arrow">&rarr;</div>
+      <div class="lca-stage source">Manufacturing</div>
+      <div class="lca-arrow">&rarr;</div>
+      <div class="lca-stage source">Distribution</div>
+      <div class="lca-arrow">&rarr;</div>
+      <div class="lca-stage source">Administration</div>
+      <div class="lca-arrow">&rarr;</div>
+      <div class="lca-stage benefit">Use phase<br>Methane reduction</div>
+    </div>
+    <p class="lca-note">Net lifecycle impact: overwhelmingly positive</p>
+
+    <h3>Key finding</h3>
+    <p>The lifecycle emissions of vaccine production are negligible relative to the methane abatement achieved. Each vaccinated animal avoids approximately 0.014 metric tons of methane per year (0.392 tons CO2e at GWP-28), while vaccine manufacturing and distribution emissions are estimated in the low single-digit kilograms of CO2e per dose. The ratio of avoided to embodied emissions is on the order of 100:1 or greater.</p>
+
+    <h3>Methodological notes</h3>
+    <p>This assessment follows the ISO 14040/14044 framework as taught in the UC Berkeley MCS program (Prof. Matthew Potts). The functional unit is one completed vaccination course administered to one animal. System boundaries are cradle-to-use-phase. Impact category is global warming potential (GWP-100). Data sources include the FAO Global Livestock Environmental Assessment Model (GLEAM), the EPA Inventory of U.S. Greenhouse Gas Emissions (2024), and the Jensen, Lund, and Fabricius (2014) veterinary vaccine cost dataset used in the AMC proposal.</p>
+
+    <h3>Literature</h3>
+    <div class="lit-list">
+      <div class="lit-item">
+        <strong>FAO (2013)</strong> Tackling Climate Change Through Livestock: A Global Assessment of Emissions and Mitigation Opportunities. Global lifecycle assessment using the GLEAM model.
+      </div>
+      <div class="lit-item">
+        <strong>Beauchemin et al. (2022)</strong> Current State of Enteric Methane and the Carbon Footprint of Beef and Dairy Cattle in the United States. Animal Frontiers, 11(4), 57-68. Integrates LCA with enteric methane measurement methods.
+      </div>
+      <div class="lit-item">
+        <strong>Stanley et al. (2018)</strong> Impacts of Soil Carbon Sequestration on Life Cycle Greenhouse Gas Emissions in Midwestern USA Beef Finishing Systems. Agricultural Systems 162, 249-258. Comparative LCA of beef systems, affiliated with UC Berkeley ESPM.
+      </div>
+      <div class="lit-item">
+        <strong>Gollnow et al. (2024)</strong> Towards an Application of the Life Cycle Assessment Framework for GHG Emissions of the Dairy System: A Literature Review. Land 14(6), 1207. Critical review of LCA scope design limitations.
+      </div>
+      <div class="lit-item">
+        <strong>EPA (2024)</strong> Inventory of U.S. Greenhouse Gas Emissions and Sinks, Chapter 5: Agriculture. U.S. baseline enteric methane data.
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: PATHWAYS AND BARRIERS -->
+  <section class="framework-section">
+    <span class="framework-tag">Framework 2</span>
+    <h2>Pathways and barriers</h2>
+    <p>The transitions framework identifies where the AMC intervenes in the innovation system and what structural barriers it must overcome to succeed.</p>
+
+    <h3>The AMC as a niche-stimulation intervention</h3>
+    <p>In transition theory terms, enteric methane reduction is a niche technology attempting to disrupt an established regime (conventional livestock production with no methane pricing). The regime is stable because producers face no financial penalty for methane emissions and no financial reward for reducing them. The AMC functions as a niche-stimulation mechanism: it creates an artificial demand signal that allows the niche to develop without requiring the regime itself to change first.</p>
+
+    <h3>Structural barriers</h3>
+    <div class="barrier-grid">
+      <div class="barrier-card">
+        <h4>Demand uncertainty</h4>
+        <p>No buyer will commit to a product that does not exist. No innovator will build a product no one is buying. The AMC breaks this deadlock by inserting legally binding demand before the product is commercial.</p>
+        <span class="barrier-status resolved">Addressed by AMC</span>
+      </div>
+      <div class="barrier-card">
+        <h4>Grazing system exclusion</h4>
+        <p>Most existing methane mitigation options (feed additives, 3-NOP) require controlled feeding environments like feedlots or confined dairies. The majority of global cattle are pastured, leaving them without a viable solution. A vaccine is one of the few interventions that works across all production systems.</p>
+        <span class="barrier-status partial">Partially addressed</span>
+      </div>
+      <div class="barrier-card">
+        <h4>Adoption friction</h4>
+        <p>Even with a proven vaccine, producer uptake depends on cost, convenience, and trust. The AMC addresses this by subsidizing or fully covering the cost of vaccination and potentially bundling delivery with existing mandatory vaccines to reduce logistical burden.</p>
+        <span class="barrier-status partial">Partially addressed</span>
+      </div>
+      <div class="barrier-card">
+        <h4>Verification complexity</h4>
+        <p>Measuring methane reduction at the herd level is technically challenging. The AMC proposal addresses this through vaccination verification (ear tags, digital IDs, vial serial numbers) rather than direct emissions measurement, simplifying the monitoring burden.</p>
+        <span class="barrier-status resolved">Addressed by AMC</span>
+      </div>
+      <div class="barrier-card">
+        <h4>Political and incumbent resistance</h4>
+        <p>Livestock industry stakeholders may resist framing their sector as a climate problem. The AMC sidesteps this by positioning the intervention as an investment opportunity with co-benefits (food system resilience, trade competitiveness) rather than a regulatory mandate.</p>
+        <span class="barrier-status open">Open challenge</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: CO-BENEFITS (WORK IN PROGRESS) -->
+  <section class="framework-section">
+    <span class="framework-tag">Framework 3</span>
+    <span class="wip-badge">In progress</span>
+    <h2>Co-benefits analysis</h2>
+    <p>In the current political environment, co-benefits are often the critical path to adoption. This section will analyze the non-climate benefits of the methane vaccine AMC across five dimensions.</p>
+
+    <div class="cobenefit-grid">
+      <div class="cobenefit-card">
+        <h4>Rural economic development</h4>
+        <p>AMC payments flow directly to producers and rural communities, creating new revenue streams independent of commodity prices.</p>
+      </div>
+      <div class="cobenefit-card">
+        <h4>Food system resilience</h4>
+        <p>Proactive methane reduction reduces regulatory risk for the livestock sector and strengthens its social license to operate under tightening climate policy.</p>
+      </div>
+      <div class="cobenefit-card">
+        <h4>Trade competitiveness</h4>
+        <p>Low-methane beef and dairy could command premium positioning in export markets with carbon border adjustment mechanisms (EU CBAM) or sustainability-conscious buyers.</p>
+      </div>
+      <div class="cobenefit-card">
+        <h4>Innovation spillovers</h4>
+        <p>Vaccine R&amp;D for methane reduction generates intellectual property and technical capacity applicable to other livestock health and productivity challenges.</p>
+      </div>
+      <div class="cobenefit-card">
+        <h4>Global health equity</h4>
+        <p>A successful vaccine platform, scaled from U.S. to low- and middle-income countries, could reduce climate damages disproportionately borne by vulnerable populations while supporting smallholder livelihoods.</p>
+      </div>
+    </div>
+
+    <p class="wip-note">This analysis is currently being developed. Quantitative co-benefit estimates and supporting literature will be added in the final deliverable.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
+    <p class="footer-credit">Designed and built by Delany Bee</p>
+    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
+    <p class="footer-collab">In collaboration with The Nature Conservancy
+    and Spark Climate Solutions</p>
+    <div class="footer-logos">
+      <span class="footer-logo-text">UC Berkeley</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">The Nature Conservancy</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">Spark Climate</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

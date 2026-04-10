@@ -6,38 +6,49 @@
   <title>Data Explorer | Methane Vaccine AMC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --teal: #1D9E75;
-      --teal-light: #E1F5EE;
-      --teal-dark: #0F6E56;
-      --coral: #D85A30;
-      --coral-light: #FAECE7;
-      --amber: #EF9F27;
-      --amber-light: #FAEEDA;
+      --teal: #2E7D32;
+      --teal-light: #E8F5E9;
+      --teal-dark: #1B3F1C;
+      --coral: #C62828;
+      --coral-light: #FFEBEE;
+      --amber: #B8860B;
+      --amber-light: #FDF3E0;
       --blue: #378ADD;
       --blue-light: #E6F1FB;
       --purple: #7F77DD;
       --purple-light: #EEEDFE;
-      --gray-50: #F5F5F0;
-      --gray-100: #E8E8E3;
-      --gray-200: #D1D1CC;
-      --gray-400: #888880;
-      --gray-600: #5F5E5A;
-      --gray-800: #2C2C2A;
-      --bg: #FAFAF7;
+      --gray-50: #F5F0E8;
+      --gray-100: #E0DDD4;
+      --gray-200: #D1CCC2;
+      --gray-400: #8A7D6B;
+      --gray-600: #5F5A50;
+      --gray-800: #1B3F1C;
+      --bg: #FAFAF5;
       --card-bg: #FFFFFF;
-      --border: #E5E5E0;
-      --text: #1A1A1A;
-      --text-muted: #6B6B66;
-      --font-body: 'DM Sans', sans-serif;
-      --font-display: 'Instrument Serif', serif;
+      --border: #E0DDD4;
+      --text: #1B2A1C;
+      --text-muted: #8A7D6B;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-display: 'Lora', serif;
       --radius: 12px;
       --radius-sm: 8px;
+      --forest: #1B3F1C;
+      --meadow: #2E7D32;
+      --spring: #4CAF50;
+      --sage: #A5D6A7;
+      --mist: #E8F5E9;
+      --harvest: #B8860B;
+      --goldenrod: #DAA520;
+      --wheat: #F5E6C8;
+      --wheat-light: #FDF3E0;
+      --urgency: #C62828;
+      --warning: #E65100;
     }
 
     body {
@@ -48,28 +59,64 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* NAV */
-    .nav {
+    /* SITE NAV */
+    .site-nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 0 28px; height: 52px;
-      background: rgba(250,250,247,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: #1B3F1C;
+      border-bottom: 1px solid rgba(165, 214, 167, 0.15);
     }
-    .nav-back {
-      color: var(--teal); text-decoration: none; font-size: 14px;
-      font-weight: 500; display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
+    .nav-brand {
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      color: #A5D6A7;
     }
-    .nav-back:hover { color: var(--teal-dark); }
-    .nav-title { font-size: 14px; color: var(--text-muted); font-weight: 400; }
-    .nav-links { display: flex; gap: 16px; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+    }
     .nav-link {
-      color: var(--text-muted); text-decoration: none; font-size: 13px;
-      font-weight: 500; transition: color 0.2s;
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 13px; font-weight: 500;
+      color: rgba(165, 214, 167, 0.75); text-decoration: none;
+      padding: 6px 14px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      transition: all 0.2s ease;
     }
-    .nav-link:hover { color: var(--teal); }
+    .nav-link:hover { color: #FFFFFF; background: rgba(165, 214, 167, 0.1); }
+    .nav-link.active { color: #FFFFFF; background: rgba(165, 214, 167, 0.15); }
+    .nav-icon { display: flex; align-items: center; opacity: 0.7; }
+    .nav-link:hover .nav-icon, .nav-link.active .nav-icon { opacity: 1; }
+    .nav-link::after {
+      content: attr(data-tooltip);
+      position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 14px; background: #FFFFFF; color: #1B2A1C;
+      font-size: 12px; font-weight: 400; line-height: 1.5;
+      border-radius: 6px; white-space: normal;
+      width: max-content; max-width: 240px; text-align: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 200;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #E0DDD4;
+    }
+    .nav-link::before {
+      content: ''; position: absolute;
+      top: calc(100% + 3px); left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent; border-bottom-color: #FFFFFF;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 201;
+    }
+    .nav-link:hover::after, .nav-link:hover::before { opacity: 1; visibility: visible; }
+    .nav-links .nav-link:last-child::after { left: auto; right: 0; transform: none; }
+    .nav-links .nav-link:last-child::before { left: auto; right: 20px; transform: none; }
+    @media (max-width: 768px) {
+      .site-nav .nav-link span:not(.nav-icon) { display: none; }
+      .site-nav .nav-link { padding: 8px; }
+      .site-nav .nav-links { gap: 2px; }
+    }
 
     /* HERO */
     .hero {
@@ -126,14 +173,14 @@
 
     /* CALLOUT BOX */
     .callout {
-      background: var(--teal-light); border: 1px solid rgba(29,158,117,0.15);
+      background: var(--teal-light); border: 1px solid rgba(46,125,50,0.15);
       border-radius: var(--radius-sm); padding: 16px 20px; margin-top: 16px;
       font-size: 13px; color: var(--teal-dark); line-height: 1.7;
     }
     .callout strong { font-weight: 600; }
 
     .callout-amber {
-      background: var(--amber-light); border-color: rgba(239,159,39,0.15);
+      background: var(--amber-light); border-color: rgba(184,134,11,0.15);
       color: #7A5A10;
     }
 
@@ -176,14 +223,39 @@
 </head>
 <body>
 
-<nav class="nav">
-  <a href="index.html" class="nav-back">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L6 8L10 4"/></svg>
-    Story map
-  </a>
-  <span class="nav-title">Data Explorer</span>
+<nav class="site-nav">
+  <span class="nav-brand">Methane Vaccine AMC</span>
   <div class="nav-links">
-    <a href="sensitivity-studio.html" class="nav-link">Sensitivity Studio</a>
+    <a href="index.html" class="nav-link" data-tooltip="The narrative: why methane, how the AMC works, and who is building it">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12M2 8h12M2 13h8"/></svg>
+      </span>
+      <span>Story map</span>
+    </a>
+    <a href="data-explorer.html" class="nav-link active" data-tooltip="Interactive charts and raw data behind the AMC model assumptions">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13H2V3M5 9l3-3 2 2 4-4"/></svg>
+      </span>
+      <span>Data explorer</span>
+    </a>
+    <a href="sensitivity-studio.html" class="nav-link" data-tooltip="Techno-economic analysis: adjust parameters and see BCR, NPV, and costs respond in real time">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="4" r="1.5"/><circle cx="11" cy="8" r="1.5"/><circle cx="5" cy="12" r="1.5"/><line x1="2" y1="4" x2="3.5" y2="4"/><line x1="6.5" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="9.5" y2="8"/><line x1="12.5" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="3.5" y2="12"/><line x1="6.5" y1="12" x2="14" y2="12"/></svg>
+      </span>
+      <span>Sensitivity studio</span>
+    </a>
+    <a href="frameworks.html" class="nav-link" data-tooltip="MCS analytical frameworks: TEA, lifecycle assessment, pathways and barriers, co-benefits">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+      </span>
+      <span>Frameworks</span>
+    </a>
+    <a href="index.html" class="nav-link" data-tooltip="Project background, methodology, and status">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 11V8M8 5.5V5"/></svg>
+      </span>
+      <span>About</span>
+    </a>
   </div>
 </nav>
 
@@ -294,14 +366,20 @@
 
 </main>
 
-<footer class="footer">
-  <p>Chart data derived from the AMC proposal analytical assessment. Adoption and readiness indices are illustrative composites based on published livestock census, veterinary infrastructure, and climate policy data.</p>
-  <div class="footer-links">
-    <a href="index.html">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><path d="M10 12L6 8L10 4"/></svg>
-      Story map
-    </a>
-    <a href="sensitivity-studio.html">Sensitivity Studio</a>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
+    <p class="footer-credit">Designed and built by Delany Bee</p>
+    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
+    <p class="footer-collab">In collaboration with The Nature Conservancy
+    and Spark Climate Solutions</p>
+    <div class="footer-logos">
+      <span class="footer-logo-text">UC Berkeley</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">The Nature Conservancy</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">Spark Climate</span>
+    </div>
   </div>
 </footer>
 
@@ -312,16 +390,16 @@
 const LAYOUT_BASE = {
   paper_bgcolor: "transparent",
   plot_bgcolor: "transparent",
-  font: { family: "DM Sans, sans-serif", color: "#1A1A1A", size: 13 },
+  font: { family: "Source Sans 3, sans-serif", color: "#1B2A1C", size: 13 },
   margin: { l: 56, r: 24, t: 44, b: 48 },
   showlegend: true,
   legend: { orientation: "h", y: -0.18, x: 0.5, xanchor: "center", font: { size: 12 } },
 };
 
 const AXIS_STYLE = {
-  gridcolor: "#E8E8E3",
-  linecolor: "#D1D1CC",
-  zerolinecolor: "#D1D1CC",
+  gridcolor: "#E0DDD4",
+  linecolor: "#D1CCC2",
+  zerolinecolor: "#D1CCC2",
   tickfont: { size: 11 },
 };
 
@@ -351,15 +429,15 @@ function drawPayoff() {
     {
       type: "scatter", mode: "lines", x, y: noAmc,
       name: "Without AMC",
-      line: { color: "#D1D1CC", width: 2.5 },
-      fill: "tozeroy", fillcolor: "rgba(209,209,204,0.18)",
+      line: { color: "#D1CCC2", width: 2.5 },
+      fill: "tozeroy", fillcolor: "rgba(209,204,194,0.18)",
       hovertemplate: "Payoff: $%{x}M<br>Probability: %{y:.2f}<extra></extra>",
     },
     {
       type: "scatter", mode: "lines", x, y: withAmc,
       name: "With AMC",
-      line: { color: "#1D9E75", width: 2.5 },
-      fill: "tozeroy", fillcolor: "rgba(29,158,117,0.12)",
+      line: { color: "#2E7D32", width: 2.5 },
+      fill: "tozeroy", fillcolor: "rgba(46,125,50,0.12)",
       hovertemplate: "Payoff: $%{x}M<br>Probability: %{y:.2f}<extra></extra>",
     },
   ], makeLayout("", "Relative probability", {
@@ -367,9 +445,9 @@ function drawPayoff() {
     annotations: [{
       x: -40, y: 0.68,
       text: "AMC truncates<br>downside risk",
-      showarrow: true, arrowhead: 2, arrowcolor: "#D85A30",
+      showarrow: true, arrowhead: 2, arrowcolor: "#C62828",
       ax: -56, ay: -28,
-      font: { color: "#D85A30", size: 12 },
+      font: { color: "#C62828", size: 12 },
     }],
   }), CONFIG);
 }
@@ -389,14 +467,14 @@ function drawAdoption() {
     {
       type: "scatter", mode: "lines", x, y: noAmc,
       name: "Without AMC",
-      line: { color: "#D1D1CC", width: 2.5 },
+      line: { color: "#D1CCC2", width: 2.5 },
       hovertemplate: "Cost: $%{x}/head<br>Adoption: %{y:.0%}<extra></extra>",
     },
     {
       type: "scatter", mode: "lines", x, y: withAmc,
       name: "With AMC",
-      line: { color: "#1D9E75", width: 2.5 },
-      fill: "tonexty", fillcolor: "rgba(29,158,117,0.10)",
+      line: { color: "#2E7D32", width: 2.5 },
+      fill: "tonexty", fillcolor: "rgba(46,125,50,0.10)",
       hovertemplate: "Cost: $%{x}/head<br>Adoption: %{y:.0%}<extra></extra>",
     },
   ], makeLayout("", "Adoption rate", {
@@ -406,7 +484,7 @@ function drawAdoption() {
       x: 112, y: 0.5,
       text: "AMC-attributable<br>adoption surplus",
       showarrow: false,
-      font: { color: "#1D9E75", size: 12 },
+      font: { color: "#2E7D32", size: 12 },
     }],
   }), CONFIG);
 }
@@ -477,12 +555,12 @@ function drawMap() {
     text: hoverText,
     hoverinfo: "text",
     colorscale: [
-      [0, "#E8E8E3"],
-      [0.3, "#B8D8C8"],
-      [0.6, "#5CB88A"],
-      [1, "#0F6E56"]
+      [0, "#E0DDD4"],
+      [0.3, "#A5D6A7"],
+      [0.6, "#4CAF50"],
+      [1, "#1B3F1C"]
     ],
-    marker: { line: { color: "#FAFAF7", width: 0.8 } },
+    marker: { line: { color: "#FAFAF5", width: 0.8 } },
     colorbar: {
       title: { text: "Readiness", font: { size: 12 } },
       thickness: 14, len: 0.5, y: 0.5,
@@ -493,7 +571,7 @@ function drawMap() {
   }], {
     paper_bgcolor: "transparent",
     plot_bgcolor: "transparent",
-    font: { family: "DM Sans, sans-serif", color: "#1A1A1A", size: 12 },
+    font: { family: "Source Sans 3, sans-serif", color: "#1B2A1C", size: 12 },
     margin: { l: 0, r: 0, t: 8, b: 0 },
     showlegend: false,
     geo: {
@@ -501,15 +579,15 @@ function drawMap() {
       bgcolor: "transparent",
       showframe: false,
       showcoastlines: true,
-      coastlinecolor: "#D1D1CC",
+      coastlinecolor: "#D1CCC2",
       coastlinewidth: 0.5,
       showland: true,
-      landcolor: "#F0F0EB",
+      landcolor: "#F0EDE6",
       showocean: true,
-      oceancolor: "#FAFAF7",
+      oceancolor: "#FAFAF5",
       showlakes: false,
       showcountries: true,
-      countrycolor: "#E5E5E0",
+      countrycolor: "#E0DDD4",
       countrywidth: 0.4,
     },
   }, CONFIG);
@@ -525,8 +603,8 @@ function drawFunding() {
   Plotly.newPlot("chartFunding", [
     {
       type: "scatter", mode: "lines+markers", x: funding, y: impact,
-      line: { color: "#1D9E75", width: 3 },
-      marker: { color: "#EF9F27", size: 7, line: { color: "#fff", width: 1.5 } },
+      line: { color: "#2E7D32", width: 3 },
+      marker: { color: "#B8860B", size: 7, line: { color: "#fff", width: 1.5 } },
       hovertemplate: "AMC: $%{x}M<br>Abatement: %{y} MtCO2e<extra></extra>",
       showlegend: false,
     },
@@ -534,19 +612,19 @@ function drawFunding() {
     xaxis: Object.assign({}, AXIS_STYLE, { title: "AMC commitment size (M USD)" }),
     shapes: [{
       type: "line", x0: 750, x1: 750, y0: 0, y1: 210,
-      line: { color: "#D85A30", width: 1.5, dash: "dot" },
+      line: { color: "#C62828", width: 1.5, dash: "dot" },
     }],
     annotations: [{
       x: 750, y: 218,
       text: "$750M target",
       showarrow: false,
-      font: { color: "#D85A30", size: 12, weight: 600 },
+      font: { color: "#C62828", size: 12, weight: 600 },
     }, {
       x: 1200, y: 255,
       text: "Diminishing<br>returns",
-      showarrow: true, arrowhead: 0, arrowcolor: "#888880",
+      showarrow: true, arrowhead: 0, arrowcolor: "#8A7D6B",
       ax: 40, ay: -30,
-      font: { color: "#888880", size: 11 },
+      font: { color: "#8A7D6B", size: 11 },
     }],
   }), CONFIG);
 }
@@ -563,14 +641,14 @@ function drawCumulative() {
     {
       type: "scatter", mode: "lines", x: years, y: without,
       name: "Without AMC",
-      line: { color: "#D1D1CC", width: 2.5 },
+      line: { color: "#D1CCC2", width: 2.5 },
       hovertemplate: "%{x}<br>%{y} MtCO2e avoided<extra></extra>",
     },
     {
       type: "scatter", mode: "lines", x: years, y: withAmc,
       name: "With AMC",
-      line: { color: "#1D9E75", width: 2.5 },
-      fill: "tonexty", fillcolor: "rgba(29,158,117,0.10)",
+      line: { color: "#2E7D32", width: 2.5 },
+      fill: "tonexty", fillcolor: "rgba(46,125,50,0.10)",
       hovertemplate: "%{x}<br>%{y} MtCO2e avoided<extra></extra>",
     },
   ], makeLayout("", "Cumulative avoided emissions (MtCO2e)", {
@@ -579,7 +657,7 @@ function drawCumulative() {
       x: 2033, y: 165,
       text: "AMC-enabled<br>avoided emissions",
       showarrow: false,
-      font: { color: "#1D9E75", size: 12 },
+      font: { color: "#2E7D32", size: 12 },
     }],
   }), CONFIG);
 }

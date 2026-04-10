@@ -6,40 +6,51 @@
   <title>Sensitivity Studio | Methane Vaccine AMC</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
  
     :root {
-      --teal: #1D9E75;
-      --teal-light: #E1F5EE;
-      --teal-dark: #0F6E56;
-      --coral: #D85A30;
-      --coral-light: #FAECE7;
-      --amber: #EF9F27;
-      --amber-light: #FAEEDA;
+      --teal: #2E7D32;
+      --teal-light: #E8F5E9;
+      --teal-dark: #1B3F1C;
+      --coral: #C62828;
+      --coral-light: #FFEBEE;
+      --amber: #B8860B;
+      --amber-light: #FDF3E0;
       --blue: #378ADD;
       --blue-light: #E6F1FB;
       --purple: #7F77DD;
       --purple-light: #EEEDFE;
-      --gray-50: #F5F5F0;
-      --gray-100: #E8E8E3;
-      --gray-200: #D1D1CC;
-      --gray-400: #888880;
-      --gray-600: #5F5E5A;
-      --gray-800: #2C2C2A;
-      --bg: #FAFAF7;
+      --gray-50: #F5F0E8;
+      --gray-100: #E0DDD4;
+      --gray-200: #D1CCC2;
+      --gray-400: #8A7D6B;
+      --gray-600: #5F5A50;
+      --gray-800: #1B3F1C;
+      --bg: #FAFAF5;
       --card-bg: #FFFFFF;
-      --border: #E5E5E0;
-      --text: #1A1A1A;
-      --text-muted: #6B6B66;
-      --font-body: 'DM Sans', sans-serif;
-      --font-display: 'Instrument Serif', serif;
+      --border: #E0DDD4;
+      --text: #1B2A1C;
+      --text-muted: #8A7D6B;
+      --font-body: 'Source Sans 3', sans-serif;
+      --font-display: 'Lora', serif;
       --radius: 12px;
       --radius-sm: 8px;
+      --forest: #1B3F1C;
+      --meadow: #2E7D32;
+      --spring: #4CAF50;
+      --sage: #A5D6A7;
+      --mist: #E8F5E9;
+      --harvest: #B8860B;
+      --goldenrod: #DAA520;
+      --wheat: #F5E6C8;
+      --wheat-light: #FDF3E0;
+      --urgency: #C62828;
+      --warning: #E65100;
     }
- 
+
     body {
       font-family: var(--font-body);
       background: var(--bg);
@@ -47,27 +58,77 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
- 
-    /* NAV */
-    .nav {
+
+    /* SITE NAV */
+    .site-nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
       padding: 0 28px; height: 52px;
-      background: rgba(250,250,247,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      background: #1B3F1C;
+      border-bottom: 1px solid rgba(165, 214, 167, 0.15);
     }
-    .nav-back {
-      color: var(--teal); text-decoration: none; font-size: 14px;
-      font-weight: 500; display: flex; align-items: center; gap: 6px;
-      transition: color 0.2s;
+    .nav-brand {
+      font-family: var(--font-body); font-size: 14px; font-weight: 500;
+      color: #A5D6A7;
     }
-    .nav-back:hover { color: var(--teal-dark); }
-    .nav-title { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+    .nav-links {
+      display: flex; align-items: center; gap: 4px;
+    }
+    .nav-link {
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-body); font-size: 13px; font-weight: 500;
+      color: rgba(165, 214, 167, 0.75); text-decoration: none;
+      padding: 6px 14px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover { color: #FFFFFF; background: rgba(165, 214, 167, 0.1); }
+    .nav-link.active { color: #FFFFFF; background: rgba(165, 214, 167, 0.15); }
+    .nav-icon { display: flex; align-items: center; opacity: 0.7; }
+    .nav-link:hover .nav-icon, .nav-link.active .nav-icon { opacity: 1; }
+    .nav-link::after {
+      content: attr(data-tooltip);
+      position: absolute; top: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 14px; background: #FFFFFF; color: #1B2A1C;
+      font-size: 12px; font-weight: 400; line-height: 1.5;
+      border-radius: 6px; white-space: normal;
+      width: max-content; max-width: 240px; text-align: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 200;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #E0DDD4;
+    }
+    .nav-link::before {
+      content: ''; position: absolute;
+      top: calc(100% + 3px); left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent; border-bottom-color: #FFFFFF;
+      opacity: 0; visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none; z-index: 201;
+    }
+    .nav-link:hover::after, .nav-link:hover::before { opacity: 1; visibility: visible; }
+    .nav-links .nav-link:last-child::after { left: auto; right: 0; transform: none; }
+    .nav-links .nav-link:last-child::before { left: auto; right: 20px; transform: none; }
+    @media (max-width: 768px) {
+      .site-nav .nav-link span:not(.nav-icon) { display: none; }
+      .site-nav .nav-link { padding: 8px; }
+      .site-nav .nav-links { gap: 2px; }
+    }
  
     /* HERO */
     .hero {
       max-width: 820px; margin: 0 auto; padding: 56px 28px 40px; text-align: center;
+    }
+    .tea-badge {
+      display: inline-block; font-family: var(--font-body);
+      font-size: 12px; font-weight: 600; letter-spacing: 0.8px;
+      text-transform: uppercase; color: #1B3F1C;
+      background: rgba(46, 125, 50, 0.08);
+      border: 1px solid rgba(46, 125, 50, 0.15);
+      padding: 4px 12px; border-radius: 4px; margin-bottom: 8px;
     }
     .hero h1 {
       font-family: var(--font-display); font-size: 42px; font-weight: 400;
@@ -145,7 +206,7 @@
  
     /* SOURCE DATA CARD */
     .source-card {
-      background: var(--teal-light); border: 1px solid rgba(29,158,117,0.15);
+      background: var(--teal-light); border: 1px solid rgba(46,125,50,0.15);
       border-radius: var(--radius); padding: 20px 24px; margin-bottom: 28px;
       font-size: 13px; color: var(--teal-dark); line-height: 1.7;
     }
@@ -153,7 +214,7 @@
  
     /* METRICS */
     .metrics {
-      display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px;
       margin-bottom: 28px;
     }
     .metric-card {
@@ -317,20 +378,46 @@
 <body>
  
 <!-- NAV -->
-<nav class="nav">
-  <a href="index.html" class="nav-back">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 12L6 8L10 4"/></svg>
-    Back to story map
-  </a>
-  <span class="nav-title">Methane Vaccine AMC</span>
-  <a href="data-explorer.html" class="nav-back" style="color:var(--blue)">Data Explorer
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4L10 8L6 12"/></svg>
-  </a>
+<nav class="site-nav">
+  <span class="nav-brand">Methane Vaccine AMC</span>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link" data-tooltip="The narrative: why methane, how the AMC works, and who is building it">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12M2 8h12M2 13h8"/></svg>
+      </span>
+      <span>Story map</span>
+    </a>
+    <a href="data-explorer.html" class="nav-link" data-tooltip="Interactive charts and raw data behind the AMC model assumptions">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13H2V3M5 9l3-3 2 2 4-4"/></svg>
+      </span>
+      <span>Data explorer</span>
+    </a>
+    <a href="sensitivity-studio.html" class="nav-link active" data-tooltip="Techno-economic analysis: adjust parameters and see BCR, NPV, and costs respond in real time">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="4" r="1.5"/><circle cx="11" cy="8" r="1.5"/><circle cx="5" cy="12" r="1.5"/><line x1="2" y1="4" x2="3.5" y2="4"/><line x1="6.5" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="9.5" y2="8"/><line x1="12.5" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="3.5" y2="12"/><line x1="6.5" y1="12" x2="14" y2="12"/></svg>
+      </span>
+      <span>Sensitivity studio</span>
+    </a>
+    <a href="frameworks.html" class="nav-link" data-tooltip="MCS analytical frameworks: TEA, lifecycle assessment, pathways and barriers, co-benefits">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+      </span>
+      <span>Frameworks</span>
+    </a>
+    <a href="index.html" class="nav-link" data-tooltip="Project background, methodology, and status">
+      <span class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 11V8M8 5.5V5"/></svg>
+      </span>
+      <span>About</span>
+    </a>
+  </div>
 </nav>
  
 <!-- HERO -->
 <div class="hero">
   <h1>Sensitivity Studio</h1>
+  <p class="tea-badge">Techno-economic analysis</p>
   <p class="subtitle">Explore how AMC economics respond to changes in scientific feasibility, dosing assumptions, adoption rates, and the social cost of methane.</p>
   <div class="hero-rule"></div>
 </div>
@@ -339,9 +426,14 @@
  
   <!-- SOURCE DATA -->
   <div class="source-card">
-    <strong>Model basis:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&amp;D programs. Social discount rate = 2%. Firm WACC = 9.37% (Damodaran biotechnology 2025). Development lag = 8 years. AMC sales window = 10 years. Per-attempt R&amp;D cost = $1.78M. Methane reduction target = 20%. Social cost of methane = $1,600/ton. Annual methane per head = 154 lb (0.07 metric tons).
+    <strong>TEA parameters:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&amp;D programs. Social discount rate = 2%. Firm WACC = 9.37% (Damodaran biotechnology 2025). Development lag = 8 years. AMC sales window = 10 years. Per-attempt R&amp;D cost = $1.78M. Methane reduction target = 20%. Social cost of methane = $1,600/ton. Annual methane per head = 154 lb (0.07 metric tons).
   </div>
- 
+
+  <div class="source-card" style="background: #E6F1FB; border-color: rgba(55,138,221,0.15); color: #0C447C;">
+    <strong>MCS Playbook: techno-economic analysis</strong><br>
+    This studio follows the three-step TEA framework from the UC Berkeley MCS curriculum. Step 1: technical potential (methane reduction per head multiplied by herd size and adoption rate). Step 2: cost per ton CO2e avoided (total social cost divided by lifetime methane abated, adjustable via controls below). Step 3: caveats and sensitivity (the four charts below stress-test each assumption). The "Key uncertainties" section at the bottom documents known limitations.
+  </div>
+
   <!-- PRESETS -->
   <div class="presets">
     <button class="preset-btn active" data-preset="baseline" onclick="applyPreset('baseline')">Baseline</button>
@@ -416,6 +508,11 @@
       <div class="metric-label">Break-even adoption</div>
       <div class="metric-value" id="m-breakeven">3.5%</div>
       <div class="metric-unit">minimum for BCR &ge; 1</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">Cost per ton CO2e</div>
+      <div class="metric-value" id="m-costperton">$XX</div>
+      <div class="metric-unit">total social cost / abatement</div>
     </div>
   </div>
  
@@ -547,27 +644,33 @@
     </div>
 
   <!-- KEY UNCERTAINTIES -->
-  <div class="source-card" style="background: #FAECE7; border-color: rgba(216,90,48,0.15); color: #712B13;">
+  <div class="source-card" style="background: #FFEBEE; border-color: rgba(198,40,40,0.15); color: #6B1A1A;">
     <strong>Key uncertainties flagged by reviewers:</strong> The vaccination regimen (single dose vs. annual vs. prime + booster) is the most consequential open parameter. Reviewers note that a single lifetime dose assumption may be unrealistic, and that annual or multi-dose regimens could push the AMC above $1 billion. The feasibility parameter eta = 0.90 may be optimistic given available data. Adoption dynamics, pricing logic, and global scaling assumptions are not yet fully incorporated.
   </div>
 
     </details>
   </div>
  
-<!-- FOOTER -->
-<div class="footer">
-  <p>
-    Model parameters derived from the AMC proposal and midpoint analytical assessment (March 2026). Baseline and annual scenario values are document-sourced. Prime + booster scenario uses proportional stress-test approximation. Break-even adoption computed as the minimum participation rate for BCR &ge; 1 under current parameter settings.
-  </p>
-  <a href="index.html">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 4px;"><path d="M10 12L6 8L10 4"/></svg>
-    Back to story map
-  </a>
-</div>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
+    <p class="footer-credit">Designed and built by Delany Bee</p>
+    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
+    <p class="footer-collab">In collaboration with The Nature Conservancy
+    and Spark Climate Solutions</p>
+    <div class="footer-logos">
+      <span class="footer-logo-text">UC Berkeley</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">The Nature Conservancy</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">Spark Climate</span>
+    </div>
+  </div>
+</footer>
  
 <script>
 // ============================================================
-// MODEL — all values from the Midpoint Memorandum
+// MODEL - all values from the Midpoint Memorandum
 // ============================================================
  
 const MODEL = {
@@ -737,7 +840,16 @@ function updateAll() {
   document.getElementById('m-amc').textContent = fmtDollars(r.amcCost);
   document.getElementById('m-cost').textContent = fmtDollars(r.totalCost);
   document.getElementById('m-breakeven').textContent = r.breakEvenAdoption + '%';
- 
+
+  // Cost per ton CO2e avoided
+  const headsVaccinated = (c.global ? MODEL.globalHerd : MODEL.usHerd)
+    * (c.adoption / 100);
+  const lifetimeCO2ePerHead = 0.014 * 28 * 4.5;
+  const totalAbatement = headsVaccinated * lifetimeCO2ePerHead;
+  const costPerTon = r.totalCost / totalAbatement;
+  document.getElementById('m-costperton').textContent =
+    '$' + Math.round(costPerTon);
+
   // Update charts
   updateTornado(c);
   updateScenario(c);
@@ -764,8 +876,8 @@ function initTornado() {
     data: {
       labels: ['Social value', 'Adoption rate', 'Feasibility (eta)', 'Dosing cost'],
       datasets: [
-        { label: '+20%', data: [0,0,0,0], backgroundColor: '#1D9E75', borderRadius: 3 },
-        { label: '-20%', data: [0,0,0,0], backgroundColor: '#D85A30', borderRadius: 3 }
+        { label: '+20%', data: [0,0,0,0], backgroundColor: '#2E7D32', borderRadius: 3 },
+        { label: '-20%', data: [0,0,0,0], backgroundColor: '#C62828', borderRadius: 3 }
       ]
     },
     options: {
@@ -783,13 +895,13 @@ function initTornado() {
       },
       scales: {
         x: {
-          title: { display: true, text: 'Change in BCR', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66' }
+          title: { display: true, text: 'Change in BCR', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B' }
         },
         y: {
           grid: { display: false },
-          ticks: { font: { size: 12, family: 'DM Sans' }, color: '#2C2C2A' }
+          ticks: { font: { size: 12, family: 'Source Sans 3' }, color: '#1B3F1C' }
         }
       }
     }
@@ -853,11 +965,11 @@ function initScenario() {
     data: {
       labels: [],
       datasets: [
-        { label: 'Baseline', data: [], borderColor: '#1D9E75', backgroundColor: 'rgba(29,158,117,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
-        { label: 'Annual', data: [], borderColor: '#EF9F27', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
-        { label: 'Prime + booster', data: [], borderColor: '#D85A30', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
-        { label: 'Break-even', data: [], borderColor: '#888880', borderDash: [6, 4], pointRadius: 0, borderWidth: 1, fill: false },
-        { label: 'Current', data: [], borderColor: '#2C2C2A', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
+        { label: 'Baseline', data: [], borderColor: '#2E7D32', backgroundColor: 'rgba(46,125,50,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
+        { label: 'Annual', data: [], borderColor: '#B8860B', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
+        { label: 'Prime + booster', data: [], borderColor: '#C62828', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
+        { label: 'Break-even', data: [], borderColor: '#8A7D6B', borderDash: [6, 4], pointRadius: 0, borderWidth: 1, fill: false },
+        { label: 'Current', data: [], borderColor: '#1B3F1C', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
       ]
     },
     options: {
@@ -875,14 +987,14 @@ function initScenario() {
       },
       scales: {
         x: {
-          title: { display: true, text: 'Adoption rate (%)', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66' }
+          title: { display: true, text: 'Adoption rate (%)', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B' }
         },
         y: {
-          title: { display: true, text: 'Benefit-cost ratio', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66' },
+          title: { display: true, text: 'Benefit-cost ratio', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B' },
           min: 0
         }
       }
@@ -946,16 +1058,16 @@ function initSurface() {
       },
       scales: {
         x: {
-          title: { display: true, text: 'Adoption rate (%)', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
+          title: { display: true, text: 'Adoption rate (%)', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
           min: 5, max: 95,
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66' }
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B' }
         },
         y: {
-          title: { display: true, text: 'Social value ($/animal-yr)', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
+          title: { display: true, text: 'Social value ($/animal-yr)', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
           min: 12, max: 53,
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66', callback: v => '$' + v }
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B', callback: v => '$' + v }
         }
       }
     }
@@ -974,11 +1086,11 @@ function updateSurface(c) {
       if (bcr >= 1) {
         const intensity = Math.min(bcr / 15, 1);
         const alpha = 0.25 + intensity * 0.6;
-        color = `rgba(29, 158, 117, ${alpha})`;
+        color = `rgba(46, 125, 50, ${alpha})`;
       } else {
         const intensity = Math.min((1 - bcr), 1);
         const alpha = 0.2 + intensity * 0.5;
-        color = `rgba(216, 90, 48, ${alpha})`;
+        color = `rgba(198, 40, 40, ${alpha})`;
       }
       points.push({ x: a, y: sv, r: 8, bcr: Math.round(bcr * 100) / 100, bgColor: color });
     }
@@ -994,13 +1106,13 @@ function updateSurface(c) {
     {
       data: points,
       backgroundColor: points.map(p => p.bgColor),
-      borderColor: points.map(p => p.bcr >= 1 ? 'rgba(29,158,117,0.3)' : 'rgba(216,90,48,0.2)'),
+      borderColor: points.map(p => p.bcr >= 1 ? 'rgba(46,125,50,0.3)' : 'rgba(198,40,40,0.2)'),
       borderWidth: 0.5
     },
     {
       data: currentPoint,
-      backgroundColor: 'rgba(44,44,42,0.1)',
-      borderColor: '#2C2C2A',
+      backgroundColor: 'rgba(27,63,28,0.1)',
+      borderColor: '#1B3F1C',
       borderWidth: 2.5,
       pointStyle: 'crossRot'
     }
@@ -1022,7 +1134,7 @@ function initFeasibility() {
       labels: [],
       datasets: [
         { label: 'Required per-firm probability', data: [], borderColor: '#7F77DD', backgroundColor: 'rgba(127,119,221,0.08)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2 },
-        { label: 'Current eta', data: [], borderColor: '#2C2C2A', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
+        { label: 'Current eta', data: [], borderColor: '#1B3F1C', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
       ]
     },
     options: {
@@ -1040,15 +1152,15 @@ function initFeasibility() {
       },
       scales: {
         x: {
-          title: { display: true, text: 'Feasibility (eta)', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
-          grid: { color: '#E8E8E3' },
-          ticks: { font: { size: 11, family: 'DM Sans' }, color: '#6B6B66' }
+          title: { display: true, text: 'Feasibility (eta)', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
+          grid: { color: '#E0DDD4' },
+          ticks: { font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B' }
         },
         y: {
-          title: { display: true, text: 'Required per-firm success prob.', font: { size: 12, family: 'DM Sans' }, color: '#6B6B66' },
-          grid: { color: '#E8E8E3' },
+          title: { display: true, text: 'Required per-firm success prob.', font: { size: 12, family: 'Source Sans 3' }, color: '#8A7D6B' },
+          grid: { color: '#E0DDD4' },
           ticks: {
-            font: { size: 11, family: 'DM Sans' }, color: '#6B6B66',
+            font: { size: 11, family: 'Source Sans 3' }, color: '#8A7D6B',
             callback: v => (v * 100).toFixed(0) + '%'
           },
           min: 0, max: 0.4

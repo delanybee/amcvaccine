@@ -109,10 +109,10 @@
           window.AmcDiagrams.updateDeadlockState(deadlockBase, stepId);
         }
 
-        if (["s3a", "s3b"].includes(stepId)) {
+        if (["s3a", "s3b", "s3c"].includes(stepId)) {
           window.AmcDiagrams.updateAmcPathway(stepId);
           const chartWrap = document.getElementById("methaneWarmingChart").closest(".canvas-wrap");
-          chartWrap.style.opacity = stepId === "s3b" ? "1" : "0.35";
+          chartWrap.style.opacity = stepId === "s3c" ? "1" : "0.35";
           chartWrap.style.transition = "opacity 600ms ease";
         }
 
@@ -154,7 +154,7 @@
 
   function initAboutModal() {
     const modal = document.getElementById("aboutModal");
-    const openBtn = document.getElementById("navAboutBtn");
+    const navOpenBtn = document.getElementById("navAboutBtn");
     const bottomOpenBtn = document.getElementById("bottomAboutBtn");
     const closeBtn = document.getElementById("aboutCloseBtn");
     if (!modal || !closeBtn) return;
@@ -168,10 +168,10 @@
     function closeModal() {
       modal.hidden = true;
       document.body.style.overflow = "";
-      openBtn.focus();
+      if (navOpenBtn) navOpenBtn.focus();
     }
 
-    if (openBtn) openBtn.addEventListener("click", openModal);
+    if (navOpenBtn) navOpenBtn.addEventListener("click", openModal);
     if (bottomOpenBtn) bottomOpenBtn.addEventListener("click", openModal);
     closeBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (event) => {
@@ -230,9 +230,7 @@
     const firstStep = document.querySelector(".step");
     if (firstStep) {
       firstStep.classList.add("is-active");
-      animateCountUp(document.getElementById("socialCostStat"), 10, "B", "$");
-      animateCountUp(document.getElementById("methanePower"), 84, "x");
-      document.querySelector("#scene1 .methane-card").classList.add("enter");
+      window.AmcDiagrams.animateFunnel();
     }
   }
 

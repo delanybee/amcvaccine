@@ -1,13 +1,13 @@
 (function () {
   const COLORS = {
-    teal: "#1D9E75",
-    coral: "#D85A30",
-    amber: "#EF9F27",
+    teal: "#2E7D32",
+    coral: "#C62828",
+    amber: "#B8860B",
     blue: "#378ADD",
     purple: "#7F77DD",
     gray: "#B9B9B9",
-    grid: "#E5E5E5",
-    text: "#4A4A4A",
+    grid: "#E0DDD4",
+    text: "#4A4539",
   };
 
   const MODEL = {
@@ -132,7 +132,7 @@
             label: "With AMC intervention",
             data: [0.19, 0.193, 0.192, 0.186, 0.178, 0.168, 0.157, 0.146, 0.135],
             borderColor: COLORS.teal,
-            backgroundColor: "rgba(29,158,117,0.08)",
+            backgroundColor: "rgba(46,125,50,0.08)",
             borderWidth: 2.5,
             fill: "-1",
             pointRadius: 0,
@@ -188,7 +188,7 @@
             label: "BCR",
             data: [],
             borderColor: COLORS.teal,
-            backgroundColor: "rgba(29,158,117,0.15)",
+            backgroundColor: "rgba(46,125,50,0.15)",
             fill: true,
             tension: 0.25,
             pointRadius: 0,
@@ -324,9 +324,9 @@
   }
 
   function colorFromBcr(bcr) {
-    if (bcr < 1) return "rgba(216,90,48,0.65)";
-    if (bcr < 2) return "rgba(239,159,39,0.65)";
-    return "rgba(29,158,117,0.68)";
+    if (bcr < 1) return "rgba(198,40,40,0.65)";
+    if (bcr < 2) return "rgba(184,134,11,0.65)";
+    return "rgba(46,125,50,0.68)";
   }
 
   function updateStudioCharts() {
