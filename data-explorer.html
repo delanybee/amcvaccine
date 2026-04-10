@@ -177,11 +177,16 @@
       border-radius: var(--radius-sm); padding: 16px 20px; margin-top: 16px;
       font-size: 13px; color: var(--teal-dark); line-height: 1.7;
     }
-    .callout strong { font-weight: 600; }
+    .callout strong { font-weight: 600; color: var(--teal-dark); }
 
-    .callout-amber {
+    .callout.callout-amber {
       background: var(--amber-light); border-color: rgba(184,134,11,0.15);
-      color: #7A5A10;
+      color: var(--teal-dark) !important;
+    }
+    .callout.callout-amber strong,
+    .callout.callout-amber em,
+    .callout.callout-amber span {
+      color: var(--teal-dark) !important;
     }
 
     /* TRANSITION BLURB */
@@ -278,7 +283,7 @@
       <p class="chart-desc">Probability curves for R&D project payoff under two scenarios. The AMC truncates downside exposure below -$20M.</p>
       <div class="chart-wrap short" id="chartPayoff"></div>
       <div class="callout">
-        <strong>Key insight:</strong> The AMC does not increase expected returns. It reshapes the distribution by guaranteeing a floor, which is often more important to investment committees than raising the ceiling.
+        The AMC does not increase expected returns. It reshapes the distribution by guaranteeing a floor, which is often more important to investment committees than raising the ceiling.
       </div>
     </div>
   </section>
@@ -299,7 +304,7 @@
       <p class="chart-desc">Modeled using logistic functions fitted to rancher survey data. Crossover costs estimated from USDA per-animal treatment benchmarks.</p>
       <div class="chart-wrap short" id="chartAdoption"></div>
       <div class="callout callout-amber">
-        <strong>Design implication:</strong> The width of the shaded region is a policy design variable. AMC subsidy depth directly controls how far right the curve shifts.
+        The width of the shaded region is a policy design variable. AMC subsidy depth directly controls how far right the curve shifts.
       </div>
     </div>
   </section>
@@ -369,7 +374,14 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
-    <p class="footer-credit">Designed and built by Delany Bee</p>
+    <p class="footer-series">Part 2 of 4 | Data explorer</p>
+    <nav class="footer-story-nav" aria-label="Continue the story">
+      <a href="index.html">Story map</a>
+      <a href="data-explorer.html" class="is-active" aria-current="page">Data Explorer</a>
+      <a href="sensitivity-studio.html">Sensitivity Studio</a>
+      <a href="frameworks.html">Frameworks</a>
+    </nav>
+    <p class="footer-credit">Designed and built by Delany Broome</p>
     <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
     <p class="footer-collab">In collaboration with The Nature Conservancy
     and Spark Climate Solutions</p>
@@ -391,9 +403,9 @@ const LAYOUT_BASE = {
   paper_bgcolor: "transparent",
   plot_bgcolor: "transparent",
   font: { family: "Source Sans 3, sans-serif", color: "#1B2A1C", size: 13 },
-  margin: { l: 56, r: 24, t: 44, b: 48 },
+  margin: { l: 56, r: 24, t: 74, b: 64 },
   showlegend: true,
-  legend: { orientation: "h", y: -0.18, x: 0.5, xanchor: "center", font: { size: 12 } },
+  legend: { orientation: "h", y: 1.12, x: 0.5, xanchor: "center", font: { size: 12 } },
 };
 
 const AXIS_STYLE = {

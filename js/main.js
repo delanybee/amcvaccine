@@ -133,23 +133,6 @@
     window.addEventListener("resize", () => scroller.resize());
   }
 
-  function initChapterAdoption() {
-    const slider = document.getElementById("chapterAdoption");
-    const val = document.getElementById("chapterAdoptionValue");
-    const callout = document.getElementById("chapterBcrCallout");
-
-    function refresh() {
-      const adoptionPct = Number(slider.value);
-      val.textContent = `${adoptionPct}%`;
-      window.AmcCharts.updateChapterAdoption(adoptionPct);
-      const out = window.AmcCharts.modelOutputs({ eta: 0.9, adoptionPct, socialValue: 30, dosing: "baseline" });
-      callout.textContent = `Benefit-cost ratio at ${adoptionPct}% adoption: ${out.bcr.toFixed(2)}`;
-    }
-
-    slider.addEventListener("input", refresh);
-    refresh();
-  }
-
   /* Lenis removed -- it conflicts with Scrollama and CSS scroll-snap */
 
   function initAboutModal() {
@@ -221,7 +204,6 @@
 
     window.AmcCharts.initSectionCharts();
 
-    initChapterAdoption();
     initScroll();
     initClickToNavigate();
     initProgress();

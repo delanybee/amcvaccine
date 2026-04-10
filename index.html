@@ -63,7 +63,6 @@
   <main>
     <section class="chapter-card" aria-label="Chapter 1 intro">
       <span class="scq-tag scq-situation">Situation + Complication</span>
-      <p class="chapter-kicker">Chapter 1</p>
       <h2>Problem urgency and the innovation deadlock</h2>
       <p>Methane is fast acting, high impact, and highly addressable, but demand uncertainty stalls private investment in solutions.</p>
     </section>
@@ -152,7 +151,6 @@
 
     <section class="chapter-card" aria-label="Chapter 2 intro">
       <span class="scq-tag scq-resolution">Resolution: mechanism design</span>
-      <p class="chapter-kicker">Chapter 2</p>
       <h2>Commercialization pathways and funding design</h2>
       <p>AMC support shifts across R&amp;D, scale-up, and competitive markets, while delivery design shapes real-world adoption economics.</p>
     </section>
@@ -194,12 +192,7 @@
           <div class="card">
             <h4>Funding flow and adoption sensitivity</h4>
             <div id="fundingFlowDiagram" class="svg-wrap"></div>
-            <div class="adoption-tools">
-              <label for="chapterAdoption">Adoption rate: <span id="chapterAdoptionValue">50%</span></label>
-              <input id="chapterAdoption" type="range" min="10" max="90" value="50" aria-label="Adoption rate sensitivity slider" />
-              <div class="canvas-wrap short"><canvas id="adoptionLineChart" aria-label="Benefit cost ratio by adoption"></canvas></div>
-              <p class="bcr-callout" id="chapterBcrCallout">Benefit-cost ratio at 50% adoption: 1.00</p>
-            </div>
+            <p class="bcr-callout">Funding pathways shown above map corporate, philanthropic, government, and investor channels into producer adoption and methane reduction outcomes.</p>
           </div>
         </section>
       </div>
@@ -207,7 +200,6 @@
 
     <section class="chapter-card" aria-label="Chapter 3 intro">
       <span class="scq-tag scq-resolution">Resolution: implementation</span>
-      <p class="chapter-kicker">Chapter 3</p>
       <h2>Structure, alignment, and launch readiness</h2>
       <p>Governance choices set risk allocation, stakeholder alignment determines execution quality, and coalition design decides launch speed.</p>
     </section>
@@ -234,32 +226,26 @@
         <section class="visual-scene is-visible" id="scene7" aria-live="polite">
           <div class="card compact-card">
             <h4>Structure comparison</h4>
-            <table class="compare-table" aria-label="AMC structure comparison">
-              <thead>
-                <tr>
-                  <th></th>
-                  <th class="col-teal">Traditional AMC</th>
-                  <th class="col-purple">Hybrid AMC + Investment</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="row-label">Demand certainty</td>
-                  <td><span class="val-pill teal-pill">High</span></td>
-                  <td><span class="val-pill purple-pill">Moderate</span></td>
-                </tr>
-                <tr>
-                  <td class="row-label">Capital timeline</td>
-                  <td>Longer</td>
-                  <td>Shorter</td>
-                </tr>
-                <tr>
-                  <td class="row-label">Governance complexity</td>
-                  <td>Low</td>
-                  <td>Higher</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="structure-grid" aria-label="AMC structure comparison cards">
+              <article class="structure-card traditional">
+                <h5>Traditional AMC</h5>
+                <p class="structure-sub">Demand-first certainty</p>
+                <ul>
+                  <li>High buyer signal before commercialization</li>
+                  <li>Lower governance complexity</li>
+                  <li>Longer capital deployment timeline</li>
+                </ul>
+              </article>
+              <article class="structure-card hybrid">
+                <h5>Hybrid AMC + Investment</h5>
+                <p class="structure-sub">Earlier capital activation</p>
+                <ul>
+                  <li>Moderate demand certainty</li>
+                  <li>Faster capital timeline</li>
+                  <li>Higher governance and coordination load</li>
+                </ul>
+              </article>
+            </div>
           </div>
         </section>
 
@@ -307,8 +293,8 @@
       <h2>Explore the economics yourself</h2>
       <p>Adjust scenario assumptions and inspect how BCR, NPV, and required support shift in real time.</p>
       <div class="btn-row">
-        <a href="sensitivity-studio.html" class="studio-link-btn lg">Sensitivity Studio</a>
         <a href="data-explorer.html" class="studio-link-btn lg">Data Explorer</a>
+        <a href="sensitivity-studio.html" class="studio-link-btn lg">Sensitivity Studio</a>
         <a href="frameworks.html" class="studio-link-btn lg">Frameworks</a>
         <button type="button" class="secondary-btn" id="bottomAboutBtn">About this story map</button>
       </div>
@@ -317,7 +303,14 @@
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-credit">Designed and built by Delany Bee</p>
+      <p class="footer-series">Part 1 of 4 | Story map</p>
+      <nav class="footer-story-nav" aria-label="Continue the story">
+        <a href="index.html" class="is-active" aria-current="page">Story map</a>
+        <a href="data-explorer.html">Data Explorer</a>
+        <a href="sensitivity-studio.html">Sensitivity Studio</a>
+        <a href="frameworks.html">Frameworks</a>
+      </nav>
+      <p class="footer-credit">Designed and built by Delany Broome</p>
       <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
       <p class="footer-collab">In collaboration with The Nature Conservancy
       and Spark Climate Solutions</p>

@@ -267,20 +267,61 @@
     .model-details { }
     .model-summary {
       font-size: 15px; font-weight: 600; cursor: pointer;
-      padding: 6px 0; margin-bottom: 16px; list-style: none;
-      display: flex; align-items: center; gap: 8px;
+      padding: 10px 12px; margin-bottom: 16px; list-style: none;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
       color: var(--teal-dark);
+      border: 1px dashed rgba(46,125,50,0.32);
+      border-radius: var(--radius-sm);
+      background: linear-gradient(180deg, rgba(232,245,233,0.75), rgba(232,245,233,0.35));
+      transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .model-summary:hover {
+      border-color: rgba(46,125,50,0.55);
+      box-shadow: 0 2px 8px rgba(27,63,28,0.08);
     }
     .model-summary::-webkit-details-marker { display: none; }
     .model-summary::before {
       content: '\25B6'; font-size: 10px; transition: transform 0.25s ease;
       display: inline-block;
     }
+    .model-summary .summary-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .model-summary .summary-cue {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(27,63,28,0.78);
+      background: rgba(46,125,50,0.14);
+      border-radius: 999px;
+      padding: 2px 8px;
+      white-space: nowrap;
+    }
     .model-details[open] > .model-summary::before {
       transform: rotate(90deg);
     }
+    .model-details[open] > .model-summary .summary-cue {
+      background: rgba(46,125,50,0.2);
+    }
     .model-details .source-card {
-      margin-top: 20px;
+      margin-top: 14px;
+    }
+    .underhood-defs {
+      background: #F7FBF7;
+      border: 1px solid rgba(46,125,50,0.18);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      color: var(--teal-dark);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .underhood-defs p {
+      margin: 0 0 8px;
+    }
+    .underhood-defs p:last-child {
+      margin-bottom: 0;
     }
     .formula-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
@@ -424,16 +465,6 @@
  
 <div class="container">
  
-  <!-- SOURCE DATA -->
-  <div class="source-card">
-    <strong>TEA parameters:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&amp;D programs. Social discount rate = 2%. Firm WACC = 9.37% (Damodaran biotechnology 2025). Development lag = 8 years. AMC sales window = 10 years. Per-attempt R&amp;D cost = $1.78M. Methane reduction target = 20%. Social cost of methane = $1,600/ton. Annual methane per head = 154 lb (0.07 metric tons).
-  </div>
-
-  <div class="source-card" style="background: #E6F1FB; border-color: rgba(55,138,221,0.15); color: #0C447C;">
-    <strong>MCS Playbook: techno-economic analysis</strong><br>
-    This studio follows the three-step TEA framework from the UC Berkeley MCS curriculum. Step 1: technical potential (methane reduction per head multiplied by herd size and adoption rate). Step 2: cost per ton CO2e avoided (total social cost divided by lifetime methane abated, adjustable via controls below). Step 3: caveats and sensitivity (the four charts below stress-test each assumption). The "Key uncertainties" section at the bottom documents known limitations.
-  </div>
-
   <!-- PRESETS -->
   <div class="presets">
     <button class="preset-btn active" data-preset="baseline" onclick="applyPreset('baseline')">Baseline</button>
@@ -584,7 +615,18 @@
   <!-- FORMULAS -->
   <div class="formulas-card">
     <details class="model-details">
-      <summary class="model-summary">Under the hood: model equations</summary>
+      <summary class="model-summary"><span class="summary-label">Under the hood: assumptions, playbook, and equations</span><span class="summary-cue">Click to open</span></summary>
+    <div class="underhood-defs">
+      <p><strong>TEA (techno-economic analysis):</strong> A structured way to connect technical performance assumptions to economic outcomes like total cost, benefits, cost per ton, BCR, and NPV.</p>
+      <p><strong>MCS Playbook:</strong> The UC Berkeley MCS framework used here to move from technical potential to cost-effectiveness, then stress-test assumptions with sensitivity analysis.</p>
+    </div>
+    <div class="source-card">
+      <strong>TEA parameters:</strong> Values derived from the AMC proposal and midpoint analytical assessment. Baseline AMC = $534.2M, BCR = 14.41, NPV = $10.95B, total benefits = $11.48B, total social cost = $797M. U.S. cattle population = 90M, global = 1.6B. Social value range = $22 to $38 per animal-year (central estimate $30). Feasibility parameter k = 15 parallel R&amp;D programs. Social discount rate = 2%. Firm WACC = 9.37% (Damodaran biotechnology 2025). Development lag = 8 years. AMC sales window = 10 years. Per-attempt R&amp;D cost = $1.78M. Methane reduction target = 20%. Social cost of methane = $1,600/ton. Annual methane per head = 154 lb (0.07 metric tons).
+    </div>
+    <div class="source-card" style="background: #E6F1FB; border-color: rgba(55,138,221,0.15); color: #0C447C;">
+      <strong>MCS Playbook: techno-economic analysis</strong><br>
+      This studio follows the three-step TEA framework from the UC Berkeley MCS curriculum. Step 1: technical potential (methane reduction per head multiplied by herd size and adoption rate). Step 2: cost per ton CO2e avoided (total social cost divided by lifetime methane abated, adjustable via controls below). Step 3: caveats and sensitivity (the four charts below stress-test each assumption). The "Key uncertainties" section at the bottom documents known limitations.
+    </div>
     <div class="formula-grid">
       <div class="formula-block">
         <div class="formula-title">Benefits scaling</div>
@@ -654,7 +696,14 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
-    <p class="footer-credit">Designed and built by Delany Bee</p>
+    <p class="footer-series">Part 3 of 4 | Sensitivity studio</p>
+    <nav class="footer-story-nav" aria-label="Continue the story">
+      <a href="index.html">Story map</a>
+      <a href="data-explorer.html">Data Explorer</a>
+      <a href="sensitivity-studio.html" class="is-active" aria-current="page">Sensitivity Studio</a>
+      <a href="frameworks.html">Frameworks</a>
+    </nav>
+    <p class="footer-credit">Designed and built by Delany Broome</p>
     <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
     <p class="footer-collab">In collaboration with The Nature Conservancy
     and Spark Climate Solutions</p>

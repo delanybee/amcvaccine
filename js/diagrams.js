@@ -68,18 +68,19 @@
     if (!root) return null;
     root.innerHTML = deadlockSvgMarkup();
     const svg = root.querySelector("svg");
+    if (!svg) return null;
     return {
-      node1: svg.getElementById("node1"),
-      node2: svg.getElementById("node2"),
-      node3: svg.getElementById("node3"),
-      a12: svg.getElementById("a12"),
-      a23: svg.getElementById("a23"),
-      a31: svg.getElementById("a31"),
-      cycleLabel: svg.getElementById("cycleLabel"),
-      amcNode: svg.getElementById("amcNode"),
-      amcArrow: svg.getElementById("amcArrow"),
-      breakLoop: svg.getElementById("breakLoop"),
-      earlyNode: svg.getElementById("earlyNode"),
+      node1: svg.querySelector("#node1"),
+      node2: svg.querySelector("#node2"),
+      node3: svg.querySelector("#node3"),
+      a12: svg.querySelector("#a12"),
+      a23: svg.querySelector("#a23"),
+      a31: svg.querySelector("#a31"),
+      cycleLabel: svg.querySelector("#cycleLabel"),
+      amcNode: svg.querySelector("#amcNode"),
+      amcArrow: svg.querySelector("#amcArrow"),
+      breakLoop: svg.querySelector("#breakLoop"),
+      earlyNode: svg.querySelector("#earlyNode"),
     };
   }
 

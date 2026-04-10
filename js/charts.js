@@ -1,7 +1,7 @@
 (function () {
   const COLORS = {
     teal: "#2E7D32",
-    coral: "#C62828",
+    coral: "#8A6914",
     amber: "#B8860B",
     blue: "#378ADD",
     purple: "#7F77DD",
@@ -29,7 +29,6 @@
     lifespan: null,
     methaneWarming: null,
     phase: null,
-    adoptionLine: null,
     radar: null,
     studioTornado: null,
     studioSurface: null,
@@ -164,69 +163,42 @@
       data: {
         labels: ["R&D", "Scale-up", "Competition"],
         datasets: [
-          { label: "Social benefit", data: [72, 68, 62], backgroundColor: COLORS.teal },
-          { label: "Social cost", data: [28, 32, 38], backgroundColor: COLORS.gray },
-          { label: "AMC-funded component", data: [34, 20, 10], backgroundColor: COLORS.amber },
-        ],
-      },
-      options: {
-        ...defaultOptions(),
-        indexAxis: "y",
-        scales: {
-          x: { ...defaultOptions().scales.x, stacked: true },
-          y: { ...defaultOptions().scales.y, stacked: true },
-        },
-      },
-    });
-
-    chartState.adoptionLine = new Chart(document.getElementById("adoptionLineChart"), {
-      type: "line",
-      data: {
-        labels: Array.from({ length: 17 }, (_, i) => 10 + i * 5),
-        datasets: [
           {
-            label: "BCR",
-            data: [],
-            borderColor: COLORS.teal,
-            backgroundColor: "rgba(46,125,50,0.15)",
-            fill: true,
-            tension: 0.25,
-            pointRadius: 0,
+            label: "Social benefit",
+            data: [72, 68, 62],
+            backgroundColor: "rgba(46,125,50,0.75)",
+            borderRadius: 6,
+            borderSkipped: false,
           },
           {
-            label: "Breakeven",
-            data: Array.from({ length: 17 }, () => 1),
+            label: "Social cost",
+            data: [28, 32, 38],
+            backgroundColor: "rgba(185,185,185,0.85)",
+            borderRadius: 6,
+            borderSkipped: false,
+          },
+          {
+            type: "line",
+            label: "AMC-funded component",
+            data: [34, 20, 10],
             borderColor: COLORS.amber,
-            borderDash: [6, 4],
-            pointRadius: 0,
-            fill: false,
+            backgroundColor: COLORS.amber,
+            borderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 5,
+            tension: 0.25,
+            yAxisID: "y",
           },
         ],
       },
       options: {
         ...defaultOptions(),
-        plugins: {
-          legend: { display: false },
-          verticalMarker: { xValue: 50, color: COLORS.coral },
-        },
         scales: {
-          x: { ...defaultOptions().scales.x, title: { display: true, text: "Adoption rate (%)", color: COLORS.text } },
-          y: { ...defaultOptions().scales.y, title: { display: true, text: "BCR", color: COLORS.text }, min: 0, suggestedMax: 6 },
+          x: { ...defaultOptions().scales.x, title: { display: true, text: "Commercialization phase", color: COLORS.text } },
+          y: { ...defaultOptions().scales.y, title: { display: true, text: "Relative index", color: COLORS.text }, beginAtZero: true },
         },
       },
-      plugins: [verticalMarkerPlugin],
     });
-
-    updateChapterAdoption(50);
-  }
-
-  function updateChapterAdoption(adoptionPct) {
-    chartState.chapterMarkerX = adoptionPct;
-    const labels = chartState.adoptionLine.data.labels;
-    const data = labels.map((adopt) => modelOutputs({ eta: 0.9, adoptionPct: adopt, socialValue: 30, dosing: "baseline" }).bcr);
-    chartState.adoptionLine.data.datasets[0].data = data;
-    chartState.adoptionLine.options.plugins.verticalMarker.xValue = adoptionPct;
-    chartState.adoptionLine.update();
   }
 
   function getStudioStateFromDom() {
@@ -397,7 +369,6 @@
   window.AmcCharts = {
     initSectionCharts,
     initStudioCharts,
-    updateChapterAdoption,
     updateStudioCharts,
     applyStudioPreset,
     modelOutputs,

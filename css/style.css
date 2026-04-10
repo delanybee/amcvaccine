@@ -5,7 +5,7 @@
   --body: #4A4539;
   --line: #E0DDD4;
   --teal: #2E7D32;
-  --coral: #C62828;
+  --coral: #A4582A;
   --amber: #B8860B;
   --blue: #378ADD;
   --purple: #7F77DD;
@@ -22,8 +22,8 @@
   --goldenrod: #DAA520;
   --wheat: #F5E6C8;
   --wheat-light: #FDF3E0;
-  --urgency: #C62828;
-  --warning: #E65100;
+  --urgency: #A4582A;
+  --warning: #BA6B2D;
   --text-muted: #8A7D6B;
   --font-body: 'Source Sans 3', sans-serif;
   --font-display: 'Lora', serif;
@@ -33,14 +33,10 @@
   box-sizing: border-box;
 }
 
-html {
-  /* scroll-behavior: smooth removed -- conflicts with Scrollama triggers */
-}
-
 html,
 body {
   margin: 0;
-  background: var(--bg);
+  background: #FAFAF5;
   color: var(--body);
   font-family: "Source Sans 3", sans-serif;
   font-size: 17px;
@@ -297,7 +293,7 @@ main {
 
 .stat-number {
   margin: 0;
-  color: #C62828;
+  color: var(--urgency);
   font-weight: 700;
   font-size: clamp(2.6rem, 7.5vw, 5.2rem);
   line-height: 0.95;
@@ -553,6 +549,22 @@ main {
   margin-top: 14px;
 }
 
+#scene6 .card {
+  min-height: 72vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#scene6 #fundingFlowDiagram {
+  min-height: 260px;
+}
+
+#scene6 .adoption-tools {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
 .adoption-tools label {
   font-weight: 500;
 }
@@ -570,6 +582,48 @@ main {
 
 .compact-card {
   padding: 16px;
+}
+
+.structure-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.structure-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px;
+  background: #fff;
+}
+
+.structure-card h5 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.structure-sub {
+  margin: 0 0 8px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.structure-card ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+  font-size: 0.88rem;
+}
+
+.structure-card.traditional {
+  border-left: 4px solid var(--teal);
+  background: rgba(46, 125, 50, 0.04);
+}
+
+.structure-card.hybrid {
+  border-left: 4px solid var(--amber);
+  background: rgba(184, 134, 11, 0.06);
 }
 
 .compare-table {
@@ -668,7 +722,7 @@ main {
   opacity: 1;
 }
 
-.role-row--coral { background: rgba(198, 40, 40, 0.08); }
+.role-row--coral { background: rgba(184, 134, 11, 0.08); }
 .role-row--blue  { background: rgba(55, 138, 221, 0.08); }
 .role-row--purple { background: rgba(127, 119, 221, 0.08); }
 .role-row--teal  { background: rgba(46, 125, 50, 0.08); }
@@ -681,7 +735,7 @@ main {
   opacity: 1;
 }
 
-.role-row--coral:hover { background: rgba(198, 40, 40, 0.15); }
+.role-row--coral:hover { background: rgba(184, 134, 11, 0.15); }
 .role-row--blue:hover  { background: rgba(55, 138, 221, 0.15); }
 .role-row--purple:hover { background: rgba(127, 119, 221, 0.15); }
 .role-row--teal:hover  { background: rgba(46, 125, 50, 0.15); }
@@ -839,20 +893,21 @@ main {
   align-items: center;
   gap: 6px;
   font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--heading);
-  background: transparent;
-  border: 1px solid var(--line);
+  font-weight: 600;
+  color: var(--teal);
+  background: rgba(46, 125, 50, 0.06);
+  border: 1px solid rgba(46, 125, 50, 0.24);
   border-radius: 8px;
   padding: 10px 20px;
   text-decoration: none;
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
 }
 
 .bottom-cta .secondary-btn:hover {
   border-color: var(--teal);
-  color: var(--teal);
+  color: #fff;
+  background: var(--teal);
 }
 
 /* Studio link button (used at top hero and bottom CTA) */
@@ -1092,9 +1147,9 @@ main {
 }
 
 .scq-situation {
-  background: rgba(198, 40, 40, 0.06);
-  color: #C62828;
-  border: 1px solid rgba(198, 40, 40, 0.12);
+  background: rgba(46, 125, 50, 0.06);
+  color: #2E7D32;
+  border: 1px solid rgba(46, 125, 50, 0.12);
 }
 
 .scq-resolution {
@@ -1132,6 +1187,14 @@ main {
     min-height: 120px;
   }
 
+  #scene6 .card {
+    min-height: auto;
+  }
+
+  .structure-grid {
+    grid-template-columns: 1fr;
+  }
+
   .chapter-card {
     min-height: auto;
     padding: 24px 18px;
@@ -1152,12 +1215,12 @@ main {
 
 #chapter2,
 .chapter-card[aria-label="Chapter 2 intro"] {
-  background: #FDF8F0;
+  background: #F0F4EC;
 }
 
 #chapter3,
 .chapter-card[aria-label="Chapter 3 intro"] {
-  background: #F5F0E6;
+  background: #F0F4EC;
 }
 
 .chapter-card,
@@ -1204,13 +1267,7 @@ main {
   margin-bottom: 4px;
 }
 
-.footer-affiliation {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 13px;
-  color: rgba(165, 214, 167, 0.6);
-  margin-bottom: 4px;
-}
-
+.footer-affiliation,
 .footer-collab {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 13px;
@@ -1252,4 +1309,72 @@ main {
 
 .footer-back-link:hover {
   color: #C8E6C9;
+}
+
+.footer-series {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(165, 214, 167, 0.72);
+  margin: 0 0 10px;
+}
+
+.footer-story-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.footer-story-nav a {
+  color: rgba(165, 214, 167, 0.75);
+  text-decoration: none;
+  border: 1px solid rgba(165, 214, 167, 0.22);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  transition: color var(--ease), border-color var(--ease), background-color var(--ease);
+}
+
+.footer-story-nav a:hover {
+  color: #C8E6C9;
+  border-color: rgba(200, 230, 201, 0.5);
+  background: rgba(200, 230, 201, 0.08);
+}
+
+.footer-story-nav a.is-active,
+.footer-story-nav a[aria-current="page"] {
+  color: #E8F5E9;
+  border-color: rgba(232, 245, 233, 0.55);
+  background: rgba(232, 245, 233, 0.12);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 40px 18px;
+  }
+
+  .footer-story-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: min(100%, 420px);
+    margin: 0 auto 18px;
+  }
+
+  .footer-story-nav a {
+    display: block;
+    text-align: center;
+    padding: 6px 8px;
+  }
+
+  .footer-logos {
+    gap: 10px;
+  }
+
+  .footer-logo-text {
+    font-size: 10px;
+  }
 }
