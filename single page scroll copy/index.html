@@ -1,0 +1,2844 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Designing Innovation | Incentives for livestock methane reduction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage-50: #F2F5F0;
+      --sage-100: #E2E8DD;
+      --sage-200: #C5D1BC;
+      --sage-400: #8BA87A;
+      --sage-600: #5C7A4E;
+      --sage-800: #3A5032;
+
+      --ocean-50: #EDF4F6;
+      --ocean-100: #CBDFE6;
+      --ocean-200: #A3C5D2;
+      --ocean-400: #5A96AD;
+      --ocean-600: #3A6E82;
+      --ocean-800: #234450;
+
+      --sand-50: #F8F6F2;
+      --sand-100: #EDE9E1;
+      --sand-200: #DDD6CA;
+      --sand-400: #B5A998;
+      --sand-600: #8A7D6E;
+      --sand-800: #5C5248;
+
+      --ink: #2A2D28;
+      --ink-secondary: #6B6E68;
+      --ink-tertiary: #B0B2AE;
+
+      --bg: #FAFAF8;
+      --max: 1160px;
+      --radius: 10px;
+      --line: rgba(42, 45, 40, 0.08);
+      --shadow: 0 2px 16px rgba(42, 45, 40, 0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin: 0;
+    }
+
+    .serif {
+      font-family: "Source Serif 4", serif;
+    }
+
+    .serif-italic {
+      font-family: "Source Serif 4", serif;
+      font-style: italic;
+    }
+
+
+
+    .site {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 38px 20px 70px;
+    }
+
+    .hero {
+      min-height: 45vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      text-align: left;
+      padding: 0 0 4rem;
+    }
+
+    .hero-content {
+      max-width: 100%;
+    }
+
+    .hero-kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-tertiary);
+      margin-bottom: 0.75rem;
+    }
+
+    .hero h1 {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      font-weight: 400;
+      line-height: 1.12;
+      margin-bottom: 0;
+      letter-spacing: -0.02em;
+      max-width: 18ch;
+    }
+
+    .hero-subtitle {
+      margin-top: 1.25rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink-secondary);
+      max-width: 42ch;
+    }
+
+    .hero-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .hero-stat-value {
+      font-family: "Source Serif 4", serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-stat-label {
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      max-width: 20ch;
+      line-height: 1.4;
+    }
+
+
+
+    section {
+      margin: 8rem 0;
+    }
+
+    .divider {
+      display: none;
+    }
+
+    .section-pill {
+      display: none;
+    }
+
+    /* Three-Act Structure */
+    .act-break {
+      padding: 12rem 0 8rem;
+      text-align: left;
+      max-width: 480px;
+    }
+
+    .act-number {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-tertiary);
+      margin-bottom: 1rem;
+    }
+
+    .act-title {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .act-subtitle {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--ink-secondary);
+      max-width: 36ch;
+    }
+
+    .act-break-centered {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .act-break-centered .act-subtitle {
+      max-width: 48ch;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-subtitle {
+      display: none;
+    }
+
+    .stuck-layout {
+      margin-top: 3rem;
+      display: grid;
+      grid-template-columns: 42% 54%;
+      gap: 4%;
+      align-items: start;
+    }
+
+    .stuck-steps {
+      display: grid;
+      gap: 0;
+    }
+
+    .stuck-step {
+      min-height: 85vh;
+      background: transparent;
+      border-radius: 0;
+      padding: 3rem 0;
+      box-shadow: none;
+      display: grid;
+      align-content: center;
+      gap: 1.5rem;
+      opacity: 0.25;
+      transition: opacity 500ms ease;
+    }
+
+    .stuck-step.active {
+      opacity: 1;
+    }
+
+    .step-callout {
+      font-family: "Source Serif 4", serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--ink);
+      line-height: 1.4;
+      max-width: 32ch;
+    }
+
+    .step-copy p {
+      color: var(--ink-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 400ms ease, transform 400ms ease;
+      margin-bottom: 1rem;
+    }
+
+    .stuck-step.active .step-copy p {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stuck-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .stat-card {
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      border-left: 2px solid var(--sage-200);
+      padding-left: 1rem;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.1;
+      font-family: "Source Serif 4", serif;
+    }
+
+    .stat-label {
+      color: var(--ink-secondary);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      margin-top: 0.25rem;
+    }
+
+    .stuck-graphic {
+      position: sticky;
+      top: 10vh;
+      min-height: 75vh;
+      max-height: 80vh;
+      overflow: auto;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+      display: grid;
+      align-content: center;
+      gap: 1.5rem;
+    }
+
+    .graphic-title {
+      display: none;
+    }
+
+    #deadlockSvg,
+    #techLandscape {
+      width: 100%;
+      min-height: clamp(320px, 55vh, 480px);
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      padding: 0;
+    }
+
+    #chart3 {
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+    }
+
+    .tech-landscape {
+      display: none;
+    }
+
+    .tech-landscape.active {
+      display: block;
+    }
+
+    .tech-row {
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(42, 45, 40, 0.06);
+    }
+
+    .tech-row:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    .tech-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 8px;
+      gap: 8px;
+    }
+
+    .tech-name {
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .tech-sub {
+      color: var(--ink-secondary);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tech-metric {
+      margin-bottom: 7px;
+    }
+
+    .tech-metric-label {
+      display: flex;
+      justify-content: space-between;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .tech-track {
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(42, 45, 40, 0.08);
+      overflow: hidden;
+    }
+
+    .tech-fill {
+      height: 100%;
+      border-radius: 999px;
+      width: 0;
+      transition: width 600ms ease;
+    }
+
+    .fill-sage { background: var(--sage-400); }
+    .fill-ocean { background: var(--ocean-400); }
+    .fill-sand { background: var(--sand-400); }
+
+    .pathway-panel {
+      margin-top: 2rem;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .stuck-graphic .pathway-panel {
+      margin-top: 2rem;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+      padding: 0;
+    }
+
+    .pathway-title {
+      color: var(--ink-tertiary);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .pathway-flow {
+      border-radius: 0;
+      background: transparent;
+      border: none;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .pw-play {
+      --signal-pos: 0;
+      width: 100%;
+    }
+
+    .pw-rail {
+      position: relative;
+      height: 22px;
+      margin: 4px 10px 9px;
+    }
+
+    .pw-rail::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 2px;
+      transform: translateY(-50%);
+      background: rgba(42, 45, 40, 0.14);
+      border-radius: 999px;
+    }
+
+    .pw-stop {
+      position: absolute;
+      top: 50%;
+      left: calc((var(--i) / 5) * 100%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFFFFF;
+      border: 1.5px solid rgba(42, 45, 40, 0.28);
+      transition: background 0.35s ease, border-color 0.35s ease;
+      z-index: 2;
+    }
+
+    .pw-stop.pw-active {
+      background: var(--ocean-400);
+      border-color: var(--ocean-400);
+    }
+
+    .pw-signal {
+      position: absolute;
+      top: 50%;
+      left: calc((var(--signal-pos) / 5) * 100%);
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--ocean-400);
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 0 0 rgba(58, 110, 130, 0.2);
+      transition: left 0.55s ease;
+      z-index: 3;
+    }
+
+    .pw-label-row {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 4px;
+      align-items: start;
+    }
+
+    .pw-node {
+      text-align: center;
+      opacity: 0.45;
+      transform: translateY(2px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      padding: 2px 1px;
+      display: grid;
+      justify-items: center;
+      gap: 2px;
+    }
+
+    .pw-node.pw-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .pw-mini-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-secondary);
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(42, 45, 40, 0.14);
+    }
+
+    .pw-step-label {
+      font-size: 11px;
+      line-height: 1.25;
+      color: var(--ink-secondary);
+      max-width: 90px;
+    }
+
+    .pw-caption {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--ink-secondary);
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .case-cards {
+      margin-top: 4rem;
+      display: grid;
+      gap: 0;
+    }
+
+    #the-case .case-card {
+      margin-bottom: 0;
+      padding: 8rem 0;
+      background: transparent;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    #the-case .case-card.visible {
+      /* JS-enhanced reveal - content visible by default */
+    }
+
+    #the-case .section-kicker {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-tertiary);
+      margin-bottom: 1rem;
+    }
+
+    #the-case .case-title {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+      max-width: 28ch;
+    }
+
+    #the-case .blurb {
+      font-size: 1.05rem;
+      color: var(--ink-secondary);
+      line-height: 1.8;
+      max-width: 56ch;
+      margin-bottom: 3rem;
+    }
+
+    #the-case .chart-card {
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      margin-bottom: 0;
+      box-shadow: none;
+    }
+
+    #the-case .chart-card h3 {
+      display: none;
+    }
+
+    #the-case .chart-desc {
+      display: none;
+    }
+
+    .case-chart-wrap {
+      position: relative;
+      width: calc(100% + 40px);
+      margin-left: -20px;
+      height: 420px;
+    }
+
+    .case-chart-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .case-chart-wrap.map {
+      height: 540px;
+    }
+
+    #the-case .callout {
+      background: transparent;
+      border: none;
+      border-left: 2px solid var(--sage-200);
+      border-radius: 0;
+      padding: 0 0 0 1rem;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    #the-case .callout strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    #the-case .callout.callout-amber {
+      background: transparent;
+      border-color: var(--sand-400);
+      color: var(--ink-secondary);
+    }
+
+    #the-case .transition-blurb {
+      display: none;
+    }
+
+    .sources {
+      margin-top: 2rem;
+      border: none;
+      border-radius: 0;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .sources summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0;
+      color: var(--ink-tertiary);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .sources summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .sources ul {
+      margin: 0.5rem 0 0 0;
+      padding: 0 0 0 1rem;
+      color: var(--ink-secondary);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .methods-panel {
+      margin-top: 4rem;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .methods-panel h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .methods-panel p {
+      color: var(--ink-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .methods-item {
+      background: transparent;
+      border: none;
+      border-left: 2px solid var(--sage-200);
+      border-radius: 0;
+      padding: 0 0 0 1rem;
+    }
+
+    .methods-item h4 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+      font-weight: 600;
+    }
+
+    .methods-item ul {
+      margin: 0;
+      padding-left: 1rem;
+      color: var(--ink-secondary);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .chart-read-guide {
+      margin-top: 1.5rem;
+      border-left: none;
+      padding-left: 0;
+      color: var(--ink-tertiary);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .chart-read-guide strong {
+      display: none;
+    }
+
+    .editorial-thesis {
+      text-align: left;
+      padding: 6rem 0;
+      max-width: 640px;
+      margin: 0;
+    }
+
+    .editorial-thesis h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .editorial-thesis p {
+      color: var(--ink-secondary);
+      font-size: 1.05rem;
+      line-height: 1.85;
+    }
+
+    .phase2-note {
+      margin-top: 4rem;
+      background: transparent;
+      border-left: 2px solid var(--ocean-400);
+      border-radius: 0;
+      padding: 0 0 0 1.5rem;
+      box-shadow: none;
+    }
+
+    .phase2-pill {
+      display: none;
+    }
+
+    .phase2-note h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .phase2-note p {
+      color: var(--ink-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .stakeholder-section {
+      max-width: 900px;
+      margin: 0;
+      padding: 6rem 0;
+    }
+
+    .stakeholder-section .section-title {
+      text-align: left;
+    }
+
+    .stakeholder-section .section-subtitle {
+      display: block;
+      text-align: left;
+      max-width: 56ch;
+      margin: 0 0 2.5rem 0;
+      color: var(--ink-secondary);
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .stakeholder-section .section-pill {
+      display: none;
+    }
+
+    .role-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .role-table th,
+    .role-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .role-table thead th {
+      font-weight: 600;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .role-row {
+      transition: background 0.2s ease;
+    }
+
+    .role-row--coral { background: rgba(184, 134, 11, 0.06); }
+    .role-row--blue  { background: rgba(90, 150, 173, 0.06); }
+    .role-row--purple { background: rgba(138, 125, 110, 0.06); }
+    .role-row--teal  { background: rgba(92, 122, 78, 0.06); }
+
+    .role-table:hover .role-row {
+      opacity: 0.6;
+    }
+
+    .role-table .role-row:hover {
+      opacity: 1;
+    }
+
+    .role-row--coral:hover { background: rgba(184, 134, 11, 0.12); }
+    .role-row--blue:hover  { background: rgba(90, 150, 173, 0.12); }
+    .role-row--purple:hover { background: rgba(138, 125, 110, 0.12); }
+    .role-row--teal:hover  { background: rgba(92, 122, 78, 0.12); }
+
+    .role-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 2px;
+    }
+
+    .coalition-cta {
+      margin-top: 4rem;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .coalition-cta h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: clamp(1.6rem, 2.5vw, 2rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .coalition-cta > p {
+      color: var(--ink-secondary);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+      max-width: 56ch;
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-card {
+      background: transparent;
+      border: none;
+      border-left: 2px solid var(--sage-200);
+      border-radius: 0;
+      padding: 0 0 0 1rem;
+    }
+
+    .cta-card h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .cta-card p {
+      color: var(--ink-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .cta-contact {
+      color: var(--ink);
+      font-weight: 500;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .cta-credits {
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+      color: var(--ink-tertiary);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .cta-credits p {
+      margin-bottom: 0.25rem;
+    }
+
+    .studio-panel {
+      margin-top: 3rem;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+    }
+
+    .studio-panel.visible {
+      /* JS-enhanced reveal - content visible by default */
+    }
+
+    .studio-head h3 {
+      font-family: "Source Serif 4", serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .studio-head p {
+      color: var(--ink-secondary);
+      font-size: 1rem;
+    }
+
+    .studio-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      border: none;
+    }
+
+    .studio-controls {
+      border-right: 1px solid var(--line);
+      padding-right: 2rem;
+    }
+
+    .dosing-pills {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .dosing-pill {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink-secondary);
+      border-radius: 0;
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 200ms ease;
+    }
+
+    .dosing-pill.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .dosing-pill:hover:not(.active) {
+      border-color: var(--ink-secondary);
+    }
+
+    .control {
+      margin-bottom: 9px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      margin-bottom: 3px;
+      gap: 8px;
+      line-height: 1.35;
+    }
+
+    .control-value {
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      height: 3px;
+      background: rgba(58, 80, 50, 0.12);
+      border-radius: 999px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: none;
+      background: var(--sage-400);
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 13px;
+      height: 13px;
+      border: none;
+      border-radius: 50%;
+      background: var(--sage-400);
+      cursor: pointer;
+    }
+
+    #socialValue::-webkit-slider-thumb { background: var(--ocean-400); }
+    #socialValue::-moz-range-thumb { background: var(--ocean-400); }
+    #eta::-webkit-slider-thumb { background: var(--sand-400); }
+    #eta::-moz-range-thumb { background: var(--sand-400); }
+
+    .global-wrap {
+      border-top: 0.5px solid var(--sage-200);
+      margin-top: 8px;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+    }
+
+    .studio-chart-col {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .studio-canvas-wrap {
+      height: 380px;
+    }
+
+    .studio-canvas-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .studio-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-line {
+      width: 18px;
+      height: 0;
+      border-top: 2px solid;
+    }
+
+    .legend-sage { border-color: var(--sage-400); }
+    .legend-ocean { border-color: var(--ocean-400); opacity: 0.45; }
+    .legend-sand { border-color: var(--sand-400); opacity: 0.35; }
+
+    .metric-grid {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .metric {
+      border-radius: 0;
+      padding: 0;
+      min-height: auto;
+      position: relative;
+      border-left: 2px solid var(--sage-200);
+      padding-left: 1rem;
+    }
+
+    .metric-sage { border-color: var(--sage-400); }
+    .metric-ocean { border-color: var(--ocean-400); }
+    .metric-sand { border-color: var(--sand-400); }
+
+    .info-tip {
+      display: none;
+    }
+
+    .metric-value {
+      color: var(--ink);
+      font-size: 1.6rem;
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+      font-family: "Source Serif 4", serif;
+    }
+
+    .metric-label {
+      color: var(--ink-secondary);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      padding-right: 0;
+    }
+
+    .studio-guide {
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+
+    .studio-guide h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .guide-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(42, 45, 40, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .guide-card summary {
+      padding: 13px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .guide-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .guide-card summary::after {
+      content: "+";
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink-secondary);
+    }
+
+    .guide-card[open] summary::after {
+      content: "\2212";
+    }
+
+    .guide-card .guide-body {
+      padding: 0 14px 14px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--ink-secondary);
+    }
+
+    .guide-card .guide-body p {
+      margin: 0 0 9px;
+    }
+
+    .guide-card .guide-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .guide-highlight {
+      display: inline-block;
+      background: var(--sage-100);
+      color: var(--sage-800);
+      font-weight: 600;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 0 2px;
+    }
+
+    .metric-sage { background: var(--sage-100); }
+    .metric-ocean { background: var(--ocean-50); }
+    .metric-sand { background: var(--sand-100); }
+
+    .metric-value {
+      color: var(--ink);
+      font-size: 1.25rem;
+      line-height: 1.2;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .metric-label {
+      color: var(--ink-secondary);
+      font-size: 12px;
+      line-height: 1.35;
+      padding-right: 18px;
+    }
+
+    .info-tip {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(42, 45, 40, 0.1);
+      color: var(--ink-secondary);
+      font-size: 10px;
+      cursor: help;
+      line-height: 1;
+    }
+
+    .under-hood {
+      margin-top: 10px;
+      border: 1px solid var(--sage-200);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .under-hood summary {
+      list-style: none;
+      cursor: pointer;
+      color: var(--sage-600);
+      font-weight: 500;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .under-hood summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .under-body {
+      padding: 0 10px 10px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .under-body code {
+      background: rgba(42, 45, 40, 0.06);
+      border-radius: 4px;
+      padding: 1px 4px;
+      color: var(--ink);
+      font-family: "Source Sans 3", sans-serif;
+      font-size: 12px;
+    }
+
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 7px 0;
+    }
+
+    .cost-table th,
+    .cost-table td {
+      text-align: left;
+      padding: 4px 5px;
+      border-bottom: 1px solid rgba(42, 45, 40, 0.08);
+      font-size: 12px;
+    }
+
+
+    @media (max-width: 768px) {
+      .progress-rail {
+        display: none;
+      }
+
+      .site {
+        padding: 28px 16px 52px;
+      }
+
+      .stuck-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .stuck-graphic {
+        position: static;
+        min-height: auto;
+      }
+
+      .stuck-step {
+        min-height: auto;
+      }
+
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .studio-controls {
+        border-right: none;
+        border-bottom: 0.5px solid var(--sage-200);
+        padding-right: 0;
+        padding-bottom: 8px;
+      }
+
+      #the-case .case-title {
+        font-size: 24px;
+      }
+
+      .case-chart-wrap {
+        height: 300px;
+      }
+
+      .case-chart-wrap.map {
+        height: 340px;
+      }
+
+      .metric-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .methods-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .studio-canvas-wrap {
+        height: 300px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html,
+      body {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="site">
+    <section class="hero" id="hero">
+      <div class="hero-content">
+        <p class="hero-kicker">An advance market commitment</p>
+        <h1>Designing Innovation Incentives for Enteric Methane</h1>
+        <p class="hero-subtitle">A guaranteed purchase mechanism that could unlock billions in climate impact from livestock emissions.</p>
+        <div class="hero-stat">
+          <span class="hero-stat-value">30%</span>
+          <span class="hero-stat-label">of global warming since pre-industrial times</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACT I: THE PROBLEM -->
+    <div class="act-break" role="presentation">
+      <p class="act-number">Act I</p>
+      <h2 class="act-title">The Problem</h2>
+      <p class="act-subtitle">Why market solutions stay on the shelf.</p>
+    </div>
+
+    <section id="stuck-system" data-progress="stuck">
+      <span class="section-pill pill-stuck">The stuck system</span>
+      <h2 class="section-title">The innovation deadlock</h2>
+      <p class="section-subtitle">Three scroll steps show the deadlock, intervention, and technology landscape.</p>
+
+      <div class="stuck-layout">
+        <div class="stuck-steps">
+          <article class="stuck-step" data-step="0">
+            <p class="step-callout">How can I buy something that does not exist?</p>
+            <div class="step-copy">
+              <p>Methane accounts for roughly 30% of global warming since pre-industrial times, and cattle are responsible for 75% of all enteric methane. A single cow generates an estimated $100+ in annual climate damages (valued at $1,600/ton social cost of methane).</p>
+              <p>But the market to fix it is stuck. Buyers will not commit to a product that does not exist. Innovators will not build a product no one is buying. Without reliable demand, capital arrives too late.</p>
+            </div>
+            <div class="stuck-stats">
+              <div class="stat-card">
+                <p class="stat-value">$10B+</p>
+                <p class="stat-label">annual social cost, U.S. cattle</p>
+              </div>
+              <div class="stat-card">
+                <p class="stat-value">80x</p>
+                <p class="stat-label">methane vs CO2 warming (20yr)</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="stuck-step" data-step="1">
+            <p class="step-callout">An AMC inserts a credible demand signal before the product exists.</p>
+            <div class="step-copy">
+              <p>An advance market commitment guarantees purchase of future low-methane outcomes meeting performance criteria. Sponsors pay nothing if no firm succeeds or producers do not adopt.</p>
+              <p>When AMC demand is visible, investors can underwrite commercialization with clearer downside protection. Capital moves earlier, and the deadlock unwinds.</p>
+            </div>
+          </article>
+
+          <article class="stuck-step" data-step="2">
+            <p class="step-callout">The AMC is technology-agnostic. Performance criteria, not product picks.</p>
+            <div class="step-copy">
+              <p>Vaccines, genetics, feed additives, and slow-release boluses all qualify if they meet reduction targets. Each pathway has different timelines, implementation friction, and cost structures.</p>
+              <p>The design has to be flexible because implementation choices are economic levers, not only technical details.</p>
+            </div>
+          </article>
+        </div>
+
+        <aside class="stuck-graphic">
+          <p class="graphic-title">Sticky graphic</p>
+          <svg id="deadlockSvg" viewBox="0 0 560 420" role="img" aria-label="Innovation deadlock and AMC intervention">
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#8A7D6E"></path>
+              </marker>
+              <marker id="arrowOcean" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#3A6E82"></path>
+              </marker>
+            </defs>
+
+            <g id="deadlockState" opacity="1">
+              <rect x="30" y="70" width="210" height="96" rx="10" fill="#F2F5F0" stroke="#8BA87A" stroke-width="1.5"></rect>
+              <text x="45" y="98" font-size="13" fill="#3A5032" font-weight="600">Buyers</text>
+              <text x="45" y="122" font-size="12" fill="#6B6E68">How can I buy something that</text>
+              <text x="45" y="140" font-size="12" fill="#6B6E68">does not exist?</text>
+
+              <rect x="320" y="70" width="210" height="96" rx="10" fill="#F8F6F2" stroke="#B5A998" stroke-width="1.5"></rect>
+              <text x="335" y="98" font-size="13" fill="#5C5248" font-weight="600">Innovators</text>
+              <text x="335" y="122" font-size="12" fill="#6B6E68">Why build something no one</text>
+              <text x="335" y="140" font-size="12" fill="#6B6E68">is buying?</text>
+
+              <path d="M240 116 C 270 105, 290 105, 320 116" stroke="#8A7D6E" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+              <path d="M320 146 C 290 157, 270 157, 240 146" stroke="#8A7D6E" stroke-width="2" fill="none" marker-end="url(#arrow)"></path>
+
+              <rect x="205" y="250" width="150" height="64" rx="10" fill="#F8F6F2" stroke="#B5A998" stroke-dasharray="6 4" stroke-width="1.2"></rect>
+              <text x="258" y="278" text-anchor="middle" font-size="13" fill="#8A7D6E" font-weight="600">Capital</text>
+              <text x="280" y="297" text-anchor="middle" font-size="12" fill="#8A7D6E">waits</text>
+              <line x1="280" y1="250" x2="280" y2="186" stroke="#B5A998" stroke-dasharray="6 4"></line>
+            </g>
+
+            <g id="amcState" opacity="0">
+              <rect x="205" y="196" width="150" height="54" rx="10" fill="#EDF4F6" stroke="#5A96AD" stroke-width="1.5"></rect>
+              <text x="280" y="218" text-anchor="middle" font-size="13" fill="#234450" font-weight="600">AMC</text>
+              <text x="280" y="236" text-anchor="middle" font-size="11" fill="#3A6E82">credible demand signal</text>
+
+              <path d="M135 167 C 180 196, 188 205, 205 216" stroke="#3A6E82" stroke-width="2.5" fill="none" marker-end="url(#arrowOcean)"></path>
+              <path d="M355 216 C 372 206, 380 198, 425 167" stroke="#3A6E82" stroke-width="2.5" fill="none" marker-end="url(#arrowOcean)"></path>
+
+              <rect x="205" y="276" width="150" height="64" rx="10" fill="#F2F5F0" stroke="#8BA87A" stroke-width="1.5"></rect>
+              <text x="280" y="304" text-anchor="middle" font-size="13" fill="#3A5032" font-weight="600">Capital</text>
+              <text x="280" y="322" text-anchor="middle" font-size="12" fill="#5C7A4E">moves earlier</text>
+              <line x1="280" y1="276" x2="280" y2="250" stroke="#8BA87A" stroke-width="1.5"></line>
+            </g>
+          </svg>
+
+          <div id="techLandscape" class="tech-landscape">
+            <div class="tech-row">
+              <div class="tech-head"><span class="tech-name">Vaccine</span><span class="tech-sub">High deployment potential</span></div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Timeline</span><span>60</span></div>
+                <div class="tech-track"><div class="tech-fill fill-ocean" data-width="60%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Implementation complexity</span><span>35</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sage" data-width="35%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Cost per head</span><span>40</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sand" data-width="40%"></div></div>
+              </div>
+            </div>
+
+            <div class="tech-row">
+              <div class="tech-head"><span class="tech-name">Genetics</span><span class="tech-sub">Durable but slower</span></div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Timeline</span><span>30</span></div>
+                <div class="tech-track"><div class="tech-fill fill-ocean" data-width="30%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Implementation complexity</span><span>55</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sage" data-width="55%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Cost per head</span><span>35</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sand" data-width="35%"></div></div>
+              </div>
+            </div>
+
+            <div class="tech-row">
+              <div class="tech-head"><span class="tech-name">Feed additives</span><span class="tech-sub">Known effects, delivery friction</span></div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Timeline</span><span>75</span></div>
+                <div class="tech-track"><div class="tech-fill fill-ocean" data-width="75%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Implementation complexity</span><span>70</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sage" data-width="70%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Cost per head</span><span>62</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sand" data-width="62%"></div></div>
+              </div>
+            </div>
+
+            <div class="tech-row">
+              <div class="tech-head"><span class="tech-name">Slow-release bolus</span><span class="tech-sub">Mixed logistics profile</span></div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Timeline</span><span>66</span></div>
+                <div class="tech-track"><div class="tech-fill fill-ocean" data-width="66%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Implementation complexity</span><span>58</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sage" data-width="58%"></div></div>
+              </div>
+              <div class="tech-metric">
+                <div class="tech-metric-label"><span>Cost per head</span><span>52</span></div>
+                <div class="tech-track"><div class="tech-fill fill-sand" data-width="52%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pathway-panel">
+            <p class="pathway-title">AMC intervention pathway</p>
+            <div id="amcPathwayFlow" class="pathway-flow" role="img" aria-label="Pathway from market failure to methane reduction"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ACT II: THE EVIDENCE -->
+    <div class="act-break" role="presentation">
+      <p class="act-number">Act II</p>
+      <h2 class="act-title">The Evidence</h2>
+      <p class="act-subtitle">Five visualizations connect market failure, geography, and climate returns.</p>
+    </div>
+
+    <section id="the-case" data-progress="case">
+      <span class="section-pill pill-case">The case</span>
+      <h2 class="section-title">Evidence stacked as a financing narrative</h2>
+      <p class="section-subtitle">Five charts connect market failure, deployment geography, and climate impact.</p>
+
+      <div class="case-cards">
+        <article class="case-card" id="card-1">
+          <p class="section-kicker">1 / The problem</p>
+          <h3 class="case-title">Innovation stalls when the downside is unbounded</h3>
+          <p class="blurb">R&amp;D firms decline rational investments when the loss distribution is wide enough. The AMC truncates downside exposure below -$20M, compressing the tail that keeps capital on the sidelines.</p>
+          <div class="chart-card">
+            <h3>Innovation stalls when the downside is unbounded</h3>
+            <p class="chart-desc">R&amp;D firms decline rational investments when the loss distribution is wide enough. The AMC truncates downside exposure below -$20M, compressing the tail that keeps capital on the sidelines.</p>
+            <div class="case-chart-wrap"><canvas id="chart1"></canvas></div>
+            <p class="chart-read-guide"><strong>How to read this chart:</strong> The solid curve shows the payoff distribution with an AMC floor. The dashed curve shows the unprotected distribution. The shaded left tail is the risk the AMC eliminates.</p>
+          </div>
+        </article>
+
+        <div class="transition-blurb">If the risk profile changes, <em>so does the adoption math</em>. The next chart shows what happens to farmer participation when economics shift.</div>
+
+        <article class="case-card" id="card-2">
+          <p class="section-kicker">2 / The shift</p>
+          <h3 class="case-title">AMC moves the adoption curve to the right</h3>
+          <p class="blurb">Producer adoption follows a logistic curve driven by cost per head. The AMC subsidizes the threshold, pulling the curve rightward. The shaded area between curves is additional adoption created by the commitment.</p>
+          <div class="chart-card">
+            <h3>AMC shifts the adoption curve</h3>
+            <p class="chart-desc">Producer adoption follows a logistic curve driven by cost per head. The AMC subsidizes the threshold, pulling the curve rightward. The shaded area between curves is additional adoption created by the commitment.</p>
+            <div class="case-chart-wrap"><canvas id="chart2"></canvas></div>
+            <p class="chart-read-guide"><strong>How to read this chart:</strong> Each curve shows the share of producers who would adopt at a given cost. The gap between curves is the AMC's direct contribution to uptake.</p>
+          </div>
+        </article>
+
+        <div class="transition-blurb">Adoption happens in specific places. <em>Readiness varies dramatically by country</em>, which shapes where an AMC lands first.</div>
+
+        <article class="case-card" id="card-3">
+          <p class="section-kicker">3 / The geography</p>
+          <h3 class="case-title">Readiness is uneven, but the opportunity is global</h3>
+          <p class="blurb">Adoption readiness is a composite index weighing herd size, veterinary infrastructure, regulatory capacity, producer organization, and climate policy alignment. High readiness does not guarantee adoption, but it predicts where early deployment is feasible. Brazil and India lead on herd scale; the U.S. and Australia lead on infrastructure. The gap between them is where AMC design choices matter most.</p>
+          <div class="chart-card">
+            <h3>Readiness is uneven, but the opportunity is global</h3>
+            <p class="chart-desc">A composite index scores 20 nations on herd size, veterinary infrastructure, regulatory capacity, and climate policy alignment. Brazil and India lead on scale. The U.S. and Australia lead on infrastructure. The gap between them is where AMC design choices have the most leverage.</p>
+            <div class="case-chart-wrap map"><div id="chart3"></div></div>
+            <p class="chart-read-guide"><strong>How to read this chart:</strong> Darker shading indicates higher readiness. Countries with stronger readiness are candidates for early deployment, while lower-readiness regions may require adapted program design.</p>
+          </div>
+        </article>
+
+        <div class="transition-blurb">Geography tells us <em>where</em>. The next question is <em>how much funding</em> translates into how much impact.</div>
+
+        <article class="case-card" id="card-4">
+          <p class="section-kicker">4 / The returns</p>
+          <h3 class="case-title">Funding scales sub-linearly: the first dollars matter most</h3>
+          <p class="blurb">AMC funding and methane abatement follow a concave relationship. Early commitments unlock the cheapest opportunities. Past a threshold, each additional dollar buys diminishing impact as marginal herds become harder to reach.</p>
+          <div class="chart-card">
+            <h3>The first dollars matter most</h3>
+            <p class="chart-desc">AMC funding and methane abatement follow a concave relationship. Early commitments unlock the cheapest opportunities. Past a threshold, each additional dollar buys diminishing impact as marginal herds become harder to reach.</p>
+            <div class="case-chart-wrap"><canvas id="chart4"></canvas></div>
+            <p class="chart-read-guide"><strong>How to read this chart:</strong> The curve shows cumulative abatement as funding increases. The vertical line marks the $750M target, positioned in the steep part of the curve before returns flatten.</p>
+            <div class="callout"><strong>The $750M target:</strong> In modeled scenarios, moving to $1.2B adds approximately 14% more abatement while increasing costs by 60%.</div>
+          </div>
+        </article>
+
+        <div class="transition-blurb">All these inputs compound over time. <em>The cumulative picture</em> reveals why near-term action on methane carries outsized returns.</div>
+
+        <article class="case-card" id="card-5">
+          <p class="section-kicker">5 / The payoff</p>
+          <h3 class="case-title">Cumulative avoided emissions diverge rapidly</h3>
+          <p class="blurb">Because methane is short-lived but potent, early reductions compound disproportionately. Under modeled adoption assumptions, the gap between AMC and baseline scenarios reaches approximately 150 MtCO2e by 2035.</p>
+          <div class="chart-card">
+            <h3>Cumulative avoided emissions diverge rapidly</h3>
+            <p class="chart-desc">Because methane is short-lived but potent, early reductions compound disproportionately. Under modeled adoption assumptions, the gap between AMC and baseline scenarios reaches approximately 150 MtCO2e by 2035.</p>
+            <div class="case-chart-wrap"><canvas id="chart5"></canvas></div>
+            <p class="chart-read-guide"><strong>How to read this chart:</strong> The shaded area between the two curves represents emissions avoided specifically because the AMC accelerated deployment. The wider the gap, the greater the climate return on early action.</p>
+            <div class="callout"><strong>Time value of methane:</strong> A ton of methane reduced in 2028 prevents more warming than the same reduction in 2033. The AMC value is not just total abatement but its timing.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACT III: THE INVITATION -->
+    <div class="act-break" role="presentation">
+      <p class="act-number">Act III</p>
+      <h2 class="act-title">The Invitation</h2>
+      <p class="act-subtitle">Test the economics yourself. Then decide if you want in.</p>
+    </div>
+
+    <section class="stakeholder-section" id="stakeholder-section" aria-labelledby="stakeholder-title">
+      <span class="section-pill pill-turn">The coalition</span>
+      <h2 class="section-title" id="stakeholder-title">The math works. Who makes it happen?</h2>
+      <p class="section-subtitle">AMCs succeed when four actor groups play distinct roles across R&D, scale-up, and market competition.</p>
+      <div id="stakeholderMatrix"></div>
+    </section>
+
+    <section id="your-turn" data-progress="turn">
+      <span class="section-pill pill-turn">Your turn</span>
+      <h2 class="section-title">Sensitivity studio</h2>
+
+      <div class="studio-panel" id="studioPanel">
+        <header class="studio-head">
+          <h3>BCR vs. adoption rate</h3>
+          <p>Drag the sliders. Watch the economics shift.</p>
+        </header>
+
+        <div class="studio-grid">
+          <aside class="studio-controls">
+            <div class="dosing-pills" role="group" aria-label="Dosing scenario">
+              <button class="dosing-pill active" data-dose="baseline" type="button">Baseline</button>
+              <button class="dosing-pill" data-dose="annual" type="button">Annual</button>
+              <button class="dosing-pill" data-dose="booster" type="button">Prime + booster</button>
+            </div>
+
+            <div class="control">
+              <label for="adoption"><span>Adoption rate</span><span class="control-value" id="adoptionValue">50%</span></label>
+              <input id="adoption" type="range" min="0" max="100" value="50" step="1" />
+            </div>
+
+            <div class="control">
+              <label for="socialValue"><span>Social value ($/animal-yr)</span><span class="control-value" id="socialValueValue">$30</span></label>
+              <input id="socialValue" type="range" min="22" max="38" value="30" step="1" />
+            </div>
+
+            <div class="control">
+              <label for="eta"><span>Feasibility (eta)</span><span class="control-value" id="etaValue">0.90</span></label>
+              <input id="eta" type="range" min="0.5" max="1.0" value="0.90" step="0.01" />
+            </div>
+
+            <label class="global-wrap">
+              <input id="globalHerd" type="checkbox" />
+              <span>Global herd (1.6B)</span>
+            </label>
+          </aside>
+
+          <div class="studio-chart-col">
+            <div class="studio-canvas-wrap"><canvas id="studioChart"></canvas></div>
+            <div class="studio-legend">
+              <span class="legend-item"><span class="legend-line legend-sage"></span>Baseline</span>
+              <span class="legend-item"><span class="legend-line legend-ocean"></span>Annual</span>
+              <span class="legend-item"><span class="legend-line legend-sand"></span>Prime + booster</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric metric-sage">
+            <span class="info-tip" title="Benefit-cost ratio compares modeled social benefits to modeled social costs.">i</span>
+            <p class="metric-value" id="metricBcr">0.00</p>
+            <p class="metric-label">Benefit-cost ratio</p>
+          </article>
+          <article class="metric metric-ocean">
+            <span class="info-tip" title="Net present value is benefits minus total social cost.">i</span>
+            <p class="metric-value" id="metricNpv">$0</p>
+            <p class="metric-label">Net present value</p>
+          </article>
+          <article class="metric metric-sand">
+            <span class="info-tip" title="AMC size is the risk-adjusted commitment needed under the selected assumptions.">i</span>
+            <p class="metric-value" id="metricAmc">$0</p>
+            <p class="metric-label">AMC size</p>
+          </article>
+          <article class="metric metric-sage">
+            <span class="info-tip" title="Break-even adoption is the minimum adoption rate where BCR equals 1.">i</span>
+            <p class="metric-value" id="metricBreakEven">0%</p>
+            <p class="metric-label">Break-even adoption</p>
+          </article>
+        </div>
+
+        <div class="studio-guide">
+          <h3>Reading the studio</h3>
+          <div class="guide-grid">
+            <details class="guide-card">
+              <summary>What is the benefit-cost ratio?</summary>
+              <div class="guide-body">
+                <p>BCR is the total present value of social benefits divided by the total present value of social costs. A BCR of <span class="guide-highlight">14.41</span> means every dollar spent generates about $14.41 in avoided climate damages.</p>
+                <p>Most public infrastructure investments are considered strong at a BCR near 2-3. This ratio is high because methane abatement delivers large public benefits while intervention costs remain modest relative to herd scale.</p>
+                <p>The break-even adoption metric tells you the minimum adoption rate where BCR equals 1. Under baseline assumptions that is about 3.5%.</p>
+              </div>
+            </details>
+
+            <details class="guide-card">
+              <summary>What counts as social cost?</summary>
+              <div class="guide-body">
+                <p>Social cost here is the total resource cost society bears to make the intervention happen. It is not the social cost of methane itself.</p>
+                <p>It has two parts: AMC outlay for risk and adoption support, plus ongoing manufacturing and deployment after the AMC window closes.</p>
+                <p>Under annual dosing, the non-AMC component rises materially because more doses are manufactured and administered over each animal's lifetime.</p>
+              </div>
+            </details>
+
+            <details class="guide-card">
+              <summary>What do the sliders change?</summary>
+              <div class="guide-body">
+                <p>Adoption and social value scale benefits upward. Dosing scenario is the biggest cost lever. Feasibility (eta) shifts R&amp;D risk, which changes required AMC support.</p>
+                <p>Use these controls together to test where economics remain strong and where assumptions become fragile.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <details class="under-hood">
+          <summary><span>Under the hood: equations, assumptions, and key uncertainties</span><span>+</span></summary>
+          <div class="under-body">
+            <p><strong>Benefit scaling</strong></p>
+            <p><code>Benefits = 11.4842B * (adoption / 0.50) * (socialValue / 30)</code></p>
+
+            <p><strong>Cost by dosing</strong></p>
+            <table class="cost-table">
+              <thead>
+                <tr><th>Scenario</th><th>AMC</th><th>Non-AMC</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Baseline</td><td>$534.2M</td><td>$263M</td></tr>
+                <tr><td>Annual</td><td>$832.3M</td><td>$761M</td></tr>
+                <tr><td>Prime + booster</td><td>$1,068.4M</td><td>$950M</td></tr>
+              </tbody>
+            </table>
+
+            <p><strong>R&amp;D feasibility</strong></p>
+            <p><code>Pr(success) = eta * (1 - (1 - p)^k), k = 15</code></p>
+
+            <p><strong>Key assumptions</strong></p>
+            <p>U.S. herd 90M, global herd 1.6B, social cost of methane $1,600 per ton, discount rate 2%, development lag 8 years, sales window 10 years.</p>
+
+            <p><strong>Key uncertainties</strong></p>
+            <p>The dosing regimen remains the most consequential open parameter. A single-dose profile and multi-dose profile produce very different cost structures and deployment pacing.</p>
+
+            <p><strong>What could invalidate this model</strong></p>
+            <p>Three conditions would materially weaken the economic case.</p>
+            <p>First, if no vaccine or additive achieves a durable 20% methane reduction in field conditions, the benefit estimate collapses. Current efficacy data comes from controlled trials. Pastoral and mixed-system field performance remains unvalidated at scale.</p>
+            <p>Second, if dosing requires annual or more frequent administration, total program costs roughly double. The BCR remains above 1 in all modeled scenarios, but the funding ask grows from $534M to over $1B, which changes the coalition-building calculus.</p>
+            <p>Third, if the social cost of methane is substantially revised downward from the current $1,600/ton central estimate, the benefit side of the ratio compresses. At $800/ton, the baseline BCR drops from 14.4 to approximately 7.2, still strongly positive but a different conversation for risk-averse funders.</p>
+            <p>The model is most robust to adoption rate variation. Even at 10% adoption (one-fifth the baseline assumption), the BCR remains above 2.5 under baseline dosing. The break-even adoption rate is 3.5%.</p>
+          </div>
+        </details>
+      </div>
+
+      <section class="methods-panel" aria-labelledby="methods-title">
+        <h3 id="methods-title">Sources and methods</h3>
+        <p>Model outputs on this page combine published emissions evidence with scenario-based economic assumptions used for comparative policy design.</p>
+        <div class="methods-grid">
+          <div class="methods-item">
+            <h4>Core evidence</h4>
+            <ul>
+              <li>IPCC AR6</li>
+              <li>FAO GLEAM livestock emissions datasets</li>
+              <li>EPA U.S. Greenhouse Gas Inventory (2024)</li>
+              <li>Global Methane Assessment (2021)</li>
+              <li>USDA per-animal treatment benchmarks</li>
+            </ul>
+          </div>
+          <div class="methods-item">
+            <h4>Model framing</h4>
+            <ul>
+              <li>Charts reflect modeled scenarios, not observed outcomes.</li>
+              <li>Adoption, dosing profile, and feasibility are principal uncertainty drivers.</li>
+              <li>The $750M marker is a strategic sizing reference point under baseline assumptions.</li>
+              <li>Sensitivity panel allows stress-testing assumptions in real time.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <div class="divider" role="presentation"></div>
+
+    <section class="editorial-thesis" id="editorial-thesis" aria-labelledby="thesis-title">
+      <h3 id="thesis-title">The window is short. The math is clear.</h3>
+      <p>Livestock methane is one of the few climate problems where a single mechanism can shift an entire sector's economics within a decade. The AMC requires no new regulation, penalizes no one, and costs funders nothing if the science fails. Under every scenario modeled here, the benefit-cost ratio exceeds 5:1. Under most, it exceeds 10:1. The question is not whether this works. It is whether the coalition forms fast enough to capture the near-term methane window.</p>
+    </section>
+
+    <section class="phase2-note" id="phase2-note" aria-labelledby="phase2-title">
+      <span class="phase2-pill">Phase 2</span>
+      <h3 id="phase2-title">Stay tuned for Phase 2: Decision landscape</h3>
+      <p>This capstone section is intentionally in development and will be published in the next phase with finalized recommendations, stakeholder asks, and funding pathway details.</p>
+    </section>
+
+    <section class="coalition-cta" id="coalition-cta" aria-labelledby="coalition-title">
+      <h3 id="coalition-title">Join the coalition</h3>
+      <p>The AMC launch window targets COP30 with a $750M commitment across food companies, supply chains, climate-focused capital, and public funders. Coordination is led by the Market Shaping Accelerator, Spark Climate Solutions, Global Methane Hub, and The Nature Conservancy.</p>
+
+      <div class="cta-grid">
+        <article class="cta-card">
+          <h4>Partners</h4>
+          <p>Food companies and supply chains ready to commit to low-methane procurement</p>
+        </article>
+        <article class="cta-card">
+          <h4>Funders</h4>
+          <p>Philanthropic and public capital for catalytic early-stage commitment</p>
+        </article>
+        <article class="cta-card">
+          <h4>Data contributors</h4>
+          <p>Field trial operators, veterinary researchers, and production system analysts</p>
+        </article>
+      </div>
+
+      <p class="cta-contact">info@lowmethanelivestock.org</p>
+
+      <div class="cta-credits">
+        <p>Designed and built by Delany Broome</p>
+        <p>UC Berkeley, Master of Climate Solutions 2026</p>
+        <p>In collaboration with The Nature Conservancy and Spark Climate Solutions</p>
+        <p>Design input from Nobel Laureate Michael Kremer, CGD President Rachel Glennerster, and Professor Chris Snyder.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script>
+    (function () {
+      const COLORS = {
+        sage400: "#8BA87A",
+        sage600: "#5C7A4E",
+        sage800: "#3A5032",
+        ocean400: "#5A96AD",
+        ocean200: "#A3C5D2",
+        ocean100: "#CBDFE6",
+        sand400: "#B5A998",
+        sand200: "#DDD6CA",
+        ink: "#2A2D28",
+        inkSecondary: "#6B6E68"
+      };
+
+      const SOURCES = {
+        readinessComponents: {
+          "USA": [92, 88, 84, 80],
+          "Australia": [80, 90, 83, 76],
+          "Brazil": [98, 66, 58, 52],
+          "India": [100, 52, 50, 44],
+          "EU avg": [74, 82, 88, 86],
+          "Argentina": [82, 63, 54, 50],
+          "New Zealand": [70, 86, 82, 79],
+          "China": [88, 64, 62, 55],
+          "Ethiopia": [90, 32, 30, 26],
+          "Mexico": [76, 56, 49, 45]
+        }
+      };
+
+      const charts = {};
+      const renderedCards = new Set();
+      let studioChart = null;
+      let activeDose = "baseline";
+
+      const dosingMeta = {
+        baseline: { amcM: 534.2, nonAmcM: 263, color: COLORS.sage400 },
+        annual: { amcM: 832.3, nonAmcM: 761, color: COLORS.ocean400 },
+        booster: { amcM: 1068.4, nonAmcM: 950, color: COLORS.sand400 }
+      };
+
+      function formatMoney(value) {
+        const abs = Math.abs(value);
+        if (abs >= 1e9) return "$" + (value / 1e9).toFixed(2) + "B";
+        if (abs >= 1e6) return "$" + (value / 1e6).toFixed(1) + "M";
+        return "$" + Math.round(value).toLocaleString();
+      }
+
+      function logistic(x, x0, k) {
+        return 1 / (1 + Math.exp(-(x - x0) / k));
+      }
+
+      function gaussian(x, m, s) {
+        const v = Math.exp(-0.5 * Math.pow((x - m) / s, 2));
+        return v;
+      }
+
+      function chartDefaults() {
+        return {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: { duration: 800, easing: "easeOutCubic" },
+          plugins: {
+            legend: {
+              labels: {
+                color: COLORS.inkSecondary,
+                font: { family: "Source Sans 3", size: 11 }
+              }
+            },
+            tooltip: {
+              backgroundColor: "#FFFFFF",
+              titleColor: COLORS.ink,
+              bodyColor: COLORS.inkSecondary,
+              borderColor: "rgba(42,45,40,0.12)",
+              borderWidth: 1,
+              titleFont: { family: "Source Sans 3", size: 12, weight: "600" },
+              bodyFont: { family: "Source Sans 3", size: 12 },
+              displayColors: true
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: COLORS.inkSecondary, font: { family: "Source Sans 3", size: 11 } },
+              border: { color: "rgba(42,45,40,0.15)" }
+            },
+            y: {
+              grid: { display: false },
+              ticks: { color: COLORS.inkSecondary, font: { family: "Source Sans 3", size: 11 } },
+              border: { color: "rgba(42,45,40,0.15)" }
+            }
+          }
+        };
+      }
+
+      const markerPlugin = {
+        id: "markerPlugin",
+        afterDraw(chart, args, options) {
+          if (!options || options.xValue == null) return;
+          const xScale = chart.scales.x;
+          const yScale = chart.scales.y;
+          if (!xScale || !yScale) return;
+          const x = xScale.getPixelForValue(options.xValue);
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.strokeStyle = options.color || COLORS.sage600;
+          ctx.lineWidth = options.lineWidth || 1.5;
+          ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.moveTo(x, yScale.top);
+          ctx.lineTo(x, yScale.bottom);
+          ctx.stroke();
+          ctx.restore();
+
+          if (options.label) {
+            ctx.save();
+            ctx.fillStyle = options.color || COLORS.sage600;
+            ctx.font = "11px Source Sans 3";
+            ctx.fillText(options.label, Math.min(x + 6, yScale.right - 80), yScale.top + 12);
+            ctx.restore();
+          }
+        }
+      };
+
+      const horizontalLinePlugin = {
+        id: "horizontalLinePlugin",
+        afterDraw(chart, args, options) {
+          if (!options || options.yValue == null) return;
+          const xScale = chart.scales.x;
+          const yScale = chart.scales.y;
+          if (!xScale || !yScale) return;
+          const y = yScale.getPixelForValue(options.yValue);
+          const ctx = chart.ctx;
+          ctx.save();
+          ctx.strokeStyle = options.color || COLORS.sand400;
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([6, 4]);
+          ctx.beginPath();
+          ctx.moveTo(xScale.left, y);
+          ctx.lineTo(xScale.right, y);
+          ctx.stroke();
+          ctx.restore();
+
+          if (options.label) {
+            ctx.save();
+            ctx.fillStyle = options.color || COLORS.sand400;
+            ctx.font = "11px Source Sans 3";
+            ctx.fillText(options.label, xScale.left + 6, y - 6);
+            ctx.restore();
+          }
+        }
+      };
+
+      function renderChart1() {
+        if (charts.chart1) return; // Already rendered
+        const ctx = document.getElementById("chart1");
+        if (!ctx) return;
+        const xVals = [];
+        const noAmc = [];
+        const withAmc = [];
+        for (let x = -120; x <= 180; x += 4) {
+          xVals.push(x);
+          const base = gaussian(x, 30, 45);
+          noAmc.push(base);
+          withAmc.push(x < -20 ? 0 : gaussian(x, 35, 38));
+        }
+
+        charts.chart1 = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: xVals,
+            datasets: [
+              {
+                label: "without AMC",
+                data: noAmc,
+                borderColor: COLORS.sand400,
+                borderWidth: 2,
+                borderDash: [6, 4],
+                pointRadius: 0,
+                tension: 0.3
+              },
+              {
+                label: "with AMC",
+                data: withAmc,
+                borderColor: COLORS.sage400,
+                borderWidth: 2.2,
+                pointRadius: 0,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            ...chartDefaults(),
+            plugins: {
+              ...chartDefaults().plugins,
+              markerPlugin: { xValue: -20, color: COLORS.sage600, label: "floor at -$20M" }
+            },
+            scales: {
+              ...chartDefaults().scales,
+              x: {
+                ...chartDefaults().scales.x,
+                title: { display: true, text: "Project payoff ($M)", color: COLORS.inkSecondary }
+              },
+              y: {
+                ...chartDefaults().scales.y,
+                title: { display: true, text: "Probability", color: COLORS.inkSecondary },
+                ticks: { display: false }
+              }
+            }
+          },
+          plugins: [markerPlugin]
+        });
+      }
+
+      function renderChart2() {
+        if (charts.chart2) return; // Already rendered
+        const ctx = document.getElementById("chart2");
+        if (!ctx) return;
+        const costs = [];
+        const without = [];
+        const withAmc = [];
+        for (let c = 10; c <= 210; c += 4) {
+          costs.push(c);
+          without.push(logistic(220 - c, 120, 20) * 100);
+          withAmc.push(logistic(220 - c, 95, 20) * 100);
+        }
+
+        charts.chart2 = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: costs,
+            datasets: [
+              {
+                label: "without AMC",
+                data: without,
+                borderColor: COLORS.sand400,
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0.28
+              },
+              {
+                label: "with AMC",
+                data: withAmc,
+                borderColor: COLORS.sage400,
+                borderWidth: 2.2,
+                pointRadius: 0,
+                tension: 0.28,
+                fill: "-1",
+                backgroundColor: "rgba(197,209,188,0.5)"
+              }
+            ]
+          },
+          options: {
+            ...chartDefaults(),
+            scales: {
+              ...chartDefaults().scales,
+              x: {
+                ...chartDefaults().scales.x,
+                title: { display: true, text: "Cost per head ($)", color: COLORS.inkSecondary }
+              },
+              y: {
+                ...chartDefaults().scales.y,
+                title: { display: true, text: "Adoption rate (%)", color: COLORS.inkSecondary },
+                min: 0,
+                max: 100
+              }
+            }
+          }
+        });
+      }
+
+      function renderChart3() {
+        const target = document.getElementById("chart3");
+        if (!target || typeof Plotly === "undefined") return;
+        if (target.children.length > 0) return; // Already rendered
+
+        const countries = {
+          codes: [
+            "BRA", "USA", "IND", "CHN", "AUS", "ARG", "MEX", "ETH",
+            "NZL", "CAN", "FRA", "DEU", "GBR", "COL", "ZAF", "KEN",
+            "IDN", "PAK", "BGD", "URY"
+          ],
+          names: [
+            "Brazil", "United States", "India", "China", "Australia", "Argentina",
+            "Mexico", "Ethiopia", "New Zealand", "Canada", "France", "Germany",
+            "United Kingdom", "Colombia", "South Africa", "Kenya", "Indonesia",
+            "Pakistan", "Bangladesh", "Uruguay"
+          ],
+          readiness: [
+            96, 72, 88, 55, 78, 60, 46, 38,
+            82, 70, 66, 64, 68, 42, 44, 34,
+            36, 30, 26, 74
+          ],
+          herdSize: [
+            "~225M", "~94M", "~305M", "~97M", "~28M", "~54M",
+            "~37M", "~70M", "~10M", "~12M", "~18M", "~11M",
+            "~10M", "~29M", "~14M", "~22M", "~17M", "~52M",
+            "~24M", "~12M"
+          ],
+          factors: [
+            "Herd scale, pasture systems, growing policy",
+            "Vet infrastructure, regulatory capacity, capital",
+            "Massive herd, dairy density, cooperative networks",
+            "Industrial systems, policy capacity, scale",
+            "Advanced vet systems, export-driven quality",
+            "Pasture-based, export markets, moderate infrastructure",
+            "Mixed systems, mid-tier infrastructure",
+            "Pastoral systems, limited vet infrastructure",
+            "World-leading emissions policy, small herd",
+            "Advanced infrastructure, moderate herd",
+            "Strong vet services, EU regulatory alignment",
+            "Research leadership, EU market standards",
+            "Policy leadership, limited herd scale",
+            "Growing herd, variable infrastructure",
+            "Mixed systems, emerging policy",
+            "Pastoral, limited infrastructure, high need",
+            "Dispersed smallholders, access challenges",
+            "Large herd, limited veterinary reach",
+            "Dense dairy, very limited infrastructure",
+            "High-quality beef, strong vet systems"
+          ]
+        };
+
+        const hoverText = countries.names.map((name, i) =>
+          `<b>${name}</b><br>` +
+          `Readiness: ${countries.readiness[i]}/100<br>` +
+          `Herd: ${countries.herdSize[i]} head<br>` +
+          `${countries.factors[i]}`
+        );
+
+        Plotly.newPlot(target, [{
+          type: "choropleth",
+          locationmode: "ISO-3",
+          locations: countries.codes,
+          z: countries.readiness,
+          text: hoverText,
+          hoverinfo: "text",
+          colorscale: [
+            [0, "#E0DDD4"],
+            [0.3, "#A5D6A7"],
+            [0.6, "#4CAF50"],
+            [1, "#1B3F1C"]
+          ],
+          marker: { line: { color: "#FAFAF5", width: 0.8 } },
+          colorbar: {
+            title: { text: "Readiness", font: { size: 12 } },
+            thickness: 14,
+            len: 0.5,
+            y: 0.5,
+            tickfont: { size: 11 },
+            outlinewidth: 0
+          },
+          zmin: 0,
+          zmax: 100
+        }], {
+          paper_bgcolor: "transparent",
+          plot_bgcolor: "transparent",
+          font: { family: "Source Sans 3, sans-serif", color: "#1B2A1C", size: 12 },
+          margin: { l: 0, r: 0, t: 8, b: 0 },
+          showlegend: false,
+          geo: {
+            projection: { type: "natural earth" },
+            bgcolor: "transparent",
+            showframe: false,
+            showcoastlines: true,
+            coastlinecolor: "#D1CCC2",
+            coastlinewidth: 0.5,
+            showland: true,
+            landcolor: "#F0EDE6",
+            showocean: true,
+            oceancolor: "#FAFAF5",
+            showlakes: false,
+            showcountries: true,
+            countrycolor: "#E0DDD4",
+            countrywidth: 0.4
+          }
+        }, {
+          displayModeBar: false,
+          responsive: true
+        }).then(() => {
+          Plotly.Plots.resize(target);
+        });
+      }
+
+      function renderChart4() {
+        if (charts.chart4) return; // Already rendered
+        const ctx = document.getElementById("chart4");
+        if (!ctx) return;
+        const funding = [];
+        const abatement = [];
+        for (let f = 0; f <= 1500; f += 50) {
+          funding.push(f);
+          abatement.push(280 * (1 - Math.exp(-f / 400)));
+        }
+
+        charts.chart4 = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: funding,
+            datasets: [{
+              label: "Cumulative abatement",
+              data: abatement,
+              borderColor: COLORS.sage400,
+              borderWidth: 2.2,
+              pointRadius: 0,
+              tension: 0.3,
+              fill: false
+            }]
+          },
+          options: {
+            ...chartDefaults(),
+            plugins: {
+              ...chartDefaults().plugins,
+              markerPlugin: { xValue: 750, color: COLORS.sage600, label: "$750M target" }
+            },
+            scales: {
+              x: {
+                ...chartDefaults().scales.x,
+                title: { display: true, text: "AMC funding ($M)", color: COLORS.inkSecondary }
+              },
+              y: {
+                ...chartDefaults().scales.y,
+                title: { display: true, text: "Cumulative abatement (MtCO2e)", color: COLORS.inkSecondary }
+              }
+            }
+          },
+          plugins: [markerPlugin]
+        });
+      }
+
+      function renderChart5() {
+        if (charts.chart5) return; // Already rendered
+        const ctx = document.getElementById("chart5");
+        if (!ctx) return;
+        const years = [];
+        const noAmc = [];
+        const withAmc = [];
+        let cumNo = 0;
+        let cumWith = 0;
+
+        for (let year = 2027; year <= 2035; year++) {
+          const i = year - 2027;
+          const baseline = 22 * Math.pow(1.005, i);
+
+          const noAdopt = 0.04 + i * 0.008;
+          const noReduce = baseline * 0.2 * noAdopt;
+
+          let amcAdopt = 0;
+          if (year >= 2028) {
+            const k = Math.min(year - 2028, 4);
+            amcAdopt = 0.10 + k * ((0.50 - 0.10) / 4);
+          }
+          const amcReduce = baseline * 0.2 * amcAdopt;
+
+          cumNo += noReduce;
+          cumWith += amcReduce;
+
+          years.push(year);
+          noAmc.push(cumNo);
+          withAmc.push(cumWith);
+        }
+
+        charts.chart5 = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: years,
+            datasets: [
+              {
+                label: "Without AMC",
+                data: noAmc,
+                borderColor: COLORS.sand200,
+                backgroundColor: "rgba(221,214,202,0.55)",
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0.3,
+                fill: true
+              },
+              {
+                label: "With AMC",
+                data: withAmc,
+                borderColor: COLORS.ocean200,
+                backgroundColor: "rgba(163,197,210,0.55)",
+                borderWidth: 2.2,
+                pointRadius: 0,
+                tension: 0.3,
+                fill: "-1"
+              }
+            ]
+          },
+          options: {
+            ...chartDefaults(),
+            scales: {
+              x: {
+                ...chartDefaults().scales.x,
+                title: { display: true, text: "Year", color: COLORS.inkSecondary }
+              },
+              y: {
+                ...chartDefaults().scales.y,
+                title: { display: true, text: "Cumulative emissions (MtCO2e)", color: COLORS.inkSecondary }
+              }
+            }
+          }
+        });
+      }
+
+      function renderCaseCard(index) {
+        if (renderedCards.has(index)) return;
+        renderedCards.add(index);
+
+        if (index === 1) renderChart1();
+        if (index === 2) renderChart2();
+        if (index === 3) renderChart3();
+        if (index === 4) renderChart4();
+        if (index === 5) renderChart5();
+      }
+
+      function createAmcPathway() {
+        const root = document.getElementById("amcPathwayFlow");
+        if (!root) return;
+
+        const steps = [
+          { label: "Market failure", icon: "!" },
+          { label: "AMC signal", icon: "\u2713" },
+          { label: "R&amp;D", icon: "$" },
+          { label: "Innovation", icon: "\u2606" },
+          { label: "Adoption", icon: "\u2191" },
+          { label: "Methane down", icon: "\u2193" }
+        ];
+
+        root.innerHTML = `
+          <div class="pw-play" style="--signal-pos:0">
+            <div class="pw-rail" aria-hidden="true">
+              ${steps.map((_, i) => `<span class="pw-stop" data-index="${i}" style="--i:${i}"></span>`).join("")}
+              <span class="pw-signal"></span>
+            </div>
+            <div class="pw-label-row">
+              ${steps.map((s, i) => `
+                <div class="pw-node" data-index="${i}">
+                  <span class="pw-mini-icon">${s.icon}</span>
+                  <span class="pw-step-label">${s.label}</span>
+                </div>
+              `).join("")}
+            </div>
+            <p class="pw-caption">A quiet relay from risk to impact.</p>
+          </div>`;
+      }
+
+      function updateAmcPathway(stepIndex) {
+        const flow = document.getElementById("amcPathwayFlow");
+        if (!flow) return;
+
+        let phase = 1;
+        if (stepIndex === 1) phase = 3;
+        if (stepIndex === 2) phase = 6;
+
+        const play = flow.querySelector(".pw-play");
+        if (play) {
+          play.style.setProperty("--signal-pos", String(Math.max(0, phase - 1)));
+        }
+
+        flow.querySelectorAll(".pw-node").forEach((node) => {
+          const idx = Number(node.dataset.index);
+          node.classList.toggle("pw-active", idx < phase);
+        });
+
+        flow.querySelectorAll(".pw-stop").forEach((stop) => {
+          const idx = Number(stop.dataset.index);
+          stop.classList.toggle("pw-active", idx < phase);
+        });
+      }
+
+      function activateStuckState(stepIndex) {
+        const deadlock = document.getElementById("deadlockState");
+        const amc = document.getElementById("amcState");
+        const svg = document.getElementById("deadlockSvg");
+        const tech = document.getElementById("techLandscape");
+
+        if (stepIndex === 0) {
+          deadlock.setAttribute("opacity", "1");
+          amc.setAttribute("opacity", "0");
+          svg.style.display = "block";
+          tech.classList.remove("active");
+        } else if (stepIndex === 1) {
+          deadlock.setAttribute("opacity", "1");
+          amc.setAttribute("opacity", "1");
+          svg.style.display = "block";
+          tech.classList.remove("active");
+        } else {
+          svg.style.display = "none";
+          tech.classList.add("active");
+          tech.querySelectorAll(".tech-fill").forEach((el) => {
+            requestAnimationFrame(() => {
+              el.style.width = el.dataset.width;
+            });
+          });
+        }
+
+        updateAmcPathway(stepIndex);
+      }
+
+      function initScrollama() {
+        const scroller = scrollama();
+        scroller
+          .setup({ step: ".stuck-step", offset: 0.5 })
+          .onStepEnter((res) => {
+            const idx = Number(res.element.dataset.step);
+            document.querySelectorAll(".stuck-step").forEach((el) => {
+              el.classList.toggle("active", el === res.element);
+            });
+            activateStuckState(idx);
+          });
+
+        window.addEventListener("resize", () => scroller.resize());
+      }
+
+      function computeStudioOut(inputs, doseName) {
+        const dose = dosingMeta[doseName];
+        const adoption = inputs.adoption / 100;
+        const socialScale = inputs.socialValue / 30;
+
+        let benefitsB = 11.4842 * (adoption / 0.50) * socialScale;
+
+        let amcB = (dose.amcM / 1000) * (0.90 / inputs.eta);
+        let nonAmcB = dose.nonAmcM / 1000;
+
+        if (inputs.global) {
+          benefitsB *= 17.78;
+          amcB *= 12;
+          nonAmcB *= 12;
+        }
+
+        const totalB = amcB + nonAmcB;
+        const bcr = totalB > 0 ? benefitsB / totalB : 0;
+        const npvB = benefitsB - totalB;
+        const breakEven = (totalB / (11.4842 * socialScale)) * 0.50 * 100;
+
+        return {
+          bcr,
+          npvB,
+          amcB,
+          totalB,
+          breakEven
+        };
+      }
+
+      function buildStudioSeries(inputs) {
+        const xs = [];
+        const lines = {
+          baseline: [],
+          annual: [],
+          booster: []
+        };
+
+        for (let a = 0; a <= 100; a += 2) {
+          xs.push(a);
+          const p = { ...inputs, adoption: a };
+          lines.baseline.push(computeStudioOut(p, "baseline").bcr);
+          lines.annual.push(computeStudioOut(p, "annual").bcr);
+          lines.booster.push(computeStudioOut(p, "booster").bcr);
+        }
+
+        return { xs, lines };
+      }
+
+      function initStudioChart() {
+        if (studioChart) return; // Already initialized
+        const ctx = document.getElementById("studioChart");
+        if (!ctx) return;
+
+        const inputs = getStudioInputs();
+        const { xs, lines } = buildStudioSeries(inputs);
+
+        studioChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: xs,
+            datasets: [
+              {
+                label: "Baseline",
+                data: lines.baseline,
+                borderColor: COLORS.sage400,
+                borderWidth: 2.2,
+                pointRadius: 0,
+                tension: 0.26
+              },
+              {
+                label: "Annual",
+                data: lines.annual,
+                borderColor: COLORS.ocean400,
+                borderWidth: 1.2,
+                pointRadius: 0,
+                tension: 0.26
+              },
+              {
+                label: "Prime + booster",
+                data: lines.booster,
+                borderColor: COLORS.sand400,
+                borderWidth: 1.2,
+                pointRadius: 0,
+                tension: 0.26
+              },
+              {
+                label: "You are here",
+                data: [],
+                showLine: false,
+                pointRadius: 4,
+                pointHoverRadius: 4,
+                pointBackgroundColor: COLORS.sage800,
+                pointBorderColor: "#FFFFFF",
+                pointBorderWidth: 1.5
+              }
+            ]
+          },
+          options: {
+            ...chartDefaults(),
+            plugins: {
+              ...chartDefaults().plugins,
+              legend: { display: false },
+              horizontalLinePlugin: {
+                yValue: 1,
+                color: COLORS.sand400,
+                label: "BCR = 1"
+              }
+            },
+            scales: {
+              x: {
+                ...chartDefaults().scales.x,
+                title: { display: true, text: "Adoption rate (%)", color: COLORS.inkSecondary }
+              },
+              y: {
+                ...chartDefaults().scales.y,
+                title: { display: true, text: "BCR", color: COLORS.inkSecondary },
+                min: 0
+              }
+            }
+          },
+          plugins: [horizontalLinePlugin]
+        });
+      }
+
+      function getStudioInputs() {
+        return {
+          adoption: Number(document.getElementById("adoption").value),
+          socialValue: Number(document.getElementById("socialValue").value),
+          eta: Number(document.getElementById("eta").value),
+          global: document.getElementById("globalHerd").checked
+        };
+      }
+
+      function setActiveDose(name) {
+        activeDose = name;
+        document.querySelectorAll(".dosing-pill").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.dose === name);
+        });
+      }
+
+      function updateStudio() {
+        const inputs = getStudioInputs();
+
+        document.getElementById("adoptionValue").textContent = `${inputs.adoption}%`;
+        document.getElementById("socialValueValue").textContent = `$${inputs.socialValue}`;
+        document.getElementById("etaValue").textContent = inputs.eta.toFixed(2);
+
+        const series = buildStudioSeries(inputs);
+        const activeLine = series.lines[activeDose];
+
+        studioChart.data.labels = series.xs;
+        studioChart.data.datasets[0].data = series.lines.baseline;
+        studioChart.data.datasets[1].data = series.lines.annual;
+        studioChart.data.datasets[2].data = series.lines.booster;
+
+        studioChart.data.datasets[0].borderWidth = activeDose === "baseline" ? 2.2 : 1.2;
+        studioChart.data.datasets[1].borderWidth = activeDose === "annual" ? 2.2 : 1.2;
+        studioChart.data.datasets[2].borderWidth = activeDose === "booster" ? 2.2 : 1.2;
+
+        studioChart.data.datasets[0].borderColor = activeDose === "baseline" ? COLORS.sage400 : "rgba(139,168,122,0.45)";
+        studioChart.data.datasets[1].borderColor = activeDose === "annual" ? COLORS.ocean400 : "rgba(90,150,173,0.45)";
+        studioChart.data.datasets[2].borderColor = activeDose === "booster" ? COLORS.sand400 : "rgba(181,169,152,0.35)";
+
+        const xIndex = Math.round(inputs.adoption / 2);
+        studioChart.data.datasets[3].data = series.xs.map((x, i) => (i === xIndex ? activeLine[i] : null));
+
+        const out = computeStudioOut(inputs, activeDose);
+
+        document.getElementById("metricBcr").textContent = out.bcr.toFixed(2);
+        document.getElementById("metricNpv").textContent = formatMoney(out.npvB * 1e9);
+        document.getElementById("metricAmc").textContent = formatMoney(out.amcB * 1e9);
+        document.getElementById("metricBreakEven").textContent = `${Math.max(0, out.breakEven).toFixed(1)}%`;
+
+        studioChart.update("none");
+      }
+
+      function initStudioControls() {
+        document.querySelectorAll(".dosing-pill").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            setActiveDose(btn.dataset.dose);
+            updateStudio();
+          });
+        });
+
+        ["adoption", "socialValue", "eta", "globalHerd"].forEach((id) => {
+          document.getElementById(id).addEventListener("input", updateStudio);
+          document.getElementById(id).addEventListener("change", updateStudio);
+        });
+      }
+
+      function initProgressRail() {
+        const segments = {
+          stuck: document.querySelector('[data-seg="stuck"]'),
+          case: document.querySelector('[data-seg="case"]'),
+          turn: document.querySelector('[data-seg="turn"]')
+        };
+
+        function setActive(name) {
+          Object.keys(segments).forEach((k) => {
+            segments[k].classList.toggle("active", k === name);
+          });
+        }
+
+        const obs = new IntersectionObserver((entries) => {
+          const active = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!active) return;
+          setActive(active.target.dataset.progress);
+        }, {
+          threshold: [0.3, 0.6],
+          rootMargin: "-22% 0px -35% 0px"
+        });
+
+        document.querySelectorAll("[data-progress]").forEach((section) => obs.observe(section));
+        setActive("stuck");
+      }
+
+      function initRevealAnimations() {
+        const pillObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add("visible");
+          });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll(".section-pill").forEach((pill) => pillObserver.observe(pill));
+
+        const cardObserver = new IntersectionObserver((entries) => {
+          entries
+            .filter((entry) => entry.isIntersecting)
+            .forEach((entry) => {
+              const card = entry.target;
+              const cards = Array.from(document.querySelectorAll(".case-card"));
+              const idx = cards.indexOf(card);
+              setTimeout(() => card.classList.add("visible"), idx * 100);
+              renderCaseCard(Number(card.id.replace("card-", "")));
+            });
+        }, { threshold: 0.25 });
+
+        document.querySelectorAll(".case-card").forEach((card) => cardObserver.observe(card));
+
+        const studioObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        }, { threshold: 0.25 });
+
+        const panel = document.getElementById("studioPanel");
+        if (panel) studioObserver.observe(panel);
+      }
+
+      function init() {
+        Chart.register(markerPlugin, horizontalLinePlugin);
+        createAmcPathway();
+        
+        // Render all charts immediately on page load (use renderCaseCard to respect guards)
+        renderCaseCard(1);
+        renderCaseCard(2);
+        renderCaseCard(3);
+        renderCaseCard(4);
+        renderCaseCard(5);
+        
+        initScrollama();
+        activateStuckState(0);
+        document.querySelector('.stuck-step[data-step="0"]').classList.add("active");
+
+        window.addEventListener("resize", () => {
+          const mapEl = document.getElementById("chart3");
+          if (mapEl && typeof Plotly !== "undefined") {
+            Plotly.Plots.resize(mapEl);
+          }
+        });
+
+        initStudioChart();
+        initStudioControls();
+        updateStudio();
+
+        initProgressRail();
+        initRevealAnimations();
+        createStakeholderMatrix();
+      }
+
+      function createStakeholderMatrix() {
+        const root = document.getElementById("stakeholderMatrix");
+        if (!root) return;
+
+        const dots = (n, color) => '<span class="role-dot" style="background:' + color + '"></span>'.repeat(n);
+
+        const rows = [
+          { cls: "role-row--coral", color: "#B8860B", name: "Innovators", cells: [[3, "Build"], [2, "Validate"], [1, "Compete"]] },
+          { cls: "role-row--blue", color: "#5A96AD", name: "Corporates", cells: [[1, "Signal"], [2, "Commit"], [3, "Absorb"]] },
+          { cls: "role-row--purple", color: "#8A7D6E", name: "Philanthropy", cells: [[3, "Catalyze"], [2, "Bridge"], [1, "Exit"]] },
+          { cls: "role-row--teal", color: "#5C7A4E", name: "Governments", cells: [[2, "Fund R&D"], [2, "Policy"], [3, "Enable"]] },
+        ];
+
+        const tbody = rows.map((r) => {
+          const tds = r.cells.map((c) => `<td>${dots(c[0], r.color)} ${c[1]}</td>`).join("");
+          return `<tr class="role-row ${r.cls}"><th style="color:${r.color}">${r.name}</th>${tds}</tr>`;
+        }).join("\n");
+
+        root.innerHTML = `
+          <table class="role-table" aria-label="Stakeholder contribution matrix">
+            <thead>
+              <tr><th>Stakeholder</th><th>R&amp;D</th><th>Scale-up</th><th>Competition</th></tr>
+            </thead>
+            <tbody>
+              ${tbody}
+            </tbody>
+          </table>`;
+      }
+
+      window.addEventListener("DOMContentLoaded", init);
+    })();
+  </script>
+</body>
+</html>
