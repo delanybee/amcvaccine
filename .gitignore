@@ -1,0 +1,6 @@
+# Local editor settings
+.vscode/
+
+# OS noise
+Thumbs.db
+Desktop.ini
