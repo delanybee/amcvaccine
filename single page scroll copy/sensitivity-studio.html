@@ -911,6 +911,28 @@ function debouncedUpdate() {
   clearTimeout(debounceTimer);
   debounceTimer = setTimeout(updateAll, 40);
 }
+
+const verticalMarkerPlugin = {
+  id: 'verticalMarker',
+  afterDraw(chart, args, options) {
+    if (!options || options.xValue == null) return;
+    const xScale = chart.scales.x;
+    const yScale = chart.scales.y;
+    if (!xScale || !yScale) return;
+    const x = xScale.getPixelForValue(options.xValue);
+    if (!Number.isFinite(x)) return;
+    const ctx = chart.ctx;
+    ctx.save();
+    ctx.strokeStyle = options.color || '#1B3F1C';
+    ctx.lineWidth = 2;
+    ctx.setLineDash([5, 4]);
+    ctx.beginPath();
+    ctx.moveTo(x, yScale.top);
+    ctx.lineTo(x, yScale.bottom);
+    ctx.stroke();
+    ctx.restore();
+  }
+};
  
 // ============================================================
 // CHART 1: TORNADO
@@ -1017,14 +1039,14 @@ function initScenario() {
         { label: 'Baseline', data: [], borderColor: '#2E7D32', backgroundColor: 'rgba(46,125,50,0.08)', fill: true, tension: 0.3, pointRadius: 0, borderWidth: 2 },
         { label: 'Annual', data: [], borderColor: '#B8860B', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
         { label: 'Prime + booster', data: [], borderColor: '#C62828', backgroundColor: 'transparent', fill: false, tension: 0.3, pointRadius: 0, borderWidth: 2 },
-        { label: 'Break-even', data: [], borderColor: '#8A7D6B', borderDash: [6, 4], pointRadius: 0, borderWidth: 1, fill: false },
-        { label: 'Current', data: [], borderColor: '#1B3F1C', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
+        { label: 'Break-even', data: [], borderColor: '#8A7D6B', borderDash: [6, 4], pointRadius: 0, borderWidth: 1, fill: false }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
+        verticalMarker: { xValue: '50%', color: '#1B3F1C' },
         tooltip: {
           callbacks: {
             label: function(ctx) {
@@ -1047,7 +1069,8 @@ function initScenario() {
           min: 0
         }
       }
-    }
+    },
+    plugins: [verticalMarkerPlugin]
   });
 }
  
@@ -1069,11 +1092,8 @@ function updateScenario(c) {
   scenarioChart.data.datasets[2].data = datasets[2];
   // Break-even line at BCR=1
   scenarioChart.data.datasets[3].data = adoptionSteps.map(() => 1);
-  // Current adoption vertical (approximated as a spike)
-  const currentIdx = adoptionSteps.indexOf(c.adoption);
+  scenarioChart.options.plugins.verticalMarker.xValue = c.adoption + '%';
   const maxBCR = Math.max(...datasets[0], ...datasets[1], ...datasets[2], 1);
-  scenarioChart.data.datasets[4].data = adoptionSteps.map((a, i) => i === currentIdx ? maxBCR * 1.1 : null);
-  scenarioChart.data.datasets[4].spanGaps = false;
  
   // Adjust y-axis max
   scenarioChart.options.scales.y.max = Math.min(Math.ceil(maxBCR * 1.2), 100);
@@ -1182,14 +1202,14 @@ function initFeasibility() {
     data: {
       labels: [],
       datasets: [
-        { label: 'Required per-firm probability', data: [], borderColor: '#7F77DD', backgroundColor: 'rgba(127,119,221,0.08)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2 },
-        { label: 'Current eta', data: [], borderColor: '#1B3F1C', borderDash: [4, 4], pointRadius: 0, borderWidth: 1, fill: false }
+        { label: 'Required per-firm probability', data: [], borderColor: '#7F77DD', backgroundColor: 'rgba(127,119,221,0.08)', fill: true, tension: 0.4, pointRadius: 0, borderWidth: 2 }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { display: false },
+        verticalMarker: { xValue: '0.90', color: '#1B3F1C' },
         tooltip: {
           callbacks: {
             label: function(ctx) {
@@ -1215,7 +1235,8 @@ function initFeasibility() {
           min: 0, max: 0.4
         }
       }
-    }
+    },
+    plugins: [verticalMarkerPlugin]
   });
 }
  
@@ -1230,11 +1251,7 @@ function updateFeasibility(c) {
  
   feasibilityChart.data.labels = etaSteps;
   feasibilityChart.data.datasets[0].data = probData;
- 
-  // Current eta vertical
-  const maxP = Math.max(...probData);
-  feasibilityChart.data.datasets[1].data = etaSteps.map(e => parseFloat(e) === c.eta ? maxP * 1.1 : null);
-  feasibilityChart.data.datasets[1].spanGaps = false;
+  feasibilityChart.options.plugins.verticalMarker.xValue = c.eta.toFixed(2);
  
   // Memo reference points as annotations via extra datasets
   feasibilityChart.update('none');

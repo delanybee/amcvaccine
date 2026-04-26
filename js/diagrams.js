@@ -231,14 +231,16 @@
     const root = document.getElementById(containerId);
     if (!root) return;
 
+    // Widths are calibrated to share-of-total GHG (0-100), and labels show share-of-parent plus share-of-total.
+    // This addresses Andrew's unit-mixing critique and Jason's visual-proportion critique.
     const layers = [
       { label: "Global GHG emissions", pct: "100%", width: 100, fill: "#D1CCC2" },
-      { label: "Methane share of warming", pct: "~30%", width: 72, fill: "#A5D6A7" },
-      { label: "Anthropogenic methane", pct: "~60%", width: 58, fill: "#66BB6A" },
-      { label: "Agriculture", pct: "~50%", width: 44, fill: "#4CAF50" },
-      { label: "Enteric fermentation", pct: "~73%", width: 33, fill: "#2E7D32" },
-      { label: "Cattle", pct: "~75%", width: 24, fill: "#1B5E20" },
-      { label: "AMC target: 20% reduction", pct: "20%", width: 14, fill: "#B8860B" },
+      { label: "Methane share of warming", pct: "~30% (30% of total)", width: 30, fill: "#A5D6A7" },
+      { label: "Anthropogenic methane", pct: "~60% (18% of total)", width: 18, fill: "#66BB6A" },
+      { label: "Agriculture", pct: "~50% (9% of total)", width: 9, fill: "#4CAF50" },
+      { label: "Enteric fermentation", pct: "~73% (6.6% of total)", width: 6.6, fill: "#2E7D32" },
+      { label: "Cattle", pct: "~75% (4.9% of total)", width: 4.9, fill: "#1B5E20" },
+      { label: "AMC target: 20% reduction", pct: "20% of cattle methane (~1% of total)", width: 1, fill: "#B8860B" },
     ];
 
     const barH = 32;

@@ -969,6 +969,7 @@ main {
   display: grid;
   place-items: center;
   z-index: 1200;
+  padding: 16px;
 }
 
 .modal[hidden] {
@@ -978,38 +979,126 @@ main {
 .modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.35);
+  background:
+    radial-gradient(circle at top, rgba(165, 214, 167, 0.12), transparent 42%),
+    linear-gradient(180deg, rgba(27, 63, 28, 0.24), rgba(27, 42, 28, 0.36));
 }
 
 .modal-card {
   position: relative;
   z-index: 1;
   width: min(680px, 92vw);
-  background: var(--card);
+  background: linear-gradient(180deg, rgba(232, 245, 233, 0.35), var(--bg) 22%);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 24px;
+  box-shadow: 0 8px 32px rgba(27, 63, 28, 0.14);
+  padding: 40px 40px 36px;
+  font-family: var(--font-body);
+  color: var(--body);
+  max-height: 88vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
+}
+
+.modal-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--sage), var(--teal), var(--wheat));
 }
 
 .modal-card h2 {
+  font-family: var(--font-display);
+  font-size: 1.72rem;
+  font-weight: 400;
+  color: var(--heading);
+  line-height: 1.18;
   margin: 0 0 10px;
+  letter-spacing: -0.01em;
+}
+
+.modal-kicker {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+
+.modal-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 22px 0 18px;
 }
 
 .modal-card p {
+  font-size: 0.98rem;
+  line-height: 1.82;
+  color: var(--body);
+  margin: 0 0 13px;
+  max-width: 62ch;
+}
+
+.modal-card p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-card strong {
+  color: var(--heading);
+  font-weight: 600;
+}
+
+.modal-section-head {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
   margin: 0 0 10px;
-  line-height: 1.55;
 }
 
 .modal-close {
-  position: absolute;
+  position: sticky;
   top: 10px;
-  right: 10px;
   border: 1px solid var(--line);
-  background: #fff;
+  background: transparent;
   border-radius: 999px;
-  padding: 4px 10px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  color: var(--text-muted);
   cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  display: flex;
+  margin: 0 0 12px auto;
+  z-index: 2;
+}
+
+.modal-close:hover {
+  background: var(--line);
+  color: var(--heading);
+}
+
+@media (max-width: 640px) {
+  .modal-card {
+    padding: 34px 22px 26px;
+  }
+
+  .modal-card h2 {
+    font-size: 1.46rem;
+  }
+
+  .modal-card p {
+    font-size: 0.94rem;
+    max-width: none;
+  }
 }
 
 /* Site nav - Dark Forest */

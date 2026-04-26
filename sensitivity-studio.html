@@ -294,6 +294,14 @@
       font-size: 12px;
     }
 
+    .studio-legend-scope {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
     .legend-item {
       display: inline-flex;
       align-items: center;
@@ -304,6 +312,19 @@
       width: 18px;
       height: 0;
       border-top: 2px solid;
+    }
+
+    .legend-line-dashed {
+      border-top-style: dashed;
+    }
+
+    .legend-point {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 1px solid #FFFFFF;
+      box-shadow: 0 0 0 1px rgba(42, 45, 40, 0.2);
     }
 
     .legend-sage { border-color: var(--sage-400); }
@@ -644,7 +665,6 @@
         font-size: 1.8rem;
       }
     }
-    }
   </style>
 </head>
 <body>
@@ -676,12 +696,6 @@
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
       </span>
       <span>Frameworks</span>
-    </a>
-    <a href="slide-deck.html" class="nav-link" data-tooltip="20-slide presentation summarizing the AMC design and analysis">
-      <span class="nav-icon">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M6 7l2 2 2-2"/><line x1="8" y1="7" x2="8" y2="10"/></svg>
-      </span>
-      <span>Slide Deck</span>
     </a>
     <a href="index.html" class="nav-link" data-tooltip="Project background, methodology, and status">
       <span class="nav-icon">
@@ -742,6 +756,11 @@
           <span class="legend-item"><span class="legend-line legend-sage"></span>Baseline</span>
           <span class="legend-item"><span class="legend-line legend-ocean"></span>Annual</span>
           <span class="legend-item"><span class="legend-line legend-sand"></span>Prime + booster</span>
+          <div class="studio-legend-scope">
+            <span class="legend-item"><span class="legend-line legend-sage"></span>Solid = U.S. herd</span>
+            <span class="legend-item"><span class="legend-line legend-sage legend-line-dashed"></span>Dashed = Global herd</span>
+            <span class="legend-item"><span class="legend-point"></span>Current slider point</span>
+          </div>
         </div>
       </div>
     </div>
@@ -868,21 +887,18 @@
 <footer class="site-footer">
   <div class="footer-inner">
     <a href="index.html" class="footer-back-link">&larr; Back to story map</a>
-    <p class="footer-series">Part 3 of 5 | Sensitivity studio</p>
+    <p class="footer-series">Part 3 of 4 | Sensitivity studio</p>
     <nav class="footer-story-nav" aria-label="Continue the story">
       <a href="index.html">Story map</a>
       <a href="data-explorer.html">Data Explorer</a>
       <a href="sensitivity-studio.html" class="is-active" aria-current="page">Sensitivity Studio</a>
       <a href="frameworks.html">Frameworks</a>
-      <a href="slide-deck.html">Slide Deck</a>
     </nav>
     <p class="footer-credit">Designed and built by Delany Broome</p>
     <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
-    <p class="footer-collab">In collaboration with The Nature Conservancy and Spark Climate Solutions</p>
+    <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
     <div class="footer-logos">
       <span class="footer-logo-text">UC Berkeley</span>
-      <span class="footer-logo-divider"></span>
-      <span class="footer-logo-text">The Nature Conservancy</span>
       <span class="footer-logo-divider"></span>
       <span class="footer-logo-text">Spark Climate</span>
     </div>
@@ -1013,9 +1029,15 @@
     const adoptionSteps = [];
     for (let a = 0; a <= 100; a += 5) adoptionSteps.push(a);
 
-    const baselineData = adoptionSteps.map(a => computeBCR(a, socialValue, "baseline", globalHerd, eta).bcr);
-    const annualData = adoptionSteps.map(a => computeBCR(a, socialValue, "annual", globalHerd, eta).bcr);
-    const boosterData = adoptionSteps.map(a => computeBCR(a, socialValue, "booster", globalHerd, eta).bcr);
+    // Always show both herd scopes on the chart so the comparison is visible
+    // regardless of checkbox state. The checkbox still drives metric cards below.
+    const baselineUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "baseline", false, eta).bcr);
+    const annualUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "annual", false, eta).bcr);
+    const boosterUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "booster", false, eta).bcr);
+
+    const baselineGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "baseline", true, eta).bcr);
+    const annualGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "annual", true, eta).bcr);
+    const boosterGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "booster", true, eta).bcr);
 
     if (!studioChart) {
       const ctx = document.getElementById("studioChart").getContext("2d");
@@ -1025,8 +1047,8 @@
           labels: adoptionSteps.map(a => a + "%"),
           datasets: [
             {
-              label: "Baseline",
-              data: baselineData,
+              label: "Baseline (U.S.)",
+              data: baselineUsData,
               borderColor: COLORS.sage400,
               backgroundColor: "transparent",
               borderWidth: 2,
@@ -1034,25 +1056,63 @@
               pointRadius: 0
             },
             {
-              label: "Annual",
-              data: annualData,
+              label: "Annual (U.S.)",
+              data: annualUsData,
               borderColor: COLORS.ocean400,
               backgroundColor: "transparent",
               borderWidth: 2,
-              borderDash: [6, 4],
               tension: 0.3,
               pointRadius: 0,
               borderDashOffset: 0
             },
             {
-              label: "Prime + booster",
-              data: boosterData,
+              label: "Prime + booster (U.S.)",
+              data: boosterUsData,
               borderColor: COLORS.sand400,
               backgroundColor: "transparent",
               borderWidth: 2,
-              borderDash: [2, 3],
               tension: 0.3,
               pointRadius: 0
+            },
+            {
+              label: "Baseline (Global)",
+              data: baselineGlobalData,
+              borderColor: COLORS.sage400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Annual (Global)",
+              data: annualGlobalData,
+              borderColor: COLORS.ocean400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Prime + booster (Global)",
+              data: boosterGlobalData,
+              borderColor: COLORS.sand400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Current selection",
+              data: [],
+              showLine: false,
+              pointRadius: 4,
+              pointHoverRadius: 4,
+              pointBackgroundColor: COLORS.ink,
+              pointBorderColor: "#FFFFFF",
+              pointBorderWidth: 1.5
             }
           ]
         },
@@ -1082,12 +1142,64 @@
           }
         }
       });
-    } else {
-      studioChart.data.datasets[0].data = baselineData;
-      studioChart.data.datasets[1].data = annualData;
-      studioChart.data.datasets[2].data = boosterData;
-      studioChart.update("none");
     }
+
+    studioChart.data.datasets[0].data = baselineUsData;
+    studioChart.data.datasets[1].data = annualUsData;
+    studioChart.data.datasets[2].data = boosterUsData;
+    studioChart.data.datasets[3].data = baselineGlobalData;
+    studioChart.data.datasets[4].data = annualGlobalData;
+    studioChart.data.datasets[5].data = boosterGlobalData;
+
+    const activeUsColors = {
+      baseline: COLORS.sage400,
+      annual: COLORS.ocean400,
+      booster: COLORS.sand400
+    };
+    const mutedUsColors = {
+      baseline: "rgba(139,168,122,0.45)",
+      annual: "rgba(90,150,173,0.45)",
+      booster: "rgba(181,169,152,0.45)"
+    };
+
+    const activeGlobalColors = {
+      baseline: COLORS.sage600,
+      annual: COLORS.ocean400,
+      booster: COLORS.sand400
+    };
+    const mutedGlobalColors = {
+      baseline: "rgba(92,122,78,0.35)",
+      annual: "rgba(90,150,173,0.35)",
+      booster: "rgba(181,169,152,0.35)"
+    };
+
+    const doseOrder = ["baseline", "annual", "booster"];
+    doseOrder.forEach((dose, i) => {
+      const isActive = activeDose === dose;
+      studioChart.data.datasets[i].borderWidth = isActive ? 2.8 : 1.3;
+      studioChart.data.datasets[i].borderColor = isActive ? activeUsColors[dose] : mutedUsColors[dose];
+
+      const gi = i + 3;
+      studioChart.data.datasets[gi].borderWidth = isActive ? 2.4 : 1.2;
+      studioChart.data.datasets[gi].borderColor = isActive ? activeGlobalColors[dose] : mutedGlobalColors[dose];
+      studioChart.data.datasets[gi].borderDash = [6, 4];
+    });
+
+    const xIndex = Math.round(currentAdoption / 5);
+    const activeLineMapUs = {
+      baseline: baselineUsData,
+      annual: annualUsData,
+      booster: boosterUsData
+    };
+    const activeLineMapGlobal = {
+      baseline: baselineGlobalData,
+      annual: annualGlobalData,
+      booster: boosterGlobalData
+    };
+    const activeLine = globalHerd ? activeLineMapGlobal[activeDose] : activeLineMapUs[activeDose];
+    studioChart.data.datasets[6].data = adoptionSteps.map((x, i) => (i === xIndex ? activeLine[i] : null));
+
+    studioChart.update("none");
   }
 
   function updateControlDisplays() {
