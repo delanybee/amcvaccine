@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editorial font preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Lora:ital,wght@0,400;0,500;1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #FAFAF8;
+      color: #2A2D28;
+      font-size: 16px;
+      padding: 0 0 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-head {
+      background: #1B2821;
+      color: #A5D6A7;
+      padding: 32px 40px;
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+    .page-head h1 {
+      font-size: 1.1rem; font-weight: 400; letter-spacing: 0.05em;
+      margin-bottom: 4px; color: #fff;
+    }
+    .page-head p { opacity: 0.6; font-size: 0.78rem; }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 0;
+    }
+
+    .option {
+      padding: 52px 44px 56px;
+      border-right: 1px solid #E0DDD4;
+      border-bottom: 1px solid #E0DDD4;
+    }
+    .option:nth-child(even) { background: #F5F3EF; }
+
+    .opt-label {
+      font-family: 'Source Serif 4', sans-serif;
+      font-size: 10px; font-weight: 400;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: #5C7A4E; margin-bottom: 6px;
+    }
+    .opt-name {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.35rem; font-weight: 400;
+      color: #1B2A1C; margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .opt-meta {
+      font-size: 0.75rem; color: #8A8F88;
+      font-family: 'Source Serif 4', sans-serif;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #E0DDD4;
+    }
+
+    /* ── Specimen area ── */
+    .specimen-kicker {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #5C7A4E; margin-bottom: 12px;
+      font-family: 'Source Serif 4', sans-serif;
+    }
+    .specimen-h2 {
+      font-size: clamp(1.55rem, 2.8vw, 2rem);
+      font-weight: 300; line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: #1B2A1C; margin-bottom: 20px;
+    }
+
+    .specimen-body p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #2A2D28;
+      margin-bottom: 18px;
+    }
+    .specimen-body p:last-child { margin-bottom: 0; }
+
+    .specimen-pullquote {
+      font-style: italic;
+      font-size: 1.2rem; line-height: 1.55;
+      color: #1B2A1C;
+      border-left: 3px solid #5C7A4E;
+      padding-left: 20px;
+      margin: 24px 0;
+    }
+
+    /* ── Per-font assignments ── */
+    .f-eb-garamond .specimen-h2,
+    .f-eb-garamond .specimen-body p,
+    .f-eb-garamond .specimen-pullquote { font-family: 'EB Garamond', Georgia, serif; }
+
+    .f-lora .specimen-h2,
+    .f-lora .specimen-body p,
+    .f-lora .specimen-pullquote { font-family: 'Lora', Georgia, serif; }
+
+    .f-spectral .specimen-h2,
+    .f-spectral .specimen-body p,
+    .f-spectral .specimen-pullquote { font-family: 'Spectral', Georgia, serif; }
+
+    .f-cormorant .specimen-h2,
+    .f-cormorant .specimen-body p,
+    .f-cormorant .specimen-pullquote { font-size: 1.12rem; font-family: 'Cormorant Garamond', Georgia, serif; }
+    .f-cormorant .specimen-h2 { font-size: 2rem; }
+
+    .f-source-serif .specimen-h2,
+    .f-source-serif .specimen-body p,
+    .f-source-serif .specimen-pullquote { font-family: 'Source Serif 4', Georgia, serif; }
+  </style>
+</head>
+<body>
+
+<div class="page-head">
+  <h1>Editorial — body font comparison</h1>
+  <p>Same text. Same size (1.05rem / 18px base). Choose what feels right.</p>
+</div>
+
+<div class="options">
+
+  <!-- 1. EB Garamond -->
+  <div class="option f-eb-garamond">
+    <p class="opt-label">Option 1</p>
+    <p class="opt-name">EB Garamond</p>
+    <p class="opt-meta">Classical · Newspaper · Old-world authority<br>Think: NYT Op-Ed, The Guardian long-form</p>
+    <p class="specimen-kicker">Part I &middot; The urgency</p>
+    <h2 class="specimen-h2">Cattle are responsible for a $10&nbsp;billion annual climate bill</h2>
+    <div class="specimen-body">
+      <p>Methane accounts for roughly 30% of all global warming since pre-industrial times. Unlike CO&#x2082;, which accumulates for centuries, methane cycles out of the atmosphere in about 12 years, which means cutting it delivers measurable temperature relief within a decade.</p>
+      <p class="specimen-pullquote">&ldquo;Buyers won&rsquo;t purchase what doesn&rsquo;t exist yet. Builders won&rsquo;t ship what nobody&rsquo;s buying. The market fails before it starts.&rdquo;</p>
+      <p>Scientists recognize it as the #1 fastest lever to slow near-term warming: the scale and speed of its mitigation impact are matched by the availability of mitigation measures already in development.</p>
+    </div>
+  </div>
+
+  <!-- 2. Lora -->
+  <div class="option f-lora">
+    <p class="opt-label">Option 2</p>
+    <p class="opt-name">Lora</p>
+    <p class="opt-meta">Warm · Literary · Screen-first readability<br>Think: Substack, The Atlantic features</p>
+    <p class="specimen-kicker">Part I &middot; The urgency</p>
+    <h2 class="specimen-h2">Cattle are responsible for a $10&nbsp;billion annual climate bill</h2>
+    <div class="specimen-body">
+      <p>Methane accounts for roughly 30% of all global warming since pre-industrial times. Unlike CO&#x2082;, which accumulates for centuries, methane cycles out of the atmosphere in about 12 years, which means cutting it delivers measurable temperature relief within a decade.</p>
+      <p class="specimen-pullquote">&ldquo;Buyers won&rsquo;t purchase what doesn&rsquo;t exist yet. Builders won&rsquo;t ship what nobody&rsquo;s buying. The market fails before it starts.&rdquo;</p>
+      <p>Scientists recognize it as the #1 fastest lever to slow near-term warming: the scale and speed of its mitigation impact are matched by the availability of mitigation measures already in development.</p>
+    </div>
+  </div>
+
+  <!-- 3. Spectral -->
+  <div class="option f-spectral">
+    <p class="opt-label">Option 3</p>
+    <p class="opt-name">Spectral</p>
+    <p class="opt-meta">Contemporary · Precise · Slightly condensed<br>Think: Google editorial, The Intercept longform</p>
+    <p class="specimen-kicker">Part I &middot; The urgency</p>
+    <h2 class="specimen-h2">Cattle are responsible for a $10&nbsp;billion annual climate bill</h2>
+    <div class="specimen-body">
+      <p>Methane accounts for roughly 30% of all global warming since pre-industrial times. Unlike CO&#x2082;, which accumulates for centuries, methane cycles out of the atmosphere in about 12 years, which means cutting it delivers measurable temperature relief within a decade.</p>
+      <p class="specimen-pullquote">&ldquo;Buyers won&rsquo;t purchase what doesn&rsquo;t exist yet. Builders won&rsquo;t ship what nobody&rsquo;s buying. The market fails before it starts.&rdquo;</p>
+      <p>Scientists recognize it as the #1 fastest lever to slow near-term warming: the scale and speed of its mitigation impact are matched by the availability of mitigation measures already in development.</p>
+    </div>
+  </div>
+
+  <!-- 4. Cormorant Garamond -->
+  <div class="option f-cormorant">
+    <p class="opt-label">Option 4</p>
+    <p class="opt-name">Cormorant Garamond</p>
+    <p class="opt-meta">Luxurious · High-contrast · Refined elegance<br>Think: fashion editorial, literary quarterly</p>
+    <p class="specimen-kicker">Part I &middot; The urgency</p>
+    <h2 class="specimen-h2">Cattle are responsible for a $10&nbsp;billion annual climate bill</h2>
+    <div class="specimen-body">
+      <p>Methane accounts for roughly 30% of all global warming since pre-industrial times. Unlike CO&#x2082;, which accumulates for centuries, methane cycles out of the atmosphere in about 12 years, which means cutting it delivers measurable temperature relief within a decade.</p>
+      <p class="specimen-pullquote">&ldquo;Buyers won&rsquo;t purchase what doesn&rsquo;t exist yet. Builders won&rsquo;t ship what nobody&rsquo;s buying. The market fails before it starts.&rdquo;</p>
+      <p>Scientists recognize it as the #1 fastest lever to slow near-term warming: the scale and speed of its mitigation impact are matched by the availability of mitigation measures already in development.</p>
+    </div>
+  </div>
+
+  <!-- 5. Source Serif 4 (current) -->
+  <div class="option f-source-serif">
+    <p class="opt-label">Option 5 &mdash; Current</p>
+    <p class="opt-name">Source Serif 4</p>
+    <p class="opt-meta">Modern · Clean · Design-system coherent<br>Think: Adobe editorial, data journalism sites</p>
+    <p class="specimen-kicker">Part I &middot; The urgency</p>
+    <h2 class="specimen-h2">Cattle are responsible for a $10&nbsp;billion annual climate bill</h2>
+    <div class="specimen-body">
+      <p>Methane accounts for roughly 30% of all global warming since pre-industrial times. Unlike CO&#x2082;, which accumulates for centuries, methane cycles out of the atmosphere in about 12 years, which means cutting it delivers measurable temperature relief within a decade.</p>
+      <p class="specimen-pullquote">&ldquo;Buyers won&rsquo;t purchase what doesn&rsquo;t exist yet. Builders won&rsquo;t ship what nobody&rsquo;s buying. The market fails before it starts.&rdquo;</p>
+      <p>Scientists recognize it as the #1 fastest lever to slow near-term warming: the scale and speed of its mitigation impact are matched by the availability of mitigation measures already in development.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
