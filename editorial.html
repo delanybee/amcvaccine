@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -183,7 +183,7 @@
     /* ── Full-bleed stat hero ─────────────────────────────────── */
     .e-stat-hero {
       padding: 88px 24px; text-align: center;
-      background: #EDF1EC;
+      background: #F4F0E6;
       border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
     }
     .e-stat-hero-num {
@@ -346,7 +346,7 @@
     .e-role p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
 
     /* ── About section ────────────────────────────────────────── */
-    .e-section-about { background: #EDF1EC; }
+    .e-section-about { background: #F4F0E6; }
 
     /* ── Footer ───────────────────────────────────────────────── */
     .e-footer {
@@ -360,44 +360,6 @@
     .e-footer-nav a:hover { color: rgba(165,214,167,0.9); }
     .e-footer-rule { border: none; border-top: 1px solid rgba(165,214,167,0.12); width: 48px; margin: 16px auto; }
 
-
-    /* ── Guide cards (Reading the studio) ────────────────────── */
-    .studio-guide {
-      margin-top: 28px;
-      padding-top: 28px;
-      border-top: 1px solid var(--line);
-    }
-    .studio-guide h3 {
-      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--text-muted);
-      margin-bottom: 14px;
-    }
-    .guide-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-    }
-    .guide-card {
-      background: var(--bg); border: 1px solid rgba(42,45,40,0.1);
-      border-radius: var(--radius-sm); overflow: hidden;
-    }
-    .guide-card summary {
-      padding: 13px 14px; font-size: 13px; font-weight: 600;
-      color: var(--heading); cursor: pointer; list-style: none;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    }
-    .guide-card summary::-webkit-details-marker { display: none; }
-    .guide-card summary::after { content: "+"; font-size: 16px; font-weight: 400; color: var(--text-muted); }
-    .guide-card[open] summary::after { content: "\2212"; }
-    .guide-card .guide-body {
-      padding: 0 14px 14px; font-size: 12px; line-height: 1.7; color: var(--text-muted);
-    }
-    .guide-card .guide-body p { margin: 0 0 9px; }
-    .guide-card .guide-body p:last-child { margin-bottom: 0; }
-    .guide-highlight {
-      display: inline-block; background: rgba(92,122,78,0.1);
-      color: var(--brand-dark); font-weight: 600; font-size: 11px;
-      padding: 2px 6px; border-radius: 4px; margin: 0 2px;
-    }
-    @media (max-width: 720px) { .guide-grid { grid-template-columns: 1fr; } }
     /* ── Responsive ───────────────────────────────────────────── */
     @media (max-width: 720px) {
       .studio-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -470,7 +432,7 @@
       </div>
       <div>
         <span class="e-big-num">12 yrs</span>
-        <p>atmospheric lifespan. Cuts work fast.</p>
+        <p>atmospheric lifespan:<br>cuts work fast</p>
       </div>
     </div>
   </div>
@@ -488,7 +450,7 @@
   <div class="e-prose">
     <span class="e-kicker">Part II &middot; The market failure</span>
     <h2 class="e-h2">The deadlock nobody solves first</h2>
-    <p>There is a coordination trap at the center of this problem. Buyers of low-methane outcomes (food companies, supply chains, and climate-focused brands) won&rsquo;t commit to purchasing a product that doesn&rsquo;t exist yet at commercial scale. Innovators won&rsquo;t invest in scaling a product with no guaranteed buyers. Both positions are individually rational. Together they produce nothing.</p>
+    <p>There is a coordination trap at the center of this problem. Buyers of low-methane outcomes (food companies, supply chains, climate-focused brands) won&rsquo;t commit to purchasing a product that doesn&rsquo;t exist yet at commercial scale. Innovators won&rsquo;t invest in scaling a product with no guaranteed buyers. Both positions are individually rational. Together they produce nothing.</p>
     <p>For a firm considering R&amp;D investment, the range of outcomes without any demand guarantee includes deep losses on the downside. Risk-aversion kills viable projects even when expected value is positive. Capital waits. The market fails before it starts.</p>
   </div>
 
@@ -509,7 +471,7 @@
   </div>
 
   <div class="e-prose" style="margin-top:52px;">
-    <p>The AMC literature, grounded in the Pneumococcal precedent designed by Nobel Laureate Michael Kremer, shows that this mechanism works. When the demand guarantee is credible, suppliers price R&amp;D risk accordingly and investment moves earlier. The feedback loop from deadlock to deployment can be broken by a single commitment.</p>
+    <p>The AMC literature (grounded in the Pneumococcal precedent designed by Nobel Laureate Michael Kremer) shows that this mechanism works. When the demand guarantee is credible, suppliers price R&amp;D risk accordingly and investment moves earlier. The feedback loop from deadlock to deployment can be broken by a single commitment.</p>
   </div>
 </section>
 
@@ -520,7 +482,7 @@
   <div class="e-prose">
     <span class="e-kicker">Part III &middot; The mechanism</span>
     <h2 class="e-h2">An Advance Market Commitment installs a floor</h2>
-    <p>An Advance Market Commitment works by converting a future demand signal into a present economic reality. Sponsors (governments, food companies, and philanthropies) commit in advance to purchase a defined volume of low-methane outcomes once a qualifying intervention reaches commercial scale. The critical design feature: sponsors pay nothing if no product succeeds. Zero downside for funders. Only upside for the atmosphere.</p>
+    <p>An Advance Market Commitment works by converting a future demand signal into a present economic reality. Sponsors (governments, food companies, philanthropies) commit in advance to purchase a defined volume of low-methane outcomes once a qualifying intervention reaches commercial scale. The critical design feature: sponsors pay nothing if no product succeeds. Zero downside for funders. Only upside for the atmosphere.</p>
     <p>The Pneumococcal AMC helped deliver vaccines to 1.7 billion children in developing countries. The methane AMC draws on the same design principles and is co-developed with the same economist. This mechanism has a track record.</p>
     <p>For livestock methane, the AMC is technology-agnostic by design: vaccines, genetics, feed additives, and slow-release boluses all qualify if they meet performance criteria. That flexibility lets innovation competition happen in parallel, accelerating time-to-market across multiple pathways simultaneously.</p>
   </div>
@@ -534,7 +496,7 @@
   </div>
 
   <div class="e-prose" style="margin-top:52px;">
-    <p>Adoption is the key multiplier. Every additional percentage point of U.S. cattle adoption represents roughly 900,000 animals and about $90 million in avoided annual climate damage. The model&rsquo;s baseline assumption of 50% adoption is a midpoint estimate. The break-even rate is 3.5%: the minimum adoption where every dollar committed is justified.</p>
+    <p>Adoption is the key multiplier. Every additional percentage point of U.S. cattle adoption represents roughly 900,000 animals and about $90 million in avoided annual climate damage. The model&rsquo;s baseline assumption (50% adoption) is a midpoint estimate. The break-even rate is 3.5%: the minimum adoption where every dollar committed is justified.</p>
   </div>
 </section>
 
@@ -550,7 +512,7 @@
     <span class="e-kicker">Part IV &middot; Your&nbsp;turn</span>
     <h2 class="e-h2">We modeled scenarios.<br>Now test the assumptions.</h2>
     <p>The ratio above is a baseline, not a certainty. The economics depend on three variables you can move: how many farmers adopt, how much society values each ton of methane avoided, and what the dosing regimen looks like. Drag the sliders. The model responds in real time.</p>
-    <p>The finding is robust. Even at 10% adoption (one-fifth the baseline), the BCR stays above 2.5 under single-dose assumptions. Even if the social cost of methane is halved to $800/ton, the ratio stays above 7. The model doesn&rsquo;t break easily.</p>
+    <p>The finding is robust. Even at 10% adoption (one-fifth the baseline) the BCR stays above 2.5 under single-dose assumptions. Even if the social cost of methane is halved to $800/ton, the ratio stays above 7. The model doesn&rsquo;t break easily.</p>
   </div>
 
   <div class="e-studio-wrap e-wide">
@@ -629,40 +591,12 @@
         <p class="metric-val" id="mBe">0%</p>
         <p class="metric-lbl">Break-even adoption</p>
       </article>
-
-    <div class="studio-guide">
-      <h3>Reading the studio</h3>
-      <div class="guide-grid">
-        <details class="guide-card">
-          <summary>What is the benefit-cost ratio?</summary>
-          <div class="guide-body">
-            <p>BCR is the total present value of social benefits divided by the total present value of social costs. A BCR of <span class="guide-highlight">14.41</span> means every dollar spent generates about $14.41 in avoided climate damages.</p>
-            <p>Most public infrastructure investments are considered strong at a BCR near 2-3. This ratio is high because methane abatement delivers large public benefits while intervention costs remain modest relative to herd scale.</p>
-            <p>The break-even adoption metric tells you the minimum adoption rate where BCR equals 1. Under baseline assumptions that is about 3.5%.</p>
-          </div>
-        </details>
-        <details class="guide-card">
-          <summary>What counts as social cost?</summary>
-          <div class="guide-body">
-            <p>Social cost here is the total resource cost society bears to make the intervention happen. It is not the social cost of methane itself.</p>
-            <p>It has two parts: AMC outlay for risk and adoption support, plus ongoing manufacturing and deployment after the AMC window closes.</p>
-            <p>Under annual dosing, the non-AMC component rises materially because more doses are manufactured and administered over each animal&rsquo;s lifetime.</p>
-          </div>
-        </details>
-        <details class="guide-card">
-          <summary>What do the sliders change?</summary>
-          <div class="guide-body">
-            <p>Adoption and social value scale benefits upward. Dosing scenario is the biggest cost lever. Feasibility (eta) shifts R&amp;D risk, which changes required AMC support.</p>
-            <p>Use these controls together to test where economics remain strong and where assumptions become fragile.</p>
-          </div>
-        </details>
-      </div>
     </div>
   </div>
 
   <div class="e-prose" style="margin-top:44px;">
     <p>The most consequential open variable is dosing. Single-dose AMC outlay: $534&thinsp;M. Annual dosing: $832&thinsp;M. Prime + booster: $1.07&thinsp;B. The BCR stays above 1 in all scenarios, but the coalition-building ask changes substantially. The conversation with a $534&thinsp;M target reaches different funders than a $1&thinsp;B ask.</p>
-    <p>The model is most robust to adoption rate variation. At 10% adoption (one-fifth of the baseline), the BCR under single-dose assumptions is still approximately 2.9. For comparison, many public infrastructure investments are considered strong at a BCR of 2.</p>
+    <p>The model is most robust to adoption rate variation. At 10% adoption (one-fifth of the baseline) the BCR under single-dose assumptions is still approximately 2.9. For comparison, many public infrastructure investments are considered strong at a BCR of 2.</p>
   </div>
 </section>
 
@@ -718,7 +652,7 @@
     <span class="e-kicker">About</span>
     <h2 class="e-h2">Behind this work</h2>
     <p>This essay is the capstone work of an environmental scientist with eight years of experience in California state environmental work, now pursuing the <strong>Master of Climate Solutions</strong> at UC Berkeley&rsquo;s Rausser College of Natural Resources.</p>
-    <p>The analysis stress-tests a single proposed mechanism, an Advance Market Commitment for a methane-reducing livestock vaccine, tested through four interconnected lenses: narrative, economic evidence, techno-economic modeling, and framework review. The full site has four sections; this page is the editorial distillation.</p>
+    <p>The analysis stress-tests a single proposed mechanism (an Advance Market Commitment for a methane-reducing livestock vaccine) through four interconnected lenses: narrative, economic evidence, techno-economic modeling, and framework review. The full site has four sections; this page is the editorial distillation.</p>
     <p>The work was produced in collaboration with <strong>Spark Climate Solutions</strong>, a nonprofit accelerating progress in underfunded, high-impact climate fields, and builds on Spark&rsquo;s 2025 Livestock Enteric Methane Mitigation Roadmap.</p>
     <p>Outside this work, Delany is active in the Berkeley Energy and Resources Collaborative, an enthusiastic gardener and cook, a student of the art of tarot, and a firm believer that climate work should leave room for joy.</p>
 
