@@ -211,20 +211,41 @@
 
     /* ── Full-bleed stat hero ─────────────────────────────────── */
     .e-stat-hero {
-      padding: 88px 24px; text-align: center;
+      padding: 72px 24px;
       background: var(--bg);
       border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
     }
+    .e-stat-hero-inner {
+      max-width: 680px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 48px;
+    }
     .e-stat-hero-num {
       font-family: var(--font-display);
-      font-size: clamp(5.5rem, 16vw, 10rem);
+      font-size: clamp(4.5rem, 12vw, 7.5rem);
       font-weight: 300; letter-spacing: -0.045em;
       color: var(--heading); line-height: 0.88;
-      margin-bottom: 24px;
+      white-space: nowrap;
+    }
+    .e-stat-hero-right {
+      border-left: 3px solid var(--brand);
+      padding-left: 28px;
     }
     .e-stat-hero-label {
-      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-      color: var(--text-muted); line-height: 1.65; max-width: 38ch; margin: 0 auto;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+      line-height: 1.7; color: var(--body);
+      margin-bottom: 10px;
+    }
+    .e-stat-hero-sub {
+      font-size: 0.82rem; color: var(--text-muted);
+      line-height: 1.55;
+    }
+    @media (max-width: 540px) {
+      .e-stat-hero-inner { grid-template-columns: 1fr; gap: 24px; }
+      .e-stat-hero-right { border-left: none; padding-left: 0; border-top: 3px solid var(--brand); padding-top: 20px; }
     }
 
     /* ── Chart frame ──────────────────────────────────────────── */
@@ -535,8 +556,13 @@
 
 <!-- ══════════════════════════════════════════════════════ BIG STAT ═ -->
 <div class="e-stat-hero">
-  <p class="e-stat-hero-num">$14</p>
-  <p class="e-stat-hero-label">returned in avoided climate damage<br>for every $1 of AMC commitment</p>
+  <div class="e-stat-hero-inner">
+    <p class="e-stat-hero-num">$14</p>
+    <div class="e-stat-hero-right">
+      <p class="e-stat-hero-label">returned in avoided climate damage for every $1 of AMC commitment</p>
+      <p class="e-stat-hero-sub">Baseline scenario &middot; 50% adoption &middot; single dose<br>Break-even starts at just 3.5% adoption</p>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════════════════ PART IV ══ -->
