@@ -360,6 +360,44 @@
     .e-footer-nav a:hover { color: rgba(165,214,167,0.9); }
     .e-footer-rule { border: none; border-top: 1px solid rgba(165,214,167,0.12); width: 48px; margin: 16px auto; }
 
+
+    /* ── Guide cards (Reading the studio) ────────────────────── */
+    .studio-guide {
+      margin-top: 28px;
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+    }
+    .studio-guide h3 {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+    .guide-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+    }
+    .guide-card {
+      background: var(--bg); border: 1px solid rgba(42,45,40,0.1);
+      border-radius: var(--radius-sm); overflow: hidden;
+    }
+    .guide-card summary {
+      padding: 13px 14px; font-size: 13px; font-weight: 600;
+      color: var(--heading); cursor: pointer; list-style: none;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .guide-card summary::-webkit-details-marker { display: none; }
+    .guide-card summary::after { content: "+"; font-size: 16px; font-weight: 400; color: var(--text-muted); }
+    .guide-card[open] summary::after { content: "\2212"; }
+    .guide-card .guide-body {
+      padding: 0 14px 14px; font-size: 12px; line-height: 1.7; color: var(--text-muted);
+    }
+    .guide-card .guide-body p { margin: 0 0 9px; }
+    .guide-card .guide-body p:last-child { margin-bottom: 0; }
+    .guide-highlight {
+      display: inline-block; background: rgba(92,122,78,0.1);
+      color: var(--brand-dark); font-weight: 600; font-size: 11px;
+      padding: 2px 6px; border-radius: 4px; margin: 0 2px;
+    }
+    @media (max-width: 720px) { .guide-grid { grid-template-columns: 1fr; } }
     /* ── Responsive ───────────────────────────────────────────── */
     @media (max-width: 720px) {
       .studio-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -591,6 +629,34 @@
         <p class="metric-val" id="mBe">0%</p>
         <p class="metric-lbl">Break-even adoption</p>
       </article>
+
+    <div class="studio-guide">
+      <h3>Reading the studio</h3>
+      <div class="guide-grid">
+        <details class="guide-card">
+          <summary>What is the benefit-cost ratio?</summary>
+          <div class="guide-body">
+            <p>BCR is the total present value of social benefits divided by the total present value of social costs. A BCR of <span class="guide-highlight">14.41</span> means every dollar spent generates about $14.41 in avoided climate damages.</p>
+            <p>Most public infrastructure investments are considered strong at a BCR near 2-3. This ratio is high because methane abatement delivers large public benefits while intervention costs remain modest relative to herd scale.</p>
+            <p>The break-even adoption metric tells you the minimum adoption rate where BCR equals 1. Under baseline assumptions that is about 3.5%.</p>
+          </div>
+        </details>
+        <details class="guide-card">
+          <summary>What counts as social cost?</summary>
+          <div class="guide-body">
+            <p>Social cost here is the total resource cost society bears to make the intervention happen. It is not the social cost of methane itself.</p>
+            <p>It has two parts: AMC outlay for risk and adoption support, plus ongoing manufacturing and deployment after the AMC window closes.</p>
+            <p>Under annual dosing, the non-AMC component rises materially because more doses are manufactured and administered over each animal&rsquo;s lifetime.</p>
+          </div>
+        </details>
+        <details class="guide-card">
+          <summary>What do the sliders change?</summary>
+          <div class="guide-body">
+            <p>Adoption and social value scale benefits upward. Dosing scenario is the biggest cost lever. Feasibility (eta) shifts R&amp;D risk, which changes required AMC support.</p>
+            <p>Use these controls together to test where economics remain strong and where assumptions become fragile.</p>
+          </div>
+        </details>
+      </div>
     </div>
   </div>
 
