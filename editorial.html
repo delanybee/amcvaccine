@@ -703,7 +703,7 @@
 
   <div class="e-chart-wrap e-wide">
     <p class="e-chart-num">Chart 3 of 3 &middot; The payoff</p>
-    <h3>The decade divergence: cumulative avoided emissions, 2026&ndash;2035</h3>
+    <h3>The decade divergence: cumulative avoided emissions, 2026 to 2035</h3>
     <p class="e-chart-desc">With an AMC in place, avoided emissions compound across the decade. Each year of inaction is warming that cannot be retroactively reversed. Methane&rsquo;s short atmospheric lifespan makes timing unusually consequential.</p>
     <div id="chartCumulative" style="height:300px;"></div>
     <p class="e-chart-note">292&thinsp;MtCO&#x2082;e avoided by 2035 with an AMC vs. 150&thinsp;MtCO&#x2082;e without. The divergence widens sharply after year three, roughly the minimum time required to launch at commercial scale from today.</p>
@@ -774,7 +774,7 @@ var AX = {
 };
 var PCFG = { displayModeBar: false, responsive: true };
 
-/* Chart 1 — Payoff distribution */
+/* Chart 1: Payoff distribution */
 (function () {
   var x = [], noAmc = [], withAmc = [];
   for (var p = -120; p <= 220; p += 3) {
@@ -792,7 +792,7 @@ var PCFG = { displayModeBar: false, responsive: true };
   }), PCFG);
 })();
 
-/* Chart 2 — Adoption frontier */
+/* Chart 2: Adoption frontier */
 (function () {
   var x = [], noAmc = [], withAmc = [];
   for (var c = 20; c <= 200; c += 3) {
@@ -809,7 +809,7 @@ var PCFG = { displayModeBar: false, responsive: true };
   }), PCFG);
 })();
 
-/* Chart 3 — Cumulative emissions */
+/* Chart 3: Cumulative emissions */
 (function () {
   var years  = [2026,2027,2028,2029,2030,2031,2032,2033,2034,2035];
   var noAmc  = [0,5,14,27,43,62,83,105,128,150];
