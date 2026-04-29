@@ -76,33 +76,32 @@
     .e-nav-link:hover { color: #fff; background: rgba(165,214,167,0.1); }
     .e-nav-link.active { color: #fff; border-bottom: 2px solid #A5D6A7; }
 
-    /* Hamburger toggle — hidden on desktop */
-    .e-nav-toggle {
-      display: none;
-      background: transparent; border: none;
-      color: rgba(165,214,167,0.75); cursor: pointer;
-      padding: 6px 4px; border-radius: 4px;
-      transition: color 0.15s;
-    }
-    .e-nav-toggle:hover { color: #fff; }
+    /* Hamburger toggle — hidden, no dropdown on mobile */
+    .e-nav-toggle { display: none !important; }
 
     @media (max-width: 640px) {
-      .e-nav-toggle { display: block; }
+      /* No hamburger — all pages always visible as an icon strip */
+      .e-nav { padding: 0; }
+      .e-nav-brand { display: none; }
       .e-nav-links {
-        display: none;
-        position: absolute; top: 48px; left: 0; right: 0;
-        flex-direction: column; gap: 0;
-        background: #1B2821;
-        border-bottom: 1px solid rgba(165,214,167,0.12);
-        padding: 8px 0; z-index: 99;
+        display: flex !important;
+        width: 100%;
+        position: static;
+        flex-direction: row;
+        background: transparent;
+        border: none;
+        gap: 0;
+        justify-content: space-around;
       }
-      .e-nav-links.open { display: flex; }
       .e-nav-link {
-        padding: 11px 22px;
-        width: 100%; border-radius: 0;
-        font-size: 13px;
+        flex: 1;
+        justify-content: center;
+        padding: 10px 4px;
+        border-radius: 0;
+        font-size: 11px;
+        white-space: nowrap;
       }
-      .e-nav-link.active { border-bottom: none; border-left: 2px solid #A5D6A7; }
+      .e-nav-link.active { border-bottom: 2px solid #A5D6A7; }
     }
 
     /* ── Column helpers ───────────────────────────────────────── */
@@ -742,24 +741,6 @@
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-/* ── Mobile nav toggle ────────────────────────────────────────────── */
-(function () {
-  var btn = document.getElementById('eNavToggle');
-  var links = document.getElementById('eNavLinks');
-  if (!btn || !links) return;
-  btn.addEventListener('click', function () {
-    var open = links.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open);
-  });
-  // Close menu when a link is tapped
-  links.addEventListener('click', function (e) {
-    if (e.target.classList.contains('e-nav-link')) {
-      links.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
-    }
-  });
-})();
-
 /* ── Progress bar ─────────────────────────────────────────────────── */
 (function () {
   var fill = document.getElementById('progressBar');
