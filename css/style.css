@@ -42,6 +42,7 @@ body {
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -1359,22 +1360,43 @@ main {
     flex-direction: column;
   }
 
+  /* Scrolly: single column, visual on top then narrative below */
   .scrolly {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
+  /*
+   * Visual panel: NOT sticky on mobile. The sticky+58vh pattern caused
+   * three bugs: (1) scrollama trigger zone landed inside the panel,
+   * (2) overflow:hidden clipped charts taller than 58vh (pathway flow,
+   * funding flow, scene6), (3) all steps read at 0.35 opacity behind
+   * the panel. Fixed by making panel static and full-height.
+   */
   .visual-panel {
     order: -1;
-    position: sticky;
-    top: 60px;
-    max-height: 58vh;
-    overflow: hidden;
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 8px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
   }
 
+  /* Steps: always fully visible since they are the primary content on mobile */
   .step {
-    min-height: 100px;
+    min-height: 80px;
+    opacity: 1;
+    border-left-color: rgba(92, 122, 78, 0.18);
   }
 
+  .step.is-active {
+    border-left-color: #8BA87A;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  /* Remove scene6 min-height override (panel is now full height) */
   #scene6 .card {
     min-height: auto;
   }
@@ -1386,12 +1408,68 @@ main {
   .chapter-card {
     min-height: auto;
     padding: 24px 18px;
+    margin-top: 48px;
   }
 
   .page-hero,
   .card,
   .bottom-cta {
     padding: 18px;
+  }
+
+  /* Canvas wraps: remove tall vh minimums that caused overflow in the old sticky panel */
+  .canvas-wrap.short {
+    height: clamp(140px, 30vw, 220px);
+  }
+
+  .canvas-wrap.medium {
+    height: clamp(180px, 38vw, 280px);
+  }
+
+  /* Pathway flow: scrollable if it exceeds the card on narrow screens */
+  .pathway-flow {
+    max-height: 44vh;
+    overflow-y: auto;
+  }
+
+  /* Funding flow SVG: constrain to avoid enormous scroll area */
+  #fundingFlowDiagram {
+    overflow-x: auto;
+  }
+}
+
+/* Narrow phone — reduce font sizes and spacing further */
+@media (max-width: 480px) {
+  .step h3 {
+    font-size: 1.15rem;
+  }
+
+  .step p {
+    font-size: 0.95rem;
+  }
+
+  .chapter-card {
+    margin-top: 32px;
+  }
+
+  .chapter-card h2 {
+    font-size: 1.25rem;
+  }
+
+  .stat-number {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+
+  .page-hero h1 {
+    font-size: clamp(1.8rem, 7vw, 2.2rem);
+  }
+
+  .canvas-wrap.short {
+    height: 160px;
+  }
+
+  .canvas-wrap.medium {
+    height: 200px;
   }
 }
 
