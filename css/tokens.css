@@ -1,0 +1,290 @@
+/*
+ * tokens.css — shared design tokens and base styles
+ * Linked by all four pages. Each page's inline <style> may add
+ * page-specific overrides after this file is parsed.
+ */
+
+/* ─────────────────────────────────────────────
+   DESIGN TOKENS
+   ───────────────────────────────────────────── */
+
+:root {
+  /* Typography */
+  --font-body:    'Source Sans 3', sans-serif;
+  --font-display: 'Source Serif 4', serif;
+
+  /* Core surface + text */
+  --bg:          #FAFAF8;
+  --card:        #FFFFFF;
+  --heading:     #1B2A1C;
+  --body:        #2A2D28;
+  --text-muted:  #8A7D6B;
+  --line:        #E0DDD4;
+
+  /* Brand palette */
+  --teal:        #2E7D32;
+  --teal-dark:   #1B2821;
+  --teal-light:  #E8EFE5;
+  --amber:       #B8860B;
+  --coral:       #A4582A;
+  --urgency:     #A4582A;
+  --blue:        #378ADD;
+  --purple:      #7F77DD;
+
+  /* Forest / nature palette */
+  --forest:      #1B2821;
+  --meadow:      #2E7D32;
+  --spring:      #4CAF50;
+  --sage:        #A5D6A7;
+  --mist:        #E8F5E9;
+
+  /* Warm tones */
+  --harvest:     #B8860B;
+  --goldenrod:   #DAA520;
+  --wheat:       #F5E6C8;
+  --wheat-light: #FDF3E0;
+  --gray-bar:    #B0A898;
+
+  /* Layout */
+  --shadow:     0 1px 3px rgba(0, 0, 0, 0.06);
+  --radius:     12px;
+  --radius-sm:   8px;
+
+  /* Animation — micro (hover/focus) | standard (state changes) */
+  --t-fast:  150ms ease;
+  --t-std:   300ms ease;
+}
+
+/* ─────────────────────────────────────────────
+   DOCUMENT BASE
+   ───────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, strong {
+  color: var(--heading);
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: rgba(46, 125, 50, 0.15);
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid #4CAF50;
+  outline-offset: 2px;
+}
+
+/* ─────────────────────────────────────────────
+   PROGRESS BAR
+   ───────────────────────────────────────────── */
+
+.progress-track {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--line);
+  z-index: 1100;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--teal);
+  transition: width 100ms linear;
+}
+
+/* ─────────────────────────────────────────────
+   SITE FOOTER  (dark forest variant)
+   ───────────────────────────────────────────── */
+
+.site-footer {
+  background: #161C19;
+  padding: 40px 28px;
+  margin-top: 80px;
+}
+
+.footer-inner {
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #A5D6A7;
+  font-size: 14px;
+  text-decoration: none;
+  margin-bottom: 16px;
+  transition: color var(--t-fast);
+}
+
+.footer-back-link:hover { color: #C8E6C9; }
+
+.footer-series {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(165, 214, 167, 0.72);
+  margin: 0 0 10px;
+}
+
+.footer-story-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 24px;
+}
+
+.footer-story-nav a {
+  color: rgba(165, 214, 167, 0.75);
+  text-decoration: none;
+  border: 1px solid rgba(165, 214, 167, 0.22);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  transition: color var(--t-std), border-color var(--t-std), background var(--t-std);
+}
+
+.footer-story-nav a:hover {
+  color: #C8E6C9;
+  border-color: rgba(200, 230, 201, 0.5);
+  background: rgba(200, 230, 201, 0.08);
+}
+
+.footer-story-nav a.is-active,
+.footer-story-nav a[aria-current="page"] {
+  color: #E8F5E9;
+  border-color: rgba(232, 245, 233, 0.55);
+  background: rgba(232, 245, 233, 0.12);
+}
+
+.footer-credit {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: #A5D6A7;
+  margin: 0 0 4px;
+}
+
+.footer-affiliation,
+.footer-collab {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(165, 214, 167, 0.6);
+  margin: 0 0 4px;
+}
+
+.footer-collab {
+  margin-bottom: 14px;
+}
+
+.footer-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.footer-logo-text {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(165, 214, 167, 0.35);
+}
+
+.footer-logo-divider {
+  width: 1px;
+  height: 14px;
+  background: rgba(165, 214, 167, 0.15);
+}
+
+/* Footer rule divider */
+.footer-rule {
+  border: none;
+  border-top: 1px solid rgba(165, 214, 167, 0.12);
+  margin: 20px 0;
+}
+
+/* Footer explore CTA (story map footer only) */
+.footer-explore {
+  margin-bottom: 0;
+}
+
+.footer-explore-heading {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(165, 214, 167, 0.55);
+  margin: 0 0 14px;
+}
+
+.footer-explore-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-explore-links a {
+  color: #A5D6A7;
+  text-decoration: none;
+  border: 1px solid rgba(165, 214, 167, 0.3);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  transition: color var(--t-std), border-color var(--t-std), background var(--t-std);
+}
+
+.footer-explore-links a:hover {
+  color: #C8E6C9;
+  border-color: rgba(200, 230, 201, 0.55);
+  background: rgba(200, 230, 201, 0.08);
+}
+
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 40px 18px;
+  }
+
+  .footer-story-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    width: min(100%, 420px);
+    margin: 0 auto 18px;
+  }
+
+  .footer-story-nav a {
+    display: block;
+    text-align: center;
+    padding: 6px 8px;
+  }
+}

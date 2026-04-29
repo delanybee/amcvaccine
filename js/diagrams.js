@@ -1,6 +1,6 @@
 (function () {
   const COLORS = {
-    teal: "#2E7D32",
+    teal: "#5C7A4E",
     coral: "#C62828",
     amber: "#B8860B",
     red: "#C62828",
@@ -21,19 +21,19 @@
     </marker>
   </defs>
 
-  <g id="node1" opacity="0">
+  <g id="node1" opacity="0" font-family="Source Sans 3, sans-serif">
     <rect x="20" y="20" width="190" height="52" rx="6" fill="#C62828" fill-opacity="0.14" stroke="#C62828" stroke-opacity="0.5" />
     <text x="30" y="42" font-size="11" font-weight="600" fill="#1B2A1C">Buyers</text>
     <text x="30" y="58" font-size="10" fill="#4A4539">"How can I buy what doesn't exist?"</text>
   </g>
 
-  <g id="node2" opacity="0">
+  <g id="node2" opacity="0" font-family="Source Sans 3, sans-serif">
     <rect x="310" y="20" width="190" height="52" rx="6" fill="#B8860B" fill-opacity="0.16" stroke="#B8860B" stroke-opacity="0.5" />
     <text x="320" y="42" font-size="11" font-weight="600" fill="#1B2A1C">Innovators</text>
     <text x="320" y="58" font-size="10" fill="#4A4539">"Why build what no one is buying?"</text>
   </g>
 
-  <g id="node3" opacity="0">
+  <g id="node3" opacity="0" font-family="Source Sans 3, sans-serif">
     <rect x="165" y="100" width="190" height="44" rx="6" fill="#C62828" fill-opacity="0.14" stroke="#C62828" stroke-opacity="0.5" />
     <text x="197" y="126" font-size="11" font-weight="600" fill="#1B2A1C">Underinvestment</text>
   </g>
@@ -41,19 +41,19 @@
   <path id="a12" d="M 210 46 L 308 46" stroke="#8A7D6B" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
   <path id="a23" d="M 380 72 C 370 88, 350 100, 335 108" stroke="#8A7D6B" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
   <path id="a31" d="M 185 100 C 160 88, 140 72, 130 66" stroke="#8A7D6B" stroke-width="1.5" fill="none" marker-end="url(#arrowHead)" opacity="0"/>
-  <text id="cycleLabel" x="222" y="88" font-size="10" fill="#8A7D6B" opacity="0" text-anchor="middle">cycle reinforces</text>
+  <text id="cycleLabel" x="222" y="88" font-size="10" font-family="Source Sans 3, sans-serif" fill="#8A7D6B" opacity="0" text-anchor="middle">cycle reinforces</text>
 
-  <g id="amcNode" opacity="0">
-    <rect x="130" y="170" width="260" height="52" rx="6" fill="#2E7D32" fill-opacity="0.14" stroke="#2E7D32" stroke-opacity="0.6" />
+  <g id="amcNode" opacity="0" font-family="Source Sans 3, sans-serif">
+    <rect x="130" y="170" width="260" height="52" rx="6" fill="${COLORS.teal}" fill-opacity="0.14" stroke="${COLORS.teal}" stroke-opacity="0.6" />
     <text x="180" y="193" font-size="12" font-weight="600" fill="${COLORS.teal}">AMC: credible demand signal</text>
     <text x="186" y="210" font-size="10" fill="#4A4539">Forward commitment breaks the deadlock</text>
   </g>
 
   <path id="amcArrow" d="M 260 170 L 260 148" stroke="${COLORS.teal}" stroke-width="2" fill="none" marker-end="url(#arrowHeadTeal)" opacity="0"/>
-  <text id="breakLoop" x="275" y="162" font-size="10" fill="${COLORS.teal}" opacity="0">disrupts</text>
+  <text id="breakLoop" x="275" y="162" font-size="10" font-family="Source Sans 3, sans-serif" fill="${COLORS.teal}" opacity="0">disrupts</text>
 
-  <g id="earlyNode" opacity="0">
-    <rect x="130" y="236" width="260" height="36" rx="6" fill="#2E7D32" fill-opacity="0.08" stroke="${COLORS.teal}" stroke-opacity="0.3" />
+  <g id="earlyNode" opacity="0" font-family="Source Sans 3, sans-serif">
+    <rect x="130" y="236" width="260" height="36" rx="6" fill="${COLORS.teal}" fill-opacity="0.08" stroke="${COLORS.teal}" stroke-opacity="0.3" />
     <text x="182" y="259" font-size="11" fill="${COLORS.teal}" font-weight="500">Risk falls, capital moves earlier</text>
   </g>
 </svg>`;
@@ -235,12 +235,12 @@
     // This addresses Andrew's unit-mixing critique and Jason's visual-proportion critique.
     const layers = [
       { label: "Global GHG emissions", pct: "100%", width: 100, fill: "#D1CCC2" },
-      { label: "Methane share of warming", pct: "~30% (30% of total)", width: 30, fill: "#A5D6A7" },
-      { label: "Anthropogenic methane", pct: "~60% (18% of total)", width: 18, fill: "#66BB6A" },
-      { label: "Agriculture", pct: "~50% (9% of total)", width: 9, fill: "#4CAF50" },
-      { label: "Enteric fermentation", pct: "~73% (6.6% of total)", width: 6.6, fill: "#2E7D32" },
-      { label: "Cattle", pct: "~75% (4.9% of total)", width: 4.9, fill: "#1B5E20" },
-      { label: "AMC target: 20% reduction", pct: "20% of cattle methane (~1% of total)", width: 1, fill: "#B8860B" },
+      { label: "Methane share of warming", pct: "~30% (30% of total)", width: 30, fill: "#C8D9C2" },
+      { label: "Anthropogenic methane", pct: "~60% (18% of total)", width: 18, fill: "#A5B89E" },
+      { label: "Agriculture", pct: "~50% (9% of total)", width: 9, fill: "#8BA87A" },
+      { label: "Enteric fermentation", pct: "~73% (6.6% of total)", width: 6.6, fill: "#5C7A4E" },
+      { label: "Cattle", pct: "~75% (4.9% of total)", width: 4.9, fill: "#3A5032" },
+      { label: "AMC target: 20% reduction", pct: "20% of cattle methane (~1% of total)", width: 1, fill: "#5A96AD" },
     ];
 
     const barH = 32;
@@ -257,7 +257,7 @@
         <g class="funnel-bar" style="--delay:${i * 80}ms">
           <text x="125" y="${y + barH / 2 + 4}" text-anchor="end" font-size="11" fill="#4A4539">${l.label}</text>
           <rect x="${x}" y="${y}" width="0" height="${barH}" rx="4" fill="${l.fill}" class="funnel-rect" data-target-w="${w}"/>
-          <text x="${x + w + 6}" y="${y + barH / 2 + 4}" font-size="11" font-weight="600" fill="${l === layers[layers.length - 1] ? '#8A6914' : '#4A4539'}" class="funnel-pct" opacity="0">${l.pct}</text>
+          <text x="${x + w + 6}" y="${y + barH / 2 + 4}" font-size="11" font-weight="600" fill="${l === layers[layers.length - 1] ? '#5A96AD' : '#4A4539'}" class="funnel-pct" opacity="0">${l.pct}</text>
         </g>`;
     }).join("");
 

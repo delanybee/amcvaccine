@@ -6,18 +6,24 @@
   <title>Designing Innovation: Incentives for Methane Reduction</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/themes/light-border.css" />
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <script defer src="https://unpkg.com/scrollama"></script>
   <script defer src="js/charts.js"></script>
   <script defer src="js/diagrams.js"></script>
   <script defer src="js/main.js"></script>
+  <script defer src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+  <script defer src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+  <script defer src="js/nav.js"></script>
 </head>
 <body>
   <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
   <nav class="site-nav">
-    <span class="nav-brand">Methane Vaccine AMC</span>
+    <span class="nav-brand">A Methane AMC Case Study</span>
     <div class="nav-links">
       <a href="index.html" class="nav-link active" data-tooltip="The narrative: why methane, how the AMC works, and who is building it">
         <span class="nav-icon">
@@ -43,6 +49,7 @@
         </span>
         <span>Frameworks</span>
       </a>
+      <span class="nav-sep" aria-hidden="true"></span>
       <button class="nav-link nav-about-btn" id="navAboutBtn" data-tooltip="Project background, methodology, and status">
         <span class="nav-icon">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 11V8M8 5.5V5"/></svg>
@@ -50,6 +57,9 @@
         <span>About</span>
       </button>
     </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>
+    </button>
   </nav>
   <header class="page-hero">
     <div class="hero-top">
@@ -62,7 +72,10 @@
 
   <main>
     <section class="chapter-card" aria-label="Chapter 1 intro">
-      <span class="scq-tag scq-situation">Situation + Complication</span>
+      <div class="chapter-eyebrow">
+        <span class="chapter-num">Chapter one</span>
+        <span class="chapter-kicker">Situation &amp; Complication</span>
+      </div>
       <h2>Problem urgency and the innovation deadlock</h2>
       <p>Methane is fast acting, high impact, and highly addressable, but demand uncertainty stalls private investment in solutions.</p>
     </section>
@@ -150,7 +163,10 @@
     </section>
 
     <section class="chapter-card" aria-label="Chapter 2 intro">
-      <span class="scq-tag scq-resolution">Resolution: mechanism design</span>
+      <div class="chapter-eyebrow">
+        <span class="chapter-num">Chapter two</span>
+        <span class="chapter-kicker">Resolution: mechanism design</span>
+      </div>
       <h2>Commercialization pathways and funding design</h2>
       <p>AMC support shifts across R&amp;D, scale-up, and competitive markets, while delivery design shapes real-world adoption economics.</p>
     </section>
@@ -199,7 +215,10 @@
     </section>
 
     <section class="chapter-card" aria-label="Chapter 3 intro">
-      <span class="scq-tag scq-resolution">Resolution: implementation</span>
+      <div class="chapter-eyebrow">
+        <span class="chapter-num">Chapter three</span>
+        <span class="chapter-kicker">Resolution: implementation</span>
+      </div>
       <h2>Structure, alignment, and launch readiness</h2>
       <p>Governance choices set risk allocation, stakeholder alignment determines execution quality, and coalition design decides launch speed.</p>
     </section>
@@ -289,27 +308,22 @@
       </div>
     </section>
 
-    <section class="bottom-cta" id="bottom-cta">
-      <h2>Explore the economics yourself</h2>
-      <p>Adjust scenario assumptions and inspect how BCR, NPV, and required support shift in real time.</p>
-      <div class="btn-row">
-        <a href="data-explorer.html" class="studio-link-btn lg">Data Explorer</a>
-        <a href="sensitivity-studio.html" class="studio-link-btn lg">Sensitivity Studio</a>
-        <a href="frameworks.html" class="studio-link-btn lg">Frameworks</a>
-        <button type="button" class="secondary-btn" id="bottomAboutBtn">About this story map</button>
-      </div>
-    </section>
   </main>
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <p class="footer-series">Part 1 of 4 | Story map</p>
-      <nav class="footer-story-nav" aria-label="Continue the story">
-        <a href="index.html" class="is-active" aria-current="page">Story map</a>
-        <a href="data-explorer.html">Data Explorer</a>
-        <a href="sensitivity-studio.html">Sensitivity Studio</a>
-        <a href="frameworks.html">Frameworks</a>
-      </nav>
+
+      <div class="footer-explore">
+        <p class="footer-explore-heading">Explore the economics yourself</p>
+        <div class="footer-explore-links">
+          <a href="data-explorer.html">Data Explorer</a>
+          <a href="sensitivity-studio.html">Sensitivity Studio</a>
+          <a href="frameworks.html">Frameworks</a>
+        </div>
+      </div>
+
+      <hr class="footer-rule">
+
       <p class="footer-credit">Designed and built by Delany Broome</p>
       <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
       <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
@@ -318,6 +332,7 @@
         <span class="footer-logo-divider"></span>
         <span class="footer-logo-text">Spark Climate</span>
       </div>
+
     </div>
   </footer>
 

@@ -1,13 +1,14 @@
 (function () {
   const COLORS = {
-    teal: "#2E7D32",
-    coral: "#8A6914",
-    amber: "#B8860B",
+    teal: "#5C7A4E",
+    coral: "#5A96AD",
+    amber: "#B5A998",
     blue: "#378ADD",
     purple: "#7F77DD",
-    gray: "#B9B9B9",
+    gray: "#B0A898",
     grid: "#E0DDD4",
-    text: "#4A4539",
+    text: "#2A2D28",
+    muted: "#8A7D6B",
   };
 
   const MODEL = {
@@ -81,10 +82,16 @@
       responsive: true,
       maintainAspectRatio: false,
       animation: { duration: 600, easing: "easeOutCubic" },
-      plugins: { legend: { labels: { color: COLORS.text } } },
+      plugins: {
+        legend: { labels: { color: COLORS.text, font: { family: "'Source Sans 3', sans-serif" } } },
+        tooltip: {
+          titleFont: { family: "'Source Sans 3', sans-serif", size: 12, weight: "600" },
+          bodyFont: { family: "'Source Sans 3', sans-serif", size: 12 },
+        },
+      },
       scales: {
-        x: { ticks: { color: COLORS.text }, grid: { color: COLORS.grid } },
-        y: { ticks: { color: COLORS.text }, grid: { color: COLORS.grid } },
+        x: { ticks: { color: COLORS.muted, font: { family: "'Source Sans 3', sans-serif", size: 11 } }, grid: { color: COLORS.grid }, title: { font: { family: "'Source Sans 3', sans-serif", size: 12 } } },
+        y: { ticks: { color: COLORS.muted, font: { family: "'Source Sans 3', sans-serif", size: 11 } }, grid: { color: COLORS.grid }, title: { font: { family: "'Source Sans 3', sans-serif", size: 12 } } },
       },
     };
   }
@@ -131,7 +138,7 @@
             label: "With AMC intervention",
             data: [0.19, 0.193, 0.192, 0.186, 0.178, 0.168, 0.157, 0.146, 0.135],
             borderColor: COLORS.teal,
-            backgroundColor: "rgba(46,125,50,0.08)",
+            backgroundColor: "rgba(92,122,78,0.08)",
             borderWidth: 2.5,
             fill: "-1",
             pointRadius: 0,
@@ -166,7 +173,7 @@
           {
             label: "Social benefit",
             data: [72, 68, 62],
-            backgroundColor: "rgba(46,125,50,0.75)",
+            backgroundColor: "rgba(92,122,78,0.72)",
             borderRadius: 6,
             borderSkipped: false,
           },
@@ -296,9 +303,9 @@
   }
 
   function colorFromBcr(bcr) {
-    if (bcr < 1) return "rgba(198,40,40,0.65)";
-    if (bcr < 2) return "rgba(184,134,11,0.65)";
-    return "rgba(46,125,50,0.68)";
+    if (bcr < 1) return "rgba(163,65,65,0.65)";
+    if (bcr < 2) return "rgba(176,136,80,0.65)";
+    return "rgba(92,122,78,0.68)";
   }
 
   function updateStudioCharts() {
