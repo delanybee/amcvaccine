@@ -480,6 +480,22 @@ strong { font-weight: 600; }
   justify-content: flex-end;
   flex-wrap: wrap;
 }
+.explorer-frame-wrap {
+  margin-top: 1.5rem;
+  border: 1px solid rgba(245, 240, 230, 0.2);
+  background: var(--bg);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+  display: none;
+}
+.explorer-frame-wrap.is-open { display: block; }
+.explorer-frame {
+  width: 100%;
+  height: 900px;
+  border: none;
+  display: block;
+}
 .btn {
   font-family: var(--mono);
   font-size: 0.8125rem;
@@ -839,7 +855,11 @@ strong { font-weight: 600; }
 
     <div class="studio-actions">
       <a href="sensitivity-studio.html" class="btn btn-primary">Open studio full-screen</a>
-      <a href="data-explorer.html" class="btn btn-ghost">See the case in five charts</a>
+      <button class="btn btn-ghost" id="explorerToggle" onclick="toggleExplorer()">See the case in five charts</button>
+    </div>
+
+    <div class="explorer-frame-wrap" id="explorerFrame">
+      <iframe class="explorer-frame" id="explorerIframe" src="" title="Data Explorer: five charts" loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -894,6 +914,22 @@ strong { font-weight: 600; }
     <div>UC Berkeley, Master of Climate Solutions 2026 <span style="color: var(--border);">·</span> In collaboration with Spark Climate Solutions</div>
   </div>
 </footer>
+
+<script>
+function toggleExplorer() {
+  const wrap = document.getElementById('explorerFrame');
+  const iframe = document.getElementById('explorerIframe');
+  const btn = document.getElementById('explorerToggle');
+  const isOpen = wrap.classList.toggle('is-open');
+  if (isOpen) {
+    if (!iframe.src) iframe.src = 'data-explorer.html';
+    btn.textContent = 'Hide charts';
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    btn.textContent = 'See the case in five charts';
+  }
+}
+</script>
 
 </body>
 </html>
