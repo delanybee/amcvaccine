@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Methane Case Study</title>
+<meta name="description" content="Why the economics of methane reduction have stalled, what an Advance Market Commitment can do about it, and what it would take to build one that works.">
+<meta property="og:title" content="A Methane Case Study">
+<meta property="og:description" content="Why the economics of methane reduction have stalled, what an Advance Market Commitment can do about it, and what it would take to build one that works.">
+<meta property="og:url" content="https://delanybee.github.io/amcvaccine/">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Methane Case Study">
+<meta name="twitter:description" content="Why the economics of methane reduction have stalled, what an Advance Market Commitment can do about it, and what it would take to build one that works.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAFAF8;
+  --bg-alt: #F4F1EB;
+  --ink: #0D1117;
+  --ink-soft: #2A2720;
+  --muted: #8A8278;
+  --border: #E4E2DC;
+  --rule: #D8D4CB;
+  --accent: #B8620A;
+  --accent-deep: #7A3D04;
+  --secondary: #2C3838;
+
+  --serif-display: 'Fraunces', Georgia, serif;
+  --serif-body: 'Newsreader', Georgia, serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --col-narrow: 38rem;
+  --col-wide: 64rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--serif-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  font-feature-settings: "ss01", "ss02", "kern";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============ NAV ============ */
+.site-nav {
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(8px);
+  background: rgba(245, 240, 230, 0.92);
+}
+.site-nav-inner {
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 1.1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.site-nav-brand {
+  font-family: var(--serif-display);
+  font-weight: 500;
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav-brand em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--accent);
+}
+.site-nav-links {
+  display: flex;
+  gap: 1.75rem;
+  font-family: var(--serif-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.site-nav-links a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.site-nav-links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.site-nav-links a.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ============ LAYOUT ============ */
+.container {
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.prose {
+  max-width: var(--col-narrow);
+  margin: 0 auto;
+}
+
+section {
+  padding: 5rem 0;
+  position: relative;
+}
+section + section { border-top: 1px solid var(--rule); }
+
+/* ============ TYPOGRAPHY ============ */
+h1, h2, h3, h4 {
+  font-family: var(--serif-display);
+  color: var(--ink);
+  letter-spacing: -0.015em;
+}
+h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  font-weight: 380;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  letter-spacing: -0.025em;
+}
+h2 {
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 420;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+h3 {
+  font-size: 1.375rem;
+  font-weight: 500;
+  font-variation-settings: "opsz" 36, "SOFT" 0;
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+}
+h4 {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  font-variation-settings: "opsz" 14, "SOFT" 0;
+  letter-spacing: 0;
+  margin-bottom: 0.5rem;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.eyebrow .sep {
+  color: var(--muted);
+  margin: 0 0.5rem;
+  font-weight: 400;
+}
+
+p { margin-bottom: 1.25rem; }
+p:last-child { margin-bottom: 0; }
+
+a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--accent-deep); }
+
+em { font-style: italic; }
+strong { font-weight: 600; }
+
+/* ============ HERO ============ */
+.hero {
+  padding: 6rem 0 5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.hero-inner {
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.hero h1 {
+  margin-bottom: 1.75rem;
+  max-width: 22ch;
+}
+.hero h1 em {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  color: var(--accent);
+}
+.hero-dek {
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  line-height: 1.45;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 2.5rem;
+  font-family: var(--serif-display);
+  font-variation-settings: "opsz" 24, "SOFT" 100;
+}
+.hero-byline {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+  max-width: 56ch;
+}
+.hero-byline strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ============ STAT ROW ============ */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  padding: 3rem 0;
+  margin: 3rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.stat {
+  position: relative;
+}
+.stat-num {
+  font-family: var(--serif-display);
+  font-size: clamp(2.75rem, 5vw, 4rem);
+  line-height: 0.95;
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+.stat-num .unit {
+  font-size: 0.55em;
+  color: var(--accent);
+  font-weight: 400;
+  margin-left: 0.1em;
+}
+.stat-label {
+  font-family: var(--serif-body);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  font-style: italic;
+  max-width: 24ch;
+}
+
+/* ============ PULL QUOTE ============ */
+.pullquote {
+  font-family: var(--serif-display);
+  font-variation-settings: "opsz" 144, "SOFT" 80;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  line-height: 1.25;
+  font-weight: 320;
+  font-style: italic;
+  color: var(--ink);
+  max-width: 30ch;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
+  letter-spacing: -0.015em;
+  position: relative;
+}
+.pullquote::before, .pullquote::after {
+  content: '';
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: var(--accent);
+  margin: 1.5rem auto;
+}
+.pullquote-attr {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-style: normal;
+  margin-top: 1rem;
+}
+
+/* ============ PILLARS ============ */
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem 2.5rem;
+  margin-top: 2.5rem;
+}
+.pillar {
+  border-top: 2px solid var(--ink);
+  padding-top: 1.25rem;
+}
+.pillar-num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+.pillar h4 {
+  margin-bottom: 0.5rem;
+}
+.pillar p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ============ CASE STUDY CALLOUT ============ */
+.case-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .case-grid { grid-template-columns: 1.4fr 1fr; gap: 4rem; }
+}
+.dosing-card {
+  background: var(--bg-alt);
+  padding: 2rem;
+  border-left: 3px solid var(--accent);
+}
+.dosing-card h4 {
+  color: var(--accent-deep);
+  font-family: var(--serif-display);
+  font-variation-settings: "opsz" 36, "SOFT" 50;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.125rem;
+  margin-bottom: 1.25rem;
+}
+.dosing-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.75rem 0;
+  border-bottom: 1px dotted var(--border);
+  font-family: var(--mono);
+  font-size: 0.875rem;
+}
+.dosing-row:last-child { border-bottom: none; }
+.dosing-row .scenario { color: var(--ink-soft); }
+.dosing-row .amount { color: var(--ink); font-weight: 500; font-size: 1rem; }
+.dosing-note {
+  font-family: var(--serif-body);
+  font-style: italic;
+  font-size: 0.875rem;
+  color: var(--muted);
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+/* ============ PARTNERS LINE ============ */
+.partners {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-alt);
+  border-left: 3px solid var(--secondary);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.partners-label {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* ============ BARRIERS TABLE ============ */
+.barriers {
+  margin-top: 2.5rem;
+  border-top: 2px solid var(--ink);
+}
+.barrier {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+@media (min-width: 720px) {
+  .barrier {
+    grid-template-columns: 1.5fr 2.5fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+}
+.barrier-name {
+  font-family: var(--serif-display);
+  font-variation-settings: "opsz" 36, "SOFT" 30;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+.barrier-desc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.barrier-status {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+  align-self: start;
+  padding-top: 2px;
+}
+@media (min-width: 720px) {
+  .barrier-status { text-align: right; }
+}
+.status-addressed { color: var(--secondary); }
+.status-partial { color: #B07000; }
+.status-open { color: var(--accent); }
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+/* ============ STUDIO SHOWCASE ============ */
+.studio-section {
+  background: var(--ink);
+  color: var(--bg);
+  padding: 5rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.studio-section h2,
+.studio-section h3 { color: var(--bg); }
+.studio-section .eyebrow { color: #E89A98; }
+.studio-section a { color: #F0C5A8; }
+.studio-section p { color: rgba(245, 240, 230, 0.85); }
+.studio-frame-wrap {
+  margin-top: 3rem;
+  border: 1px solid rgba(245, 240, 230, 0.2);
+  background: var(--bg);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+}
+.studio-frame {
+  width: 100%;
+  height: 900px;
+  border: none;
+  display: block;
+}
+.studio-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.explorer-frame-wrap {
+  margin-top: 1.5rem;
+  border: 1px solid rgba(245, 240, 230, 0.2);
+  background: var(--bg);
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
+  display: none;
+}
+.explorer-frame-wrap.is-open { display: block; }
+.explorer-frame {
+  width: 100%;
+  height: 900px;
+  border: none;
+  display: block;
+}
+.btn {
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.25rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--bg);
+}
+.btn-primary:hover { background: transparent; color: var(--bg); }
+.btn-ghost {
+  background: transparent;
+  color: var(--bg);
+  border: 1px solid rgba(245, 240, 230, 0.3);
+}
+.btn-ghost:hover { border-color: var(--bg); }
+
+/* ============ PHASE TWO ============ */
+.phase-two {
+  background: var(--bg-alt);
+}
+.phase-card {
+  margin-top: 2.5rem;
+  padding: 2.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  position: relative;
+}
+.phase-card-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+.phase-card h3 {
+  font-size: 1.625rem;
+  font-weight: 400;
+  font-variation-settings: "opsz" 72, "SOFT" 50;
+  font-style: italic;
+  margin-bottom: 1.25rem;
+}
+.phase-card-cta {
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent);
+  padding-bottom: 2px;
+  display: inline-block;
+}
+.phase-card-cta:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
+.phase-card-cta::after { content: ' →'; }
+
+/* ============ ABOUT / FOOTER ============ */
+.about-section { padding-bottom: 3rem; }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  max-width: var(--col-narrow);
+  margin: 0 auto;
+}
+.sources {
+  font-family: var(--serif-body);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: 3rem 0;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.site-footer .credits {
+  margin-bottom: 0.75rem;
+}
+.site-footer strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ============ DROP CAP ============ */
+.lead {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
+.lead::first-letter {
+  font-family: var(--serif-display);
+  font-variation-settings: "opsz" 144, "SOFT" 0;
+  font-weight: 350;
+  font-size: 4.5em;
+  float: left;
+  line-height: 0.85;
+  margin: 0.05em 0.08em -0.05em 0;
+  color: var(--accent);
+}
+
+/* ============ SECTION INDEX ============ */
+.section-index {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+/* ============ RESPONSIVE TWEAKS ============ */
+@media (max-width: 600px) {
+  section { padding: 3.5rem 0; }
+  .hero { padding: 4rem 0 3.5rem; }
+  .stat-row { padding: 2rem 0; gap: 1.75rem; }
+  .studio-frame { height: 700px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-brand">A Methane AMC <em>Case Study</em></a>
+    <div class="site-nav-links">
+      <a href="index.html" class="active">Read</a>
+      <a href="storymap.html">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html">Test</a>
+      <a href="frameworks.html">Methodology</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-inner">
+    <span class="eyebrow">A Methane AMC Case Study</span>
+    <h1>Designing the market for livestock <em>methane</em></h1>
+    <p class="hero-dek">A case study on the proposed Advance Market Commitment for methane-reducing livestock interventions, the structural assumptions it depends on, and where it sits within a broader landscape of market mechanisms.</p>
+    <p class="hero-byline">
+      <strong>Delany Broome</strong><br>
+      UC Berkeley, Master of Climate Solutions 2026<br>
+      In collaboration with Spark Climate Solutions
+    </p>
+  </div>
+</header>
+
+<!-- ============ THE BIG PICTURE ============ -->
+<section id="urgency">
+  <div class="container">
+    <div class="prose">
+      <span class="section-index">I · The big picture</span>
+      <h2>Methane is the fastest lever of change the climate system offers.</h2>
+      <p class="lead">Methane is the second most consequential climate pollutant after carbon dioxide. It accounts for roughly 30 percent of today's warming, and unlike CO2 it cycles out of the atmosphere in about a decade. That short atmospheric lifespan makes methane the most actionable near-term lever in climate, where reductions show up as measurable cooling within years, not generations.</p>
+      <p>The largest single source of human-caused methane is the digestive system of the world's roughly 1.5 billion cattle. Enteric fermentation, a byproduct of how ruminants extract energy from fibrous plants, releases methane primarily through belching. The technology to address it exists or is close. The economics do not yet.</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-num">30<span class="unit">%</span></span>
+        <span class="stat-label">of today's global warming, attributable to methane</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12<span class="unit">yr</span></span>
+        <span class="stat-label">atmospheric lifespan, short enough that cuts work fast</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">$10<span class="unit">B</span></span>
+        <span class="stat-label">annual social cost of U.S. cattle methane in 2022 alone</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">2<span class="unit">%</span></span>
+        <span class="stat-label">of agricultural climate R&amp;D currently reaching this problem</span>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Most of those emissions come from pasture-based systems in low- and middle-income countries, where existing solutions do not yet reach. The investment gap is as stark as the emissions gap.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT SPARK IS DOING ============ -->
+<section id="spark">
+  <div class="container">
+    <div class="prose">
+      <span class="section-index">II · What Spark is doing</span>
+      <h2>The constraint is coordination, not science.</h2>
+      <p>Spark Climate Solutions is a science-driven nonprofit focused on neglected, high-impact climate problems. Its 2025 <em>Livestock Enteric Methane Mitigation Roadmap</em> argues that the field is constrained not by scientific feasibility but by coordination. Promising technologies exist or are within reach. The conditions for getting them developed, approved, deployed, and adopted are not yet in place.</p>
+      <p>The roadmap organizes the field around four interconnected pillars. This capstone focuses on the second.</p>
+    </div>
+
+    <div class="prose">
+      <div class="pillars">
+        <div class="pillar">
+          <div class="pillar-num">01 / Innovate</div>
+          <h4>Develop global solutions</h4>
+          <p>Build technologies that meet a Target Product Profile: at least 50 percent methane reduction, no harm to productivity, broad applicability across pasture-based systems, deployment-readiness by 2030. No current solution clears all six bars.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02 / Incentivize</div>
+          <h4>Drive market development</h4>
+          <p>Create demand signals strong enough to redirect R&amp;D investment away from feedlots (which represent only 10 percent of global enteric methane) and toward pasture-based systems where the bulk of emissions sit.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03 / Earn trust</div>
+          <h4>Strengthen social license</h4>
+          <p>Anticipate the public-perception failures that have killed effective technologies. The cautionary case is rbST: scientifically validated, regulator-approved, ultimately rejected. Methane interventions face an analogous risk.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">04 / Support action</div>
+          <h4>Advance policy</h4>
+          <p>Streamline regulatory approval, fund public R&amp;D, and design programs that bring producers into the conversation early rather than late.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE CASE STUDY ============ -->
+<section id="case-study">
+  <div class="container">
+    <div class="prose">
+      <span class="section-index">III · The case study</span>
+      <h2>An Advance Market Commitment for a methane vaccine.</h2>
+      <p>An Advance Market Commitment is a binding promise to purchase a future product if it works. Sponsors commit upfront, but pay nothing if no qualifying product reaches commercial scale. The mechanism's strongest empirical precedent is the Pneumococcal AMC, which helped deliver vaccines to 1.7 billion children in low-income countries. The methane AMC draws on the same design principles and is co-developed with the same economist, Nobel Laureate Michael Kremer.</p>
+
+      <div class="partners">
+        <span class="partners-label">AMC coalition partners</span>
+        Spark Climate Solutions, in partnership with the University of Chicago's <strong>Market Shaping Accelerator</strong> and the <strong>Global Methane Hub</strong>, is currently designing a $750 million AMC targeted at methane-reducing livestock interventions. The mechanism is technology-agnostic by design: vaccines, slow-release boluses, genetic markers, and feed additives all qualify if they meet performance criteria.
+      </div>
+
+      <p><strong>Phase 1 of this capstone took the proposed AMC and stress-tested it.</strong> The economic case is strong on its own terms.</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat">
+        <span class="stat-num">$14<span class="unit">:$1</span></span>
+        <span class="stat-label">benefit-cost ratio at baseline assumptions, single-dose vaccine</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">3.5<span class="unit">%</span></span>
+        <span class="stat-label">break-even adoption rate, well below any plausible deployment</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">$750<span class="unit">M</span></span>
+        <span class="stat-label">design target, in the high-impact region of the funding curve</span>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>For every dollar of AMC commitment, the model returns roughly $14 in avoided climate damage at baseline (50 percent U.S. herd adoption, single-dose, $1,600 per ton social cost of methane). Even if the social cost of methane were halved to $800 per ton, the BCR holds above 7. Even at one-fifth the baseline adoption rate, it stays above 2.5. The $750M target sits in the steep part of the funding curve: moving to $1.2 billion adds only 14 percent more abatement while raising costs 60 percent.</p>
+    </div>
+
+    <div class="prose" style="margin-top: 2.5rem;">
+      <div class="dosing-card">
+        <h4>The dosing variable</h4>
+        <div class="dosing-row"><span class="scenario">Single dose</span> <span class="amount">$534M</span></div>
+        <div class="dosing-row"><span class="scenario">Annual dosing</span> <span class="amount">$832M</span></div>
+        <div class="dosing-row"><span class="scenario">Prime + booster</span> <span class="amount">$1.07B</span></div>
+        <p class="dosing-note">The BCR remains above 1 across all scenarios, but the funder coalition needed to reach $1B is materially different from the one needed for $534M.</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p style="margin-top: 2.5rem;">By the standard tools of cost-benefit analysis, the AMC clears the bar comfortably. That is the question economic analysis was designed to answer. It is not the only question that matters.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PULL QUOTE ============ -->
+<section style="padding: 3rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+  <div class="container">
+    <p class="pullquote">
+      The model treats adoption as a free parameter that responds to subsidy. It is not a free parameter, and the gap is where the AMC's real risk lives.
+      <span class="pullquote-attr">From the structural analysis</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ THE BARRIERS ============ -->
+<section id="barriers">
+  <div class="container">
+    <div class="prose">
+      <span class="section-index">IV · The constraints</span>
+      <h2>Five structural barriers, one mechanism.</h2>
+      <p>Halfway through the analysis, a different question emerged. The economic models produce a confident answer because they treat adoption as a free parameter. But adoption is not a free parameter, and the gap between <em>"the model says farmers will adopt at this net price"</em> and <em>"farmers actually adopt"</em> is where the AMC's real risk lives.</p>
+      <p>An adapted version of the project's Pathways and Barriers framework names five structural barriers and the AMC's relationship to each.</p>
+    </div>
+
+    <div class="prose" style="max-width: var(--col-wide);">
+      <div class="barriers">
+        <div class="barrier">
+          <div class="barrier-name">Demand uncertainty</div>
+          <div class="barrier-desc">Buyers will not purchase what does not exist. Innovators will not build what no one is buying. The AMC inserts a legally binding demand signal upstream of commercial scale, which is the precise gap it was engineered to close.</div>
+          <div class="barrier-status status-addressed"><span class="status-dot"></span>Addressed</div>
+        </div>
+        <div class="barrier">
+          <div class="barrier-name">Verification complexity</div>
+          <div class="barrier-desc">Direct herd-level methane measurement is technically difficult. The AMC sidesteps the constraint by verifying vaccination (ear tags, digital IDs, vial serial numbers) rather than emissions, which is a workable proxy at the policy scale.</div>
+          <div class="barrier-status status-addressed"><span class="status-dot"></span>Addressed</div>
+        </div>
+        <div class="barrier">
+          <div class="barrier-name">Grazing system exclusion</div>
+          <div class="barrier-desc">Roughly 75 percent of global enteric methane comes from pasture-based and mixed systems where cattle are handled rarely and feed cannot be controlled. A vaccine could in principle reach grazing animals during routine handling, but only if handling frequencies support the schedule the immunology requires.</div>
+          <div class="barrier-status status-partial"><span class="status-dot"></span>Partially</div>
+        </div>
+        <div class="barrier">
+          <div class="barrier-name">Adoption friction</div>
+          <div class="barrier-desc">Producer compensation and adoption design determine how much modeled value is realized in the field. Ranchers weigh handling burden, herd-health risk, supply-chain integration, and the experience of previous technologies sold on similar promises. The AMC literature has comparatively little to say about non-price barriers.</div>
+          <div class="barrier-status status-partial"><span class="status-dot"></span>Partially</div>
+        </div>
+        <div class="barrier">
+          <div class="barrier-name">Political and incumbent resistance</div>
+          <div class="barrier-desc">Industry stakeholders may resist framing their sector as a climate problem. The AMC sidesteps regulation by positioning intervention as investment, but the political conditions under which a $750M coalition assembles are independent of whether the BCR is favorable.</div>
+          <div class="barrier-status status-open"><span class="status-dot"></span>Open</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top: 3.5rem;">
+      <p>The conclusion from Phase 1 is not that the AMC is the wrong tool. It is that rigorous economic analysis answers the question of whether the mechanism's expected return justifies its commitment. It does not answer the question of whether the structural conditions for that return to materialize are in place. Those are different questions, and they require different analytical tools.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STUDIO SHOWCASE ============ -->
+<section id="studio" class="studio-section">
+  <div class="container">
+    <div class="prose">
+      <span class="eyebrow">V · Stress-test the assumptions</span>
+      <h2>The model, in your hands.</h2>
+      <p>The figures above are baselines, not certainties. The economics depend on three variables you can move: how many farmers adopt, how much society values each ton of methane avoided, and what the dosing regimen looks like. The Sensitivity Studio runs the model live. Drag the sliders and the BCR, NPV, required AMC size, and break-even adoption rate update in real time.</p>
+    </div>
+
+    <div class="studio-frame-wrap">
+      <iframe class="studio-frame" src="sensitivity-studio.html" title="Sensitivity Studio: live BCR model" loading="lazy"></iframe>
+    </div>
+
+    <div class="studio-actions">
+      <a href="sensitivity-studio.html" class="btn btn-primary">Open studio full-screen</a>
+      <button class="btn btn-ghost" id="explorerToggle" onclick="toggleExplorer()">See the case in five charts</button>
+    </div>
+
+    <div class="explorer-frame-wrap" id="explorerFrame">
+      <iframe class="explorer-frame" id="explorerIframe" src="" title="Data Explorer: five charts" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHASE TWO ============ -->
+<section id="phase-two" class="phase-two">
+  <div class="container">
+    <div class="prose">
+      <span class="section-index">VI · What's next</span>
+      <h2>Matching the right tool to the right market</h2>
+      <p>The natural next question is which tool fits which market. Phase 2 of this work addresses that directly.</p>
+
+      <div class="phase-card">
+        <div class="phase-card-eyebrow">Phase 2 · In development</div>
+        <h3>Spark Market Mechanism Navigator</h3>
+        <p>A decision-support tool covering more than fifteen market mechanism types, including AMCs, prize competitions, carbon credits, regulatory pricing, supply-chain insetting, performance-based subsidies, and results-based loans. Each mechanism is profiled against the conditions under which it tends to succeed or fail: the maturity of the underlying technology, the accessibility of the production system, the strength of existing demand signals, the regulatory environment, and the time horizon over which results are needed.</p>
+        <p>The navigator is built for funders, program designers, and policymakers deciding not only <em>whether</em> to act on a neglected climate problem but <em>how</em>. For livestock methane specifically, it surfaces alternatives that may fit different segments better than an AMC alone: a prize competition for measurement infrastructure, a results-based loan for national adoption programs in high-emission countries, a feed-additive subsidy in jurisdictions with intensive systems, a pasture-targeted bolus AMC distinct from a vaccine AMC.</p>
+        <a href="https://delanybee.github.io/Spark-Market-Mechanism-Navigator-/" class="phase-card-cta" target="_blank" rel="noopener">Explore the Navigator</a>
+      </div>
+
+      <p style="margin-top: 3rem;">The climate gap is a design problem as much as a funding problem. Spark Climate has proven that point with livestock methane: select the right mechanism for the right market, and an underfunded problem becomes a solvable one. That discipline, applied across more than fifteen mechanism types, is how climate solutions actually reach scale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="section-index">About this work</span>
+        <h2 style="font-size: 1.5rem;">Behind the analysis</h2>
+        <p>This essay is the editorial distillation of a capstone project for the Master of Climate Solutions at UC Berkeley's Rausser College of Natural Resources, produced in collaboration with Spark Climate Solutions and building on Spark's 2025 Livestock Enteric Methane Mitigation Roadmap.</p>
+        <p>The full project includes a story map, a five-chart data explorer, the live sensitivity studio embedded above, an analytical frameworks page, and the Phase 2 Market Mechanism Navigator.</p>
+      </div>
+      <div>
+        <span class="section-index">Sources</span>
+        <p class="sources">
+          Spark Climate 2025 Livestock Enteric Methane Mitigation Roadmap · IPCC AR6 · FAO GLEAM · EPA U.S. GHG Inventory 2024 · Global Methane Assessment 2021 · USDA per-animal benchmarks · Snyder et al. R&amp;D AMC model · Kremer &amp; Williams 2010 · Baca-González et al. 2020 · Ocko et al. 2021 · Clean Air Task Force 2024
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="credits">
+      Designed and built by <strong>Delany Broome</strong>
+    </div>
+    <div>UC Berkeley, Master of Climate Solutions 2026 <span style="color: var(--border);">·</span> In collaboration with Spark Climate Solutions</div>
+  </div>
+</footer>
+
+<script>
+function toggleExplorer() {
+  const wrap = document.getElementById('explorerFrame');
+  const iframe = document.getElementById('explorerIframe');
+  const btn = document.getElementById('explorerToggle');
+  const isOpen = wrap.classList.toggle('is-open');
+  if (isOpen) {
+    if (!iframe.src) iframe.src = 'data-explorer.html';
+    btn.textContent = 'Hide charts';
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    btn.textContent = 'See the case in five charts';
+  }
+}
+</script>
+
+</body>
+</html>

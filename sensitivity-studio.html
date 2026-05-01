@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensitivity Studio | A Methane AMC Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/themes/light-border.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      /* Sage palette (page-specific) */
+      --sage-100: #E8EFE5;
+      --sage-200: #C8D9C2;
+      --sage-400: #8BA87A;
+      --sage-600: #5C7A4E;
+      --sage-800: #3A5032;
+      /* Ocean palette (page-specific) */
+      --ocean-50:  #EEF5F8;
+      --ocean-100: #CBDFE6;
+      --ocean-200: #A3C5D2;
+      --ocean-400: #5A96AD;
+      /* Sand palette (page-specific) */
+      --sand-100: #F5F0E8;
+      --sand-200: #DDD6CA;
+      --sand-400: #B5A998;
+      /* Aliases for this page's naming convention */
+      --ink:           var(--body);
+      --ink-secondary: #6B6E68;
+      --card-bg:       var(--card);
+      /* Overrides */
+      --line:   rgba(42, 45, 40, 0.12);
+      --coral:  #C62828;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* SITE NAV */
+    .site-nav {
+      border-bottom: 1px solid var(--line);
+      background: rgba(245,240,230,0.92);
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+    .site-nav-inner {
+      max-width: 64rem; margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .site-nav-brand {
+      font-family: var(--font-display); font-weight: 500;
+      font-variation-settings: "opsz" 144, "SOFT" 0;
+      font-size: 1.05rem; letter-spacing: -0.01em; color: var(--heading); text-decoration: none;
+    }
+    .site-nav-brand em { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; color: var(--accent); }
+    .site-nav-links {
+      display: flex; gap: 1.75rem;
+      font-family: var(--font-body); font-size: 0.875rem; font-weight: 500;
+    }
+    .site-nav-links a {
+      color: var(--body); text-decoration: none;
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .site-nav-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .site-nav-links a.active { color: var(--heading); border-bottom-color: var(--heading); }
+    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1200; padding: 16px; }
+    .modal[hidden] { display: none; }
+    .modal-backdrop { position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(165,214,167,0.12), transparent 42%), linear-gradient(180deg, rgba(27,63,28,0.24), rgba(27,42,28,0.36)); }
+    .modal-card { position: relative; z-index: 1; width: min(680px, 92vw); background: linear-gradient(180deg, rgba(232,245,233,0.35), #FAFAF8 22%); border: 1px solid rgba(42,45,40,0.12); border-radius: 12px; box-shadow: 0 8px 32px rgba(27,63,28,0.14); padding: 40px 40px 36px; font-family: var(--font-body); color: #3A3A35; max-height: 88vh; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+    .modal-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; background: linear-gradient(90deg, #B8620A, #7A3D04, #DDD6CA); }
+    .modal-card h2 { font-family: var(--font-display); font-size: 1.72rem; font-weight: 400; color: #1B2A1C; line-height: 1.18; margin: 0 0 10px; letter-spacing: -0.01em; }
+    .modal-kicker { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #6B6E68; margin: 0 0 10px; }
+    .modal-divider { border: none; border-top: 1px solid rgba(42,45,40,0.12); margin: 22px 0 18px; }
+    .modal-card p { font-size: 0.98rem; line-height: 1.82; color: #3A3A35; margin: 0 0 13px; max-width: 62ch; }
+    .modal-card p:last-child { margin-bottom: 0; }
+    .modal-card strong { color: #1B2A1C; font-weight: 600; }
+    .modal-section-head { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #B8620A; margin: 0 0 10px; }
+    .modal-close { position: sticky; top: 10px; border: 1px solid rgba(42,45,40,0.12); background: transparent; border-radius: 999px; padding: 4px 12px; font-size: 0.8rem; font-family: var(--font-body); color: #6B6E68; cursor: pointer; transition: background 0.15s, color 0.15s; display: flex; margin: 0 0 12px auto; z-index: 2; }
+    .modal-close:hover { background: rgba(42,45,40,0.08); color: #1B2A1C; }
+    @media (max-width: 640px) { .modal-card { padding: 34px 22px 26px; } .modal-card h2 { font-size: 1.46rem; } .modal-card p { font-size: 0.94rem; max-width: none; } }
+
+    .hero {
+      max-width: 900px; margin: 0 auto; padding: 56px 32px 40px; text-align: left;
+    }
+    .section-pill {
+      display: inline-block; font-family: var(--font-body);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #B8620A;
+      background: rgba(184, 98, 10, 0.08);
+      padding: 4px 10px; border-radius: var(--radius-sm); margin-bottom: 12px;
+    }
+    .hero h1 {
+      font-family: var(--font-display); font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 400;
+      letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink);
+      line-height: 1.2;
+    }
+    .hero .subtitle {
+      font-size: 1rem; color: var(--ink-secondary); line-height: 1.7;
+      max-width: 640px;
+    }
+ 
+    /* MAIN CONTAINER */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px 96px; }
+
+    /* STUDIO PANEL */
+    .studio-panel {
+      margin-top: 0;
+      background: transparent;
+      padding: 0;
+    }
+
+    .studio-head h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+
+    .studio-head p {
+      color: var(--ink-secondary);
+      font-size: 1rem;
+    }
+
+    .studio-grid {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 3rem;
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+
+    .studio-controls {
+      border-right: 1px solid var(--line);
+      padding-right: 2rem;
+    }
+
+    .dosing-pills {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .dosing-pill {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink-secondary);
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 200ms ease;
+      font-family: var(--font-body);
+    }
+
+    .dosing-pill.active {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+
+    .dosing-pill:hover:not(.active) {
+      border-color: var(--ink-secondary);
+    }
+
+    .control {
+      margin-bottom: 9px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      margin-bottom: 3px;
+      gap: 8px;
+      line-height: 1.35;
+    }
+
+    .control-value {
+      color: var(--ink);
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      height: 3px;
+      background: rgba(58, 80, 50, 0.12);
+      border-radius: 999px;
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+      background: var(--sage-600);
+      cursor: pointer;
+      transition: transform var(--t-fast), box-shadow var(--t-fast);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.28);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.22);
+      background: var(--sage-600);
+      cursor: pointer;
+    }
+
+    #socialValue::-webkit-slider-thumb { background: var(--ocean-400); border-color: #FFFFFF; }
+    #socialValue::-moz-range-thumb { background: var(--ocean-400); }
+    #eta::-webkit-slider-thumb { background: var(--sand-400); border-color: #FFFFFF; }
+    #eta::-moz-range-thumb { background: var(--sand-400); }
+
+    .global-wrap {
+      border-top: 0.5px solid var(--sage-200);
+      margin-top: 8px;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .global-wrap input[type="checkbox"] {
+      accent-color: var(--sage-600);
+    }
+
+    .studio-chart-col {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .studio-canvas-wrap {
+      height: 380px;
+    }
+
+    .studio-canvas-wrap canvas {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    .studio-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+    }
+
+    .studio-legend-scope {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 2px;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-line {
+      width: 18px;
+      height: 0;
+      border-top: 2px solid;
+    }
+
+    .legend-line-dashed {
+      border-top-style: dashed;
+    }
+
+    .legend-point {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 1px solid #FFFFFF;
+      box-shadow: 0 0 0 1px rgba(42, 45, 40, 0.2);
+    }
+
+    .legend-sage { border-color: var(--sage-400); }
+    .legend-ocean { border-color: var(--ocean-400); opacity: 0.45; }
+    .legend-sand { border-color: var(--sand-400); opacity: 0.35; }
+
+    /* METRICS */
+    .metric-grid {
+      margin-top: 2.5rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .metric {
+      border-radius: 0;
+      padding: 0;
+      min-height: auto;
+      position: relative;
+      border-left: 2px solid var(--sage-200);
+      padding-left: 1rem;
+    }
+
+    .metric-sage { border-color: var(--sage-400); }
+    .metric-ocean { border-color: var(--ocean-400); }
+    .metric-sand { border-color: var(--sand-400); }
+
+    .info-tip {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(42, 45, 40, 0.1);
+      color: var(--ink-secondary);
+      font-size: 10px;
+      cursor: help;
+      line-height: 1;
+      font-style: normal;
+    }
+
+    .metric-value {
+      color: var(--ink);
+      font-size: 1.6rem;
+      line-height: 1.1;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+      font-family: var(--font-display);
+    }
+
+    .metric-label {
+      color: var(--ink-secondary);
+      font-size: 0.85rem;
+      line-height: 1.4;
+      padding-right: 0;
+    }
+
+    .metric-value.positive { color: var(--sage-600); }
+    .metric-value.negative { color: var(--coral); }
+
+    /* GUIDE SECTION */
+    .studio-guide {
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+
+    .studio-guide h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .guide-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(42, 45, 40, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .guide-card summary {
+      padding: 13px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .guide-card summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .guide-card summary::after {
+      content: "+";
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--ink-secondary);
+    }
+
+    .guide-card[open] summary::after {
+      content: "\2212";
+    }
+
+    .guide-card .guide-body {
+      padding: 0 14px 14px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: var(--ink-secondary);
+    }
+
+    .guide-card .guide-body p {
+      margin: 0 0 9px;
+    }
+
+    .guide-card .guide-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .guide-highlight {
+      display: inline-block;
+      background: var(--sage-100);
+      color: var(--sage-800);
+      font-weight: 600;
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin: 0 2px;
+    }
+
+    /* UNDER THE HOOD */
+    .under-hood {
+      margin-top: 10px;
+      border: 1px solid var(--sage-200);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.45);
+    }
+
+    .under-hood summary {
+      list-style: none;
+      cursor: pointer;
+      color: var(--sage-600);
+      font-weight: 500;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .under-hood summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .under-body {
+      padding: 0 10px 10px;
+      color: var(--ink-secondary);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .under-body code {
+      background: rgba(42, 45, 40, 0.06);
+      border-radius: 4px;
+      padding: 1px 4px;
+      color: var(--ink);
+      font-family: 'JetBrains Mono', 'Courier New', monospace;
+      font-size: 12px;
+    }
+
+    .cost-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 7px 0;
+    }
+
+    .cost-table th,
+    .cost-table td {
+      text-align: left;
+      padding: 4px 5px;
+      border-bottom: 1px solid rgba(42, 45, 40, 0.08);
+      font-size: 12px;
+    }
+
+    /* METHODS */
+    .methods-panel {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .methods-panel h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .methods-item h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .methods-item ul {
+      list-style: none;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    .methods-item li::before {
+      content: "•";
+      color: var(--sage-400);
+      margin-right: 8px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .studio-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .studio-controls {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        padding-right: 0;
+        padding-bottom: 2rem;
+      }
+      .studio-canvas-wrap {
+        height: 240px;
+      }
+      .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+      }
+      .guide-grid {
+        grid-template-columns: 1fr;
+      }
+      .methods-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .dosing-pill {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+      }
+      input[type="range"] {
+        height: 5px;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        width: 22px;
+        height: 22px;
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 22px;
+        height: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+ 
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-brand">A Methane AMC <em>Case Study</em></a>
+    <div class="site-nav-links">
+      <a href="index.html">Read</a>
+      <a href="storymap.html">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html" class="active">Test</a>
+      <a href="frameworks.html">Methodology</a>
+      <a href="#" class="nav-about-btn" id="navAboutBtn">About</a>
+    </div>
+  </div>
+</nav>
+<div class="hero">
+  <span class="section-pill">Your turn</span>
+  <h1>Sensitivity studio</h1>
+  <p class="subtitle">Drag the sliders. Watch the economics shift. Explore how AMC economics respond to changes in dosing, adoption rates, and the social cost of methane.</p>
+</div>
+ 
+<div class="container">
+
+  <div class="studio-panel" id="studioPanel">
+    <header class="studio-head">
+      <h3>BCR vs. adoption rate</h3>
+      <p>Drag the sliders. Watch the economics shift.</p>
+    </header>
+
+    <div class="studio-grid">
+      <aside class="studio-controls">
+        <div class="dosing-pills" role="group" aria-label="Dosing scenario">
+          <button class="dosing-pill active" data-dose="baseline" type="button">Baseline</button>
+          <button class="dosing-pill" data-dose="annual" type="button">Annual</button>
+          <button class="dosing-pill" data-dose="booster" type="button">Prime + booster</button>
+        </div>
+
+        <div class="control">
+          <label for="adoption"><span>Adoption rate</span><span class="control-value" id="adoptionValue">50%</span></label>
+          <input id="adoption" type="range" min="0" max="100" value="50" step="1" />
+        </div>
+
+        <div class="control">
+          <label for="socialValue"><span>Social value ($/animal-yr)</span><span class="control-value" id="socialValueValue">$30</span></label>
+          <input id="socialValue" type="range" min="22" max="38" value="30" step="1" />
+        </div>
+
+        <div class="control">
+          <label for="eta"><span>Feasibility (eta)</span><span class="control-value" id="etaValue">0.90</span></label>
+          <input id="eta" type="range" min="0.5" max="1.0" value="0.90" step="0.01" />
+        </div>
+
+        <label class="global-wrap">
+          <input id="globalHerd" type="checkbox" />
+          <span>Global herd (1.6B)</span>
+        </label>
+      </aside>
+
+      <div class="studio-chart-col">
+        <div class="studio-canvas-wrap"><canvas id="studioChart"></canvas></div>
+        <div class="studio-legend">
+          <span class="legend-item"><span class="legend-line legend-sage"></span>Baseline</span>
+          <span class="legend-item"><span class="legend-line legend-ocean"></span>Annual</span>
+          <span class="legend-item"><span class="legend-line legend-sand"></span>Prime + booster</span>
+          <div class="studio-legend-scope">
+            <span class="legend-item"><span class="legend-line legend-sage"></span>Solid = U.S. herd</span>
+            <span class="legend-item"><span class="legend-line legend-sage legend-line-dashed"></span>Dashed = Global herd</span>
+            <span class="legend-item"><span class="legend-point"></span>Current slider point</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <article class="metric metric-sage">
+        <span class="info-tip" title="Benefit-cost ratio compares modeled social benefits to modeled social costs.">i</span>
+        <p class="metric-value" id="metricBcr">0.00</p>
+        <p class="metric-label">Benefit-cost ratio</p>
+      </article>
+      <article class="metric metric-ocean">
+        <span class="info-tip" title="Net present value is benefits minus total social cost.">i</span>
+        <p class="metric-value" id="metricNpv">$0</p>
+        <p class="metric-label">Net present value</p>
+      </article>
+      <article class="metric metric-sand">
+        <span class="info-tip" title="AMC size is the risk-adjusted commitment needed under the selected assumptions.">i</span>
+        <p class="metric-value" id="metricAmc">$0</p>
+        <p class="metric-label">AMC size</p>
+      </article>
+      <article class="metric metric-sage">
+        <span class="info-tip" title="Break-even adoption is the minimum adoption rate where BCR equals 1.">i</span>
+        <p class="metric-value" id="metricBreakEven">0%</p>
+        <p class="metric-label">Break-even adoption</p>
+      </article>
+    </div>
+
+    <div class="studio-guide">
+      <h3>Reading the studio</h3>
+      <div class="guide-grid">
+        <details class="guide-card">
+          <summary>What is the benefit-cost ratio?</summary>
+          <div class="guide-body">
+            <p>BCR is the total present value of social benefits divided by the total present value of social costs. A BCR of <span class="guide-highlight">14.41</span> means every dollar spent generates about $14.41 in avoided climate damages.</p>
+            <p>Most public infrastructure investments are considered strong at a BCR near 2-3. This ratio is high because methane abatement delivers large public benefits while intervention costs remain modest relative to herd scale.</p>
+            <p>The break-even adoption metric tells you the minimum adoption rate where BCR equals 1. Under baseline assumptions that is about 3.5%.</p>
+          </div>
+        </details>
+
+        <details class="guide-card">
+          <summary>What counts as social cost?</summary>
+          <div class="guide-body">
+            <p>Social cost here is the total resource cost society bears to make the intervention happen. It is not the social cost of methane itself.</p>
+            <p>It has two parts: AMC outlay for risk and adoption support, plus ongoing manufacturing and deployment after the AMC window closes.</p>
+            <p>Under annual dosing, the non-AMC component rises materially because more doses are manufactured and administered over each animal's lifetime.</p>
+          </div>
+        </details>
+
+        <details class="guide-card">
+          <summary>What do the sliders change?</summary>
+          <div class="guide-body">
+            <p>Adoption and social value scale benefits upward. Dosing scenario is the biggest cost lever. Feasibility (eta) shifts R&amp;D risk, which changes required AMC support.</p>
+            <p>Use these controls together to test where economics remain strong and where assumptions become fragile.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <details class="under-hood">
+      <summary><span>Under the hood: equations, assumptions, and key uncertainties</span><span>+</span></summary>
+      <div class="under-body">
+        <p><strong>Benefit scaling</strong></p>
+        <p><code>Benefits = 11.4842B * (adoption / 0.50) * (socialValue / 30)</code></p>
+
+        <p><strong>Cost by dosing</strong></p>
+        <table class="cost-table">
+          <thead>
+            <tr><th>Scenario</th><th>AMC</th><th>Non-AMC</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Baseline</td><td>$534.2M</td><td>$263M</td></tr>
+            <tr><td>Annual</td><td>$832.3M</td><td>$761M</td></tr>
+            <tr><td>Prime + booster</td><td>$1,068.4M</td><td>$950M</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>R&amp;D feasibility</strong></p>
+        <p><code>Pr(success) = eta * (1 - (1 - p)^k), k = 15</code></p>
+
+        <p><strong>Key assumptions</strong></p>
+        <p>U.S. herd 90M, global herd 1.6B, social cost of methane $1,600 per ton, discount rate 2%, development lag 8 years, sales window 10 years.</p>
+
+        <p><strong>Key uncertainties</strong></p>
+        <p>The dosing regimen remains the most consequential open parameter. A single-dose profile and multi-dose profile produce very different cost structures and deployment pacing.</p>
+
+        <p><strong>What could invalidate this model</strong></p>
+        <p>Three conditions would materially weaken the economic case.</p>
+        <p>First, if no vaccine or additive achieves a durable 20% methane reduction in field conditions, the benefit estimate collapses. Current efficacy data comes from controlled trials. Pastoral and mixed-system field performance remains unvalidated at scale.</p>
+        <p>Second, if dosing requires annual or more frequent administration, total program costs roughly double. The BCR remains above 1 in all modeled scenarios, but the funding ask grows from $534M to over $1B, which changes the coalition-building calculus.</p>
+        <p>Third, if the social cost of methane is substantially revised downward from the current $1,600/ton central estimate, the benefit side of the ratio compresses. At $800/ton, the baseline BCR drops from 14.4 to approximately 7.2, still strongly positive but a different conversation for risk-averse funders.</p>
+        <p>The model is most robust to adoption rate variation. Even at 10% adoption (one-fifth the baseline assumption), the BCR remains above 2.5 under baseline dosing. The break-even adoption rate is 3.5%.</p>
+      </div>
+    </details>
+  </div>
+
+  <section class="methods-panel" aria-labelledby="methods-title">
+    <h3 id="methods-title">Sources and methods</h3>
+    <p style="margin-bottom: 1rem; color: var(--ink-secondary); font-size: 13px;">Model outputs on this page combine published emissions evidence with scenario-based economic assumptions used for comparative policy design.</p>
+    <div class="methods-grid">
+      <div class="methods-item">
+        <h4>Core evidence</h4>
+        <ul>
+          <li>IPCC AR6</li>
+          <li>FAO GLEAM livestock emissions datasets</li>
+          <li>EPA U.S. Greenhouse Gas Inventory (2024)</li>
+          <li>Global Methane Assessment (2021)</li>
+          <li>USDA per-animal treatment benchmarks</li>
+        </ul>
+      </div>
+      <div class="methods-item">
+        <h4>Model framing</h4>
+        <ul>
+          <li>Charts reflect modeled scenarios, not observed outcomes.</li>
+          <li>Adoption, dosing profile, and feasibility are principal uncertainty drivers.</li>
+          <li>The $750M marker is a strategic sizing reference point under baseline assumptions.</li>
+          <li>Sensitivity panel allows stress-testing assumptions in real time.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-explore">
+      <p class="footer-explore-heading">Go deeper</p>
+      <div class="footer-explore-links">
+        <a href="index.html">Read the full brief</a>
+        <a href="storymap.html">See the storymap</a>
+        <a href="data-explorer.html">Data Explorer</a>
+        <a href="sensitivity-studio.html">Sensitivity Studio</a>
+        <a href="frameworks.html">Frameworks</a>
+      </div>
+    </div>
+    <hr class="footer-rule">
+    <p class="footer-credit">Designed and built by Delany Broome</p>
+    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
+    <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
+    <div class="footer-logos">
+      <span class="footer-logo-text">UC Berkeley</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">Spark Climate</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const COLORS = {
+    sage400: "#8BA87A",
+    sage600: "#5C7A4E",
+    sage800: "#3A5032",
+    ocean400: "#5A96AD",
+    ocean200: "#A3C5D2",
+    ocean100: "#CBDFE6",
+    sand400: "#B5A998",
+    sand200: "#DDD6CA",
+    ink: "#2A2D28",
+    inkSecondary: "#6B6E68"
+  };
+
+  const dosingMeta = {
+    baseline: { amcM: 534.2, nonAmcM: 263, color: COLORS.sage400 },
+    annual: { amcM: 832.3, nonAmcM: 761, color: COLORS.ocean400 },
+    booster: { amcM: 1068.4, nonAmcM: 950, color: COLORS.sand400 }
+  };
+
+  let studioChart = null;
+  let activeDose = "baseline";
+
+  function formatMoney(value) {
+    const abs = Math.abs(value);
+    if (abs >= 1e9) return "$" + (value / 1e9).toFixed(2) + "B";
+    if (abs >= 1e6) return "$" + (value / 1e6).toFixed(1) + "M";
+    return "$" + Math.round(value).toLocaleString();
+  }
+
+  function chartDefaults() {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      animation: { duration: 800, easing: "easeOutCubic" },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: "#FFFFFF",
+          titleColor: COLORS.ink,
+          bodyColor: COLORS.inkSecondary,
+          borderColor: "rgba(42,45,40,0.12)",
+          borderWidth: 1,
+          titleFont: { family: "Newsreader", size: 12, weight: "600" },
+          bodyFont: { family: "Newsreader", size: 12 },
+          displayColors: true
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: COLORS.inkSecondary, font: { family: "JetBrains Mono", size: 11 } },
+          border: { color: "rgba(42,45,40,0.15)" }
+        },
+        y: {
+          grid: { display: false },
+          ticks: { color: COLORS.inkSecondary, font: { family: "JetBrains Mono", size: 11 } },
+          border: { color: "rgba(42,45,40,0.15)" }
+        }
+      }
+    };
+  }
+
+  // BCR calculation per dosing scenario
+  function computeBCR(adoption, socialValue, dose, globalHerd, eta) {
+    const baseBenefits = 11.4842e9;
+    const scale = globalHerd ? 17.78 : 1;
+    const benefits = baseBenefits * (adoption / 50) * (socialValue / 30) * scale;
+
+    const meta = dosingMeta[dose];
+    const etaAdjust = 0.90 / eta;
+    const amcCost = meta.amcM * 1e6 * etaAdjust * scale;
+    const nonAmcCost = meta.nonAmcM * 1e6 * scale;
+    const totalCost = amcCost + nonAmcCost;
+
+    return {
+      bcr: benefits / totalCost,
+      npv: benefits - totalCost,
+      amcCost,
+      totalCost,
+      benefits
+    };
+  }
+
+  function updateMetrics() {
+    const adoption = parseFloat(document.getElementById("adoption").value);
+    const socialValue = parseFloat(document.getElementById("socialValue").value);
+    const eta = parseFloat(document.getElementById("eta").value);
+    const globalHerd = document.getElementById("globalHerd").checked;
+
+    const result = computeBCR(adoption, socialValue, activeDose, globalHerd, eta);
+
+    document.getElementById("metricBcr").textContent = result.bcr.toFixed(2);
+    document.getElementById("metricNpv").textContent = formatMoney(result.npv);
+    document.getElementById("metricAmc").textContent = formatMoney(result.amcCost);
+
+    // Break-even adoption
+    const meta = dosingMeta[activeDose];
+    const scale = globalHerd ? 17.78 : 1;
+    const etaAdjust = 0.90 / eta;
+    const totalCostAtBase = (meta.amcM * etaAdjust + meta.nonAmcM) * 1e6 * scale;
+    const baseBenefits = 11.4842e9;
+    const breakEven = (totalCostAtBase * 50 * 30) / (baseBenefits * socialValue * scale);
+    document.getElementById("metricBreakEven").textContent = breakEven.toFixed(1) + "%";
+
+    // Color-code positive/negative
+    const bcrEl = document.getElementById("metricBcr");
+    const npvEl = document.getElementById("metricNpv");
+    bcrEl.classList.toggle("positive", result.bcr >= 1);
+    bcrEl.classList.toggle("negative", result.bcr < 1);
+    npvEl.classList.toggle("positive", result.npv >= 0);
+    npvEl.classList.toggle("negative", result.npv < 0);
+  }
+
+  function updateChart() {
+    const socialValue = parseFloat(document.getElementById("socialValue").value);
+    const eta = parseFloat(document.getElementById("eta").value);
+    const globalHerd = document.getElementById("globalHerd").checked;
+    const currentAdoption = parseFloat(document.getElementById("adoption").value);
+
+    const adoptionSteps = [];
+    for (let a = 0; a <= 100; a += 5) adoptionSteps.push(a);
+
+    // Always show both herd scopes on the chart so the comparison is visible
+    // regardless of checkbox state. The checkbox still drives metric cards below.
+    const baselineUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "baseline", false, eta).bcr);
+    const annualUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "annual", false, eta).bcr);
+    const boosterUsData = adoptionSteps.map(a => computeBCR(a, socialValue, "booster", false, eta).bcr);
+
+    const baselineGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "baseline", true, eta).bcr);
+    const annualGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "annual", true, eta).bcr);
+    const boosterGlobalData = adoptionSteps.map(a => computeBCR(a, socialValue, "booster", true, eta).bcr);
+
+    if (!studioChart) {
+      const ctx = document.getElementById("studioChart").getContext("2d");
+      studioChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: adoptionSteps.map(a => a + "%"),
+          datasets: [
+            {
+              label: "Baseline (U.S.)",
+              data: baselineUsData,
+              borderColor: COLORS.sage400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Annual (U.S.)",
+              data: annualUsData,
+              borderColor: COLORS.ocean400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 0,
+              borderDashOffset: 0
+            },
+            {
+              label: "Prime + booster (U.S.)",
+              data: boosterUsData,
+              borderColor: COLORS.sand400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Baseline (Global)",
+              data: baselineGlobalData,
+              borderColor: COLORS.sage400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Annual (Global)",
+              data: annualGlobalData,
+              borderColor: COLORS.ocean400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Prime + booster (Global)",
+              data: boosterGlobalData,
+              borderColor: COLORS.sand400,
+              backgroundColor: "transparent",
+              borderWidth: 2,
+              borderDash: [6, 4],
+              tension: 0.3,
+              pointRadius: 0
+            },
+            {
+              label: "Current selection",
+              data: [],
+              showLine: false,
+              pointRadius: 4,
+              pointHoverRadius: 4,
+              pointBackgroundColor: COLORS.ink,
+              pointBorderColor: "#FFFFFF",
+              pointBorderWidth: 1.5
+            }
+          ]
+        },
+        options: {
+          ...chartDefaults(),
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: { color: COLORS.inkSecondary, font: { family: "JetBrains Mono", size: 11 } },
+              border: { color: "rgba(42,45,40,0.15)" },
+              title: { display: true, text: "Adoption rate", color: COLORS.inkSecondary, font: { family: "Newsreader", size: 12 } }
+            },
+            y: {
+              grid: { color: "rgba(42,45,40,0.06)" },
+              ticks: { color: COLORS.inkSecondary, font: { family: "JetBrains Mono", size: 11 } },
+              border: { color: "rgba(42,45,40,0.15)" },
+              title: { display: true, text: "BCR", color: COLORS.inkSecondary, font: { family: "Newsreader", size: 12 } }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.dataset.label + ": " + ctx.parsed.y.toFixed(2)
+              }
+            }
+          }
+        }
+      });
+    }
+
+    studioChart.data.datasets[0].data = baselineUsData;
+    studioChart.data.datasets[1].data = annualUsData;
+    studioChart.data.datasets[2].data = boosterUsData;
+    studioChart.data.datasets[3].data = baselineGlobalData;
+    studioChart.data.datasets[4].data = annualGlobalData;
+    studioChart.data.datasets[5].data = boosterGlobalData;
+
+    const activeUsColors = {
+      baseline: COLORS.sage400,
+      annual: COLORS.ocean400,
+      booster: COLORS.sand400
+    };
+    const mutedUsColors = {
+      baseline: "rgba(139,168,122,0.45)",
+      annual: "rgba(90,150,173,0.45)",
+      booster: "rgba(181,169,152,0.45)"
+    };
+
+    const activeGlobalColors = {
+      baseline: COLORS.sage600,
+      annual: COLORS.ocean400,
+      booster: COLORS.sand400
+    };
+    const mutedGlobalColors = {
+      baseline: "rgba(92,122,78,0.35)",
+      annual: "rgba(90,150,173,0.35)",
+      booster: "rgba(181,169,152,0.35)"
+    };
+
+    const doseOrder = ["baseline", "annual", "booster"];
+    doseOrder.forEach((dose, i) => {
+      const isActive = activeDose === dose;
+      studioChart.data.datasets[i].borderWidth = isActive ? 2.8 : 1.3;
+      studioChart.data.datasets[i].borderColor = isActive ? activeUsColors[dose] : mutedUsColors[dose];
+
+      const gi = i + 3;
+      studioChart.data.datasets[gi].borderWidth = isActive ? 2.4 : 1.2;
+      studioChart.data.datasets[gi].borderColor = isActive ? activeGlobalColors[dose] : mutedGlobalColors[dose];
+      studioChart.data.datasets[gi].borderDash = [6, 4];
+    });
+
+    const xIndex = Math.round(currentAdoption / 5);
+    const activeLineMapUs = {
+      baseline: baselineUsData,
+      annual: annualUsData,
+      booster: boosterUsData
+    };
+    const activeLineMapGlobal = {
+      baseline: baselineGlobalData,
+      annual: annualGlobalData,
+      booster: boosterGlobalData
+    };
+    const activeLine = globalHerd ? activeLineMapGlobal[activeDose] : activeLineMapUs[activeDose];
+    studioChart.data.datasets[6].data = adoptionSteps.map((x, i) => (i === xIndex ? activeLine[i] : null));
+
+    studioChart.update("none");
+  }
+
+  function updateControlDisplays() {
+    const adoption = document.getElementById("adoption").value;
+    const socialValue = document.getElementById("socialValue").value;
+    const eta = document.getElementById("eta").value;
+
+    document.getElementById("adoptionValue").textContent = adoption + "%";
+    document.getElementById("socialValueValue").textContent = "$" + socialValue;
+    document.getElementById("etaValue").textContent = parseFloat(eta).toFixed(2);
+  }
+
+  function updateAll() {
+    updateControlDisplays();
+    updateMetrics();
+    updateChart();
+  }
+
+  // Event listeners
+  document.querySelectorAll(".dosing-pill").forEach(pill => {
+    pill.addEventListener("click", function () {
+      document.querySelectorAll(".dosing-pill").forEach(p => p.classList.remove("active"));
+      this.classList.add("active");
+      activeDose = this.dataset.dose;
+      updateAll();
+    });
+  });
+
+  document.getElementById("adoption").addEventListener("input", updateAll);
+  document.getElementById("socialValue").addEventListener("input", updateAll);
+  document.getElementById("eta").addEventListener("input", updateAll);
+  document.getElementById("globalHerd").addEventListener("change", updateAll);
+
+  // Initialize on load
+  document.addEventListener("DOMContentLoaded", updateAll);
+})();
+</script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
+<script src="js/nav.js"></script>
+
+<div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
+  <div class="modal-backdrop" data-close-modal="true"></div>
+  <div class="modal-card" role="document">
+    <button type="button" class="modal-close" id="aboutCloseBtn" aria-label="Close about dialog">Close</button>
+    <p class="modal-kicker">About</p>
+    <h2 id="aboutTitle">About this story map</h2>
+    <p>This site presents the dedicated capstone work of an environmental scientist exploring how to fund what the world has been ignoring: the largest single source of human-driven methane, and one of the most under-funded climate problems we have.</p>
+    <hr class="modal-divider">
+    <p class="modal-section-head">What you'll find</p>
+    <p>This site is organized in two phases.</p>
+    <p><strong>Phase 1</strong> stress-tests a single proposed mechanism: an <strong>Advance Market Commitment (AMC)</strong> for a methane-reducing livestock vaccine. Four interconnected pieces walk through the analysis.</p>
+    <p><strong>The Story Map</strong> is a scrollytelling narrative tracing the AMC from problem to mechanism design. It moves through the urgency of methane, the innovation deadlock that stalls private investment, and the coalition design needed to launch.</p>
+    <p><strong>The Data Explorer</strong> presents five charts that build the economic case, from firm payoff distributions and adoption curves to global readiness and cumulative climate impact. Each chart is the answer to a specific stakeholder question.</p>
+    <p><strong>The Sensitivity Studio</strong> is an interactive techno-economic analysis. Adjust dosing, adoption, scientific feasibility, and social value, and watch BCR, NPV, and required support shift in real time. Preset scenarios reflect real reviewer concerns.</p>
+    <p><strong>The Frameworks page</strong> documents the MCS analytical methods behind the work, including lifecycle assessment, pathways and barriers, and co-benefits, with full literature citations.</p>
+    <p><strong>Phase 2</strong> zooms out. The Spark Enteric Methane Navigator is a decision-support tool covering 15+ market mechanism types, from carbon credits and insetting to AMCs, subsidies, and regulatory pricing. It helps funders identify which mechanisms fit which markets, time horizons, and risk appetites.</p>
+    <hr class="modal-divider">
+    <p class="modal-section-head">Who built it</p>
+    <p><strong>Delany Broome</strong>, an environmental scientist with eight years of experience in California state environmental work, currently pursuing the Master of Climate Solutions at UC Berkeley&#8217;s Rausser College of Natural Resources.</p>
+    <hr class="modal-divider">
+    <p class="modal-section-head">In collaboration with</p>
+    <p><strong>Spark Climate Solutions</strong>, a nonprofit accelerating progress in under-funded, high-impact climate fields. This work builds on Spark&#8217;s 2025 Livestock Enteric Methane Mitigation Roadmap.</p>
+    <hr class="modal-divider">
+    <p>Outside her capstone work, Delany is active in the Berkeley Energy and Resources Collaborative (BERC) and the broader Bay Area climate community, an enthusiastic gardener and cook, a lover of the art of tarot, and a believer that climate work should leave room for joy.</p>
+  </div>
+</div>
+
+</body>
+</html>

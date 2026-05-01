@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>See the Case | A Methane AMC Case Study</title>
+  <meta name="description" content="Six visuals tracing the argument for a livestock methane Advance Market Commitment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..900,0..100;1,9..144,300..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script defer src="https://unpkg.com/scrollama"></script>
+  <script defer src="js/charts.js"></script>
+  <script defer src="js/diagrams.js"></script>
+  <style>
+    :root {
+      --bg: #FAFAF8; --bg-alt: #F4F1EB; --ink: #0D1117; --ink-soft: #2A2720;
+      --muted: #8A8278; --border: #E4E2DC; --rule: #D8D4CB;
+      --accent: #B8620A; --accent-deep: #7A3D04; --teal: #5C7A4E;
+      --serif-display: 'Fraunces', Georgia, serif;
+      --serif-body: 'Newsreader', Georgia, serif;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --col-narrow: 38rem; --col-wide: 64rem;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: var(--serif-body); font-size: 1.0625rem; line-height: 1.65;
+      font-feature-settings: "ss01","ss02","kern";
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+
+    /* PROGRESS */
+    .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--border); z-index: 300; }
+    .progress-fill { height: 100%; width: 0; background: var(--accent); transition: width .1s linear; }
+
+    /* NAV */
+    .site-nav {
+      border-bottom: 1px solid var(--border);
+      background: rgba(245,240,230,0.92);
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(8px);
+    }
+    .site-nav-inner {
+      max-width: var(--col-wide); margin: 0 auto;
+      padding: 1.1rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;
+    }
+    .site-nav-brand {
+      font-family: var(--serif-display); font-weight: 500;
+      font-variation-settings: "opsz" 144, "SOFT" 0;
+      font-size: 1.05rem; letter-spacing: -0.01em; color: var(--ink); text-decoration: none;
+    }
+    .site-nav-brand em { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; color: var(--accent); }
+    .site-nav-links {
+      display: flex; gap: 1.75rem;
+      font-family: var(--serif-body); font-size: 0.875rem; font-weight: 500;
+    }
+    .site-nav-links a {
+      color: var(--ink-soft); text-decoration: none;
+      border-bottom: 1px solid transparent; padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .site-nav-links a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .site-nav-links a.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+    /* HERO */
+    .page-hero { padding: 5rem 1.5rem 4rem; max-width: var(--col-wide); margin: 0 auto; border-bottom: 1px solid var(--rule); }
+    .eyebrow {
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem; display: block;
+    }
+    .page-hero h1 {
+      font-family: var(--serif-display); font-size: clamp(2.5rem,6vw,4.5rem);
+      line-height: 1.02; font-weight: 380;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -0.025em; color: var(--ink); max-width: 22ch; margin-bottom: 1.5rem;
+    }
+    .page-hero h1 em { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; color: var(--accent); }
+    .hero-dek {
+      font-family: var(--serif-display); font-variation-settings: "opsz" 24, "SOFT" 100;
+      font-size: clamp(1.1rem,1.6vw,1.3rem); font-weight: 300; font-style: italic;
+      color: var(--ink-soft); max-width: 52ch; line-height: 1.5;
+    }
+
+    /* STEP INDICATOR (inline in narrative, not sticky) */
+    .step-indicator {
+      padding: 1.75rem 0 0.5rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      border-bottom: 1px solid var(--border); margin-bottom: 0;
+    }
+    .step-pips { display: flex; gap: 4px; flex: 1; }
+    .step-pip { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background 0.35s; }
+    .step-pip.done { background: var(--accent); }
+    .step-label-current {
+      font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); white-space: nowrap;
+    }
+    .step-label-current span { color: var(--ink); }
+
+    /* TWO-COLUMN SCROLLY LAYOUT */
+    .scrolly-wrap {
+      display: flex;
+      align-items: start;
+      max-width: var(--col-wide);
+      margin: 0 auto;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* VISUAL PANEL (right, sticky) */
+    .visual-panel {
+      flex: 1;
+      position: sticky;
+      top: 3.55rem;
+      height: calc(100vh - 3.55rem);
+      background: var(--bg-alt);
+      border-left: 1px solid var(--border);
+      padding: 2rem 2rem 2rem 2.5rem;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .visual-scene { display: none; }
+    .visual-scene.is-visible { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+    .scene-label {
+      font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0;
+    }
+    .scene-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .funnel-wrap { width: 100%; flex: 1; min-height: 0; }
+    .funnel-wrap svg { max-height: 100%; }
+    .svg-wrap { width: 100%; flex: 1; min-height: 0; overflow: hidden; }
+    .svg-wrap svg { max-height: 100%; }
+    .chart-citation { font-family: var(--mono); font-size: 0.6rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.5; flex-shrink: 0; }
+
+    /* Pathway — vertical layout inside sticky panel */
+    .pathway-flow { width: 100%; flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+    .pw-track { display: flex; flex-direction: column; gap: 0; }
+    .pw-node {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0.6rem 0;
+      opacity: 0.25; transition: opacity 0.45s ease;
+    }
+    .pw-node.pw-active { opacity: 1; }
+    .pw-icon {
+      width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid var(--teal); font-size: 1rem;
+      color: var(--teal); background: var(--bg); transition: background 0.35s, color 0.35s;
+    }
+    .pw-node.pw-active .pw-icon { background: var(--teal); color: #fff; }
+    .pw-connector { margin-left: 17px; height: 16px; width: 2px; background: var(--border); overflow: hidden; }
+    .pw-connector.pw-active { background: var(--teal); }
+    .pw-text { display: flex; flex-direction: column; }
+    .pw-label { font-family: var(--serif-display); font-variation-settings: "opsz" 36, "SOFT" 30; font-weight: 500; font-size: 0.9rem; color: var(--ink); line-height: 1.2; }
+    .pw-sub { font-family: var(--serif-body); font-size: 0.8rem; color: var(--muted); }
+
+    /* Scene D */
+    .scene-d-split { display: flex; flex-direction: column; gap: 1.25rem; flex: 1; min-height: 0; }
+    .canvas-wrap { position: relative; width: 100%; height: 180px; flex-shrink: 0; }
+    .canvas-wrap canvas { width: 100% !important; height: 100% !important; display: block; }
+    .cta-card { background: var(--bg-alt); border-left: 3px solid var(--accent); padding: 2rem 1.75rem; }
+    .cta-value {
+      font-family: var(--serif-display); font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: clamp(2.5rem,5vw,4rem); font-weight: 300;
+      color: var(--accent); line-height: 0.95; letter-spacing: -0.03em;
+      margin-bottom: 0.4rem; display: block;
+    }
+    .cta-sub { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; display: block; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 1.25rem; }
+    .pill-row span { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; border: 1px solid var(--border); border-radius: 40px; padding: 3px 11px; color: var(--muted); }
+    .contact-line { font-family: var(--mono); font-size: 0.75rem; }
+    .contact-line a { color: var(--accent); text-decoration: none; }
+    .contact-line a:hover { text-decoration: underline; }
+
+    /* NARRATIVE (left column) */
+    .narrative-track { width: 46%; flex-shrink: 0; padding: 0 2.5rem 6rem 1.5rem; }
+    .step { padding: 4rem 0; border-bottom: 1px solid var(--rule); min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+    .step:last-child { border-bottom: none; padding-bottom: 4rem; min-height: 70vh; }
+    .step-kicker { font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; display: block; }
+    .step.is-active .step-kicker { color: var(--accent); }
+    .step h3 {
+      font-family: var(--serif-display); font-variation-settings: "opsz" 72, "SOFT" 30;
+      font-size: clamp(1.75rem,3vw,2.5rem); font-weight: 420;
+      line-height: 1.08; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem;
+    }
+    .step p { font-size: 1.0625rem; line-height: 1.65; color: var(--ink-soft); margin-bottom: 1rem; }
+    .step p:last-of-type { margin-bottom: 0; }
+    .step strong { font-weight: 600; }
+    .pullquote {
+      font-family: var(--serif-display); font-variation-settings: "opsz" 144, "SOFT" 80;
+      font-size: clamp(1.3rem,2.2vw,1.65rem); font-weight: 320; font-style: italic;
+      color: var(--ink); border-left: 3px solid var(--accent);
+      padding: 0.5rem 0 0.5rem 1.25rem; margin: 1.25rem 0; letter-spacing: -0.015em; line-height: 1.3;
+    }
+    .more-link {
+      display: inline-block; margin-top: 1.25rem;
+      font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 2px;
+    }
+    .more-link:hover { color: var(--accent-deep); border-color: var(--accent-deep); }
+    .more-link::after { content: ' \2192'; }
+
+    /* STAT ROW */
+    .stat-row {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem;
+      padding: 2rem 0; margin: 1.5rem 0;
+      border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+    }
+    .stat-num {
+      font-family: var(--serif-display); font-size: clamp(2rem,4vw,3rem); font-weight: 300;
+      font-variation-settings: "opsz" 144, "SOFT" 30; line-height: 0.95;
+      color: var(--ink); letter-spacing: -0.03em; margin-bottom: 0.4rem; display: block;
+    }
+    .stat-num .unit { font-size: 0.55em; color: var(--accent); font-weight: 400; margin-left: 0.1em; }
+    .stat-label { font-size: 0.85rem; line-height: 1.45; color: var(--ink-soft); font-style: italic; }
+
+    /* FOOTER */
+    .site-footer { border-top: 1px solid var(--rule); padding: 3rem 1.5rem; text-align: center; font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); }
+    .footer-inner { max-width: var(--col-narrow); margin: 0 auto; }
+    .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem; margin-bottom: 1.5rem; font-family: var(--serif-body); font-size: 0.875rem; font-weight: 500; }
+    .footer-nav a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 1px; transition: color .2s, border-color .2s; }
+    .footer-nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .footer-rule { border: none; border-top: 1px solid var(--rule); margin: 1.5rem 0; }
+    .footer-credit { color: var(--ink-soft); font-family: var(--serif-body); font-size: 0.875rem; margin-bottom: 0.25rem; }
+
+    /* MODAL */
+    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1200; padding: 1rem; }
+    .modal[hidden] { display: none; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+    .modal-card { position: relative; z-index: 1; width: min(660px,92vw); background: var(--bg); border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.18); padding: 2.5rem; font-family: var(--serif-body); color: var(--ink-soft); max-height: 88vh; overflow-y: auto; overscroll-behavior: contain; }
+    .modal-kicker { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; display: block; }
+    .modal-card h2 { font-family: var(--serif-display); font-size: 1.75rem; font-weight: 420; font-variation-settings: "opsz" 72, "SOFT" 30; color: var(--ink); margin-bottom: 1.25rem; }
+    .modal-divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
+    .modal-card p { font-size: 0.9375rem; line-height: 1.75; margin: 0 0 0.75rem; }
+    .modal-section-head { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); display: block; margin: 0 0 0.5rem; }
+    .modal-close { float: right; border: 1px solid var(--border); background: transparent; border-radius: 999px; padding: 4px 12px; font-size: 0.8rem; font-family: var(--mono); color: var(--muted); cursor: pointer; transition: background .15s; }
+    .modal-close:hover { background: var(--bg-alt); }
+
+    @media (max-width: 800px) {
+      .scrolly-wrap { flex-direction: column-reverse; }
+      .narrative-track { width: 100%; padding: 0 1.25rem 4rem; }
+      .visual-panel { position: static; height: auto; border-left: none; border-top: 1px solid var(--border); padding: 1.75rem 1.25rem; width: 100%; }
+      .visual-scene.is-visible { height: auto; min-height: 240px; }
+      .step { min-height: auto; }
+    }
+    @media (max-width: 600px) {
+      .page-hero { padding: 3.5rem 1.25rem 3rem; }
+      .step { padding: 2.5rem 0; }
+      .stat-row { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+  <style>
+    /* Override: wins against any old CSS bleed-through via cascade */
+    .site-nav { background: rgba(245,240,230,0.92) !important; border-bottom: 1px solid var(--border) !important; }
+    .page-hero { background: var(--bg) !important; color: var(--ink) !important; }
+    .page-hero h1 { color: var(--ink) !important; }
+    .site-footer { background: var(--bg) !important; color: var(--muted) !important; border-top: 1px solid var(--rule) !important; }
+    .more-link { font-family: var(--mono) !important; font-size: 0.75rem !important; color: var(--accent) !important; letter-spacing: 0.05em !important; }
+    .cta-card { background: var(--bg-alt) !important; color: var(--ink) !important; border-left: 3px solid var(--accent) !important; }
+    .cta-sub { color: var(--muted) !important; }
+    .pill-row span { border-color: var(--border) !important; color: var(--muted) !important; }
+  </style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a href="index.html" class="site-nav-brand">A Methane AMC <em>Case Study</em></a>
+    <div class="site-nav-links">
+      <a href="index.html">Read</a>
+      <a href="storymap.html" class="active">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html">Test</a>
+      <a href="frameworks.html">Methodology</a>
+      <a href="#" id="navAboutBtn">About</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <span class="eyebrow">A Methane AMC Case Study</span>
+  <h1>Livestock methane is the <em>overlooked lever.</em></h1>
+</header>
+
+<div class="scrolly-wrap">
+<main class="narrative-track">
+
+  <div class="step-indicator" id="stepIndicator" aria-hidden="true">
+    <div class="step-pips" id="stepPips">
+      <div class="step-pip" data-pip="0"></div>
+      <div class="step-pip" data-pip="1"></div>
+      <div class="step-pip" data-pip="2"></div>
+      <div class="step-pip" data-pip="3"></div>
+      <div class="step-pip" data-pip="4"></div>
+      <div class="step-pip" data-pip="5"></div>
+    </div>
+    <div class="step-label-current" id="stepLabelCurrent"><span>01 &mdash; The scale</span></div>
+  </div>
+
+    <article class="step" data-step-id="s0" data-scene="sceneA" data-step-index="0" tabindex="0">
+      <span class="step-kicker">01 &mdash; The scale</span>
+      <h3>30% of warming. The numbers are not small.</h3>
+      <p>Livestock methane contributes roughly 30% of near-term climate forcing &mdash; more than all coal power combined in short-lived warming potential. The U.S. herd alone generates $10B in annual social costs.</p>
+      <div class="stat-row">
+        <div>
+          <span class="stat-num">30<span class="unit">%</span></span>
+          <span class="stat-label">of today's warming from methane</span>
+        </div>
+        <div>
+          <span class="stat-num">12<span class="unit">yr</span></span>
+          <span class="stat-label">atmospheric lifespan &mdash; cuts work fast</span>
+        </div>
+        <div>
+          <span class="stat-num">2<span class="unit">%</span></span>
+          <span class="stat-label">of ag climate R&amp;D reaching this problem</span>
+        </div>
+      </div>
+      <a href="index.html" class="more-link">Read the science</a>
+    </article>
+
+    <article class="step" data-step-id="s2a" data-scene="sceneB" data-step-index="1" tabindex="0">
+      <span class="step-kicker">02 &mdash; The barrier</span>
+      <h3>The market won't close this gap.</h3>
+      <p>Buyers won't pay for a product that doesn't exist. Innovators won't build for a market that isn't there.</p>
+      <p class="pullquote">A self-sealing deadlock with no private exit.</p>
+      <p>Enteric methane receives 2% of agricultural climate R&amp;D. The ROI math fails for any single investor &mdash; not because the science is weak, but because the coordination isn't there.</p>
+      <a href="index.html" class="more-link">Why markets fail here</a>
+    </article>
+
+    <article class="step" data-step-id="s2b" data-scene="sceneB" data-step-index="2" tabindex="0">
+      <span class="step-kicker">03 &mdash; The fix</span>
+      <h3>An AMC creates the missing demand signal.</h3>
+      <p>An Advance Market Commitment is a binding promise to purchase a qualifying product if it works. Sponsors commit upfront &mdash; but pay nothing if no product succeeds.</p>
+      <p>That single forward commitment restarts stalled R&amp;D. Same design as the Pneumococcal AMC, which delivered vaccines to 1.7 billion children. Same economist. Same mechanism. Different problem.</p>
+      <a href="index.html" class="more-link">How AMCs work</a>
+    </article>
+
+    <article class="step" data-step-id="s3a" data-scene="sceneC" data-step-index="3" tabindex="0">
+      <span class="step-kicker">04 &mdash; The pathway</span>
+      <h3>R&amp;D restarts. The pathway opens.</h3>
+      <p>With demand de-risked, capital moves earlier. The innovation chain restarts: R&amp;D investment, regulatory approval, manufacturer scale-up.</p>
+      <p>The pathway is technology-agnostic &mdash; vaccines, feed additives, boluses, genetics. AMC design rewards performance, not modality.</p>
+      <a href="index.html" class="more-link">The mechanism in detail</a>
+    </article>
+
+    <article class="step" data-step-id="s3b" data-scene="sceneC" data-step-index="4" tabindex="0">
+      <span class="step-kicker">05 &mdash; The return</span>
+      <h3>Farmers adopt. Methane falls.</h3>
+      <p>At 30&ndash;50% adoption across U.S. and high-readiness markets, this model returns <strong>$14 of avoided climate damage per $1 invested</strong> &mdash; one of the strongest benefit-cost ratios in the climate portfolio.</p>
+      <p>The mechanism is farmer-economics-first. Adoption happens when the product is net-zero or better at the herd level.</p>
+      <a href="data-explorer.html" class="more-link">Explore the model</a>
+    </article>
+
+    <article class="step" data-step-id="s3c" data-scene="sceneD" data-step-index="5" tabindex="0">
+      <span class="step-kicker">06 &mdash; The timeline</span>
+      <h3>Temperature gains are measurable before 2035.</h3>
+      <p>Because methane clears the atmosphere in roughly 12 years, reduced emissions show up as measurable cooling within a decade &mdash; not a generation.</p>
+      <p>$750M from a founding consortium &mdash; governments, corporates, philanthropies, investors &mdash; opens the COP30 launch window. The design is live. The coordination is the remaining constraint.</p>
+      <a href="data-explorer.html" class="more-link">See the projection</a>
+    </article>
+
+</main>
+
+<aside class="visual-panel" id="sceneStage" aria-live="polite">
+
+  <section class="visual-scene is-visible" id="sceneA">
+    <div class="scene-label">The scale &mdash; global GHG to AMC target</div>
+    <div id="emissionsFunnel" class="funnel-wrap"></div>
+    <p class="chart-citation">IPCC AR6, FAO GLEAM, EPA GHG Inventory 2024, Global Methane Assessment 2021</p>
+  </section>
+
+  <section class="visual-scene" id="sceneB">
+    <div class="scene-label">The barrier &amp; the fix &mdash; market failure and AMC intervention</div>
+    <div id="deadlockDiagramBase" class="svg-wrap"></div>
+  </section>
+
+  <section class="visual-scene" id="sceneC">
+    <div class="scene-label">The pathway &mdash; from demand signal to measurable impact</div>
+    <div id="amcPathwayFlow" class="pathway-flow"></div>
+  </section>
+
+  <section class="visual-scene" id="sceneD">
+    <div class="scene-label">The timeline &mdash; radiative forcing with and without AMC</div>
+    <div class="scene-d-split">
+      <div class="canvas-wrap">
+        <canvas id="methaneWarmingChart" aria-label="Livestock methane warming with and without intervention"></canvas>
+      </div>
+
+      <p class="chart-citation">Modeled divergence from BAU baseline. Sources: Global Methane Budget 2022, IPCC AR6 WG1.</p>
+    </div>
+  </section>
+
+</aside>
+</div><!-- /scrolly-wrap -->
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-nav" aria-label="Site navigation">
+      <a href="index.html">Read</a>
+      <a href="storymap.html">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html">Test</a>
+      <a href="frameworks.html">Methodology</a>
+    </nav>
+    <hr class="footer-rule">
+    <p class="footer-credit">Designed and built by Delany Broome</p>
+    <p>UC Berkeley, Master of Climate Solutions 2026 &middot; In collaboration with Spark Climate Solutions</p>
+  </div>
+</footer>
+
+<div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
+  <div class="modal-backdrop" data-close-modal="true"></div>
+  <div class="modal-card" role="document">
+    <button type="button" class="modal-close" id="aboutCloseBtn" aria-label="Close about dialog">Close</button>
+    <span class="modal-kicker">About</span>
+    <h2 id="aboutTitle">About this site</h2>
+    <p>Six visuals carrying the argument for a livestock methane Advance Market Commitment &mdash; from the problem to the coalition target.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">What you'll find</span>
+    <p><strong>Read</strong> &mdash; The full written case for the AMC.</p>
+    <p><strong>See</strong> &mdash; This page. Six visuals that carry the argument without the prose.</p>
+    <p><strong>Explore</strong> &mdash; Five charts building the economic case.</p>
+    <p><strong>Test</strong> &mdash; An interactive sensitivity model. Drag sliders, watch BCR and NPV respond.</p>
+    <p><strong>Methodology</strong> &mdash; Analytical frameworks, LCA boundary, literature citations.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">Who built it</span>
+    <p><strong>Delany Broome</strong>, an environmental scientist currently pursuing the Master of Climate Solutions at UC Berkeley's Rausser College of Natural Resources.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">In collaboration with</span>
+    <p><strong>Spark Climate Solutions</strong>, a nonprofit accelerating progress in under-funded, high-impact climate fields. This work builds on Spark's 2025 Livestock Enteric Methane Mitigation Roadmap.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var STEP_LABELS = ['01 \u2014 The scale','02 \u2014 The barrier','03 \u2014 The fix','04 \u2014 The pathway','05 \u2014 The return','06 \u2014 The timeline'];
+
+  function updateProgress() {
+    var bar = document.getElementById('progressBar');
+    if (!bar) return;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docH > 0 ? Math.min((window.scrollY / docH) * 100, 100) : 0) + '%';
+  }
+
+  function activateScene(sceneId) {
+    var panel = document.getElementById('sceneStage');
+    if (!panel) return;
+    panel.querySelectorAll('.visual-scene').forEach(function (s) {
+      s.classList.toggle('is-visible', s.id === sceneId);
+    });
+  }
+
+  function activateStep(stepEl) {
+    var narrative = document.querySelector('main.narrative-track');
+    if (narrative) narrative.querySelectorAll('.step').forEach(function (s) { s.classList.remove('is-active'); });
+    stepEl.classList.add('is-active');
+    var idx = parseInt(stepEl.dataset.stepIndex, 10);
+    document.querySelectorAll('.step-pip').forEach(function (pip, i) {
+      pip.classList.toggle('done', i <= idx);
+    });
+    var lbl = document.getElementById('stepLabelCurrent');
+    if (lbl) lbl.innerHTML = '<span>' + (STEP_LABELS[idx] || '') + '</span>';
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    var deadlockNodes = null;
+    if (window.AmcDiagrams) {
+      window.AmcDiagrams.createEmissionsFunnel('emissionsFunnel');
+      window.AmcDiagrams.animateFunnel();
+      deadlockNodes = window.AmcDiagrams.setupDeadlock('deadlockDiagramBase');
+      window.AmcDiagrams.createAmcPathway('amcPathwayFlow');
+    }
+    if (window.AmcCharts && window.AmcCharts.initSectionCharts) {
+      window.AmcCharts.initSectionCharts();
+    }
+
+    var firstStep = document.querySelector('main.narrative-track .step');
+    if (firstStep) firstStep.classList.add('is-active');
+    var firstPip = document.querySelector('.step-pip');
+    if (firstPip) firstPip.classList.add('done');
+
+    var scroller = scrollama();
+    scroller.setup({ step: 'main.narrative-track .step', offset: 0.5, threshold: 1 })
+      .onStepEnter(function (res) {
+        var stepEl = res.element;
+        var stepId = stepEl.dataset.stepId;
+        activateStep(stepEl);
+        activateScene(stepEl.dataset.scene);
+        if (deadlockNodes && (stepId === 's2a' || stepId === 's2b')) {
+          window.AmcDiagrams.updateDeadlockState(deadlockNodes, stepId);
+        }
+        if ((stepId === 's3a' || stepId === 's3b' || stepId === 's3c') && window.AmcDiagrams) {
+          window.AmcDiagrams.updateAmcPathway(stepId);
+        }
+      });
+
+    window.addEventListener('resize', function () { scroller.resize(); });
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    document.querySelectorAll('main.narrative-track .step').forEach(function (step) {
+      step.addEventListener('click', function () {
+        step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
+    var modal = document.getElementById('aboutModal');
+    var openBtn = document.getElementById('navAboutBtn');
+    var closeBtn = document.getElementById('aboutCloseBtn');
+    function openModal(e) { if (e) e.preventDefault(); modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; }
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    var backdrop = modal.querySelector('[data-close-modal]');
+    if (backdrop) backdrop.addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+  });
+})();
+</script>
+</body>
+</html>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script defer src="https://unpkg.com/scrollama"></script>
+  <script defer src="js/charts.js"></script>
+  <script defer src="js/diagrams.js"></script>
+  <script defer src="js/nav.js"></script>
+  <style>
+    /* ── Atlantic palette overrides for this page ── */
+    :root {
+      --bg:         #FAFAF8;
+      --bg-alt:     #F4F1EB;
+      --ink:        #0D1117;
+      --ink-soft:   #2A2720;
+      --muted:      #8A8278;
+      --border:     #E4E2DC;
+      --accent:     #B8620A;
+      --accent-deep:#7A3D04;
+      --teal:       #5C7A4E;
+      --fnt-display:'Fraunces', Georgia, serif;
+      --fnt-body:   'Newsreader', Georgia, serif;
+      --fnt-ui:     'JetBrains Mono', monospace;
+    }
+
+    body { font-family: var(--fnt-body); background: var(--bg); color: var(--ink-soft); }
+
+    /* ── Progress bar ── */
+    .progress-track { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--border); z-index: 200; }
+    .progress-fill { height: 100%; width: 0; background: var(--accent); transition: width .1s linear; }
+
+    /* ── Nav ── */
+    .site-nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 28px; height: 52px;
+      background: #0D1117;
+      border-bottom: 1px solid rgba(184,98,10,.18);
+    }
+    .nav-brand { font-family: var(--fnt-ui); font-size: 13px; font-weight: 500; color: rgba(244,200,130,.65); }
+    .nav-links { display: flex; align-items: center; gap: 4px; }
+    .nav-link {
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--fnt-ui); font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,.5); text-decoration: none;
+      padding: 6px 14px; border-radius: 6px;
+      border: none; background: transparent; cursor: pointer;
+      transition: color .2s, background .2s;
+    }
+    .nav-link:hover { color: #fff; background: rgba(255,255,255,.06); }
+    .nav-link.active { color: #F4C882; background: rgba(184,98,10,.12); box-shadow: inset 0 -2px 0 var(--accent); }
+    .nav-icon { display: flex; align-items: center; opacity: .7; }
+    .nav-link.active .nav-icon, .nav-link:hover .nav-icon { opacity: 1; }
+    .nav-sep { display: inline-flex; width: 1px; height: 18px; background: rgba(255,255,255,.1); margin: 0 4px; align-self: center; flex-shrink: 0; pointer-events: none; }
+    .nav-about-btn { border: none; }
+    .nav-toggle { display: none; }
+    @media (max-width: 768px) {
+      .nav-link span:not(.nav-icon) { display: none; }
+      .nav-link { padding: 8px; }
+      .nav-links { gap: 2px; }
+    }
+    @media (max-width: 520px) {
+      .nav-brand { display: none; }
+      .site-nav { padding: 0; }
+      .nav-links { display: flex !important; width: 100%; flex-direction: row; justify-content: space-around; }
+      .nav-link { flex: 1; justify-content: center; padding: 10px 4px; border-radius: 0; }
+      .nav-sep { display: none; }
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      background: #0D1117;
+      color: var(--bg);
+      padding: 64px 48px 56px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: var(--fnt-display); font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 800;
+      line-height: 1.06; color: var(--bg); margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-family: var(--fnt-body); font-size: 1.1rem; opacity: .55; max-width: 520px; margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* ── Scrolly layout ── */
+    main { width: 100%; max-width: 100%; margin: 0; }
+    .scrolly {
+      display: flex;
+      max-width: 1160px;
+      margin: 0 auto;
+      gap: 0;
+    }
+    .narrative {
+      width: 42%;
+      flex-shrink: 0;
+      padding: 64px 48px 64px 48px;
+    }
+    .visual-panel {
+      flex: 1;
+      padding: 64px 48px 64px 24px;
+      position: sticky;
+      top: 52px;
+      align-self: flex-start;
+      height: calc(100vh - 52px);
+      display: flex;
+      align-items: center;
+    }
+    .visual-scene { display: none; width: 100%; }
+    .visual-scene.is-visible { display: block; }
+
+    /* ── Step cards ── */
+    .step {
+      margin-bottom: 88px;
+      padding: 0;
+      cursor: pointer;
+      opacity: .45;
+      transition: opacity .4s ease;
+    }
+    .step:last-child { margin-bottom: 120px; }
+    .step.is-active { opacity: 1; }
+    .step-label {
+      font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+    }
+    .step h3 {
+      font-family: var(--fnt-display); font-weight: 700;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); line-height: 1.1;
+      color: var(--ink); margin-bottom: 12px;
+    }
+    .step p {
+      font-family: var(--fnt-body); font-size: 1rem; line-height: 1.65;
+      color: var(--ink-soft); margin-bottom: 14px;
+    }
+    .more-link {
+      font-family: var(--fnt-ui); font-size: 11px; color: var(--accent); text-decoration: none;
+      letter-spacing: .04em; border-bottom: 1px solid transparent; transition: border-color .2s;
+    }
+    .more-link:hover { border-bottom-color: var(--accent); }
+
+    /* ── Step progress dots ── */
+    .step-progress { display: flex; gap: 6px; margin-bottom: 48px; }
+    .step-pip { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background .3s; }
+    .step-pip.done { background: var(--accent); }
+
+    /* ── Visual card ── */
+    .card {
+      background: var(--bg-alt); border: 1px solid var(--border); border-radius: 14px;
+      padding: 28px; width: 100%;
+    }
+    .card h4 {
+      font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 20px;
+    }
+    .canvas-wrap { position: relative; width: 100%; }
+    .canvas-wrap.short { height: 240px; }
+    .canvas-wrap canvas { width: 100% !important; height: 100% !important; display: block; }
+    .chart-citation {
+      font-family: var(--fnt-ui); font-size: 10px; color: var(--muted); margin-top: 12px; line-height: 1.5;
+    }
+
+    /* ── Funnel ── */
+    .funnel-wrap svg { display: block; width: 100%; }
+
+    /* ── Pathway flow ── */
+    .pathway-flow { width: 100%; }
+    .pw-track {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .pw-node {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 0;
+      opacity: .25; transition: opacity .4s ease;
+    }
+    .pw-node.pw-active { opacity: 1; }
+    .pw-icon {
+      width: 34px; height: 34px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid currentColor; font-size: 14px;
+      flex-shrink: 0; font-family: var(--fnt-ui);
+    }
+    .pw-text { display: flex; flex-direction: column; }
+    .pw-label { font-family: var(--fnt-display); font-weight: 600; font-size: .95rem; color: var(--ink); }
+    .pw-sub { font-family: var(--fnt-body); font-size: .85rem; color: var(--muted); }
+    .pw-connector {
+      margin-left: 16px; height: 20px; width: 2px;
+      background: var(--border); position: relative; overflow: hidden;
+    }
+    .pw-connector.pw-active .pw-connector-fill {
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--teal); animation: fillDown .4s ease forwards;
+    }
+    @keyframes fillDown { from { transform: scaleY(0); transform-origin: top; } to { transform: scaleY(1); } }
+
+    /* ── CTA card (closing scene) ── */
+    .cta-card {
+      background: var(--ink); color: var(--bg);
+      border-radius: 14px; padding: 36px 32px; text-align: center; width: 100%;
+    }
+    .cta-value {
+      font-family: var(--fnt-display); font-size: 3.5rem; font-weight: 900;
+      color: var(--accent); line-height: 1; margin-bottom: 6px;
+    }
+    .cta-sub {
+      font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.4); margin-bottom: 20px;
+    }
+    .pill-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 20px; }
+    .pill-row span {
+      font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .06em;
+      border: 1px solid rgba(255,255,255,.18); border-radius: 40px; padding: 5px 14px;
+      color: rgba(255,255,255,.65);
+    }
+    .contact-line { font-family: var(--fnt-ui); font-size: 12px; }
+    .contact-line a { color: var(--accent); text-decoration: none; }
+    .contact-line a:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: #0D1117; color: rgba(255,255,255,.35);
+      padding: 40px 48px; text-align: center; font-family: var(--fnt-ui);
+      font-size: 12px; line-height: 1.7; border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .footer-inner { max-width: 640px; margin: 0 auto; }
+    .footer-explore { margin-bottom: 20px; }
+    .footer-explore-heading { color: rgba(255,255,255,.55); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+    .footer-explore-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 20px; }
+    .footer-explore-links a { color: var(--accent); text-decoration: none; }
+    .footer-explore-links a:hover { text-decoration: underline; }
+    .footer-rule { border: none; border-top: 1px solid rgba(255,255,255,.08); margin: 20px 0; }
+    .footer-credit, .footer-affiliation, .footer-collab { margin: 2px 0; }
+    .footer-logos { display: flex; justify-content: center; gap: 16px; margin-top: 12px; opacity: .3; }
+    .footer-logo-divider { width: 1px; background: currentColor; display: inline-block; }
+
+    /* ── About modal ── */
+    .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1200; padding: 16px; }
+    .modal[hidden] { display: none; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.5); }
+    .modal-card {
+      position: relative; z-index: 1; width: min(680px, 92vw);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.2); padding: 40px 40px 36px;
+      font-family: var(--fnt-body); color: var(--ink-soft); max-height: 88vh;
+      overflow-y: auto; overscroll-behavior: contain;
+    }
+    .modal-kicker { font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .modal-card h2 { font-family: var(--fnt-display); font-size: 1.72rem; font-weight: 700; color: var(--ink); margin-bottom: 14px; }
+    .modal-divider { border: none; border-top: 1px solid var(--border); margin: 22px 0 18px; }
+    .modal-card p { font-size: .98rem; line-height: 1.82; margin: 0 0 13px; }
+    .modal-section-head { font-family: var(--fnt-ui); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; display: block; }
+    .modal-close {
+      position: sticky; top: 8px; float: right;
+      border: 1px solid var(--border); background: transparent; border-radius: 999px;
+      padding: 4px 12px; font-size: .8rem; font-family: var(--fnt-ui); color: var(--muted);
+      cursor: pointer; transition: background .15s;
+    }
+    .modal-close:hover { background: var(--bg-alt); }
+
+    /* ── Responsive ── */
+    @media (max-width: 860px) {
+      .scrolly { flex-direction: column; }
+      .narrative { width: 100%; padding: 40px 24px; }
+      .visual-panel {
+        position: static; height: auto;
+        padding: 0 24px 48px; align-items: stretch;
+      }
+      .step { opacity: 1; margin-bottom: 48px; }
+    }
+  </style>
+</head>
+<body>
+<div style="display:none!important" id="legacy-content" aria-hidden="true">
+<div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
+
+<nav class="site-nav">
+  <span class="nav-brand">A Methane AMC Case Study</span>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link" data-tooltip="Read the case — start here">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="1" width="12" height="14" rx="1"/><path d="M5 5h6M5 8h6M5 11h4"/></svg></span>
+      <span>Read</span>
+    </a>
+    <a href="storymap.html" class="nav-link active" data-tooltip="See the case visually — diagrams and logic">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12M2 8h12M2 13h8"/></svg>
+        </span>
+        <span>See</span>
+      </a>
+      <a href="data-explorer.html" class="nav-link" data-tooltip="Explore the numbers — five charts, five claims">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13H2V3M5 9l3-3 2 2 4-4"/></svg>
+        </span>
+        <span>Explore</span>
+      </a>
+      <a href="sensitivity-studio.html" class="nav-link" data-tooltip="Test the assumptions — drag sliders, watch BCR and NPV respond">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="4" r="1.5"/><circle cx="11" cy="8" r="1.5"/><circle cx="5" cy="12" r="1.5"/><line x1="2" y1="4" x2="3.5" y2="4"/><line x1="6.5" y1="4" x2="14" y2="4"/><line x1="2" y1="8" x2="9.5" y2="8"/><line x1="12.5" y1="8" x2="14" y2="8"/><line x1="2" y1="12" x2="3.5" y2="12"/><line x1="6.5" y1="12" x2="14" y2="12"/></svg>
+        </span>
+        <span>Test</span>
+      </a>
+      <a href="frameworks.html" class="nav-link" data-tooltip="Methodology — analytical frameworks for reviewers and funders">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+        </span>
+        <span>Methodology</span>
+      </a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <button class="nav-link nav-about-btn" id="navAboutBtn" data-tooltip="Project background, methodology, and status">
+        <span class="nav-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 11V8M8 5.5V5"/></svg>
+        </span>
+        <span>About</span>
+      </button>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/></svg>
+    </button>
+</nav>
+
+<header class="page-hero">
+  <div class="hero-eyebrow">See the argument</div>
+  <h1>Livestock methane is<br>the overlooked lever.</h1>
+  <p>Six visuals. One argument. Scroll to see it unfold.</p>
+</header>
+
+<main>
+  <section class="scrolly" id="storymap">
+    <div class="narrative">
+
+      <div class="step-progress" id="stepProgress">
+        <div class="step-pip" data-pip="0"></div>
+        <div class="step-pip" data-pip="1"></div>
+        <div class="step-pip" data-pip="2"></div>
+        <div class="step-pip" data-pip="3"></div>
+        <div class="step-pip" data-pip="4"></div>
+        <div class="step-pip" data-pip="5"></div>
+      </div>
+
+      <!-- Step 1 -->
+      <article class="step" data-step-id="s0" data-scene="sceneA" data-step-index="0" tabindex="0">
+        <div class="step-label">01 — The scale</div>
+        <h3>30% of warming.</h3>
+        <p>Livestock methane contributes roughly 30% of near-term climate forcing — more than all coal power combined in short-lived warming potential.</p>
+        <a href="index.html" class="more-link">Read the science →</a>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="step" data-step-id="s2a" data-scene="sceneB" data-step-index="1" tabindex="0">
+        <div class="step-label">02 — The barrier</div>
+        <h3>The market won't close this gap.</h3>
+        <p>Buyers won't pay for a product that doesn't exist. Innovators won't build for a market that isn't there. A self-sealing deadlock with no private exit.</p>
+        <a href="index.html" class="more-link">Why markets fail here →</a>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="step" data-step-id="s2b" data-scene="sceneB" data-step-index="2" tabindex="0">
+        <div class="step-label">03 — The fix</div>
+        <h3>An AMC creates the missing signal.</h3>
+        <p>An Advance Market Commitment guarantees a purchase price before the product exists. That single demand signal is enough to restart R&amp;D — at zero cost if no product succeeds.</p>
+        <a href="index.html" class="more-link">How AMCs work →</a>
+      </article>
+
+      <!-- Step 4 -->
+      <article class="step" data-step-id="s3a" data-scene="sceneC" data-step-index="3" tabindex="0">
+        <div class="step-label">04 — The pathway</div>
+        <h3>R&amp;D restarts. The pathway opens.</h3>
+        <p>With demand de-risked, capital moves earlier. The innovation chain begins: R&amp;D, regulatory approval, herd-level adoption.</p>
+        <a href="index.html" class="more-link">The mechanism in detail →</a>
+      </article>
+
+      <!-- Step 5 -->
+      <article class="step" data-step-id="s3b" data-scene="sceneC" data-step-index="4" tabindex="0">
+        <div class="step-label">05 — The return</div>
+        <h3>Farmers adopt. Methane falls.</h3>
+        <p>At 30–50% adoption, this delivers <strong>$14 of climate benefit per $1 invested</strong> — one of the strongest benefit-cost ratios in the climate portfolio.</p>
+        <a href="data-explorer.html" class="more-link">Explore the model →</a>
+      </article>
+
+      <!-- Step 6 -->
+      <article class="step" data-step-id="s3c" data-scene="sceneD" data-step-index="5" tabindex="0">
+        <div class="step-label">06 — The timeline</div>
+        <h3>Temperature gains before 2035.</h3>
+        <p>Methane clears the atmosphere in ~10 years. The divergence from baseline is measurable within a decade. $750M from a founding consortium makes this real.</p>
+        <a href="data-explorer.html" class="more-link">See the projection →</a>
+      </article>
+
+    </div><!-- /narrative -->
+
+    <div class="visual-panel">
+
+      <!-- Scene A: Emissions funnel -->
+      <section class="visual-scene is-visible" aria-live="polite">
+        <div class="card">
+          <h4>Emissions funnel — global GHG to AMC target</h4>
+          <div class="funnel-wrap"></div>
+          <p class="chart-citation">Sources: IPCC AR6, FAO GLEAM, EPA GHG Inventory 2024, Global Methane Assessment 2021</p>
+        </div>
+      </section>
+
+      <!-- Scene B: Deadlock (animates between s2a and s2b states) -->
+      <section class="visual-scene" aria-live="polite">
+        <div class="card">
+          <h4>The innovation deadlock</h4>
+          <div class="svg-wrap"></div>
+        </div>
+      </section>
+
+      <!-- Scene C: AMC pathway (nodes light progressively) -->
+      <section class="visual-scene" aria-live="polite">
+        <div class="card">
+          <h4>AMC intervention pathway</h4>
+          <div class="pathway-flow"></div>
+        </div>
+      </section>
+
+      <!-- Scene D: Warming chart + CTA -->
+      <section class="visual-scene" aria-live="polite">
+        <div class="card">
+          <h4>Livestock methane radiative forcing — baseline vs. AMC</h4>
+          <div class="canvas-wrap short"></div>
+        </div>
+      </section>
+
+    </div><!-- /visual-panel -->
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-explore">
+      <p class="footer-explore-heading">Go deeper</p>
+      <div class="footer-explore-links">
+        <a href="index.html">Read the full brief</a>
+        <a href="data-explorer.html">Data Explorer</a>
+        <a href="sensitivity-studio.html">Sensitivity Studio</a>
+        <a href="frameworks.html">Frameworks</a>
+      </div>
+    </div>
+    <hr class="footer-rule">
+    <p class="footer-credit">Designed and built by Delany Broome</p>
+    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
+    <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
+    <div class="footer-logos">
+      <span class="footer-logo-text">UC Berkeley</span>
+      <span class="footer-logo-divider"></span>
+      <span class="footer-logo-text">Spark Climate</span>
+    </div>
+  </div>
+</footer>
+
+<div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle" hidden>
+  <div class="modal-backdrop" data-close-modal="true"></div>
+  <div class="modal-card" role="document">
+    <button type="button" class="modal-close" id="aboutCloseBtn" aria-label="Close about dialog">Close</button>
+    <p class="modal-kicker">About</p>
+    <h2 id="aboutTitle">About this site</h2>
+    <p>This site presents the dedicated capstone work of an environmental scientist exploring how to fund what the world has been ignoring: the largest single source of human-driven methane, and one of the most under-funded climate problems we have.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">What you'll find</span>
+    <p><strong>Read</strong> — The full written case for the AMC, from problem diagnosis to coalition design.</p>
+    <p><strong>See</strong> — This page. Six visuals that carry the argument without the prose.</p>
+    <p><strong>Explore</strong> — Five charts that build the economic case, answering specific stakeholder questions.</p>
+    <p><strong>Test</strong> — An interactive sensitivity model. Drag sliders, watch BCR and NPV respond.</p>
+    <p><strong>Methodology</strong> — Analytical frameworks, LCA boundary, and full literature citations.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">Who built it</span>
+    <p><strong>Delany Broome</strong>, an environmental scientist currently pursuing the Master of Climate Solutions at UC Berkeley's Rausser College of Natural Resources.</p>
+    <hr class="modal-divider">
+    <span class="modal-section-head">In collaboration with</span>
+    <p><strong>Spark Climate Solutions</strong>, a nonprofit accelerating progress in under-funded, high-impact climate fields.</p>
+  </div>
+</div>
+</div><!-- /legacy-content -->
+
+<script>
+(function () {
+  return; /* LEGACY SCRIPT DISABLED */
+  // ── Scrolly wiring ──
+  function activateScene(sceneId) {
+    document.querySelectorAll('.visual-scene').forEach(function(s) {
+      s.classList.toggle('is-visible', s.id === sceneId);
+    });
+  }
+
+  function activateStep(stepEl) {
+    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('is-active'); });
+    stepEl.classList.add('is-active');
+    var idx = parseInt(stepEl.dataset.stepIndex, 10);
+    document.querySelectorAll('.step-pip').forEach(function(pip, i) {
+      pip.classList.toggle('done', i <= idx);
+    });
+  }
+
+  function updateProgress() {
+    var bar = document.getElementById('progressBar');
+    if (!bar) return;
+    var scrollTop = window.scrollY;
+    var docH = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (docH > 0 ? Math.min((scrollTop / docH) * 100, 100) : 0) + '%';
+  }
+
+  window.addEventListener('DOMContentLoaded', function () {
+    // Init diagrams
+    window.AmcDiagrams.createEmissionsFunnel('emissionsFunnel');
+    var deadlockNodes = window.AmcDiagrams.setupDeadlock('deadlockDiagramBase');
+    window.AmcDiagrams.createAmcPathway('amcPathwayFlow');
+    if (window.AmcCharts && window.AmcCharts.initSectionCharts) {
+      window.AmcCharts.initSectionCharts();
+    }
+
+    // Animate funnel immediately
+    window.AmcDiagrams.animateFunnel();
+
+    // Make first step active
+    var firstStep = document.querySelector('.step');
+    if (firstStep) firstStep.classList.add('is-active');
+    document.querySelectorAll('.step-pip')[0].classList.add('done');
+
+    // Scrollama
+    var scroller = scrollama();
+    scroller.setup({ step: '.step', offset: 0.5, threshold: 4 })
+      .onStepEnter(function (res) {
+        var stepEl = res.element;
+        var stepId = stepEl.dataset.stepId;
+        var sceneId = stepEl.dataset.scene;
+
+        activateStep(stepEl);
+        activateScene(sceneId);
+
+        // Deadlock states
+        if (stepId === 's2a' || stepId === 's2b') {
+          window.AmcDiagrams.updateDeadlockState(deadlockNodes, stepId);
+        }
+
+        // Pathway lighting
+        if (stepId === 's3a' || stepId === 's3b' || stepId === 's3c') {
+          window.AmcDiagrams.updateAmcPathway(stepId);
+        }
+
+        // Warming chart opacity
+        if (stepId === 's3c') {
+          var cw = document.getElementById('methaneWarmingChart');
+          if (cw) { cw.closest('.canvas-wrap').style.opacity = '1'; cw.closest('.canvas-wrap').style.transition = 'opacity 600ms'; }
+        }
+      });
+
+    window.addEventListener('resize', function () { scroller.resize(); });
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // Step click-to-scroll
+    document.querySelectorAll('.step').forEach(function (step) {
+      step.addEventListener('click', function () {
+        step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+  });
+
+  // About modal
+  document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('aboutModal');
+    var openBtn = document.getElementById('navAboutBtn');
+    var closeBtn = document.getElementById('aboutCloseBtn');
+    function openModal() { modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; }
+    if (openBtn) openBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.querySelector('.modal-backdrop').addEventListener('click', closeModal);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeModal(); });
+  });
+})();
+</script>
+</body>
+</html>
