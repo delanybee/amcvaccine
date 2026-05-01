@@ -1,0 +1,18 @@
+#playing around
+assume data 
+Baseline AMC size = 534.2 million USD
+Baseline BCR = 14.41
+Baseline NPV = 10.95 billion USD
+Baseline scientific feasibility eta = 0.90
+Baseline target probability theta = 2/3
+Baseline firm competence gamma = 0.90
+Potential entrants k = 15
+Annual-dosing AMC size = 832.3 million USD
+Annual-dosing BCR = 7.21
+US cattle herd = 90 million
+Global cattle herd = 1.6 billion
+Social value per animal-year low = 22 USD
+Social value per animal-year high = 38 USD
+Baseline implied benefits = 11.4842 billion USD
+Baseline implied total social cost = 0.797 billion USD
+Annual-dosing implied total social cost = 1.593 billion USD

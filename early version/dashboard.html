@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AMC Scenario Cockpit (No Streamlit)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg: #f4f6f2;
+      --card: #ffffff;
+      --ink: #172126;
+      --muted: #5f6b6f;
+      --line: #d7dfd8;
+      --doc: #e6eef9;
+      --stress: #fff0e1;
+      --explore: #e7f5ea;
+      --accent: #136f63;
+      --accent-soft: #dff1ed;
+      --navy: #213547;
+      --sand: #efe6d5;
+      --gold: #b5842f;
+      --blue: #3569a8;
+      --orange: #d9862f;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(900px 420px at 85% -80px, rgba(213, 230, 221, 0.8) 0%, rgba(244, 246, 242, 0) 70%),
+        linear-gradient(180deg, #f7f8f4 0%, var(--bg) 100%);
+      overflow: auto;
+    }
+
+    .wrap {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px 18px;
+      box-shadow: 0 14px 36px rgba(24, 34, 37, 0.06);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1.85rem;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 0.92rem;
+      max-width: 860px;
+      margin-inline: auto;
+    }
+
+    .badges {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .doc { background: var(--doc); }
+    .stress { background: var(--stress); }
+    .explore { background: var(--explore); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 14px 32px rgba(24, 34, 37, 0.05);
+      min-height: 0;
+    }
+
+    .section-title {
+      margin: 0 0 8px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 0.98rem;
+      letter-spacing: -0.02em;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .summary-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfa 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 8px 10px;
+      min-width: 0;
+    }
+
+    .summary-label {
+      color: var(--muted);
+      font-size: 0.73rem;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .summary-value {
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .summary-delta {
+      margin-top: 2px;
+      font-size: 0.72rem;
+      color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .about-card {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfa 100%);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .about-lead {
+      margin: 0 0 8px;
+      font-size: 0.87rem;
+      line-height: 1.4;
+      color: #314147;
+    }
+
+    .term-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+
+    .term-item {
+      padding: 6px 8px;
+      border-radius: 12px;
+      background: #f8faf7;
+      border: 1px solid #e3e9e3;
+      line-height: 1.35;
+    }
+
+    .term-item strong {
+      color: var(--navy);
+    }
+
+    .controls-panel {
+      margin-top: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 14px 32px rgba(24, 34, 37, 0.05);
+    }
+
+    .controls-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr 1fr 1fr 1.1fr;
+      gap: 10px;
+      align-items: end;
+    }
+
+    .control { margin-bottom: 0; }
+    .control label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.84rem;
+    }
+
+    .control input[type="range"],
+    .control select {
+      width: 100%;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.75rem;
+      margin-top: 4px;
+    }
+
+    .charts-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .chart {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 6px;
+      background: #fff;
+    }
+
+    .main-panel {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 8px;
+      min-height: 0;
+    }
+
+    .chart-sm {
+      height: 360px;
+    }
+
+    .chart-lg {
+      height: 420px;
+    }
+
+    #amcChart,
+    #pChart,
+    #bcrChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.78rem;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      text-align: left;
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    th { background: #f7f9fc; }
+
+    .callout {
+      margin-top: 6px;
+      border-left: 4px solid var(--gold);
+      background: linear-gradient(180deg, #fbfaf5 0%, #f7f4ec 100%);
+      padding: 8px;
+      font-size: 0.8rem;
+      color: #374151;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .table-wrap {
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+    }
+
+    .table-wrap table {
+      border: none;
+    }
+
+    .table-wrap th,
+    .table-wrap td {
+      border-left: none;
+      border-right: none;
+    }
+
+    .notes {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 8px;
+      text-align: right;
+    }
+
+    .info-panel {
+      margin-top: 12px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .info-toggle {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 14px 32px rgba(24, 34, 37, 0.05);
+      overflow: hidden;
+    }
+
+    .info-toggle summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      font-family: "Manrope", "IBM Plex Sans", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfa 100%);
+    }
+
+    .info-toggle summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .info-toggle summary::after {
+      content: "+";
+      font-size: 1.2rem;
+      color: var(--accent);
+    }
+
+    .info-toggle[open] summary::after {
+      content: "-";
+    }
+
+    .info-content {
+      padding: 0 16px 16px;
+    }
+
+    @media (max-width: 980px) {
+      .wrap { padding: 10px; }
+      .summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .charts-2 { grid-template-columns: 1fr; }
+      .main-panel { grid-template-rows: auto; }
+      .controls-grid { grid-template-columns: 1fr; }
+      .chart-sm { height: 300px; }
+      .chart-lg { height: 340px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Methane Vaccine AMC Explorer</h1>
+      <p class="subtitle">
+        A clean scenario dashboard for evaluating how dosing frequency, feasibility, adoption, and social value affect the
+        economics of an advance market commitment for an enteric methane-reducing cattle vaccine.
+      </p>
+      <div class="badges">
+        <span class="badge doc">Document-derived inputs</span>
+        <span class="badge stress">Stress-test approximations</span>
+        <span class="badge explore">Exploratory proxy model</span>
+      </div>
+    </section>
+
+    <section class="summary-strip" id="kpiGrid"></section>
+
+    <section class="grid">
+      <main class="panel main-panel">
+        <h2 class="section-title">Scenario Response</h2>
+
+        <div class="charts-2">
+          <div class="chart chart-sm"><div id="amcChart"></div></div>
+          <div class="chart chart-sm"><div id="pChart"></div></div>
+        </div>
+        <div class="chart chart-lg"><div id="bcrChart"></div></div>
+      </main>
+
+    </section>
+
+    <section class="controls-panel">
+      <h2 class="section-title">Scenario Controls</h2>
+      <div class="controls-grid">
+        <div class="control">
+          <label for="scenario">Dosing frequency</label>
+          <select id="scenario">
+            <option>Baseline / infrequent</option>
+            <option>Annual</option>
+            <option>Prime + booster</option>
+          </select>
+        </div>
+
+        <div class="control">
+          <label for="eta">Scientific feasibility eta: <span id="etaVal"></span></label>
+          <input id="eta" type="range" min="0.70" max="0.95" step="0.01" value="0.90" />
+        </div>
+
+        <div class="control">
+          <label for="adoption">Adoption rate: <span id="adoptionVal"></span></label>
+          <input id="adoption" type="range" min="0.10" max="0.80" step="0.01" value="0.50" />
+        </div>
+
+        <div class="control">
+          <label for="socialValue">Social value per animal-year: <span id="svVal"></span></label>
+          <input id="socialValue" type="range" min="22" max="38" step="0.5" value="30" />
+        </div>
+
+        <div class="control">
+          <label>
+            <input id="etaProxy" type="checkbox" />
+            Apply eta-based AMC sensitivity proxy
+          </label>
+          <div class="small">Exploratory only. Uses the ratio p(eta) / p(0.90).</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-panel">
+      <details class="info-toggle">
+        <summary>About This Dashboard</summary>
+        <div class="info-content">
+          <section class="about-card">
+            <p class="about-lead">
+              This dashboard is a compact scenario explorer for an advance market commitment, or AMC. It is designed to help a
+              policy audience see how results move when a few economically important assumptions change, without pretending that
+              the model is more precise than it is.
+            </p>
+            <div class="term-list">
+              <div class="term-item"><strong>Methane and cattle:</strong> Enteric methane from cattle is a greenhouse gas source. Reducing methane can create climate benefits if a vaccine lowers emissions and is adopted at scale.</div>
+              <div class="term-item"><strong>AMC:</strong> An advance market commitment is a demand-side incentive. It promises a future market if an eligible product is successfully developed.</div>
+              <div class="term-item"><strong>BCR:</strong> Benefit-cost ratio compares modeled social benefits to modeled social costs. Higher than 1 means benefits exceed costs under the assumptions shown.</div>
+              <div class="term-item"><strong>NPV:</strong> Net present value here is simplified to adjusted benefits minus the AMC component, following the requested presentation logic.</div>
+              <div class="term-item"><strong>Eta:</strong> Eta is scientific feasibility. Lower eta means it is harder to hit the target success probability, which raises the implied required firm-level success probability.</div>
+              <div class="term-item"><strong>Document-derived vs stress-tested:</strong> Baseline and annual quantities come from provided figures; prime plus booster and the eta-based AMC rule are explicit exploratory extensions.</div>
+            </div>
+          </section>
+        </div>
+      </details>
+
+      <details class="info-toggle">
+        <summary>Evidence and Caveats</summary>
+        <div class="info-content">
+          <section class="about-card">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Value</th>
+                    <th>Source</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Baseline AMC</td>
+                    <td>$534.2M</td>
+                    <td>Document-derived</td>
+                  </tr>
+                  <tr>
+                    <td>Annual AMC</td>
+                    <td>$832.3M</td>
+                    <td>Document-derived</td>
+                  </tr>
+                  <tr>
+                    <td>Prime + booster AMC</td>
+                    <td>$1,068.4M</td>
+                    <td>Stress-test approximation</td>
+                  </tr>
+                  <tr>
+                    <td>Benefit scaling rule</td>
+                    <td>Adoption and social value scaled</td>
+                    <td>Presentation assumption</td>
+                  </tr>
+                  <tr>
+                    <td>Eta AMC proxy</td>
+                    <td>AMC * p(eta)/p(0.90)</td>
+                    <td>Exploratory proxy</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="callout">
+              Baseline and annual values come from supplied figures. Prime + booster is a rough stress test, not a sponsor estimate. Results are intended for scenario discussion, not definitive forecasting.
+            </div>
+            <div id="warnings" class="callout" style="display:none"></div>
+            <div class="notes">Presentation tip: use the top half for live discussion, then expand these sections for context and caveats.</div>
+          </section>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <script>
+    const DOC = {
+      baseline_benefits_b: 11.4842,
+      baseline_adoption: 0.50,
+      baseline_social_value: 30.0,
+      theta: 2 / 3,
+      k: 15,
+      baseline_eta: 0.90,
+    };
+
+    const SCENARIOS = {
+      "Baseline / infrequent": { amc_m: 534.2, non_amc_cost_b: 0.2628, stress: false },
+      "Annual": { amc_m: 832.3, non_amc_cost_b: 0.7607, stress: false },
+      "Prime + booster": { amc_m: 1068.4, non_amc_cost_b: 0.5256, stress: true },
+    };
+
+    const controls = {
+      scenario: document.getElementById("scenario"),
+      eta: document.getElementById("eta"),
+      adoption: document.getElementById("adoption"),
+      socialValue: document.getElementById("socialValue"),
+      etaProxy: document.getElementById("etaProxy"),
+    };
+
+    const labels = {
+      etaVal: document.getElementById("etaVal"),
+      adoptionVal: document.getElementById("adoptionVal"),
+      svVal: document.getElementById("svVal"),
+    };
+
+    function requiredFirmSuccess(eta, theta = DOC.theta, k = DOC.k) {
+      if (eta <= theta) return null;
+      return 1 - Math.pow(1 - theta / eta, 1 / k);
+    }
+
+    function modelOutputs(scenarioName, eta, adoptionRate, socialValue, applyEtaProxy) {
+      const s = SCENARIOS[scenarioName];
+      const pEta = requiredFirmSuccess(eta);
+      const pBase = requiredFirmSuccess(DOC.baseline_eta);
+      const adjustedAmcM = applyEtaProxy && pEta !== null ? s.amc_m * (pEta / pBase) : s.amc_m;
+      const adjustedBenefitsB = DOC.baseline_benefits_b * (adoptionRate / DOC.baseline_adoption) * (socialValue / DOC.baseline_social_value);
+      const totalSocialCostB = adjustedAmcM / 1000 + s.non_amc_cost_b;
+      const bcr = adjustedBenefitsB / totalSocialCostB;
+      const npvB = adjustedBenefitsB - adjustedAmcM / 1000;
+      return { adjustedAmcM, adjustedBenefitsB, totalSocialCostB, bcr, npvB, pEta };
+    }
+
+    function delta(curr, base, digits = 2, suffix = "") {
+      const d = curr - base;
+      const sign = d >= 0 ? "+" : "";
+      return `${sign}${d.toFixed(digits)}${suffix}`;
+    }
+
+    function draw() {
+      const scenario = controls.scenario.value;
+      const eta = parseFloat(controls.eta.value);
+      const adoption = parseFloat(controls.adoption.value);
+      const socialValue = parseFloat(controls.socialValue.value);
+      const applyEtaProxy = controls.etaProxy.checked;
+
+      labels.etaVal.textContent = eta.toFixed(2);
+      labels.adoptionVal.textContent = `${(adoption * 100).toFixed(0)}%`;
+      labels.svVal.textContent = `$${socialValue.toFixed(1)}`;
+
+      const current = modelOutputs(scenario, eta, adoption, socialValue, applyEtaProxy);
+      const baseline = modelOutputs("Baseline / infrequent", DOC.baseline_eta, DOC.baseline_adoption, DOC.baseline_social_value, false);
+
+      const warningLines = [];
+      if (SCENARIOS[scenario].stress) warningLines.push("Prime + booster is a stress-test approximation, not an exact sponsor estimate.");
+      if (applyEtaProxy) warningLines.push("Eta-based AMC adjustment is an exploratory proxy, not the sponsor model.");
+      if (current.pEta === null) warningLines.push("Required firm-level success probability is undefined when eta <= theta (2/3).");
+
+      const warnings = document.getElementById("warnings");
+      if (warningLines.length) {
+        warnings.style.display = "block";
+        warnings.innerHTML = `<strong>Notes:</strong><br>${warningLines.map(x => `- ${x}`).join("<br>")}`;
+      } else {
+        warnings.style.display = "none";
+      }
+
+      const kpis = [
+        { name: "Adjusted AMC", value: `$${current.adjustedAmcM.toFixed(1)}M`, d: delta(current.adjustedAmcM, baseline.adjustedAmcM, 1, "M") },
+        { name: "Adjusted Benefits", value: `$${current.adjustedBenefitsB.toFixed(3)}B`, d: delta(current.adjustedBenefitsB, baseline.adjustedBenefitsB, 3, "B") },
+        { name: "Total Social Cost", value: `$${current.totalSocialCostB.toFixed(3)}B`, d: delta(current.totalSocialCostB, baseline.totalSocialCostB, 3, "B") },
+        { name: "Benefit-Cost Ratio (BCR)", value: current.bcr.toFixed(2), d: delta(current.bcr, baseline.bcr, 2) },
+        { name: "Net Present Value (NPV)", value: `$${current.npvB.toFixed(3)}B`, d: delta(current.npvB, baseline.npvB, 3, "B") },
+        {
+          name: "Required Firm Success Probability",
+          value: current.pEta === null ? "Undefined" : `${(current.pEta * 100).toFixed(2)}%`,
+          d: current.pEta === null ? "n/a" : delta(current.pEta * 100, baseline.pEta * 100, 2, "%")
+        },
+      ];
+
+      const grid = document.getElementById("kpiGrid");
+      grid.innerHTML = kpis.map(k => `
+        <div class="summary-card">
+          <div class="summary-label">${k.name}</div>
+          <div class="summary-value">${k.value}</div>
+          <div class="summary-delta">vs baseline: ${k.d}</div>
+        </div>
+      `).join("");
+
+      const scenarios = Object.keys(SCENARIOS);
+      const amcVals = scenarios.map(s => SCENARIOS[s].amc_m);
+      const colors = scenarios.map(s => SCENARIOS[s].stress ? "#ff7f0e" : "#1f77b4");
+      Plotly.newPlot("amcChart", [{
+        type: "bar",
+        x: scenarios,
+        y: amcVals,
+        marker: { color: colors },
+        text: amcVals.map(v => `${v.toFixed(1)}M`),
+        textposition: "outside",
+        hovertemplate: "%{x}<br>AMC: %{y:.1f}M<extra></extra>"
+      }], {
+        title: "AMC by Dosing Scenario",
+        margin: { l: 50, r: 20, t: 55, b: 55 },
+        yaxis: { title: "AMC (M USD)" },
+        shapes: [{
+          type: "line",
+          x0: -0.5,
+          x1: 2.5,
+          y0: current.adjustedAmcM,
+          y1: current.adjustedAmcM,
+          line: { color: "#0f766e", dash: "dot", width: 2 }
+        }],
+        annotations: [{
+          x: 2,
+          y: current.adjustedAmcM,
+          text: "Current adjusted AMC",
+          showarrow: false,
+          yshift: 10,
+          font: { color: "#0f766e", size: 11 }
+        }]
+      }, { displayModeBar: false, responsive: true });
+
+      const etaGrid = [];
+      const pGrid = [];
+      for (let e = 0.70; e <= 0.9501; e += 0.0025) {
+        etaGrid.push(+e.toFixed(4));
+        pGrid.push(requiredFirmSuccess(e));
+      }
+      Plotly.newPlot("pChart", [
+        {
+          type: "scatter",
+          mode: "lines",
+          x: etaGrid,
+          y: pGrid,
+          line: { color: "#1f77b4", width: 3 },
+          hovertemplate: "eta=%{x:.2f}<br>p=%{y:.2%}<extra></extra>",
+          name: "Required p",
+        },
+        ...(current.pEta === null ? [] : [{
+          type: "scatter",
+          mode: "markers",
+          x: [eta],
+          y: [current.pEta],
+          marker: { size: 9, color: "#0f766e" },
+          name: "Current setting",
+          hovertemplate: "Current eta=%{x:.2f}<br>p=%{y:.2%}<extra></extra>",
+        }])
+      ], {
+        title: "Required Firm Success Probability vs eta",
+        margin: { l: 50, r: 20, t: 55, b: 45 },
+        yaxis: { tickformat: ".0%", title: "Required p" },
+        xaxis: { title: "Scientific feasibility eta" },
+        shapes: [{
+          type: "line",
+          x0: DOC.theta,
+          x1: DOC.theta,
+          y0: 0,
+          y1: 0.35,
+          line: { color: "#c0392b", dash: "dash", width: 2 }
+        }],
+        annotations: [{
+          x: DOC.theta,
+          y: 0.34,
+          text: "theta = 2/3",
+          showarrow: false,
+          font: { color: "#c0392b", size: 11 }
+        }]
+      }, { displayModeBar: false, responsive: true });
+
+      const adGrid = [];
+      const bcrGrid = [];
+      for (let a = 0.10; a <= 0.8001; a += 0.01) {
+        adGrid.push(+a.toFixed(2));
+        bcrGrid.push(modelOutputs(scenario, eta, a, socialValue, applyEtaProxy).bcr);
+      }
+      Plotly.newPlot("bcrChart", [
+        {
+          type: "scatter",
+          mode: "lines",
+          x: adGrid,
+          y: bcrGrid,
+          line: { color: "#1f77b4", width: 3 },
+          hovertemplate: "Adoption=%{x:.0%}<br>BCR=%{y:.2f}<extra></extra>",
+          name: "BCR curve",
+        },
+        {
+          type: "scatter",
+          mode: "markers",
+          x: [adoption],
+          y: [current.bcr],
+          marker: { size: 10, color: "#0f766e" },
+          name: "Current setting",
+          hovertemplate: "Current adoption=%{x:.0%}<br>BCR=%{y:.2f}<extra></extra>",
+        }
+      ], {
+        title: `BCR vs Adoption Rate (${scenario})`,
+        margin: { l: 50, r: 20, t: 55, b: 45 },
+        xaxis: { tickformat: ".0%", title: "Adoption rate" },
+        yaxis: { title: "BCR" },
+        shapes: [{
+          type: "line",
+          x0: 0.50,
+          x1: 0.50,
+          y0: Math.min(...bcrGrid),
+          y1: Math.max(...bcrGrid),
+          line: { color: "#7f8c8d", dash: "dash", width: 2 }
+        }],
+        annotations: [{
+          x: 0.50,
+          y: Math.max(...bcrGrid),
+          text: "Baseline adoption = 50%",
+          showarrow: false,
+          yshift: 10,
+          font: { color: "#7f8c8d", size: 11 }
+        }]
+      }, { displayModeBar: false, responsive: true });
+    }
+
+    [controls.scenario, controls.eta, controls.adoption, controls.socialValue, controls.etaProxy]
+      .forEach(el => el.addEventListener("input", draw));
+
+    draw();
+  </script>
+</body>
+</html>

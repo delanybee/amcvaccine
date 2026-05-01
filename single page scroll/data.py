@@ -1,0 +1,19 @@
+BASELINE_AMC_M = 534.2
+BASELINE_BCR = 14.41
+BASELINE_NPV_B = 10.95
+BASELINE_BENEFITS_B = 11.4842
+BASELINE_TOTAL_COST_B = 0.797
+BASELINE_NON_AMC_COST_B = 0.2628
+
+ANNUAL_AMC_M = 832.3
+ANNUAL_BCR = 7.21
+
+THETA = 2/3
+K = 15
+BASELINE_ETA = 0.90
+BASELINE_ADOPTION = 0.50
+BASELINE_SOCIAL_VALUE = 30.0
+def required_firm_success(eta, theta=2/3, k=15):
+    if eta <= theta:
+        return None
+    return 1 - (1 - theta/eta) ** (1/k)

@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive Sensitivity Panel</title>
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1f1a;
+      --panel: #193229;
+      --panel-soft: #203f34;
+      --line: #3f6a57;
+      --ink: #e8f2ec;
+      --muted: #b3cbbf;
+      --accent: #9ed1ac;
+      --accent-strong: #e6c36d;
+      --focus: #7fb896;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "IBM Plex Sans", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(900px 500px at 85% -120px, rgba(99, 153, 125, 0.28), rgba(15, 31, 26, 0) 70%), var(--bg);
+    }
+
+    .shell {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .header {
+      background: linear-gradient(180deg, #1c3a2f, #173026);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.4rem;
+    }
+
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .controls {
+      background: linear-gradient(180deg, #1b382d, #173128);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .control {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel-soft);
+      padding: 10px;
+      transition: border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .control.is-focused {
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 2px rgba(230, 195, 109, 0.2);
+    }
+
+    .control-label {
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .control-value {
+      color: var(--accent);
+      font-weight: 700;
+      margin-left: 6px;
+    }
+
+    .control input[type="range"] {
+      width: 100%;
+      accent-color: var(--focus);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--line);
+      background: #1a352b;
+      color: var(--ink);
+      padding: 8px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.84rem;
+    }
+
+    .tab-btn.active {
+      background: #264b3c;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .panel {
+      display: none;
+      background: linear-gradient(180deg, #1a352b, #162e25);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 10px;
+      min-height: 520px;
+    }
+
+    .panel.active { display: block; }
+
+    .plot {
+      width: 100%;
+      height: 500px;
+    }
+
+    .narrative-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      height: 500px;
+    }
+
+    .narrative-scroll {
+      overflow-y: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+      background: var(--panel);
+    }
+
+    .story-step {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #244638;
+      padding: 10px;
+      margin-bottom: 10px;
+      opacity: 0.5;
+      transition: opacity 220ms ease, border-color 220ms ease;
+      min-height: 160px;
+    }
+
+    .story-step.active {
+      opacity: 1;
+      border-color: var(--accent-strong);
+    }
+
+    .story-step h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .story-step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .controls { grid-template-columns: 1fr; }
+      .narrative-wrap { grid-template-columns: 1fr; height: auto; }
+      .plot { height: 420px; }
+      .panel { min-height: 430px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <section class="header">
+      <h1>Standalone Interactive Sensitivity Panel</h1>
+      <p class="sub">Use tabs to inspect sensitivity, break-even, correlations, and scroll-linked narrative highlights.</p>
+    </section>
+
+    <section class="controls">
+      <label class="control" id="etaControlCard">
+        <div class="control-label">Eta (scientific feasibility)<span class="control-value" id="etaLabel">0.90</span></div>
+        <input id="etaCtrl" type="range" min="0.70" max="0.95" step="0.01" value="0.90" />
+      </label>
+      <label class="control" id="adoptControlCard">
+        <div class="control-label">Adoption rate<span class="control-value" id="adoptLabel">50%</span></div>
+        <input id="adoptCtrl" type="range" min="0.10" max="0.80" step="0.01" value="0.50" />
+      </label>
+      <label class="control" id="socialControlCard">
+        <div class="control-label">Social value of methane reduction<span class="control-value" id="svLabel">$30</span></div>
+        <input id="svCtrl" type="range" min="22" max="38" step="0.5" value="30" />
+      </label>
+    </section>
+
+    <section class="tabs">
+      <button class="tab-btn active" data-tab="tornado">1. Tornado</button>
+      <button class="tab-btn" data-tab="surface">2. Break-Even Surface</button>
+      <button class="tab-btn" data-tab="heatmap">3. Correlation Heatmap</button>
+      <button class="tab-btn" data-tab="narrative">4. Narrative Mode</button>
+    </section>
+
+    <section class="panel active" id="panel-tornado">
+      <div id="tornadoPlot" class="plot"></div>
+    </section>
+
+    <section class="panel" id="panel-surface">
+      <div id="surfacePlot" class="plot"></div>
+    </section>
+
+    <section class="panel" id="panel-heatmap">
+      <div id="heatmapPlot" class="plot"></div>
+    </section>
+
+    <section class="panel" id="panel-narrative">
+      <div class="narrative-wrap">
+        <div class="narrative-scroll" id="narrativeScroll">
+          <article class="story-step active" data-highlight="eta">
+            <h3>Step 1: Scientific feasibility (eta)</h3>
+            <p>Higher eta means the technical pathway is more reliable. In this model, greater feasibility lowers implied risk and improves benefit-cost performance.</p>
+          </article>
+          <article class="story-step" data-highlight="adoption">
+            <h3>Step 2: Adoption rate</h3>
+            <p>Adoption is often the strongest practical lever. Even strong science underperforms if producer uptake remains low.</p>
+          </article>
+          <article class="story-step" data-highlight="social">
+            <h3>Step 3: Social value of methane reduction</h3>
+            <p>Higher social value raises the modeled climate benefit. This can shift a borderline design into a high-return policy case.</p>
+          </article>
+        </div>
+        <div id="narrativePlot" class="plot"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const MODEL = {
+      theta: 2 / 3,
+      k: 15,
+      baseEta: 0.90,
+      baseAdoption: 0.50,
+      baseSocialValue: 30,
+      baseBenefitsB: 11.4842,
+      amcM: 534.2,
+      nonAmcCostB: 0.2628,
+    };
+
+    function requiredFirmSuccess(eta) {
+      if (eta <= MODEL.theta) return null;
+      return 1 - Math.pow(1 - MODEL.theta / eta, 1 / MODEL.k);
+    }
+
+    function outputs(eta, adoption, socialValue) {
+      const pEta = requiredFirmSuccess(eta);
+      const pBase = requiredFirmSuccess(MODEL.baseEta);
+      const adjustedAmcM = pEta === null ? MODEL.amcM : MODEL.amcM * (pEta / pBase);
+      const benefitsB = MODEL.baseBenefitsB
+        * (adoption / MODEL.baseAdoption)
+        * (socialValue / MODEL.baseSocialValue);
+      const totalCostB = adjustedAmcM / 1000 + MODEL.nonAmcCostB;
+      const bcr = benefitsB / totalCostB;
+      return { adjustedAmcM, benefitsB, totalCostB, bcr };
+    }
+
+    function currentInputs() {
+      return {
+        eta: Number(document.getElementById("etaCtrl").value),
+        adoption: Number(document.getElementById("adoptCtrl").value),
+        socialValue: Number(document.getElementById("svCtrl").value),
+      };
+    }
+
+    function updateLabels() {
+      const i = currentInputs();
+      document.getElementById("etaLabel").textContent = i.eta.toFixed(2);
+      document.getElementById("adoptLabel").textContent = `${Math.round(i.adoption * 100)}%`;
+      document.getElementById("svLabel").textContent = `$${i.socialValue.toFixed(1)}`;
+    }
+
+    function baseLayout(title, xTitle, yTitle) {
+      return {
+        title: { text: title, x: 0.5 },
+        paper_bgcolor: "#162e25",
+        plot_bgcolor: "#162e25",
+        margin: { l: 68, r: 24, t: 56, b: 56 },
+        font: { color: "#d8e8df", family: "Segoe UI, sans-serif" },
+        xaxis: { title: xTitle, gridcolor: "#365a49", color: "#d8e8df" },
+        yaxis: { title: yTitle, gridcolor: "#365a49", color: "#d8e8df" },
+      };
+    }
+
+    function renderTornado() {
+      const i = currentInputs();
+      const base = outputs(i.eta, i.adoption, i.socialValue).bcr;
+      const etaLow = outputs(0.70, i.adoption, i.socialValue).bcr - base;
+      const etaHigh = outputs(0.95, i.adoption, i.socialValue).bcr - base;
+      const adoptLow = outputs(i.eta, 0.10, i.socialValue).bcr - base;
+      const adoptHigh = outputs(i.eta, 0.80, i.socialValue).bcr - base;
+      const svLow = outputs(i.eta, i.adoption, 22).bcr - base;
+      const svHigh = outputs(i.eta, i.adoption, 38).bcr - base;
+
+      Plotly.react("tornadoPlot", [
+        {
+          type: "bar",
+          orientation: "h",
+          y: ["Eta", "Adoption", "Social value"],
+          x: [etaLow, adoptLow, svLow],
+          name: "Lower bound",
+          marker: { color: "#6ea186" },
+          hovertemplate: "%{y}<br>Delta BCR: %{x:.2f}<extra></extra>",
+        },
+        {
+          type: "bar",
+          orientation: "h",
+          y: ["Eta", "Adoption", "Social value"],
+          x: [etaHigh, adoptHigh, svHigh],
+          name: "Upper bound",
+          marker: { color: "#e6c36d" },
+          hovertemplate: "%{y}<br>Delta BCR: %{x:.2f}<extra></extra>",
+        },
+      ], {
+        ...baseLayout("BCR sensitivity tornado", "Delta BCR", "Input"),
+        barmode: "relative",
+        xaxis: { title: "Delta BCR", gridcolor: "#365a49", zeroline: true, zerolinecolor: "#92c1a7", color: "#d8e8df" },
+        legend: { orientation: "h", y: 1.12, x: 0 },
+      });
+    }
+
+    function renderSurface() {
+      const i = currentInputs();
+      const adoptionGrid = [];
+      const socialGrid = [];
+      const z = [];
+
+      for (let a = 0.10; a <= 0.8001; a += 0.02) adoptionGrid.push(+a.toFixed(2));
+      for (let s = 22; s <= 38.001; s += 0.5) socialGrid.push(+s.toFixed(1));
+
+      for (const s of socialGrid) {
+        const row = [];
+        for (const a of adoptionGrid) row.push(outputs(i.eta, a, s).bcr);
+        z.push(row);
+      }
+
+      Plotly.react("surfacePlot", [{
+        type: "surface",
+        x: adoptionGrid,
+        y: socialGrid,
+        z,
+        colorscale: [[0, "#284637"], [0.5, "#6ea186"], [1, "#e6c36d"]],
+        contours: {
+          z: {
+            show: true,
+            usecolormap: false,
+            color: "#f8e2a8",
+            width: 2,
+            highlight: true,
+            project: { z: true },
+            start: 1,
+            end: 1,
+            size: 1,
+          },
+        },
+        hovertemplate: "Adoption %{x:.0%}<br>Social value $%{y:.1f}<br>BCR %{z:.2f}<extra></extra>",
+      }], {
+        title: { text: "3D break-even surface (BCR = 1 contour)", x: 0.5 },
+        paper_bgcolor: "#162e25",
+        margin: { l: 0, r: 0, t: 56, b: 0 },
+        font: { color: "#d8e8df", family: "Segoe UI, sans-serif" },
+        scene: {
+          xaxis: { title: "Adoption rate", tickformat: ".0%", color: "#d8e8df" },
+          yaxis: { title: "Social value ($)", color: "#d8e8df" },
+          zaxis: { title: "BCR", color: "#d8e8df" },
+          bgcolor: "#162e25",
+          camera: { eye: { x: 1.6, y: 1.45, z: 0.9 } },
+        },
+      });
+    }
+
+    function corr(a, b) {
+      const n = Math.min(a.length, b.length);
+      if (!n) return 0;
+      const ma = a.reduce((s, x) => s + x, 0) / n;
+      const mb = b.reduce((s, x) => s + x, 0) / n;
+      let num = 0;
+      let da = 0;
+      let db = 0;
+      for (let j = 0; j < n; j++) {
+        const xa = a[j] - ma;
+        const xb = b[j] - mb;
+        num += xa * xb;
+        da += xa * xa;
+        db += xb * xb;
+      }
+      if (da === 0 || db === 0) return 0;
+      return num / Math.sqrt(da * db);
+    }
+
+    function renderHeatmap() {
+      const samples = [];
+      for (let n = 0; n < 220; n++) {
+        const eta = 0.70 + Math.random() * 0.25;
+        const adoption = 0.10 + Math.random() * 0.70;
+        const socialValue = 22 + Math.random() * 16;
+        const out = outputs(eta, adoption, socialValue);
+        samples.push({
+          eta,
+          adoption,
+          socialValue,
+          amc: out.adjustedAmcM,
+          benefits: out.benefitsB,
+          bcr: out.bcr,
+        });
+      }
+
+      const vars = ["eta", "adoption", "socialValue", "amc", "benefits", "bcr"];
+      const mat = vars.map((v1) => vars.map((v2) => corr(samples.map((r) => r[v1]), samples.map((r) => r[v2]))));
+
+      Plotly.react("heatmapPlot", [{
+        type: "heatmap",
+        x: vars,
+        y: vars,
+        z: mat,
+        zmin: -1,
+        zmax: 1,
+        zmid: 0,
+        colorscale: [[0, "#9c6a42"], [0.5, "#274837"], [1, "#a3d0b0"]],
+        hovertemplate: "%{y} vs %{x}<br>corr=%{z:.2f}<extra></extra>",
+      }], {
+        ...baseLayout("Correlation heatmap of input drivers", "", ""),
+        xaxis: { tickangle: -30, color: "#d8e8df" },
+        yaxis: { automargin: true, color: "#d8e8df" },
+      });
+    }
+
+    function renderNarrativePlot(highlight) {
+      const i = currentInputs();
+      const rows = [
+        { key: "eta", label: "Eta", v: i.eta / 0.95 },
+        { key: "adoption", label: "Adoption", v: i.adoption / 0.80 },
+        { key: "social", label: "Social value", v: i.socialValue / 38 },
+      ];
+
+      Plotly.react("narrativePlot", [{
+        type: "bar",
+        x: rows.map((r) => r.label),
+        y: rows.map((r) => r.v),
+        marker: {
+          color: rows.map((r) => r.key === highlight ? "#e6c36d" : "#6ea186"),
+        },
+        hovertemplate: "%{x}<br>Normalized level: %{y:.2f}<extra></extra>",
+      }], {
+        ...baseLayout("Narrative mode parameter highlight", "Driver", "Normalized level"),
+        yaxis: { range: [0, 1.05], gridcolor: "#365a49", color: "#d8e8df" },
+      });
+    }
+
+    function setActiveTab(tab) {
+      document.querySelectorAll(".tab-btn").forEach((btn) => btn.classList.toggle("active", btn.dataset.tab === tab));
+      document.querySelectorAll(".panel").forEach((panel) => panel.classList.toggle("active", panel.id === `panel-${tab}`));
+      rerenderAll();
+    }
+
+    function rerenderAll() {
+      renderTornado();
+      renderSurface();
+      renderHeatmap();
+      const activeStep = document.querySelector(".story-step.active");
+      renderNarrativePlot(activeStep ? activeStep.dataset.highlight : "eta");
+    }
+
+    function setHighlight(which) {
+      document.querySelectorAll(".control").forEach((el) => el.classList.remove("is-focused"));
+      if (which === "eta") document.getElementById("etaControlCard").classList.add("is-focused");
+      if (which === "adoption") document.getElementById("adoptControlCard").classList.add("is-focused");
+      if (which === "social") document.getElementById("socialControlCard").classList.add("is-focused");
+    }
+
+    function initNarrativeSync() {
+      const observer = new IntersectionObserver((entries) => {
+        const top = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!top) return;
+        document.querySelectorAll(".story-step").forEach((step) => step.classList.toggle("active", step === top.target));
+        const h = top.target.dataset.highlight;
+        setHighlight(h);
+        renderNarrativePlot(h);
+      }, {
+        root: document.getElementById("narrativeScroll"),
+        threshold: [0.4, 0.7],
+      });
+
+      document.querySelectorAll(".story-step").forEach((step) => observer.observe(step));
+      setHighlight("eta");
+    }
+
+    ["etaCtrl", "adoptCtrl", "svCtrl"].forEach((id) => {
+      document.getElementById(id).addEventListener("input", () => {
+        updateLabels();
+        rerenderAll();
+      });
+    });
+
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+    });
+
+    updateLabels();
+    initNarrativeSync();
+    rerenderAll();
+  </script>
+</body>
+</html>
