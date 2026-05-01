@@ -154,27 +154,72 @@
     const root = document.getElementById(containerId);
     if (!root) return;
 
-    const rows = [
-      { cls: "role-row--coral", color: "#C62828", name: "Innovators", cells: [[3, "Build"], [2, "Validate"], [1, "Compete"]] },
-      { cls: "role-row--blue",  color: "#378ADD", name: "Corporates", cells: [[1, "Signal"], [2, "Commit"], [3, "Absorb"]] },
-      { cls: "role-row--purple", color: "#7F77DD", name: "Philanthropy", cells: [[3, "Catalyze"], [2, "Bridge"], [1, "Exit"]] },
-      { cls: "role-row--teal",  color: "#2E7D32", name: "Governments", cells: [[2, "Fund R&D"], [2, "Policy"], [3, "Enable"]] },
+    const actors = [
+      {
+        name: "Innovators",
+        tagline: "Create the product",
+        color: "#B8620A",
+        phases: [
+          { stage: "R&D", verb: "Build", weight: 3 },
+          { stage: "Scale-up", verb: "Validate", weight: 2 },
+          { stage: "Competition", verb: "Compete", weight: 1 },
+        ],
+      },
+      {
+        name: "Corporates",
+        tagline: "Create demand certainty",
+        color: "#5C7A4E",
+        phases: [
+          { stage: "R&D", verb: "Signal", weight: 1 },
+          { stage: "Scale-up", verb: "Commit", weight: 2 },
+          { stage: "Competition", verb: "Absorb", weight: 3 },
+        ],
+      },
+      {
+        name: "Philanthropy",
+        tagline: "De-risk early capital",
+        color: "#B8860B",
+        phases: [
+          { stage: "R&D", verb: "Catalyze", weight: 3 },
+          { stage: "Scale-up", verb: "Bridge", weight: 2 },
+          { stage: "Competition", verb: "Exit", weight: 1 },
+        ],
+      },
+      {
+        name: "Governments",
+        tagline: "Provide the framework",
+        color: "#2E7D32",
+        phases: [
+          { stage: "R&D", verb: "Fund", weight: 2 },
+          { stage: "Scale-up", verb: "Policy", weight: 2 },
+          { stage: "Competition", verb: "Enable", weight: 3 },
+        ],
+      },
     ];
 
-    const tbody = rows.map((r) => {
-      const tds = r.cells.map((c) => `<td>${dots(c[0], r.color)} ${c[1]}</td>`).join("");
-      return `<tr class="role-row ${r.cls}"><th style="color:${r.color}">${r.name}</th>${tds}</tr>`;
-    }).join("\n    ");
+    const cards = actors.map((actor) => {
+      const phaseRows = actor.phases.map((p) => `
+          <div class="actor-phase">
+            <span class="phase-stage">${p.stage}</span>
+            <div class="phase-track"><div class="phase-fill" style="width:${Math.round((p.weight / 3) * 100)}%;background:${actor.color}"></div></div>
+            <span class="phase-verb">${p.verb}</span>
+          </div>`).join("");
+      return `
+      <div class="actor-card">
+        <div class="actor-bar" style="background:${actor.color}"></div>
+        <div class="actor-body">
+          <div class="actor-header">
+            <span class="actor-name" style="color:${actor.color}">${actor.name}</span>
+            <span class="actor-tagline">${actor.tagline}</span>
+          </div>
+          <div class="actor-phases">${phaseRows}
+          </div>
+        </div>
+      </div>`;
+    }).join("");
 
-    root.innerHTML = `
-<table class="role-table" aria-label="Stakeholder contribution matrix">
-  <thead>
-    <tr><th>Stakeholder</th><th>R&amp;D</th><th>Scale-up</th><th>Competition</th></tr>
-  </thead>
-  <tbody>
-    ${tbody}
-  </tbody>
-</table>`;
+    root.innerHTML = `<div class="actor-grid" role="list" aria-label="Stakeholder contribution matrix">${cards}
+    </div>`;
   }
 
   function createAmcPathway(containerId) {

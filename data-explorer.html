@@ -136,11 +136,61 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* Scorecard disclosure */
+    .scorecard-toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 16px; cursor: pointer;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--text-muted);
+      background: none; border: none; padding: 0;
+      transition: color 0.15s;
+    }
+    .scorecard-toggle:hover { color: var(--accent); }
+    .scorecard-toggle .toggle-arrow { display: inline-block; transition: transform 0.2s; }
+    details[open] .scorecard-toggle .toggle-arrow { transform: rotate(90deg); }
+    .scorecard-body {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .scorecard-intro {
+      font-size: 13px; color: var(--text-muted); line-height: 1.7;
+      max-width: 68ch; margin-bottom: 16px;
+    }
+    .scorecard-table {
+      width: 100%; border-collapse: collapse;
+      font-family: var(--font-mono); font-size: 11px;
+    }
+    .scorecard-table th {
+      text-align: left; padding: 6px 10px 6px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted); font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap;
+    }
+    .scorecard-table th:not(:first-child) { text-align: center; }
+    .scorecard-table td {
+      padding: 7px 10px 7px 0;
+      border-bottom: 1px solid var(--border);
+      color: #3A3A35;
+    }
+    .scorecard-table td:not(:first-child) { text-align: center; }
+    .scorecard-table tr:last-child td { border-bottom: none; }
+    .scorecard-table .score-index {
+      font-weight: 700; color: #1B2A1C;
+    }
+    .scorecard-sources {
+      margin-top: 14px; font-size: 11px;
+      font-family: var(--font-mono); color: var(--text-muted);
+      line-height: 1.8; letter-spacing: 0.02em;
+    }
+    .scorecard-sources a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 2px; }
+    .scorecard-sources a:hover { color: var(--accent); }
+
     @media (max-width: 768px) {
       .hero h1 { font-size: 32px; }
       .section h2 { font-size: 24px; }
       .chart-wrap { min-height: 300px; }
       .chart-wrap.map { min-height: 340px; }
+      .scorecard-table { font-size: 10px; }
     }
     /* About modal */
     .modal { position: fixed; inset: 0; display: grid; place-items: center; z-index: 1200; padding: 16px; }
@@ -178,7 +228,7 @@
 </nav>
 
 <header class="hero">
-  <h1>The case in five charts</h1>
+  <h1>The case in seven charts</h1>
   <p class="subtitle">Each visualization builds on the last, tracing the path from market failure to measurable climate impact. The data behind the narrative.</p>
   <div class="hero-rule"></div>
 </header>
@@ -211,7 +261,50 @@
     <h2>Readiness is uneven, but the opportunity is global</h2>
     <div class="chart-card">
       <h3>Global adoption readiness index</h3>
+      <p class="chart-desc">0–100 composite score &middot; four equally-weighted factors &middot; illustrative ranking</p>
       <div class="chart-wrap map" id="chartMap"></div>
+      <details>
+        <summary class="scorecard-toggle">
+          <span class="toggle-arrow">&#9654;</span> How this was scored
+        </summary>
+        <div class="scorecard-body">
+          <p class="scorecard-intro">Each country is scored 0–100 on four equally-weighted structural factors, then averaged into a composite readiness index. The index is illustrative — it captures structural preconditions for vaccine adoption, not a formal audit or official ranking.</p>
+          <table class="scorecard-table" aria-label="Readiness index factor breakdown by country">
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Herd scale</th>
+                <th>Infrastructure</th>
+                <th>Farm incentive</th>
+                <th>Policy alignment</th>
+                <th>Index</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Brazil</td><td>100</td><td>85</td><td>90</td><td>100</td><td class="score-index">96</td></tr>
+              <tr><td>India</td><td>100</td><td>70</td><td>80</td><td>100</td><td class="score-index">88</td></tr>
+              <tr><td>Australia</td><td>65</td><td>100</td><td>80</td><td>65</td><td class="score-index">78</td></tr>
+              <tr><td>USA</td><td>70</td><td>95</td><td>60</td><td>55</td><td class="score-index">72</td></tr>
+              <tr><td>Argentina</td><td>65</td><td>65</td><td>55</td><td>55</td><td class="score-index">60</td></tr>
+              <tr><td>China</td><td>75</td><td>60</td><td>40</td><td>45</td><td class="score-index">55</td></tr>
+              <tr><td>Mexico</td><td>45</td><td>50</td><td>45</td><td>45</td><td class="score-index">46</td></tr>
+              <tr><td>Ethiopia</td><td>55</td><td>20</td><td>35</td><td>40</td><td class="score-index">38</td></tr>
+            </tbody>
+          </table>
+          <div class="callout callout-amber" style="margin-top:14px;">
+            <strong>Factor definitions</strong><br>
+            <strong>Herd scale</strong> — national cattle &amp; dairy herd size relative to global top; proxy for total abatement opportunity.<br>
+            <strong>Infrastructure</strong> — cold-chain capacity, veterinary service density, and rural logistics quality needed for vaccine delivery.<br>
+            <strong>Farm incentive</strong> — existing subsidy structures, input cost sensitivity, and farmer income margins that shape willingness to adopt a new input cost.<br>
+            <strong>Policy alignment</strong> — NDC livestock coverage, national agriculture climate commitments, and regulatory openness to novel veterinary products.
+          </div>
+          <p class="scorecard-sources">
+            Sources: FAO FAOSTAT Livestock Primary (2022) &middot; World Bank Logistics Performance Index (2023) &middot; UNFCCC NDC Registry (2025) &middot;
+            <a href="https://www.sparkclimate.org" target="_blank" rel="noopener">Spark Climate Solutions Enteric Methane Roadmap (2025)</a> &middot;
+            Scores authored by the project team based on published indicators; not an official index.
+          </p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -233,20 +326,25 @@
     </div>
   </section>
 
-  <section class="section" id="stakeholder">
-    <p class="section-kicker">6 / The actors</p>
-    <h2>Each stakeholder plays a distinct, complementary role</h2>
+  <section class="section" id="coalition">
+    <p class="section-kicker">6 / The coalition</p>
+    <h2>Four actor types, one coordinated commitment</h2>
+    <p class="blurb">The $534M baseline AMC draws on distinct funding channels, each locked to a different phase of the commercialization curve.</p>
     <div class="chart-card">
-      <div id="stakeholderMatrix" class="matrix-wrap"></div>
+      <h3>Target commitment by actor type</h3>
+      <p class="chart-desc">Baseline scenario &middot; amounts in M USD &middot; sum = $534M total commitment</p>
+      <div class="chart-wrap short" id="chartCoalition"></div>
     </div>
   </section>
 
-  <section class="section" id="phase">
-    <p class="section-kicker">7 / The mechanism</p>
-    <h2>AMC support shifts across the commercialization curve</h2>
+  <section class="section" id="efficiency">
+    <p class="section-kicker">7 / The efficiency</p>
+    <h2>Abatement cost falls sharply and stays low</h2>
+    <p class="blurb">As adoption rises, fixed program costs are spread across more tonnes avoided. Even at the conservative baseline, this AMC delivers abatement well below voluntary carbon market prices.</p>
     <div class="chart-card">
-      <h3>AMC role by commercialization phase</h3>
-      <div class="chart-wrap short"><canvas id="phaseChart" aria-label="Commercialization phase chart"></canvas></div>
+      <h3>Cost per tonne CO&#x2082;e avoided vs. adoption rate</h3>
+      <p class="chart-desc">Baseline scenario &middot; GWP100 &middot; 10-year program horizon &middot; fixed costs $120M, variable costs scale with adoption</p>
+      <div class="chart-wrap short" id="chartEfficiency"></div>
     </div>
   </section>
 </main>
@@ -289,41 +387,62 @@ function drawCumulative() {
   const withAmc = [0, 12, 31, 58, 93, 133, 176, 219, 258, 292];
   Plotly.newPlot("chartCumulative", [{ type: "scatter", mode: "lines", x: years, y: without, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x: years, y: withAmc, name: "With AMC", line: { color: "#5C7A4E", width: 2.5 } }], makeLayout("", "Cumulative avoided emissions (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Year", dtick: 1 }) }), CONFIG);
 }
-document.addEventListener("DOMContentLoaded", function () { drawPayoff(); drawAdoption(); drawMap(); drawFunding(); drawCumulative(); });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<script defer src="js/diagrams.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  if (window.AmcDiagrams && window.AmcDiagrams.createStakeholderMatrix) {
-    window.AmcDiagrams.createStakeholderMatrix('stakeholderMatrix');
+function drawCoalition() {
+  var actors = ["Carbon markets", "Philanthropy", "Governments", "Corporates"];
+  var amounts = [44, 110, 160, 220];
+  var colors = ["#5A96AD", "#B8860B", "#2E7D32", "#B8620A"];
+  Plotly.newPlot("chartCoalition", [{
+    type: "bar", orientation: "h",
+    x: amounts, y: actors,
+    marker: { color: colors, opacity: 0.9 },
+    text: amounts.map(function(v) { return "$" + v + "M"; }),
+    textposition: "inside", insidetextanchor: "middle",
+    textfont: { size: 12, color: "#FAFAF8", family: "'JetBrains Mono', monospace" },
+    hovertemplate: "<b>%{y}</b><br>$%{x}M<extra></extra>"
+  }], Object.assign({}, LAYOUT_BASE, {
+    margin: { l: 114, r: 60, t: 16, b: 56 },
+    showlegend: false,
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "Target commitment (M USD)", range: [0, 260] }),
+    yaxis: Object.assign({}, AXIS_STYLE, { tickfont: { size: 13, family: "'Newsreader', Georgia, serif", color: "#1B2A1C" } }),
+    annotations: [{ x: 222, y: 3.48, text: "Total: $534M", showarrow: false, xanchor: "left", font: { size: 11, color: "#B8620A", family: "'JetBrains Mono', monospace" } }]
+  }), CONFIG);
+}
+function drawEfficiency() {
+  // Model: fixed cost $120M + variable cost scaling with adoption;
+  // abatement = 170M head × adoption × 3.92 tCO2e/head (20% reduction, GWP100=28, 70kgCH4/head/yr, 10yr)
+  var fixed = 120; // M USD
+  var varRate = 1656; // M USD per 100% adoption unit
+  var abatRate = 666; // MtCO2e per 100% adoption unit  (calibrated: 25% → 166.5 Mt ≈ $534M/3.21/t)
+  var adoptPct = [], cpt = [];
+  for (var a = 3; a <= 55; a++) {
+    var frac = a / 100;
+    adoptPct.push(a);
+    cpt.push((fixed + varRate * frac) / (abatRate * frac));
   }
-  // Phase chart
-  var ctx = document.getElementById('phaseChart');
-  if (ctx) {
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Pre-commercial R&D', 'Scale-up', 'Competitive market'],
-        datasets: [
-          { label: 'Market revenue', data: [5, 30, 85], backgroundColor: '#5C7A4E' },
-          { label: 'AMC subsidy', data: [60, 45, 10], backgroundColor: '#B8620A' },
-          { label: 'Philanthropic / grant', data: [35, 25, 5], backgroundColor: '#5A96AD' }
-        ]
-      },
-      options: {
-        plugins: { legend: { position: 'bottom' } },
-        scales: {
-          x: { stacked: true, grid: { display: false } },
-          y: { stacked: true, ticks: { callback: function(v) { return v + '%'; } } }
-        },
-        responsive: true,
-        maintainAspectRatio: true
-      }
-    });
-  }
-});
-// prevent double declaration
+  var baseIdx = adoptPct.indexOf(25);
+  Plotly.newPlot("chartEfficiency", [
+    { type: "scatter", mode: "lines", x: adoptPct, y: cpt,
+      line: { color: "#5C7A4E", width: 3 }, name: "Cost per tonne",
+      hovertemplate: "%{x}% adoption<br><b>$%{y:.2f}/tCO\u2082e</b><extra></extra>" },
+    { type: "scatter", mode: "markers", x: [25], y: [cpt[baseIdx]],
+      marker: { color: "#B8620A", size: 10, symbol: "circle" }, name: "Baseline (25%)",
+      hovertemplate: "Baseline scenario<br><b>$%{y:.2f}/tCO\u2082e</b><extra></extra>" },
+    { type: "scatter", mode: "lines", x: [3, 55], y: [15, 15],
+      line: { color: "#8A7D6B", width: 1.5, dash: "dot" }, name: "VCM avg. ~$15/t",
+      hoverinfo: "skip" }
+  ], Object.assign({}, LAYOUT_BASE, {
+    margin: { l: 72, r: 32, t: 20, b: 64 },
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "Herd adoption rate (%)", ticksuffix: "%" }),
+    yaxis: Object.assign({}, AXIS_STYLE, { title: "Cost per tonne CO\u2082e avoided (USD)", tickprefix: "$" }),
+    annotations: [
+      { x: 25, y: cpt[baseIdx], text: "  Baseline: $" + cpt[baseIdx].toFixed(2) + "/t",
+        showarrow: false, xanchor: "left", font: { size: 11, color: "#B8620A", family: "'JetBrains Mono', monospace" } },
+      { x: 56, y: 15.4, text: "VCM", showarrow: false, xanchor: "left",
+        font: { size: 10, color: "#8A7D6B", family: "'JetBrains Mono', monospace" } }
+    ]
+  }), CONFIG);
+}
+document.addEventListener("DOMContentLoaded", function () { drawPayoff(); drawAdoption(); drawMap(); drawFunding(); drawCumulative(); drawCoalition(); drawEfficiency(); });
 </script>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
 <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.min.js"></script>
@@ -331,25 +450,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-explore">
-      <p class="footer-explore-heading">Go deeper</p>
-      <div class="footer-explore-links">
-        <a href="index.html">Read the full brief</a>
-        <a href="storymap.html">See the storymap</a>
-        <a href="data-explorer.html">Data Explorer</a>
-        <a href="sensitivity-studio.html">Sensitivity Studio</a>
-        <a href="frameworks.html">Frameworks</a>
-      </div>
-    </div>
+    <nav class="footer-nav" aria-label="Site navigation">
+      <a href="index.html">Read</a>
+      <a href="storymap.html">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html">Test</a>
+      <a href="frameworks.html">Methodology</a>
+    </nav>
     <hr class="footer-rule">
     <p class="footer-credit">Designed and built by Delany Broome</p>
-    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
-    <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
-    <div class="footer-logos">
-      <span class="footer-logo-text">UC Berkeley</span>
-      <span class="footer-logo-divider"></span>
-      <span class="footer-logo-text">Spark Climate</span>
-    </div>
+    <p>UC Berkeley, Master of Climate Solutions 2026 &middot; In collaboration with Spark Climate Solutions</p>
   </div>
 </footer>
 

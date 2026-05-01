@@ -191,7 +191,7 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: var(--teal);
+      background: var(--accent);
       color: white;
       display: flex;
       align-items: center;
@@ -217,14 +217,14 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      color: var(--teal);
+      color: var(--accent);
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
       margin-top: 8px;
     }
 
-    .section-link:hover { color: var(--teal-dark); }
+    .section-link:hover { opacity: 0.75; }
 
     /* BARRIER GRID */
     .barrier-grid {
@@ -339,9 +339,9 @@
       color: var(--text-muted);
     }
     .lca-stage.benefit {
-      background: rgba(46, 125, 50, 0.1);
-      border: 1px solid rgba(46, 125, 50, 0.25);
-      color: var(--teal-dark);
+      background: rgba(184, 98, 10, 0.07);
+      border: 1px solid rgba(184, 98, 10, 0.22);
+      color: #5A3000;
       flex: 1.8;
       font-weight: 600;
     }
@@ -354,9 +354,51 @@
     .lca-note {
       text-align: center;
       font-size: 13px;
-      color: var(--teal);
+      color: var(--accent);
       font-weight: 500;
       margin-top: 8px;
+    }
+
+    /* DISCLOSURE TOGGLE */
+    details summary { list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    .disclosure-toggle {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 20px; cursor: pointer;
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--text-muted);
+      transition: color 0.15s;
+    }
+    .disclosure-toggle:hover { color: var(--accent); }
+    .disclosure-toggle .toggle-arrow { display: inline-block; transition: transform 0.2s; }
+    details[open] .disclosure-toggle .toggle-arrow { transform: rotate(90deg); }
+    .disclosure-body {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+    .disclosure-intro {
+      font-size: 13px; color: var(--text-muted); line-height: 1.7;
+      margin-bottom: 16px; max-width: 68ch;
+    }
+    /* CO-BENEFITS TEASER */
+    .wip-teaser {
+      background: var(--gray-50);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin: 20px 0 0;
+    }
+    .wip-teaser-label {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 12px;
+    }
+    .wip-teaser-dims { display: flex; flex-wrap: wrap; gap: 8px; }
+    .wip-dim {
+      font-size: 12px; font-family: var(--font-mono);
+      background: white; border: 1px solid var(--border);
+      border-radius: 4px; padding: 4px 10px;
+      color: var(--text-muted);
     }
 
     /* FOOTER */
@@ -366,10 +408,28 @@
       font-size: 13px; color: var(--text-muted); line-height: 1.6;
     }
     .footer a {
-      color: var(--teal); text-decoration: none; font-weight: 500;
+      color: var(--accent); text-decoration: none; font-weight: 500;
       display: inline-block; margin-top: 8px;
     }
-    .footer a:hover { color: var(--teal-dark); }
+    .footer a:hover { opacity: 0.75; }
+
+    /* Card sub-elements */
+    .card-role {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .barrier-card ul {
+      padding-left: 1.2rem;
+      margin: 0 0 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #4A4539;
+    }
+    .barrier-card li { margin-bottom: 3px; }
 
     /* RESPONSIVE */
     @media (max-width: 768px) {
@@ -408,7 +468,7 @@
 
   <!-- SECTION 1: THE MCS PLAYBOOK / TEA OVERVIEW -->
   <section class="framework-section">
-    <span class="framework-tag">Core framework</span>
+    <span class="framework-tag">01 / Core</span>
     <h2>The MCS Playbook: techno-economic analysis</h2>
     <p>The MCS Playbook provides the integrative analytical spine for this project. Developed in the UC Berkeley MCS curriculum, it structures climate solution evaluation into three steps.</p>
 
@@ -416,17 +476,17 @@
       <div class="playbook-card">
         <div class="step-number">1</div>
         <h3>Technical potential</h3>
-        <p>Compute avoided CO2e: 20% methane reduction across 90M U.S. cattle (or 1.6B globally), weighted by lifespan and adoption rate. At baseline, this yields $11.48B in social benefits.</p>
+        <p>At baseline — 20% reduction across 90M U.S. cattle at 25% adoption — the program yields $11.48B in social benefit over a 10-year horizon.</p>
       </div>
       <div class="playbook-card">
         <div class="step-number">2</div>
-        <h3>Cost per ton CO2e avoided</h3>
-        <p>Total social cost ($797M baseline) divided by lifetime abatement tonnage. This metric enables comparison with other climate interventions on a standardized basis.</p>
+        <h3>Cost per tonne avoided</h3>
+        <p>Total program cost divided by lifetime abatement tonnage — the standardized metric for comparing climate interventions. Baseline: $3.21 per tCO&#x2082;e.</p>
       </div>
       <div class="playbook-card">
         <div class="step-number">3</div>
         <h3>Caveats and sensitivity</h3>
-        <p>Dosing frequency, scientific feasibility, and adoption dynamics are the three most consequential uncertainties. The Sensitivity Studio stress-tests each one interactively.</p>
+        <p>Dosing frequency, scientific feasibility, and adoption rate dominate the uncertainty space — each stress-tested interactively in the Sensitivity Studio.</p>
       </div>
     </div>
 
@@ -437,7 +497,7 @@
 
   <!-- SECTION 2: LIFECYCLE ASSESSMENT -->
   <section class="framework-section">
-    <span class="framework-tag">Framework 1</span>
+    <span class="framework-tag">02 / LCA</span>
     <h2>Lifecycle assessment</h2>
     <p>A simplified LCA defines the system boundary for the methane vaccine intervention and evaluates whether the lifecycle emissions of vaccine production and deployment are justified by the methane abatement achieved.</p>
 
@@ -460,32 +520,36 @@
     <h3>Key finding</h3>
     <p>The lifecycle emissions of vaccine production are negligible relative to the methane abatement achieved. Each vaccinated animal avoids approximately 0.014 metric tons of methane per year (0.392 tons CO2e at GWP-28), while vaccine manufacturing and distribution emissions are estimated in the low single-digit kilograms of CO2e per dose. The ratio of avoided to embodied emissions is on the order of 100:1 or greater.</p>
 
-    <h3>Methodological notes</h3>
-    <p>This assessment follows the ISO 14040/14044 framework as taught in the UC Berkeley MCS program (Prof. Matthew Potts). The functional unit is one completed vaccination course administered to one animal. System boundaries are cradle-to-use-phase. Impact category is global warming potential (GWP-100). Data sources include the FAO Global Livestock Environmental Assessment Model (GLEAM), the EPA Inventory of U.S. Greenhouse Gas Emissions (2024), and the Jensen, Lund, and Fabricius (2014) veterinary vaccine cost dataset used in the AMC proposal.</p>
-
-    <h3>Literature</h3>
-    <div class="lit-list">
-      <div class="lit-item">
-        <strong>FAO (2013)</strong> Tackling Climate Change Through Livestock: A Global Assessment of Emissions and Mitigation Opportunities. Global lifecycle assessment using the GLEAM model.
+    <details>
+      <summary class="disclosure-toggle">
+        <span class="toggle-arrow">&#9654;</span> Methodology &amp; literature
+      </summary>
+      <div class="disclosure-body">
+        <p class="disclosure-intro"><strong>Methodological approach &mdash;</strong> ISO 14040/14044 (UC Berkeley MCS, Prof. Matthew Potts). Functional unit: one completed vaccination course per animal. System boundary: cradle-to-use-phase. Impact category: GWP-100. Primary sources: FAO GLEAM, EPA GHG Inventory (2024), Jensen et al. (2014) veterinary cost dataset.</p>
+        <div class="lit-list">
+          <div class="lit-item">
+            <strong>FAO (2013)</strong> Tackling Climate Change Through Livestock: A Global Assessment of Emissions and Mitigation Opportunities. Global lifecycle assessment using the GLEAM model.
+          </div>
+          <div class="lit-item">
+            <strong>Beauchemin et al. (2022)</strong> Current State of Enteric Methane and the Carbon Footprint of Beef and Dairy Cattle in the United States. Animal Frontiers, 11(4), 57-68. Integrates LCA with enteric methane measurement methods.
+          </div>
+          <div class="lit-item">
+            <strong>Stanley et al. (2018)</strong> Impacts of Soil Carbon Sequestration on Life Cycle Greenhouse Gas Emissions in Midwestern USA Beef Finishing Systems. Agricultural Systems 162, 249-258. Comparative LCA of beef systems, affiliated with UC Berkeley ESPM.
+          </div>
+          <div class="lit-item">
+            <strong>Gollnow et al. (2024)</strong> Towards an Application of the Life Cycle Assessment Framework for GHG Emissions of the Dairy System: A Literature Review. Land 14(6), 1207. Critical review of LCA scope design limitations.
+          </div>
+          <div class="lit-item">
+            <strong>EPA (2024)</strong> Inventory of U.S. Greenhouse Gas Emissions and Sinks, Chapter 5: Agriculture. U.S. baseline enteric methane data.
+          </div>
+        </div>
       </div>
-      <div class="lit-item">
-        <strong>Beauchemin et al. (2022)</strong> Current State of Enteric Methane and the Carbon Footprint of Beef and Dairy Cattle in the United States. Animal Frontiers, 11(4), 57-68. Integrates LCA with enteric methane measurement methods.
-      </div>
-      <div class="lit-item">
-        <strong>Stanley et al. (2018)</strong> Impacts of Soil Carbon Sequestration on Life Cycle Greenhouse Gas Emissions in Midwestern USA Beef Finishing Systems. Agricultural Systems 162, 249-258. Comparative LCA of beef systems, affiliated with UC Berkeley ESPM.
-      </div>
-      <div class="lit-item">
-        <strong>Gollnow et al. (2024)</strong> Towards an Application of the Life Cycle Assessment Framework for GHG Emissions of the Dairy System: A Literature Review. Land 14(6), 1207. Critical review of LCA scope design limitations.
-      </div>
-      <div class="lit-item">
-        <strong>EPA (2024)</strong> Inventory of U.S. Greenhouse Gas Emissions and Sinks, Chapter 5: Agriculture. U.S. baseline enteric methane data.
-      </div>
-    </div>
+    </details>
   </section>
 
   <!-- SECTION 3: PATHWAYS AND BARRIERS -->
   <section class="framework-section">
-    <span class="framework-tag">Framework 2</span>
+    <span class="framework-tag">03 / Pathways</span>
     <h2>Pathways and barriers</h2>
     <p>The transitions framework identifies where the AMC intervenes in the innovation system and what structural barriers it must overcome to succeed.</p>
 
@@ -522,89 +586,96 @@
     </div>
   </section>
 
-  <!-- SECTION 4: CO-BENEFITS (WORK IN PROGRESS) -->
+  <!-- SECTION 4: CO-BENEFITS -->
   <section class="framework-section">
-    <span class="framework-tag">Framework 3</span>
+    <span class="framework-tag">04 / Co-benefits</span>
     <span class="wip-badge">In progress</span>
     <h2>Co-benefits analysis</h2>
-    <p>In the current political environment, co-benefits are often the critical path to adoption. This section will analyze the non-climate benefits of the methane vaccine AMC across five dimensions.</p>
-
-    <div class="cobenefit-grid">
-      <div class="cobenefit-card">
-        <h4>Rural economic development</h4>
-        <p>AMC payments flow directly to producers and rural communities, creating new revenue streams independent of commodity prices.</p>
+    <p>In the current political environment, co-benefits are often the critical path to adoption. Five non-climate dimensions are under active analysis.</p>
+    <div class="wip-teaser">
+      <p class="wip-teaser-label">Five dimensions under analysis</p>
+      <div class="wip-teaser-dims">
+        <span class="wip-dim">Rural economic development</span>
+        <span class="wip-dim">Food system resilience</span>
+        <span class="wip-dim">Trade competitiveness</span>
+        <span class="wip-dim">Innovation spillovers</span>
+        <span class="wip-dim">Global health equity</span>
       </div>
-      <div class="cobenefit-card">
-        <h4>Food system resilience</h4>
-        <p>Proactive methane reduction reduces regulatory risk for the livestock sector and strengthens its social license to operate under tightening climate policy.</p>
-      </div>
-      <div class="cobenefit-card">
-        <h4>Trade competitiveness</h4>
-        <p>Low-methane beef and dairy could command premium positioning in export markets with carbon border adjustment mechanisms (EU CBAM) or sustainability-conscious buyers.</p>
-      </div>
-      <div class="cobenefit-card">
-        <h4>Innovation spillovers</h4>
-        <p>Vaccine R&amp;D for methane reduction generates intellectual property and technical capacity applicable to other livestock health and productivity challenges.</p>
-      </div>
-      <div class="cobenefit-card">
-        <h4>Global health equity</h4>
-        <p>A successful vaccine platform, scaled from U.S. to low- and middle-income countries, could reduce climate damages disproportionately borne by vulnerable populations while supporting smallholder livelihoods.</p>
-      </div>
+      <p style="margin-top:14px;font-size:13px;color:var(--text-muted);font-style:italic;margin-bottom:0">Quantitative estimates and supporting literature forthcoming in the final deliverable.</p>
     </div>
-
-    <p class="wip-note">This analysis is currently being developed. Quantitative co-benefit estimates and supporting literature will be added in the final deliverable.</p>
   </section>
 
   <section class="framework-section">
-    <span class="framework-tag">AMC Design</span>
-    <h2>Structure options: Traditional vs. Hybrid AMC</h2>
-    <p>Two governance architectures define how risk and capital timing are balanced. The choice between them is not primarily technical — it reflects how much demand certainty sponsors can credibly commit to before commercialization.</p>
-    <div class="structure-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin:2rem 0">
-      <article style="background:var(--card-bg,#F4F1EB);border:1px solid var(--border,#E4E2DC);border-radius:8px;padding:1.5rem">
-        <h3 style="margin-bottom:0.5rem">Traditional AMC</h3>
-        <p style="font-size:0.9em;color:var(--muted,#8A8278);margin-bottom:1rem">Demand-first certainty</p>
-        <ul style="padding-left:1.2rem">
+    <span class="framework-tag">05 / AMC Design</span>
+    <h2>Governance architecture: Traditional vs. Hybrid</h2>
+    <p>The most consequential design choice in an AMC is not whether to deploy one — it is how the capital commitment is structured relative to the product's stage of development. Two architectures are viable for a methane vaccine AMC, each calibrated to a different assumption about when credible demand signals can be established and how much coordination overhead sponsors are willing to carry.</p>
+
+    <div class="barrier-grid">
+      <div class="barrier-card">
+        <h4>Traditional AMC</h4>
+        <span class="card-role">Demand-first structure</span>
+        <p>Sponsors commit to purchasing a defined quantity at a guaranteed price once a qualifying product is commercialized. The commitment is legally binding but capital is not deployed until delivery. This maximizes signal credibility — innovators know the market exists — but does not bridge the early-stage capital gap before Phase III trials are complete.</p>
+        <ul>
           <li>High buyer signal before commercialization</li>
-          <li>Lower governance complexity</li>
-          <li>Longer capital deployment timeline</li>
+          <li>Lower governance and coordination overhead</li>
+          <li>Capital deployment deferred until product approval</li>
+          <li>Best suited when R&amp;D funding is separately available</li>
         </ul>
-      </article>
-      <article style="background:var(--card-bg,#F4F1EB);border:1px solid var(--border,#E4E2DC);border-radius:8px;padding:1.5rem">
-        <h3 style="margin-bottom:0.5rem">Hybrid AMC + Investment</h3>
-        <p style="font-size:0.9em;color:var(--muted,#8A8278);margin-bottom:1rem">Earlier capital activation</p>
-        <ul style="padding-left:1.2rem">
-          <li>Moderate demand certainty</li>
-          <li>Faster capital deployment timeline</li>
-          <li>Higher governance and coordination load</li>
+        <span class="barrier-status partial">Preferred when buyer coalitions can form early</span>
+      </div>
+      <div class="barrier-card">
+        <h4>Hybrid AMC + Investment</h4>
+        <span class="card-role">Earlier capital structure</span>
+        <p>An AMC tail guarantee is paired with upfront investment tranches — milestone-based grants or catalytic debt — that de-risk the development pathway before product approval. Capital is partially deployed during R&amp;D, reducing the innovator's downside exposure at the cost of greater governance complexity and oversight requirements.</p>
+        <ul>
+          <li>Moderate demand certainty with earlier capital activation</li>
+          <li>Bridges the gap when external R&amp;D funding is insufficient</li>
+          <li>Can accelerate commercialization timeline if well-structured</li>
+          <li>Requires robust independent governance and oversight</li>
         </ul>
-      </article>
+        <span class="barrier-status partial">Preferred when early capital is needed to de-risk R&amp;D</span>
+      </div>
     </div>
-    <p>Governance design determines how risk and upside are allocated across sponsors, innovators, and producers. The Traditional AMC is better suited to contexts where buyer coalitions can be assembled before product launch; the Hybrid structure is preferred when early capital is needed to de-risk R&D before sufficient demand exists.</p>
+
+    <h3>Key design parameters</h3>
+    <p>Four parameters set the economic terms of the commitment regardless of which architecture is chosen.</p>
+
+    <div class="barrier-grid">
+      <div class="barrier-card">
+        <h4>Tail price</h4>
+        <p>The subsidized per-dose price paid above market rate — the demand premium that makes development economically viable. At $16.40/dose (baseline), this AMC targets a BCR above 14:1. Setting the tail price too low fails to attract innovators; too high reduces fund efficiency once the market is established.</p>
+      </div>
+      <div class="barrier-card">
+        <h4>Commitment size</h4>
+        <p>Total fund capitalization — $534M at baseline — sets the ceiling for doses purchased at the tail price. The commitment must be large enough to justify the innovator's R&amp;D investment while remaining within bounds that sponsors can credibly raise and deploy.</p>
+      </div>
+      <div class="barrier-card">
+        <h4>Eligibility criteria</h4>
+        <p>The technical specifications a vaccine must meet to qualify: minimum efficacy threshold (&ge;20% methane reduction), safety requirements, dosing frequency, and delivery format. These criteria protect against underpowered products while remaining within reach of current science.</p>
+      </div>
+      <div class="barrier-card">
+        <h4>Verification protocol</h4>
+        <p>How compliance is confirmed at the farm level. This AMC proposes vaccination verification — digital IDs, vial serial numbers, ear tags — rather than direct emissions measurement, substantially lowering MRV burden and making the mechanism viable in low-infrastructure settings globally.</p>
+      </div>
+    </div>
+
+    <a href="sensitivity-studio.html" class="section-link">Test how tail price and commitment size shift BCR in the Sensitivity Studio &rarr;</a>
   </section>
 
 </main>
 
 <footer class="site-footer">
   <div class="footer-inner">
-    <div class="footer-explore">
-      <p class="footer-explore-heading">Go deeper</p>
-      <div class="footer-explore-links">
-        <a href="index.html">Read the full brief</a>
-        <a href="storymap.html">See the storymap</a>
-        <a href="data-explorer.html">Data Explorer</a>
-        <a href="sensitivity-studio.html">Sensitivity Studio</a>
-        <a href="frameworks.html">Frameworks</a>
-      </div>
-    </div>
+    <nav class="footer-nav" aria-label="Site navigation">
+      <a href="index.html">Read</a>
+      <a href="storymap.html">See</a>
+      <a href="data-explorer.html">Explore</a>
+      <a href="sensitivity-studio.html">Test</a>
+      <a href="frameworks.html">Methodology</a>
+    </nav>
     <hr class="footer-rule">
     <p class="footer-credit">Designed and built by Delany Broome</p>
-    <p class="footer-affiliation">UC Berkeley, Master of Climate Solutions 2026</p>
-    <p class="footer-collab">In collaboration with Spark Climate Solutions</p>
-    <div class="footer-logos">
-      <span class="footer-logo-text">UC Berkeley</span>
-      <span class="footer-logo-divider"></span>
-      <span class="footer-logo-text">Spark Climate</span>
-    </div>
+    <p>UC Berkeley, Master of Climate Solutions 2026 &middot; In collaboration with Spark Climate Solutions</p>
   </div>
 </footer>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
