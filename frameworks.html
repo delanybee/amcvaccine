@@ -200,44 +200,90 @@
       margin-bottom: 16px;
     }
 
-    /* PLAYBOOK STEPS */
-    .playbook-steps {
+    /* TEA METRICS ROW */
+    .tea-metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      margin: 24px 0;
-    }
-
-    .playbook-card {
-      background: var(--card-bg);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      margin: 2rem 0 1.5rem;
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      overflow: hidden;
     }
-
-    .step-number {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: var(--accent);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
+    .tea-metric {
+      padding: 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+    .tea-metric:last-child { border-right: none; }
+    .tea-value {
+      font-family: var(--font-display);
+      font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+      font-weight: 380;
+      font-variation-settings: "opsz" 72, "SOFT" 30;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 0.35rem;
+    }
+    .tea-label {
+      font-size: 0.82rem;
       font-weight: 600;
-      margin-bottom: 12px;
+      color: var(--text);
+      margin-bottom: 0.2rem;
     }
-
-    .playbook-card h3 {
-      font-size: 15px;
-      margin: 0 0 8px;
-    }
-
-    .playbook-card p {
-      font-size: 13px;
-      line-height: 1.6;
+    .tea-sub {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
       color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+    .tea-benchmark {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--accent);
+      font-weight: 500;
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+    .tea-assumptions th {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 6px 12px 6px 0;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .tea-assumptions td {
+      font-size: 13px;
+      padding: 7px 12px 7px 0;
+      border-bottom: 1px solid var(--border);
+      color: #4A4539;
+      line-height: 1.5;
+    }
+    .tea-assumptions td:first-child { color: var(--text-muted); width: 52%; }
+    .tea-assumptions tr:last-child td { border-bottom: none; }
+    .tea-assumptions { width: 100%; border-collapse: collapse; margin-top: 12px; }
+
+    /* WHAT'S NEXT */
+    .whats-next {
+      background: var(--gray-50);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .whats-next .section-next-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
       margin: 0;
     }
 
@@ -444,23 +490,8 @@
     }
     .framework-toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
-    /* WHAT'S NEXT */
-    .whats-next {
-      max-width: 820px; margin: 0 auto 0; padding: 3rem 32px 4rem;
-      border-top: 1px solid var(--line);
-    }
-    .whats-next-label {
-      font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
-      text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent);
-      display: block; margin-bottom: 1rem;
-    }
-    .whats-next h2 {
-      font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      font-weight: 400; letter-spacing: -0.02em; margin-bottom: 0.75rem; color: var(--text);
-    }
-    .whats-next p {
-      font-size: 15px; line-height: 1.75; color: #4A4539; max-width: 60ch; margin-bottom: 1.5rem;
-    }
+    /* FOOTER */
+    .footer {
       max-width: 820px; margin: 40px auto 0; padding: 28px;
       border-top: 1px solid var(--border);
       font-size: 13px; color: var(--text-muted); line-height: 1.6;
@@ -496,6 +527,9 @@
       .cobenefit-grid { grid-template-columns: 1fr; }
       .lca-flow { flex-direction: column; }
       .lca-arrow { justify-content: center; }
+      .tea-metrics { grid-template-columns: 1fr; }
+      .tea-metric { border-right: none; border-bottom: 1px solid var(--border); }
+      .tea-metric:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -534,30 +568,51 @@
   <!-- SECTION 1: THE MCS PLAYBOOK / TEA OVERVIEW -->
   <section class="framework-section" id="core">
     <span class="framework-tag">01 / Core</span>
-    <h2>The MCS Playbook: techno-economic analysis</h2>
-    <p>The MCS Playbook provides the integrative analytical spine for this project. Developed in the UC Berkeley MCS curriculum, it structures climate solution evaluation into three steps.</p>
+    <h2>Techno-economic analysis: what the model finds</h2>
+    <p>The MCS Playbook asks three questions of every climate intervention: what is the technical potential, what does abatement cost, and where does uncertainty live? For this AMC, the answers are unusually strong across all three.</p>
 
-    <div class="playbook-steps">
-      <div class="playbook-card">
-        <div class="step-number">1</div>
-        <h3>Technical potential</h3>
-        <p>At the conservative baseline (20% methane reduction, 25% adoption, 10-year horizon), the program yields $11.48B in social benefit. The central scenario used elsewhere on the site assumes 50% adoption, producing the headline $14:$1 BCR.</p>
-        <p>On efficacy thresholds: the Target Product Profile aspires to ≥50% reduction; AMC eligibility floors at ≥20%; the analytical baseline uses 20% as a deliberately conservative assumption, ensuring the economic case holds even at the minimum qualifying efficacy.</p>
+    <div class="tea-metrics">
+      <div class="tea-metric">
+        <div class="tea-value">14.4&#x3a;1</div>
+        <div class="tea-label">Benefit-cost ratio</div>
+        <div class="tea-sub">Central scenario &middot; 50% adoption</div>
       </div>
-      <div class="playbook-card">
-        <div class="step-number">2</div>
-        <h3>Cost per tonne avoided</h3>
-        <p>Total program cost divided by lifetime abatement tonnage — the standardized metric for comparing climate interventions. Baseline: $3.21 per tCO&#x2082;e.</p>
+      <div class="tea-metric">
+        <div class="tea-value">$11.5B</div>
+        <div class="tea-label">Net present value</div>
+        <div class="tea-sub">Social benefit &middot; 10-year horizon</div>
       </div>
-      <div class="playbook-card">
-        <div class="step-number">3</div>
-        <h3>Caveats and sensitivity</h3>
-        <p>Dosing frequency, scientific feasibility, and adoption rate dominate the uncertainty space — each stress-tested interactively in the Sensitivity Studio.</p>
+      <div class="tea-metric">
+        <div class="tea-value">$3.21</div>
+        <div class="tea-label">Cost per tCO&#x2082;e avoided</div>
+        <div class="tea-sub">Baseline scenario &middot; GWP-100</div>
       </div>
     </div>
 
+    <p class="tea-benchmark">At $3.21 per tonne avoided, this AMC delivers abatement at roughly one-tenth the price of voluntary carbon market credits, which typically trade between $10 and $40 per tonne. The economic case is not marginal.</p>
+
+    <details>
+      <summary class="disclosure-toggle"><span class="toggle-arrow">&#9654;</span> Key modeling assumptions</summary>
+      <div class="disclosure-body">
+        <table class="tea-assumptions">
+          <thead>
+            <tr><th>Assumption</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Efficacy (methane reduction)</td><td>20% conservative baseline (TPP target: 50%)</td></tr>
+            <tr><td>Adoption rate</td><td>25% conservative &middot; 50% central scenario</td></tr>
+            <tr><td>Target population</td><td>90M U.S. cattle</td></tr>
+            <tr><td>Program horizon</td><td>10 years</td></tr>
+            <tr><td>AMC tail price</td><td>$16.40 per dose</td></tr>
+            <tr><td>Social cost of methane</td><td>$1,500 per tonne CH&#x2084; (GWP-100)</td></tr>
+            <tr><td>Discount rate</td><td>7% (OMB guidance)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
     <a href="sensitivity-studio.html" class="section-link">
-      Explore the full TEA in the Sensitivity Studio &rarr;
+      BCR and NPV shift significantly with adoption and dosing assumptions. Test them in the Sensitivity Studio &rarr;
     </a>
   </section>
 
@@ -747,15 +802,15 @@
     <a href="sensitivity-studio.html" class="section-link">Test how tail price and commitment size shift BCR in the Sensitivity Studio &rarr;</a>
   </section>
 
-</main>
+  <hr class="framework-rule">
+  <section class="framework-section whats-next">
+    <span class="section-next-label">What's next</span>
+    <h2>The next question</h2>
+    <p>This analysis stress-tests one mechanism in depth. The next question is which mechanism fits which market, time horizon, and risk appetite. Phase 2 of this work addresses that directly.</p>
+    <p>The <strong>Spark Enteric Methane Navigator</strong> maps 15+ market mechanism types across funder profiles, market stages, and political contexts, helping decision-makers identify where an AMC, carbon credit, subsidy, or regulatory instrument is most likely to succeed. It is in active development.</p>
+  </section>
 
-<div class="whats-next">
-  <span class="whats-next-label">What's next</span>
-  <h2>Which tool fits which market?</h2>
-  <p>Phase 1 of this work stress-tests a single mechanism: the AMC. The natural next question is how an AMC compares to the 15+ other market mechanisms available to funders and policymakers. Phase 2 addresses that directly.</p>
-  <p>The Spark Enteric Methane Navigator is a decision-support tool covering carbon credits, insetting, subsidies, regulatory pricing, results-based finance, and more. It maps each mechanism to the market conditions, time horizons, and risk appetites where it performs best.</p>
-  <a href="index.html#phase-two" class="section-link">See Phase 2 on the Read page &rarr;</a>
-</div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-inner">
