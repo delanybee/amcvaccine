@@ -437,18 +437,35 @@
     details summary { list-style: none; }
     details summary::-webkit-details-marker { display: none; }
     .disclosure-toggle {
-      display: inline-flex; align-items: center; gap: 6px;
-      margin-top: 20px; cursor: pointer;
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em;
+      display: flex; align-items: center; gap: 9px;
+      width: 100%; box-sizing: border-box;
+      margin-top: 24px; cursor: pointer;
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--text-muted);
-      transition: color 0.15s;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 5px; padding: 12px 16px;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
     }
-    .disclosure-toggle:hover { color: var(--accent); }
-    .disclosure-toggle .toggle-arrow { display: inline-block; transition: transform 0.2s; }
+    .disclosure-toggle:hover {
+      color: var(--accent); border-color: var(--accent);
+      background: var(--card);
+    }
+    details[open] > summary.disclosure-toggle {
+      border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+      border-color: var(--line); color: var(--heading);
+    }
+    .disclosure-toggle .toggle-arrow { display: inline-block; transition: transform 0.2s; flex-shrink: 0; }
     details[open] .disclosure-toggle .toggle-arrow { transform: rotate(90deg); }
+    details:not([open]) .disclosure-toggle::after {
+      content: "click to expand";
+      margin-left: auto;
+      font-size: 10px; letter-spacing: 0.1em;
+      color: var(--accent); opacity: 0.75;
+    }
     .disclosure-body {
-      margin-top: 14px; padding-top: 14px;
-      border-top: 1px solid var(--border);
+      margin-top: 0; padding: 18px 18px 20px;
+      border: 1px solid var(--line); border-top: none;
+      border-radius: 0 0 5px 5px;
     }
     .disclosure-intro {
       font-size: 13px; color: var(--text-muted); line-height: 1.7;
