@@ -456,53 +456,15 @@ strong { font-weight: 600; }
 
 /* ============ STUDIO SHOWCASE ============ */
 .studio-section {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--bg-alt);
   padding: 5rem 0;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.studio-section h2,
-.studio-section h3 { color: var(--bg); }
-.studio-section .eyebrow { color: #E89A98; }
-.studio-section a { color: #F0C5A8; }
-.studio-section p { color: rgba(245, 240, 230, 0.85); }
-.studio-frame-wrap {
-  margin-top: 3rem;
-  border: 1px solid rgba(245, 240, 230, 0.2);
-  background: var(--bg);
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
-}
-.studio-frame {
-  width: 100%;
-  height: 900px;
-  border: none;
-  display: block;
 }
 .studio-actions {
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   display: flex;
   gap: 1rem;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-wrap: wrap;
-}
-.explorer-frame-wrap {
-  margin-top: 1.5rem;
-  border: 1px solid rgba(245, 240, 230, 0.2);
-  background: var(--bg);
-  border-radius: 2px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px -20px rgba(0,0,0,0.5);
-  display: none;
-}
-.explorer-frame-wrap.is-open { display: block; }
-.explorer-frame {
-  width: 100%;
-  height: 900px;
-  border: none;
-  display: block;
 }
 .btn {
   font-family: var(--mono);
@@ -515,21 +477,129 @@ strong { font-weight: 600; }
   transition: all 0.2s;
 }
 .btn-primary {
-  background: var(--bg);
-  color: var(--ink);
-  border: 1px solid var(--bg);
-}
-.btn-primary:hover { background: transparent; color: var(--bg); }
-.btn-ghost {
-  background: transparent;
+  background: var(--ink);
   color: var(--bg);
-  border: 1px solid rgba(245, 240, 230, 0.3);
+  border: 1px solid var(--ink);
 }
-.btn-ghost:hover { border-color: var(--bg); }
+.btn-primary:hover { background: transparent; color: var(--ink); }
+
+/* Inline mini-studio */
+.inline-studio {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  padding: 2.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+@media (max-width: 640px) {
+  .inline-studio { grid-template-columns: 1fr; gap: 2rem; padding: 1.5rem; }
+}
+.inline-dosing-pills {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.inline-pill {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--ink-soft);
+  border-radius: 2px;
+  padding: 0.35rem 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+.inline-pill.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.inline-control {
+  margin-bottom: 1.25rem;
+}
+.inline-control label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+  margin-bottom: 0.4rem;
+  font-family: var(--serif-body);
+}
+.inline-val {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+.inline-studio input[type="range"] {
+  width: 100%;
+  appearance: none;
+  height: 3px;
+  background: var(--border);
+  border-radius: 999px;
+  outline: none;
+  display: block;
+}
+.inline-studio input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+.inline-studio input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.18);
+  cursor: pointer;
+}
+.inline-studio-outputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.75rem;
+  border-left: 1px solid var(--border);
+  padding-left: 3rem;
+}
+@media (max-width: 640px) {
+  .inline-studio-outputs { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 2rem; }
+}
+.inline-metric-value {
+  font-family: var(--serif-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  font-variation-settings: "opsz" 72, "SOFT" 50;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  transition: color 0.3s;
+}
+.inline-metric-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+.inline-metric-value.positive { color: #2C5F2E; }
+.inline-metric-value.negative { color: var(--accent); }
 
 /* ============ PHASE TWO ============ */
 .phase-two {
-  background: var(--bg-alt);
+  background: var(--bg);
 }
 .phase-card {
   margin-top: 2.5rem;
@@ -618,6 +688,10 @@ strong { font-weight: 600; }
   margin: 0.05em 0.08em -0.05em 0;
   color: var(--accent);
 }
+.lead-plain {
+  font-size: 1.1875rem;
+  line-height: 1.55;
+}
 
 /* ============ SECTION INDEX ============ */
 .section-index {
@@ -674,7 +748,7 @@ strong { font-weight: 600; }
       <span class="section-index">I · The big picture</span>
       <h2>Methane is the fastest lever of change the climate system offers.</h2>
       <p class="lead">Methane is the second most consequential climate pollutant after carbon dioxide. It accounts for roughly 30 percent of today's warming, and unlike CO2 it cycles out of the atmosphere in about a decade. That short atmospheric lifespan makes methane the most actionable near-term lever in climate, where reductions show up as measurable cooling within years, not generations.</p>
-      <p>The largest single source of human-caused methane is the digestive system of the world's roughly 1.5 billion cattle. Enteric fermentation, a byproduct of how ruminants extract energy from fibrous plants, releases methane primarily through belching. The technology to address it exists or is close. The economics do not yet.</p>
+      <p class="lead-plain">The largest single source of human-caused methane is the digestive system of the world's roughly 1.5 billion cattle. Enteric fermentation, a byproduct of how ruminants extract energy from fibrous plants, releases methane primarily through belching. The technology to address it exists or is close. The economics do not yet.</p>
     </div>
 
     <div class="stat-row">
@@ -745,7 +819,7 @@ strong { font-weight: 600; }
     <div class="prose">
       <span class="section-index">III · The case study</span>
       <h2>An Advance Market Commitment for a methane vaccine.</h2>
-      <p>An Advance Market Commitment is a binding promise to purchase a future product if it works. Sponsors commit upfront, but pay nothing if no qualifying product reaches commercial scale. The mechanism's strongest empirical precedent is the Pneumococcal AMC, which helped deliver vaccines to 1.7 billion children in low-income countries. The methane AMC draws on the same design principles and is co-developed with the same economist, Nobel Laureate Michael Kremer.</p>
+      <p>An Advance Market Commitment, a mechanism developed by economist Michael Kremer, is a binding promise to purchase a future product if it works. Sponsors commit upfront, but pay nothing if no qualifying product reaches commercial scale. The mechanism's strongest empirical precedent is the Pneumococcal AMC, which helped deliver vaccines to 1.7 billion children in low-income countries. The methane AMC draws on the same design principles and is co-developed with the same economist, Nobel Laureate Michael Kremer.</p>
 
       <p>The AMC is sized at a $750M design target, chosen to provide headroom over the $534M baseline modeled outlay, with total program cost (including non-AMC manufacturing and deployment) reaching $797M under baseline assumptions.</p>
 
@@ -857,18 +931,42 @@ strong { font-weight: 600; }
       <p>The figures above reflect one set of assumptions. Shift those assumptions and the numbers shift with them. The economics depend on three variables you can move: how many farmers adopt, how much society values each ton of methane avoided, and what the dosing regimen looks like. The Sensitivity Studio runs the model live. Drag the sliders and the BCR, NPV, required AMC size, and break-even adoption rate update in real time.</p>
     </div>
 
-    <div class="studio-frame-wrap">
-      <iframe class="studio-frame" src="sensitivity-studio.html" title="Sensitivity Studio: live BCR model" loading="lazy"></iframe>
+    <div class="inline-studio" id="inlineStudio">
+      <div class="inline-studio-controls">
+        <div class="inline-dosing-pills" role="group" aria-label="Dosing scenario">
+          <button class="inline-pill active" data-dose="baseline" type="button">Baseline</button>
+          <button class="inline-pill" data-dose="annual" type="button">Annual</button>
+          <button class="inline-pill" data-dose="booster" type="button">Prime + booster</button>
+        </div>
+        <div class="inline-control">
+          <label for="inlineAdoption"><span>Adoption rate</span><span class="inline-val" id="inlineAdoptionVal">50%</span></label>
+          <input type="range" id="inlineAdoption" min="0" max="100" value="50" step="1">
+        </div>
+        <div class="inline-control">
+          <label for="inlineSocial"><span>Social value ($/animal-yr)</span><span class="inline-val" id="inlineSocialVal">$30</span></label>
+          <input type="range" id="inlineSocial" min="22" max="38" value="30" step="1">
+        </div>
+      </div>
+      <div class="inline-studio-outputs">
+        <div class="inline-metric">
+          <div class="inline-metric-value" id="inlineBcr">14.41</div>
+          <div class="inline-metric-label">Benefit-cost ratio</div>
+        </div>
+        <div class="inline-metric">
+          <div class="inline-metric-value" id="inlineNpv">$11.2B</div>
+          <div class="inline-metric-label">Net present value</div>
+        </div>
+        <div class="inline-metric">
+          <div class="inline-metric-value" id="inlineBreakEven">3.5%</div>
+          <div class="inline-metric-label">Break-even adoption</div>
+        </div>
+      </div>
     </div>
 
     <div class="studio-actions">
-      <a href="sensitivity-studio.html" class="btn btn-primary">Open studio full-screen</a>
-      <button class="btn btn-ghost" id="explorerToggle" onclick="toggleExplorer()">See the case in seven charts</button>
+      <a href="sensitivity-studio.html" class="btn btn-primary">Open the full Sensitivity Studio</a>
     </div>
 
-    <div class="explorer-frame-wrap" id="explorerFrame">
-      <iframe class="explorer-frame" id="explorerIframe" src="" title="Data Explorer: seven charts" loading="lazy"></iframe>
-    </div>
   </div>
 </section>
 
@@ -924,19 +1022,62 @@ strong { font-weight: 600; }
 </footer>
 
 <script>
-function toggleExplorer() {
-  const wrap = document.getElementById('explorerFrame');
-  const iframe = document.getElementById('explorerIframe');
-  const btn = document.getElementById('explorerToggle');
-  const isOpen = wrap.classList.toggle('is-open');
-  if (isOpen) {
-    if (!iframe.src) iframe.src = 'data-explorer.html';
-    btn.textContent = 'Hide charts';
-    wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    btn.textContent = 'See the case in seven charts';
+(function () {
+  const dosingMeta = {
+    baseline: { amcM: 534.2, nonAmcM: 263 },
+    annual:   { amcM: 832.3, nonAmcM: 761 },
+    booster:  { amcM: 1068.4, nonAmcM: 950 }
+  };
+  let activeDose = 'baseline';
+
+  function fmt(v) {
+    const a = Math.abs(v);
+    if (a >= 1e9) return '$' + (v / 1e9).toFixed(2) + 'B';
+    if (a >= 1e6) return '$' + (v / 1e6).toFixed(1) + 'M';
+    return '$' + Math.round(v).toLocaleString();
   }
-}
+
+  function compute(adoption, social, dose) {
+    const benefits = 11.4842e9 * (adoption / 50) * (social / 30);
+    const m = dosingMeta[dose];
+    const totalCost = (m.amcM + m.nonAmcM) * 1e6;
+    const bcr = benefits / totalCost;
+    const npv = benefits - totalCost;
+    const breakEven = (totalCost * 50 * 30) / (11.4842e9 * social);
+    return { bcr, npv, breakEven };
+  }
+
+  function update() {
+    const adoption = parseFloat(document.getElementById('inlineAdoption').value);
+    const social   = parseFloat(document.getElementById('inlineSocial').value);
+    document.getElementById('inlineAdoptionVal').textContent = adoption + '%';
+    document.getElementById('inlineSocialVal').textContent   = '$' + social;
+    const r = compute(adoption, social, activeDose);
+    const bcrEl = document.getElementById('inlineBcr');
+    const npvEl = document.getElementById('inlineNpv');
+    bcrEl.textContent = r.bcr.toFixed(2);
+    npvEl.textContent = fmt(r.npv);
+    document.getElementById('inlineBreakEven').textContent = r.breakEven.toFixed(1) + '%';
+    bcrEl.classList.toggle('positive', r.bcr >= 1);
+    bcrEl.classList.toggle('negative', r.bcr < 1);
+    npvEl.classList.toggle('positive', r.npv >= 0);
+    npvEl.classList.toggle('negative', r.npv < 0);
+  }
+
+  document.getElementById('inlineAdoption').addEventListener('input', update);
+  document.getElementById('inlineSocial').addEventListener('input', update);
+
+  document.querySelectorAll('.inline-pill').forEach(btn => {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.inline-pill').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      activeDose = this.dataset.dose;
+      update();
+    });
+  });
+
+  update();
+}());
 </script>
 
 </body>
