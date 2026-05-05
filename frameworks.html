@@ -429,6 +429,21 @@
       color: var(--text-muted);
     }
 
+    /* IN-PAGE TOC */
+    .framework-toc {
+      max-width: 820px; margin: 0 auto; padding: 1.25rem 32px;
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .framework-toc a {
+      font-family: var(--font-mono); font-size: 0.7rem;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-muted); text-decoration: none;
+      padding-bottom: 2px; border-bottom: 1px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .framework-toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
     /* FOOTER */
     .footer {
       max-width: 820px; margin: 40px auto 0; padding: 28px;
@@ -493,8 +508,16 @@
 
 <main>
 
+<nav class="framework-toc" aria-label="Section navigation">
+  <a href="#core">01 / Core</a>
+  <a href="#lca">02 / LCA</a>
+  <a href="#pathways">03 / Pathways</a>
+  <a href="#cobenefits">04 / Co-benefits</a>
+  <a href="#amc-design">05 / AMC Design</a>
+</nav>
+
   <!-- SECTION 1: THE MCS PLAYBOOK / TEA OVERVIEW -->
-  <section class="framework-section">
+  <section class="framework-section" id="core">
     <span class="framework-tag">01 / Core</span>
     <h2>The MCS Playbook: techno-economic analysis</h2>
     <p>The MCS Playbook provides the integrative analytical spine for this project. Developed in the UC Berkeley MCS curriculum, it structures climate solution evaluation into three steps.</p>
@@ -503,7 +526,8 @@
       <div class="playbook-card">
         <div class="step-number">1</div>
         <h3>Technical potential</h3>
-        <p>At a conservative scenario (20% reduction across 90M U.S. cattle at 25% adoption), the program yields $11.48B in social benefit over a 10-year horizon. The central scenario used elsewhere on the site assumes 50% adoption, which produces the headline $14:$1 BCR. The Target Product Profile aspires to ≥50% reduction; AMC eligibility floors at ≥20%; the analytical baseline uses 20% as a deliberately conservative modeling assumption, ensuring the economic case holds even at the minimum qualifying efficacy.</p>
+        <p>At the conservative baseline (20% methane reduction, 25% adoption, 10-year horizon), the program yields $11.48B in social benefit. The central scenario used elsewhere on the site assumes 50% adoption, producing the headline $14:$1 BCR.</p>
+        <p>On efficacy thresholds: the Target Product Profile aspires to ≥50% reduction; AMC eligibility floors at ≥20%; the analytical baseline uses 20% as a deliberately conservative assumption, ensuring the economic case holds even at the minimum qualifying efficacy.</p>
       </div>
       <div class="playbook-card">
         <div class="step-number">2</div>
@@ -524,26 +548,29 @@
 
   <!-- SECTION 2: LIFECYCLE ASSESSMENT -->
   <hr class="framework-rule">
-  <section class="framework-section">
+  <section class="framework-section" id="lca">
     <span class="framework-tag">02 / LCA</span>
     <h2>Lifecycle assessment</h2>
     <p>A simplified LCA defines the system boundary for the methane vaccine intervention and evaluates whether the lifecycle emissions of vaccine production and deployment are justified by the methane abatement achieved.</p>
 
-    <h3>System boundary</h3>
-    <p>The LCA boundary encompasses five stages: R&amp;D inputs (lab energy, materials, clinical trials), manufacturing (bioreactor energy, raw materials, cold chain), distribution (transport to farms, refrigeration), administration (veterinary labor, animal handling), and the use phase (methane reduction over the animal's productive lifespan). End-of-life considerations are minimal since the vaccine is metabolized by the animal.</p>
-
-    <div class="lca-flow">
-      <div class="lca-stage source">R&amp;D inputs</div>
-      <div class="lca-arrow">&rarr;</div>
-      <div class="lca-stage source">Manufacturing</div>
-      <div class="lca-arrow">&rarr;</div>
-      <div class="lca-stage source">Distribution</div>
-      <div class="lca-arrow">&rarr;</div>
-      <div class="lca-stage source">Administration</div>
-      <div class="lca-arrow">&rarr;</div>
-      <div class="lca-stage benefit">Use phase<br>Methane reduction</div>
-    </div>
-    <p class="lca-note">Net lifecycle impact: overwhelmingly positive</p>
+    <details>
+      <summary class="disclosure-toggle"><span class="toggle-arrow">&#9654;</span> System boundary</summary>
+      <div class="disclosure-body">
+        <p>The LCA boundary encompasses five stages: R&amp;D inputs (lab energy, materials, clinical trials), manufacturing (bioreactor energy, raw materials, cold chain), distribution (transport to farms, refrigeration), administration (veterinary labor, animal handling), and the use phase (methane reduction over the animal's productive lifespan). End-of-life considerations are minimal since the vaccine is metabolized by the animal.</p>
+        <div class="lca-flow">
+          <div class="lca-stage source">R&amp;D inputs</div>
+          <div class="lca-arrow">&rarr;</div>
+          <div class="lca-stage source">Manufacturing</div>
+          <div class="lca-arrow">&rarr;</div>
+          <div class="lca-stage source">Distribution</div>
+          <div class="lca-arrow">&rarr;</div>
+          <div class="lca-stage source">Administration</div>
+          <div class="lca-arrow">&rarr;</div>
+          <div class="lca-stage benefit">Use phase<br>Methane reduction</div>
+        </div>
+        <p class="lca-note">Net lifecycle impact: overwhelmingly positive</p>
+      </div>
+    </details>
 
     <h3>Key finding</h3>
     <p>The lifecycle emissions of vaccine production are negligible relative to the methane abatement achieved. Each vaccinated animal avoids approximately 0.014 metric tons of methane per year (0.392 tons CO2e at GWP-28), while vaccine manufacturing and distribution emissions are estimated in the low single-digit kilograms of CO2e per dose. The ratio of avoided to embodied emissions is on the order of 100:1 or greater.</p>
@@ -577,13 +604,17 @@
 
   <!-- SECTION 3: PATHWAYS AND BARRIERS -->
   <hr class="framework-rule">
-  <section class="framework-section">
+  <section class="framework-section" id="pathways">
     <span class="framework-tag">03 / Pathways</span>
     <h2>Pathways and barriers</h2>
     <p>The transitions framework identifies where the AMC intervenes in the innovation system and what structural barriers it must overcome to succeed.</p>
 
-    <h3>The AMC as a niche-stimulation intervention</h3>
-    <p>In transition theory terms, enteric methane reduction is a niche technology attempting to disrupt an established regime (conventional livestock production with no methane pricing). The regime is stable because producers face no financial penalty for methane emissions and no financial reward for reducing them. The AMC functions as a niche-stimulation mechanism: it creates an artificial demand signal that allows the niche to develop without requiring the regime itself to change first.</p>
+    <details>
+      <summary class="disclosure-toggle"><span class="toggle-arrow">&#9654;</span> The AMC as a niche-stimulation intervention</summary>
+      <div class="disclosure-body">
+        <p>In transition theory terms, enteric methane reduction is a niche technology attempting to disrupt an established regime (conventional livestock production with no methane pricing). The regime is stable because producers face no financial penalty for methane emissions and no financial reward for reducing them. The AMC functions as a niche-stimulation mechanism: it creates an artificial demand signal that allows the niche to develop without requiring the regime itself to change first.</p>
+      </div>
+    </details>
 
     <h3>Structural barriers</h3>
     <div class="barrier-grid">
@@ -617,28 +648,33 @@
 
   <!-- SECTION 4: CO-BENEFITS -->
   <hr class="framework-rule">
-  <section class="framework-section">
+  <section class="framework-section" id="cobenefits">
     <span class="framework-tag">04 / Co-benefits</span>
     <span class="wip-badge forthcoming">Forthcoming in final deliverable, May 2026</span>
     <h2>Co-benefits analysis</h2>
     <p>In the current political environment, co-benefits are often the critical path to adoption. Five non-climate dimensions are under active analysis.</p>
-    <div class="wip-teaser">
-      <p class="wip-teaser-label">Five dimensions under analysis</p>
-      <div class="wip-teaser-dims">
-        <span class="wip-dim">Rural economic development</span>
-        <span class="wip-dim">Food system resilience</span>
-        <span class="wip-dim">Trade competitiveness</span>
-        <span class="wip-dim">Innovation spillovers</span>
-        <span class="wip-dim">Global health equity</span>
+    <details>
+      <summary class="disclosure-toggle"><span class="toggle-arrow">&#9654;</span> Dimensions under analysis</summary>
+      <div class="disclosure-body">
+        <div class="wip-teaser">
+          <p class="wip-teaser-label">Five dimensions</p>
+          <div class="wip-teaser-dims">
+            <span class="wip-dim">Rural economic development</span>
+            <span class="wip-dim">Food system resilience</span>
+            <span class="wip-dim">Trade competitiveness</span>
+            <span class="wip-dim">Innovation spillovers</span>
+            <span class="wip-dim">Global health equity</span>
+          </div>
+          <p style="margin-top:14px;font-size:13px;color:var(--text-muted);font-style:italic;margin-bottom:0">Quantitative estimates and supporting literature forthcoming in the final deliverable.</p>
+        </div>
       </div>
-      <p style="margin-top:14px;font-size:13px;color:var(--text-muted);font-style:italic;margin-bottom:0">Quantitative estimates and supporting literature forthcoming in the final deliverable.</p>
-    </div>
+    </details>
   </section>
 
   <hr class="framework-rule">
-  <section class="framework-section">
+  <section class="framework-section" id="amc-design">
     <span class="framework-tag">05 / AMC Design</span>
-    <h2>Governance architecture: Traditional vs. Hybrid</h2>
+    <h2>AMC design: governance architecture</h2>
     <p>The most consequential design choice in an AMC is not whether to deploy one — it is how the capital commitment is structured relative to the product's stage of development. Two architectures are viable for a methane vaccine AMC, each calibrated to a different assumption about when credible demand signals can be established and how much coordination overhead sponsors are willing to carry.</p>
 
     <div class="barrier-grid">
@@ -668,27 +704,30 @@
       </div>
     </div>
 
-    <h3>Key design parameters</h3>
-    <p>Four parameters set the economic terms of the commitment regardless of which architecture is chosen.</p>
-
-    <div class="barrier-grid">
-      <div class="barrier-card">
-        <h4>Tail price</h4>
-        <p>The subsidized per-dose price paid above market rate — the demand premium that makes development economically viable. At $16.40/dose (baseline), this AMC targets a BCR above 14:1. Setting the tail price too low fails to attract innovators; too high reduces fund efficiency once the market is established.</p>
+    <details>
+      <summary class="disclosure-toggle"><span class="toggle-arrow">&#9654;</span> Key design parameters</summary>
+      <div class="disclosure-body">
+        <p>Four parameters set the economic terms of the commitment regardless of which architecture is chosen.</p>
+        <div class="barrier-grid">
+          <div class="barrier-card">
+            <h4>Tail price</h4>
+            <p>The subsidized per-dose price paid above market rate — the demand premium that makes development economically viable. At $16.40/dose (baseline), this AMC targets a BCR above 14:1. Setting the tail price too low fails to attract innovators; too high reduces fund efficiency once the market is established.</p>
+          </div>
+          <div class="barrier-card">
+            <h4>Commitment size</h4>
+            <p>Total fund capitalization — $534M at baseline — sets the ceiling for doses purchased at the tail price. The commitment must be large enough to justify the innovator's R&amp;D investment while remaining within bounds that sponsors can credibly raise and deploy.</p>
+          </div>
+          <div class="barrier-card">
+            <h4>Eligibility criteria</h4>
+            <p>The technical specifications a vaccine must meet to qualify: minimum efficacy threshold (&ge;20% methane reduction), safety requirements, dosing frequency, and delivery format. These criteria protect against underpowered products while remaining within reach of current science.</p>
+          </div>
+          <div class="barrier-card">
+            <h4>Verification protocol</h4>
+            <p>How compliance is confirmed at the farm level. This AMC proposes vaccination verification — digital IDs, vial serial numbers, ear tags — rather than direct emissions measurement, substantially lowering MRV burden and making the mechanism viable in low-infrastructure settings globally.</p>
+          </div>
+        </div>
       </div>
-      <div class="barrier-card">
-        <h4>Commitment size</h4>
-        <p>Total fund capitalization — $534M at baseline — sets the ceiling for doses purchased at the tail price. The commitment must be large enough to justify the innovator's R&amp;D investment while remaining within bounds that sponsors can credibly raise and deploy.</p>
-      </div>
-      <div class="barrier-card">
-        <h4>Eligibility criteria</h4>
-        <p>The technical specifications a vaccine must meet to qualify: minimum efficacy threshold (&ge;20% methane reduction), safety requirements, dosing frequency, and delivery format. These criteria protect against underpowered products while remaining within reach of current science.</p>
-      </div>
-      <div class="barrier-card">
-        <h4>Verification protocol</h4>
-        <p>How compliance is confirmed at the farm level. This AMC proposes vaccination verification — digital IDs, vial serial numbers, ear tags — rather than direct emissions measurement, substantially lowering MRV burden and making the mechanism viable in low-infrastructure settings globally.</p>
-      </div>
-    </div>
+    </details>
 
     <a href="sensitivity-studio.html" class="section-link">Test how tail price and commitment size shift BCR in the Sensitivity Studio &rarr;</a>
   </section>
