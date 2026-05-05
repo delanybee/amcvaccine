@@ -54,60 +54,129 @@ body {
 }
 
 /* ============ NAV ============ */
-.site-nav {
-  border-bottom: 1px solid var(--border);
+/* SITE MASTHEAD */
+.site-masthead {
   background: var(--bg);
+  border-bottom: 1px solid var(--rule);
   position: sticky;
   top: 0;
-  z-index: 50;
-  backdrop-filter: blur(8px);
-  background: rgba(245, 240, 230, 0.92);
+  z-index: 100;
+  transition: padding 0.25s ease;
 }
-.site-nav-inner {
+.masthead-inner {
   max-width: var(--col-wide);
   margin: 0 auto;
-  padding: 1.1rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  padding: 2rem 1.5rem 1.25rem;
+  text-align: center;
+  transition: padding 0.25s ease, opacity 0.25s ease;
 }
-.site-nav-brand {
-  font-family: var(--serif-display);
+.masthead-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
   font-weight: 500;
-  font-variation-settings: "opsz" 144, "SOFT" 0;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  text-decoration: none;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.875rem;
 }
-.site-nav-brand em {
+.masthead-title {
+  font-family: var(--serif-display);
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 380;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  line-height: 1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin: 0 0 0.875rem;
+}
+.masthead-title em {
   font-style: italic;
   font-variation-settings: "opsz" 144, "SOFT" 100;
   color: var(--accent);
 }
-.site-nav-links {
+.masthead-byline {
+  font-family: var(--serif-display);
+  font-size: 0.8125rem;
+  font-style: italic;
+  font-variation-settings: "opsz" 18, "SOFT" 60;
+  font-weight: 380;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+.site-nav {
+  border-top: 1px solid var(--rule);
+  padding: 0.75rem 1.5rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1.75rem;
-  font-family: var(--serif-body);
+  background: var(--bg);
+  transition: padding 0.25s ease;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+.nav-item:hover { color: var(--accent); }
+.nav-item.is-active { color: var(--ink); font-weight: 500; }
+.nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--muted);
+  background: transparent;
+  transition: background 0.15s ease, border-color 0.15s ease, width 0.25s ease, height 0.25s ease;
+}
+.nav-item.is-active .nav-dot { background: var(--accent); border-color: var(--accent); }
+.nav-item:hover .nav-dot { border-color: var(--accent); }
+/* Collapsed state */
+.site-masthead.is-collapsed .masthead-inner {
+  padding: 0;
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.site-masthead.is-collapsed .site-nav {
+  padding: 0.6rem 1.5rem;
+  border-top: none;
+  justify-content: space-between;
+  max-width: var(--col-wide);
+  margin: 0 auto;
+  gap: 1.25rem;
+}
+.site-masthead.is-collapsed::before {
+  content: "A Methane AMC Case Study";
+  font-family: var(--serif-display);
   font-size: 0.875rem;
   font-weight: 500;
-}
-.site-nav-links a {
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-  transition: border-color 0.2s, color 0.2s;
-}
-.site-nav-links a:hover {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
-.site-nav-links a.active {
+  font-variation-settings: "opsz" 36, "SOFT" 30;
+  letter-spacing: -0.01em;
   color: var(--ink);
-  border-bottom-color: var(--ink);
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+.site-masthead.is-collapsed .nav-item { font-size: 0.625rem; gap: 0.4rem; }
+.site-masthead.is-collapsed .nav-dot { width: 6px; height: 6px; }
+@media (max-width: 700px) {
+  .masthead-inner { padding: 1.5rem 1rem 1rem; }
+  .masthead-title { font-size: 1.5rem; }
+  .masthead-byline { font-size: 0.75rem; }
+  .site-nav { gap: 1.25rem; padding: 0.625rem 1rem; }
+  .nav-item { font-size: 0.625rem; }
+  .site-masthead.is-collapsed::before { font-size: 0.75rem; left: 1rem; }
+  .site-masthead.is-collapsed .nav-label { display: none; }
+  .site-masthead.is-collapsed .site-nav { gap: 0.75rem; padding: 0.5rem 1rem; }
 }
 
 /* ============ LAYOUT ============ */
@@ -713,19 +782,36 @@ strong { font-weight: 600; }
 
 <body>
 
-<!-- ============ NAV ============ -->
-<nav class="site-nav">
-  <div class="site-nav-inner">
-    <a href="index.html" class="site-nav-brand">A Methane AMC <em>Case Study</em></a>
-    <div class="site-nav-links">
-      <a href="index.html" class="active">Read</a>
-      <a href="storymap.html">See</a>
-      <a href="data-explorer.html">Explore</a>
-      <a href="sensitivity-studio.html">Test</a>
-      <a href="frameworks.html">Design</a>
-    </div>
+<!-- ============ MASTHEAD ============ -->
+<header class="site-masthead" id="siteMasthead">
+  <div class="masthead-inner">
+    <div class="masthead-eyebrow">Capstone, Spring 2026</div>
+    <h1 class="masthead-title">A Methane AMC <em>Case Study</em></h1>
+    <div class="masthead-byline">Delany Broome &middot; UC Berkeley, Master of Climate Solutions</div>
   </div>
-</nav>
+  <nav class="site-nav" aria-label="Main">
+    <a href="index.html" class="nav-item is-active" data-page="read">
+      <span class="nav-dot"></span>
+      <span class="nav-label">Read</span>
+    </a>
+    <a href="storymap.html" class="nav-item" data-page="see">
+      <span class="nav-dot"></span>
+      <span class="nav-label">See</span>
+    </a>
+    <a href="data-explorer.html" class="nav-item" data-page="explore">
+      <span class="nav-dot"></span>
+      <span class="nav-label">Explore</span>
+    </a>
+    <a href="sensitivity-studio.html" class="nav-item" data-page="test">
+      <span class="nav-dot"></span>
+      <span class="nav-label">Test</span>
+    </a>
+    <a href="frameworks.html" class="nav-item" data-page="design">
+      <span class="nav-dot"></span>
+      <span class="nav-label">Design</span>
+    </a>
+  </nav>
+</header>
 
 <!-- ============ HERO ============ -->
 <header class="hero">
@@ -1022,6 +1108,18 @@ strong { font-weight: 600; }
 </footer>
 
 <script>
+(function () {
+  var masthead = document.getElementById('siteMasthead');
+  if (masthead) {
+    var _collapsed = false;
+    function _onMastheadScroll() {
+      var should = window.scrollY > 120;
+      if (should !== _collapsed) { _collapsed = should; masthead.classList.toggle('is-collapsed', _collapsed); }
+    }
+    window.addEventListener('scroll', _onMastheadScroll, { passive: true });
+    _onMastheadScroll();
+  }
+}());
 (function () {
   const dosingMeta = {
     baseline: { amcM: 534.2, nonAmcM: 263 },

@@ -3,17 +3,20 @@
     var nav = document.querySelector('.site-nav');
     if (!nav) return;
 
-    // Suppress CSS ::after / ::before pseudo-element tooltips — Tippy handles them
-    var s = document.createElement('style');
-    s.textContent = '.nav-link::after, .nav-link::before { display: none !important; }';
-    document.head.appendChild(s);
-
-    // --- Scroll-aware compact state ---
-    function onScroll() {
-      nav.classList.toggle('nav-scrolled', window.scrollY > 60);
+    // --- Masthead collapse on scroll ---
+    var masthead = document.getElementById('siteMasthead');
+    if (masthead) {
+      var _mastheadCollapsed = false;
+      function _onMastheadScroll() {
+        var should = window.scrollY > 120;
+        if (should !== _mastheadCollapsed) {
+          _mastheadCollapsed = should;
+          masthead.classList.toggle('is-collapsed', _mastheadCollapsed);
+        }
+      }
+      window.addEventListener('scroll', _onMastheadScroll, { passive: true });
+      _onMastheadScroll();
     }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
 
     // --- Progress bar (shared across all pages) ---
     var progressBar = document.getElementById('progressBar');
