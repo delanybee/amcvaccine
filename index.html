@@ -776,6 +776,47 @@ strong { font-weight: 600; }
 @media (max-width: 600px) {
   section { padding: 3.5rem 0; }
   .hero { padding: 4rem 0 3.5rem; }
+}
+/* NEXT PROMPT */
+.next-prompt {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--rule);
+  padding: 4rem 1.5rem;
+}
+.next-prompt-inner { max-width: var(--col-wide); margin: 0 auto; }
+.next-prompt-meta {
+  font-family: var(--mono); font-size: 0.6875rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.75rem;
+}
+.next-prompt-title {
+  font-family: var(--serif-display); font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 420; font-variation-settings: "opsz" 72, "SOFT" 30;
+  line-height: 1.1; letter-spacing: -0.02em;
+  color: var(--ink); margin: 0 0 0.875rem;
+}
+.next-prompt-title em {
+  font-style: italic; font-variation-settings: "opsz" 72, "SOFT" 100;
+  color: var(--accent);
+}
+.next-prompt-tagline {
+  font-family: var(--serif-body); font-size: 1rem;
+  line-height: 1.55; color: var(--ink-soft);
+  font-style: italic; max-width: 52ch; margin: 0 0 1.75rem;
+}
+.next-prompt-link {
+  display: inline-block; font-family: var(--mono); font-size: 0.75rem;
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--accent); text-decoration: none;
+  padding: 0.75rem 1.25rem; border: 1px solid var(--accent);
+  border-radius: 4px; transition: background 0.15s ease, color 0.15s ease;
+}
+.next-prompt-link:hover { background: var(--accent); color: white; }
+@media (max-width: 700px) {
+  .next-prompt { padding: 3rem 1rem; }
+  .next-prompt-title { font-size: 1.375rem; }
+  .next-prompt-tagline { font-size: 0.9375rem; }
+}
 
 </style>
 </head>
@@ -1096,6 +1137,15 @@ strong { font-weight: 600; }
     </div>
   </div>
 </section>
+
+<div class="next-prompt">
+  <div class="next-prompt-inner">
+    <div class="next-prompt-meta">Next</div>
+    <h3 class="next-prompt-title">02 / See &middot; <em>The visual case</em></h3>
+    <p class="next-prompt-tagline">A scrollytelling walk through the AMC mechanism, from the methane problem to the adoption gap.</p>
+    <a href="storymap.html" class="next-prompt-link">Continue &rarr;</a>
+  </div>
+</div>
 
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">
