@@ -648,7 +648,7 @@ strong { font-weight: 600; }
       <a href="storymap.html">See</a>
       <a href="data-explorer.html">Explore</a>
       <a href="sensitivity-studio.html">Test</a>
-      <a href="frameworks.html">Methodology</a>
+      <a href="frameworks.html">Design</a>
     </div>
   </div>
 </nav>
@@ -707,8 +707,8 @@ strong { font-weight: 600; }
   <div class="container">
     <div class="prose">
       <span class="section-index">II · What Spark is doing</span>
-      <h2>The constraint is coordination, not science.</h2>
-      <p>Spark Climate Solutions is a science-driven nonprofit focused on neglected, high-impact climate problems. Its 2025 <em>Livestock Enteric Methane Mitigation Roadmap</em> argues that the field is constrained not by scientific feasibility but by coordination. Promising technologies exist or are within reach. The conditions for getting them developed, approved, deployed, and adopted are not yet in place.</p>
+      <h2>What to do when the bottleneck is coordination.</h2>
+      <p>Spark Climate Solutions is a science-driven nonprofit focused on neglected, high-impact climate problems. Its 2025 <em>Livestock Enteric Methane Mitigation Roadmap</em> identifies coordination as the field's primary bottleneck. Promising technologies exist or are within reach. The conditions for getting them developed, approved, deployed, and adopted are not yet in place.</p>
       <p>The roadmap organizes the field around four interconnected pillars. This capstone focuses on the second.</p>
     </div>
 
@@ -717,7 +717,7 @@ strong { font-weight: 600; }
         <div class="pillar">
           <div class="pillar-num">01 / Innovate</div>
           <h4>Develop global solutions</h4>
-          <p>Build technologies that meet a Target Product Profile: at least 50 percent methane reduction, no harm to productivity, broad applicability across pasture-based systems, deployment-readiness by 2030. No current solution clears all six bars.</p>
+          <p>Build technologies that meet a Target Product Profile: at least 50 percent methane reduction (AMC eligibility floors at ≥20%, with the TPP setting the long-run aspiration), no harm to productivity, broad applicability across pasture-based systems, deployment-readiness by 2030. No current solution clears all six bars.</p>
         </div>
         <div class="pillar">
           <div class="pillar-num">02 / Incentivize</div>
@@ -746,6 +746,8 @@ strong { font-weight: 600; }
       <span class="section-index">III · The case study</span>
       <h2>An Advance Market Commitment for a methane vaccine.</h2>
       <p>An Advance Market Commitment is a binding promise to purchase a future product if it works. Sponsors commit upfront, but pay nothing if no qualifying product reaches commercial scale. The mechanism's strongest empirical precedent is the Pneumococcal AMC, which helped deliver vaccines to 1.7 billion children in low-income countries. The methane AMC draws on the same design principles and is co-developed with the same economist, Nobel Laureate Michael Kremer.</p>
+
+      <p>The AMC is sized at a $750M design target, chosen to provide headroom over the $534M baseline modeled outlay, with total program cost (including non-AMC manufacturing and deployment) reaching $797M under baseline assumptions.</p>
 
       <div class="partners">
         <span class="partners-label">AMC coalition partners</span>
@@ -785,7 +787,7 @@ strong { font-weight: 600; }
     </div>
 
     <div class="prose">
-      <p style="margin-top: 2.5rem;">By the standard tools of cost-benefit analysis, the AMC clears the bar comfortably. That is the question economic analysis was designed to answer. It is not the only question that matters.</p>
+      <p style="margin-top: 2.5rem;">By the standard tools of cost-benefit analysis, the AMC clears the bar comfortably. The economic case closes. The harder question is whether the structural conditions for that return to materialize are in place.</p>
     </div>
   </div>
 </section>
@@ -806,7 +808,7 @@ strong { font-weight: 600; }
     <div class="prose">
       <span class="section-index">IV · The constraints</span>
       <h2>Five structural barriers, one mechanism.</h2>
-      <p>Halfway through the analysis, a different question emerged. The economic models produce a confident answer because they treat adoption as a free parameter. But adoption is not a free parameter, and the gap between <em>"the model says farmers will adopt at this net price"</em> and <em>"farmers actually adopt"</em> is where the AMC's real risk lives.</p>
+      <p>Halfway through the analysis, a different question emerged. The economic models treat adoption as a free parameter. The structural analysis asks what it actually takes for farmers to adopt, which is a separate question from whether the BCR is favorable.</p>
       <p>An adapted version of the project's Pathways and Barriers framework names five structural barriers and the AMC's relationship to each.</p>
     </div>
 
@@ -841,7 +843,7 @@ strong { font-weight: 600; }
     </div>
 
     <div class="prose" style="margin-top: 3.5rem;">
-      <p>The conclusion from Phase 1 is not that the AMC is the wrong tool. It is that rigorous economic analysis answers the question of whether the mechanism's expected return justifies its commitment. It does not answer the question of whether the structural conditions for that return to materialize are in place. Those are different questions, and they require different analytical tools.</p>
+      <p>Phase 1 establishes that the economic case is strong. Rigorous cost-benefit analysis can show whether expected returns justify the commitment; it cannot show whether the structural conditions for those returns to materialize are in place. Those require different analytical tools.</p>
     </div>
   </div>
 </section>
@@ -852,7 +854,7 @@ strong { font-weight: 600; }
     <div class="prose">
       <span class="eyebrow">V · Stress-test the assumptions</span>
       <h2>The model, in your hands.</h2>
-      <p>The figures above are baselines, not certainties. The economics depend on three variables you can move: how many farmers adopt, how much society values each ton of methane avoided, and what the dosing regimen looks like. The Sensitivity Studio runs the model live. Drag the sliders and the BCR, NPV, required AMC size, and break-even adoption rate update in real time.</p>
+      <p>The figures above reflect one set of assumptions. Shift those assumptions and the numbers shift with them. The economics depend on three variables you can move: how many farmers adopt, how much society values each ton of methane avoided, and what the dosing regimen looks like. The Sensitivity Studio runs the model live. Drag the sliders and the BCR, NPV, required AMC size, and break-even adoption rate update in real time.</p>
     </div>
 
     <div class="studio-frame-wrap">
@@ -861,11 +863,11 @@ strong { font-weight: 600; }
 
     <div class="studio-actions">
       <a href="sensitivity-studio.html" class="btn btn-primary">Open studio full-screen</a>
-      <button class="btn btn-ghost" id="explorerToggle" onclick="toggleExplorer()">See the case in five charts</button>
+      <button class="btn btn-ghost" id="explorerToggle" onclick="toggleExplorer()">See the case in seven charts</button>
     </div>
 
     <div class="explorer-frame-wrap" id="explorerFrame">
-      <iframe class="explorer-frame" id="explorerIframe" src="" title="Data Explorer: five charts" loading="lazy"></iframe>
+      <iframe class="explorer-frame" id="explorerIframe" src="" title="Data Explorer: seven charts" loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -899,7 +901,7 @@ strong { font-weight: 600; }
         <span class="section-index">About this work</span>
         <h2 style="font-size: 1.5rem;">Behind the analysis</h2>
         <p>This essay is the editorial distillation of a capstone project for the Master of Climate Solutions at UC Berkeley's Rausser College of Natural Resources, produced in collaboration with Spark Climate Solutions and building on Spark's 2025 Livestock Enteric Methane Mitigation Roadmap.</p>
-        <p>The full project includes a story map, a five-chart data explorer, the live sensitivity studio embedded above, an analytical frameworks page, and the Phase 2 Market Mechanism Navigator.</p>
+        <p>The full project includes a story map, a seven-chart data explorer, the live sensitivity studio embedded above, an analytical frameworks page, and the Phase 2 Market Mechanism Navigator.</p>
       </div>
       <div>
         <span class="section-index">Sources</span>
@@ -932,7 +934,7 @@ function toggleExplorer() {
     btn.textContent = 'Hide charts';
     wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
-    btn.textContent = 'See the case in five charts';
+    btn.textContent = 'See the case in seven charts';
   }
 }
 </script>

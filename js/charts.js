@@ -209,6 +209,113 @@
         },
       },
     });
+
+    createAdoptionGapChart();
+  }
+
+  function createAdoptionGapChart() {
+    var el = document.getElementById('adoptionGapChart');
+    if (!el) return;
+    var years = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    var modeled = [0, 2, 6, 14, 26, 38, 45, 48, 49, 50, 50];
+    var likely  = [0, 1, 3,  7, 13, 19, 23, 26, 28, 29, 30];
+    new Chart(el, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: [
+          {
+            label: 'Modeled',
+            data: modeled,
+            borderColor: COLORS.teal,
+            backgroundColor: 'transparent',
+            borderWidth: 2.5,
+            pointRadius: 0,
+            tension: 0.35,
+            fill: false,
+            order: 1,
+          },
+          {
+            label: 'Likely',
+            data: likely,
+            borderColor: COLORS.muted,
+            backgroundColor: 'transparent',
+            borderWidth: 2,
+            borderDash: [6, 4],
+            pointRadius: 0,
+            tension: 0.35,
+            fill: false,
+            order: 2,
+          },
+          {
+            label: '_gap',
+            data: modeled,
+            borderColor: 'transparent',
+            backgroundColor: 'rgba(92,122,78,0.12)',
+            borderWidth: 0,
+            pointRadius: 0,
+            tension: 0.35,
+            fill: '+1',
+            order: 3,
+          },
+          {
+            label: '_gap_base',
+            data: likely,
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            pointRadius: 0,
+            tension: 0.35,
+            fill: false,
+            order: 4,
+          },
+        ],
+      },
+      options: {
+        ...defaultOptions(),
+        plugins: {
+          ...defaultOptions().plugins,
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              color: COLORS.text,
+              font: { family: "'Source Sans 3', sans-serif" },
+              usePointStyle: true,
+              pointStyle: 'line',
+              filter: function(item) { return item.text.charAt(0) !== '_'; },
+            },
+          },
+          tooltip: {
+            ...defaultOptions().plugins.tooltip,
+            callbacks: {
+              label: function(ctx) {
+                if (ctx.dataset.label.charAt(0) === '_') return null;
+                return ctx.dataset.label + ': ' + ctx.parsed.y + '%';
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            ...defaultOptions().scales.x,
+            title: { display: true, text: 'Years from AMC launch', color: COLORS.text },
+          },
+          y: {
+            ...defaultOptions().scales.y,
+            min: 0,
+            max: 100,
+            ticks: {
+              ...defaultOptions().scales.y.ticks,
+              stepSize: 25,
+              callback: function(v) { return v + '%'; },
+            },
+            title: { display: true, text: 'Adoption rate (percent of U.S. herd)', color: COLORS.text },
+          },
+        },
+      },
+    });
   }
 
   function getStudioStateFromDom() {
