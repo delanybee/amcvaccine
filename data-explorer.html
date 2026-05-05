@@ -79,25 +79,33 @@
     .site-nav-links a.active { color: var(--heading); border-bottom-color: var(--heading); }
 
     .hero {
-      max-width: 820px; margin: 0 auto; padding: 56px 32px 40px; text-align: center;
+      max-width: 64rem; margin: 0 auto; padding: 5rem 1.5rem 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem; display: block;
     }
     .hero h1 {
-      font-family: var(--font-display); font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 400;
-      letter-spacing: -0.02em; margin-bottom: 8px;
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02; font-weight: 380;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -0.025em; max-width: 22ch; margin-bottom: 1.5rem;
     }
-    .hero .subtitle {
-      font-size: 16px; color: var(--text-muted); margin-bottom: 20px;
-      max-width: 56ch; margin-left: auto; margin-right: auto;
+    .hero h1 em { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; color: var(--accent); }
+    .hero-dek {
+      font-family: var(--font-display); font-variation-settings: "opsz" 24, "SOFT" 100;
+      font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 300; font-style: italic;
+      color: var(--text-muted); max-width: 52ch; line-height: 1.5;
     }
-    .hero-rule {
-      width: 60px; height: 1px; background: var(--gray-200); margin: 0 auto;
-    }
+    .hero-rule { display: none; }
 
     .container { max-width: 960px; margin: 0 auto; padding: 0 32px 96px; }
     .section { margin-bottom: 64px; }
     .section-kicker {
-      font-size: 11px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 1px; color: #B8620A; margin-bottom: 6px;
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.1em; color: #B8620A; margin-bottom: 6px;
     }
     .section h2 {
       font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 1.9rem); font-weight: 400;
@@ -107,6 +115,9 @@
       font-size: 15px; color: var(--text-muted); line-height: 1.7;
       max-width: 64ch; margin-bottom: 24px;
     }
+    .section-rule { border: none; border-top: 1px solid var(--line); margin: 0 0 3rem; }
+    .synthesis-section a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+    .synthesis-section a:hover { color: var(--accent-deep); }
 
     .chart-card {
       background: var(--card-bg); border: 1px solid var(--border);
@@ -227,14 +238,14 @@
 </nav>
 
 <header class="hero">
-  <h1>The case in seven charts</h1>
-  <p class="subtitle">Each visualization builds on the last, tracing the path from market failure to measurable climate impact. The data behind the narrative.</p>
-  <div class="hero-rule"></div>
+  <span class="eyebrow">A Methane AMC Case Study</span>
+  <h1>The case in <em>seven charts</em></h1>
+  <p class="hero-dek">Each visualization builds on the last, tracing the path from market failure to measurable climate impact. The data behind the narrative.</p>
 </header>
 
 <main class="container">
   <section class="section" id="risk">
-    <p class="section-kicker">1 / The problem</p>
+    <p class="section-kicker">01 / The problem</p>
     <h2>Innovation stalls when the downside is unbounded</h2>
     <p class="blurb">Without guaranteed demand, an R&D firm faces a wide distribution of outcomes that includes deep losses.</p>
     <div class="chart-card">
@@ -247,7 +258,7 @@
   <div class="transition-blurb">If the risk profile changes, <em>so does the adoption math</em>.</div>
 
   <section class="section" id="adoption">
-    <p class="section-kicker">2 / The shift</p>
+    <p class="section-kicker">02 / The shift</p>
     <h2>AMC moves the adoption curve to the right</h2>
     <div class="chart-card">
       <h3>Adoption frontier with and without AMC</h3>
@@ -256,7 +267,7 @@
   </section>
 
   <section class="section" id="map">
-    <p class="section-kicker">3 / The geography</p>
+    <p class="section-kicker">03 / The geography</p>
     <h2>Readiness is uneven, but the opportunity is global</h2>
     <div class="chart-card">
       <h3>Global adoption readiness index</h3>
@@ -308,7 +319,7 @@
   </section>
 
   <section class="section" id="funding">
-    <p class="section-kicker">4 / The returns</p>
+    <p class="section-kicker">04 / The returns</p>
     <h2>Funding scales sub-linearly</h2>
     <div class="chart-card">
       <h3>Funding vs. cumulative abatement</h3>
@@ -317,7 +328,7 @@
   </section>
 
   <section class="section" id="impact">
-    <p class="section-kicker">5 / The payoff</p>
+    <p class="section-kicker">05 / The payoff</p>
     <h2>Cumulative avoided emissions diverge rapidly</h2>
     <div class="chart-card">
       <h3>Cumulative emissions reduction: with and without AMC</h3>
@@ -326,7 +337,7 @@
   </section>
 
   <section class="section" id="coalition">
-    <p class="section-kicker">6 / The coalition</p>
+    <p class="section-kicker">06 / The coalition</p>
     <h2>Four actor types, one coordinated commitment</h2>
     <p class="blurb">The $534M baseline AMC draws on distinct funding channels, each locked to a different phase of the commercialization curve.</p>
     <div class="chart-card">
@@ -337,7 +348,7 @@
   </section>
 
   <section class="section" id="efficiency">
-    <p class="section-kicker">7 / The efficiency</p>
+    <p class="section-kicker">07 / The efficiency</p>
     <h2>Abatement cost falls sharply and stays low</h2>
     <p class="blurb">As adoption rises, fixed program costs are spread across more tonnes avoided. Even at the conservative baseline, this AMC delivers abatement well below voluntary carbon market prices.</p>
     <div class="chart-card">
@@ -347,6 +358,16 @@
     </div>
   </section>
 </main>
+
+<section class="section synthesis-section" id="synthesis">
+  <div class="container">
+    <hr class="section-rule">
+    <p class="section-kicker">08 / The synthesis</p>
+    <h2>The economic case closes</h2>
+    <p class="blurb">Taken together, these seven views show an AMC that performs strongly on every axis the analysis can measure: the firm payoff distribution shifts decisively, the adoption curve moves right, the funding curve plateaus, the cumulative emissions diverge, and the abatement cost stays well below voluntary carbon market rates. The economic case closes. What remains open is whether the structural conditions for those returns to materialize are in place. That question moves to the Sensitivity Studio and the Design page.</p>
+    <p class="blurb"><a href="sensitivity-studio.html">Stress-test the assumptions in the Sensitivity Studio</a> &middot; <a href="frameworks.html">Review the analytical frameworks</a></p>
+  </div>
+</section>
 
 <script>
 const LAYOUT_BASE = {
@@ -468,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () { drawPayoff(); drawAd
   <div class="modal-card" role="document">
     <button type="button" class="modal-close" id="aboutCloseBtn" aria-label="Close about dialog">Close</button>
     <p class="modal-kicker">About</p>
-    <h2 id="aboutTitle">About this story map</h2>
+    <h2 id="aboutTitle">About this site</h2>
     <p>This site presents the dedicated capstone work of an environmental scientist exploring how to fund what the world has been ignoring: the largest single source of human-driven methane, and one of the most under-funded climate problems we have.</p>
     <hr class="modal-divider">
     <p class="modal-section-head">What you'll find</p>

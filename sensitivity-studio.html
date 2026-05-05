@@ -94,23 +94,25 @@
     @media (max-width: 640px) { .modal-card { padding: 34px 22px 26px; } .modal-card h2 { font-size: 1.46rem; } .modal-card p { font-size: 0.94rem; max-width: none; } }
 
     .hero {
-      max-width: 900px; margin: 0 auto; padding: 56px 32px 40px; text-align: left;
+      max-width: 64rem; margin: 0 auto; padding: 5rem 1.5rem 4rem;
+      border-bottom: 1px solid var(--line);
     }
-    .section-pill {
-      display: inline-block; font-family: var(--font-body);
-      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: #B8620A;
-      background: rgba(184, 98, 10, 0.08);
-      padding: 4px 10px; border-radius: var(--radius-sm); margin-bottom: 12px;
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem; display: block;
     }
     .hero h1 {
-      font-family: var(--font-display); font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 400;
-      letter-spacing: -0.02em; margin-bottom: 8px; color: var(--ink);
-      line-height: 1.2;
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4.5rem);
+      line-height: 1.02; font-weight: 380;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      letter-spacing: -0.025em; max-width: 22ch; margin-bottom: 1.5rem; color: var(--ink);
     }
-    .hero .subtitle {
-      font-size: 1rem; color: var(--ink-secondary); line-height: 1.7;
-      max-width: 640px;
+    .hero h1 em { font-style: italic; font-variation-settings: "opsz" 144, "SOFT" 100; color: var(--accent); }
+    .hero-dek {
+      font-family: var(--font-display); font-variation-settings: "opsz" 24, "SOFT" 100;
+      font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 300; font-style: italic;
+      color: var(--ink-secondary); max-width: 52ch; line-height: 1.5;
     }
  
     /* MAIN CONTAINER */
@@ -161,24 +163,27 @@
       border: 1px solid var(--line);
       background: transparent;
       color: var(--ink-secondary);
-      border-radius: var(--radius-sm);
-      padding: 0.6rem 0.8rem;
-      font-size: 0.85rem;
+      border-radius: 999px;
+      padding: 0.45rem 1rem;
+      font-size: 0.72rem;
       font-weight: 500;
-      text-align: left;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
       cursor: pointer;
       transition: all 200ms ease;
-      font-family: var(--font-body);
     }
 
     .dosing-pill.active {
-      background: var(--ink);
+      background: var(--accent);
       color: var(--bg);
-      border-color: var(--ink);
+      border-color: var(--accent);
     }
 
     .dosing-pill:hover:not(.active) {
-      border-color: var(--ink-secondary);
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .control {
@@ -333,8 +338,8 @@
       padding: 0;
       min-height: auto;
       position: relative;
-      border-left: 2px solid var(--sage-200);
-      padding-left: 1rem;
+      border-top: 2px solid var(--sage-200);
+      padding-top: 1rem;
     }
 
     .metric-sage { border-color: var(--sage-400); }
@@ -343,7 +348,7 @@
 
     .info-tip {
       position: absolute;
-      top: 0;
+      top: 1rem;
       right: 0;
       width: 14px;
       height: 14px;
@@ -360,9 +365,10 @@
 
     .metric-value {
       color: var(--ink);
-      font-size: 1.6rem;
-      line-height: 1.1;
-      font-weight: 400;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+      font-weight: 380;
+      font-variation-settings: "opsz" 72, "SOFT" 30;
       margin-bottom: 0.25rem;
       font-family: var(--font-display);
     }
@@ -435,9 +441,10 @@
 
     .guide-card .guide-body {
       padding: 0 14px 14px;
-      font-size: 12px;
+      font-size: 0.9rem;
       line-height: 1.7;
       color: var(--ink-secondary);
+      font-family: var(--font-body);
     }
 
     .guide-card .guide-body p {
@@ -620,9 +627,9 @@
   </div>
 </nav>
 <div class="hero">
-  <span class="section-pill">Your turn</span>
-  <h1>Sensitivity studio</h1>
-  <p class="subtitle">Drag the sliders. Watch the economics shift. Explore how AMC economics respond to changes in dosing, adoption rates, and the social cost of methane.</p>
+  <span class="eyebrow">A Methane AMC Case Study</span>
+  <h1>Sensitivity <em>studio</em></h1>
+  <p class="hero-dek">Drag the sliders. Watch the economics shift. Explore how AMC economics respond to changes in dosing, adoption rates, and the social cost of methane.</p>
 </div>
  
 <div class="container">
@@ -1153,7 +1160,7 @@
   <div class="modal-card" role="document">
     <button type="button" class="modal-close" id="aboutCloseBtn" aria-label="Close about dialog">Close</button>
     <p class="modal-kicker">About</p>
-    <h2 id="aboutTitle">About this story map</h2>
+    <h2 id="aboutTitle">About this site</h2>
     <p>This site presents the dedicated capstone work of an environmental scientist exploring how to fund what the world has been ignoring: the largest single source of human-driven methane, and one of the most under-funded climate problems we have.</p>
     <hr class="modal-divider">
     <p class="modal-section-head">What you'll find</p>
