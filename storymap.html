@@ -122,6 +122,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-self: flex-start;
     }
     .visual-scene { display: none; }
     .visual-scene.is-visible { display: flex; flex-direction: column; justify-content: center; height: 100%; }
@@ -251,7 +252,7 @@
     .modal-close:hover { background: var(--bg-alt); }
 
     @media (min-width: 801px) {
-      .scrolly-pinned-wrap { position: relative; height: 800vh; max-width: var(--col-wide); margin: 0 auto; }
+      .scrolly-pinned-wrap { position: relative; height: 700vh; max-width: var(--col-wide); margin: 0 auto; }
       .scrolly-wrap { position: sticky; top: 3.55rem; height: calc(100vh - 3.55rem); overflow: hidden; margin: 0; max-width: 100%; align-items: stretch; }
       .visual-panel { position: static; height: 100%; justify-content: center; }
       .narrative-track { padding: 0; position: relative; overflow: hidden; }
@@ -301,15 +302,14 @@
       <a href="data-explorer.html">Explore</a>
       <a href="sensitivity-studio.html">Test</a>
       <a href="frameworks.html">Design</a>
-      <a href="#" id="navAboutBtn">About</a>
     </div>
   </div>
 </nav>
 
 <header class="page-hero">
   <span class="eyebrow">A Methane AMC Case Study</span>
-  <h1>The fastest climate lever <em>is waiting on a market.</em> Cut methane and the system cools within a decade.</h1>
-  <p class="hero-dek">Seven visuals. One argument. Scroll to see it unfold.</p>
+  <h1>The fastest climate lever <em>is waiting on a market.</em></h1>
+  <p class="hero-dek">Cut methane and the system cools within a decade. Scroll to see the argument unfold.</p>
 </header>
 
 <div class="scrolly-pinned-wrap">
@@ -462,6 +462,7 @@
       <a href="data-explorer.html">Explore</a>
       <a href="sensitivity-studio.html">Test</a>
       <a href="frameworks.html">Design</a>
+      <a href="#" class="nav-about-btn" id="bottomAboutBtn">About</a>
     </nav>
     <hr class="footer-rule">
     <p class="footer-credit">Designed and built by Delany Broome</p>
@@ -573,7 +574,7 @@
     updateProgress();
 
     var modal = document.getElementById('aboutModal');
-    var openBtn = document.getElementById('navAboutBtn');
+    var openBtn = document.getElementById('bottomAboutBtn');
     var closeBtn = document.getElementById('aboutCloseBtn');
     function openModal(e) { if (e) e.preventDefault(); modal.removeAttribute('hidden'); document.body.style.overflow = 'hidden'; }
     function closeModal() { modal.setAttribute('hidden', ''); document.body.style.overflow = ''; }

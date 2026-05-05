@@ -258,7 +258,7 @@
 
     var phase = 0;
     if (stepId === "s3a") phase = 2;
-    if (stepId === "s3b") phase = 4;
+    if (stepId === "s3b") phase = 6;
     if (stepId === "s3c") phase = 6;
 
     flow.querySelectorAll(".pw-node").forEach(function (node) {
