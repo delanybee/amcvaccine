@@ -225,6 +225,12 @@
     }
     .chart-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
     .chart-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; }
+    .chart-takeaway {
+      font-family: var(--font-body); font-size: 0.875rem; font-style: italic;
+      line-height: 1.65; color: var(--text-muted);
+      border-left: 2px solid var(--line); padding: 0.5rem 0 0.5rem 0.875rem;
+      margin: 1rem 0 0; max-width: 60ch;
+    }
     .chart-wrap { position: relative; width: 100%; min-height: 380px; }
     .chart-wrap.map { min-height: 440px; }
     .chart-wrap.short { min-height: 320px; }
@@ -411,6 +417,7 @@
       <h3>Firm payoff distribution: before and after AMC</h3>
       <p class="chart-desc">Probability curves for R&D project payoff under two scenarios.</p>
       <div class="chart-wrap short" id="chartPayoff"></div>
+      <p class="chart-takeaway">The AMC truncates the left tail of firm outcomes. When guaranteed demand eliminates the prospect of zero-return R&amp;D investment, the innovation deadlock between public need and private risk resolves.</p>
     </div>
   </section>
 
@@ -423,6 +430,7 @@
       <h3>Adoption frontier with and without AMC</h3>
       <p class="chart-desc">At any given farmer net cost, adoption sits higher under the AMC. The mechanism's effective subsidy raises farmers' tolerance for input cost.</p>
       <div class="chart-wrap short" id="chartAdoption"></div>
+      <p class="chart-takeaway">At $95 per animal-year, the AMC raises adoption from roughly 50% to 75%. The mechanism does not change the technology; it changes who can afford to adopt it.</p>
     </div>
   </section>
 
@@ -433,6 +441,7 @@
       <h3>Global adoption readiness index</h3>
       <p class="chart-desc">0 to 100 composite score &middot; four equally-weighted factors &middot; illustrative ranking</p>
       <div class="chart-wrap map" id="chartMap"></div>
+      <p class="chart-takeaway">Brazil and India lead on two independent axes: herd scale and policy alignment. The eight countries mapped here represent approximately 65% of global enteric methane emissions from cattle and dairy.</p>
       <details>
         <summary class="scorecard-toggle">
           <span class="toggle-arrow">&#9654;</span> How this was scored
@@ -485,6 +494,7 @@
       <h3>Funding vs. cumulative abatement</h3>
       <p class="chart-desc">Early returns accelerate as fixed costs amortize across more abatement. Beyond roughly $750M, marginal abatement falls as the highest-readiness adoption is captured first.</p>
       <div class="chart-wrap short" id="chartFunding"></div>
+      <p class="chart-takeaway">At the $534M baseline, the abatement curve has not yet flattened. The designed commitment sits in the high-return portion of the curve, before diminishing marginal returns set in.</p>
     </div>
   </section>
 
@@ -495,6 +505,7 @@
       <h3>Cumulative emissions reduction: with and without AMC</h3>
       <p class="chart-desc">The without-AMC baseline assumes some organic adoption from voluntary actors. The gap between the two curves represents AMC-attributable abatement.</p>
       <div class="chart-wrap short" id="chartCumulative"></div>
+      <p class="chart-takeaway">The 142 MtCO&#x2082;e gap by 2035 is the mechanism's attributable impact. The without-AMC baseline is not zero: organic adoption from voluntary actors continues. The mechanism accelerates what the market would otherwise deliver too slowly to matter.</p>
     </div>
   </section>
 
@@ -506,6 +517,7 @@
       <h3>Cost per tonne CO&#x2082;e avoided vs. adoption rate</h3>
       <p class="chart-desc">Baseline scenario &middot; GWP100 &middot; 10-year program horizon &middot; fixed costs $120M, variable costs scale with adoption</p>
       <div class="chart-wrap short" id="chartEfficiency"></div>
+      <p class="chart-takeaway">Cost per tonne falls as fixed program costs amortize across a growing abatement base. At baseline adoption (25%), the mechanism delivers abatement at roughly 1.7% of the EPA's estimated social cost of the harm it prevents.</p>
       <div class="callout callout-amber" style="margin-top:18px;">
         <strong>Against the harm avoided.</strong> The EPA estimates the social cost of carbon at approximately $190 per tonne CO&#x2082;e (2023 update). At baseline adoption, this AMC delivers abatement at roughly 1.7% of that benchmark, a fraction of the cost of the harm it prevents.
       </div>
@@ -540,26 +552,126 @@ function makeLayout(title, yTitle, extra) {
 function drawPayoff() {
   const x = [], noAmc = [], withAmc = [];
   for (let p = -120; p <= 220; p += 3) { x.push(p); noAmc.push(Math.exp(-Math.pow((p - 20) / 70, 2))); const base = Math.exp(-Math.pow((p - 60) / 60, 2)); withAmc.push(p < -20 ? 0 : base); }
-  Plotly.newPlot("chartPayoff", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Relative probability", { xaxis: Object.assign({}, AXIS_STYLE, { title: "R&D project payoff (M USD)" }) }), CONFIG);
+  Plotly.newPlot("chartPayoff", [
+    { type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", showlegend: false,
+      line: { color: "#D1CCC2", width: 2.5 },
+      hovertemplate: "Payoff: $%{x}M<br>Without AMC<extra></extra>" },
+    { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", showlegend: false,
+      line: { color: "#7A3D04", width: 2.5 },
+      hovertemplate: "Payoff: $%{x}M<br>With AMC<extra></extra>" }
+  ], makeLayout("", "Relative probability", {
+    showlegend: false,
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "R&D project payoff (M USD)" }),
+    annotations: [
+      { x: 20, y: 1.0, text: "Without AMC", showarrow: false, xanchor: "center", yanchor: "bottom",
+        font: { size: 11, color: "#8A7D6B", family: "'JetBrains Mono', monospace" } },
+      { x: 65, y: 1.0, text: "With AMC", showarrow: false, xanchor: "center", yanchor: "bottom",
+        font: { size: 11, color: "#7A3D04", family: "'JetBrains Mono', monospace" } }
+    ]
+  }), CONFIG);
 }
 function drawAdoption() {
   const x = [], noAmc = [], withAmc = [];
   for (let c = 20; c <= 200; c += 3) { x.push(c); noAmc.push(1 / (1 + Math.exp((c - 95) / 18))); withAmc.push(1 / (1 + Math.exp((c - 130) / 18))); }
-  Plotly.newPlot("chartAdoption", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Adoption rate", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Farmer net cost per animal-year (USD)" }), yaxis: Object.assign({}, AXIS_STYLE, { title: "Adoption rate", tickformat: ".0%" }) }), CONFIG);
+  Plotly.newPlot("chartAdoption", [
+    { type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", showlegend: false,
+      line: { color: "#D1CCC2", width: 2.5 },
+      hovertemplate: "$%{x}/animal-year<br>Adoption: %{y:.0%}<extra></extra>" },
+    { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", showlegend: false,
+      line: { color: "#7A3D04", width: 2.5 },
+      hovertemplate: "$%{x}/animal-year<br>Adoption: %{y:.0%}<extra></extra>" }
+  ], makeLayout("", "Adoption rate", {
+    showlegend: false,
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "Farmer net cost per animal-year (USD)" }),
+    yaxis: Object.assign({}, AXIS_STYLE, { title: "Adoption rate", tickformat: ".0%" }),
+    shapes: [
+      { type: "line", x0: 95, y0: 0.5, x1: 95, y1: 0.875,
+        line: { color: "#B8620A", width: 1.5, dash: "dot" } }
+    ],
+    annotations: [
+      { x: 80, y: 0.70, text: "Without AMC", showarrow: false, xanchor: "right",
+        font: { size: 11, color: "#8A7D6B", family: "'JetBrains Mono', monospace" } },
+      { x: 112, y: 0.72, text: "With AMC", showarrow: false, xanchor: "left",
+        font: { size: 11, color: "#7A3D04", family: "'JetBrains Mono', monospace" } },
+      { x: 95, y: 0.69, text: "+37 pp", showarrow: true, arrowhead: 0,
+        ax: 44, ay: 0, xanchor: "left", arrowcolor: "#B8620A", arrowwidth: 1.5,
+        font: { size: 10, color: "#B8620A", family: "'JetBrains Mono', monospace" } }
+    ]
+  }), CONFIG);
 }
 function drawMap() {
-  Plotly.newPlot("chartMap", [{ type: "choropleth", locationmode: "ISO-3", locations: ["BRA","USA","IND","CHN","AUS","ARG","MEX","ETH"], z: [96,72,88,55,78,60,46,38], colorscale: [[0, "#E0DDD4"], [0.3, "#D1B79A"], [0.6, "#B8620A"], [1, "#5A3000"]], marker: { line: { color: "#FAFAF8", width: 0.8 } } }], { paper_bgcolor: "transparent", margin: { l: 0, r: 0, t: 8, b: 0 }, showlegend: false, geo: { projection: { type: "natural earth" }, bgcolor: "transparent", showframe: false, showcoastlines: true } }, CONFIG);
+  Plotly.newPlot("chartMap", [{
+    type: "choropleth", locationmode: "ISO-3",
+    locations: ["BRA","USA","IND","CHN","AUS","ARG","MEX","ETH"],
+    z: [96,72,88,55,78,60,46,38],
+    text: ["Brazil","United States","India","China","Australia","Argentina","Mexico","Ethiopia"],
+    customdata: [96,72,88,55,78,60,46,38],
+    hovertemplate: "<b>%{text}</b><br>Readiness index: %{customdata}/100<extra></extra>",
+    colorscale: [[0, "#E0DDD4"], [0.3, "#D1B79A"], [0.6, "#B8620A"], [1, "#5A3000"]],
+    zmin: 0, zmax: 100,
+    colorbar: {
+      title: { text: "Index", font: { size: 11, family: "'JetBrains Mono', monospace", color: "#8A7D6B" } },
+      thickness: 10, len: 0.5, x: 1.0, outlinewidth: 0, bgcolor: "transparent",
+      tickfont: { size: 10, family: "'JetBrains Mono', monospace", color: "#8A7D6B" }
+    },
+    marker: { line: { color: "rgba(250,250,248,0.6)", width: 0.8 } }
+  }], {
+    paper_bgcolor: "transparent", margin: { l: 0, r: 50, t: 8, b: 0 }, showlegend: false,
+    geo: {
+      projection: { type: "natural earth" },
+      bgcolor: "transparent", showframe: false,
+      showcoastlines: true, coastlinecolor: "#C8C4BB", coastlinewidth: 0.5,
+      showland: true, landcolor: "#F0EDE6",
+      showocean: true, oceancolor: "#E8EEF3",
+      showlakes: true, lakecolor: "#E8EEF3",
+      showcountries: true, countrycolor: "#D4D0C8", countrywidth: 0.4
+    }
+  }, CONFIG);
 }
 function drawFunding() {
   const funding = [50, 100, 200, 300, 400, 550, 750, 950, 1200, 1500];
   const impact = [12, 35, 72, 102, 130, 168, 206, 230, 248, 260];
-  Plotly.newPlot("chartFunding", [{ type: "scatter", mode: "lines+markers", x: funding, y: impact, line: { color: "#7A3D04", width: 3 }, marker: { color: "#7A3D04", size: 7 } }], makeLayout("", "Cumulative abatement (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "AMC commitment size (M USD)" }) }), CONFIG);
+  const baseX = 534, baseY = 164;
+  Plotly.newPlot("chartFunding", [
+    { type: "scatter", mode: "lines+markers", x: funding, y: impact, showlegend: false,
+      line: { color: "#7A3D04", width: 3 }, marker: { color: "#7A3D04", size: 7 },
+      hovertemplate: "Commitment: $%{x}M<br>Abatement: %{y} MtCO\u2082e<extra></extra>" },
+    { type: "scatter", mode: "markers", x: [baseX], y: [baseY], showlegend: false,
+      marker: { color: "#B8620A", size: 10, symbol: "diamond" },
+      hovertemplate: "Baseline commitment: $534M<br>~164 MtCO\u2082e abatement<extra></extra>" }
+  ], makeLayout("", "Cumulative abatement (MtCO\u2082e)", {
+    showlegend: false,
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "AMC commitment size (M USD)" }),
+    annotations: [
+      { x: baseX, y: baseY, text: "  $534M baseline", showarrow: true, arrowhead: 0,
+        ax: 0, ay: -30, xanchor: "left", arrowcolor: "#B8620A", arrowwidth: 1.5,
+        font: { size: 10, color: "#B8620A", family: "'JetBrains Mono', monospace" } }
+    ]
+  }), CONFIG);
 }
 function drawCumulative() {
   const years = [2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035];
   const without = [0, 5, 14, 27, 43, 62, 83, 105, 128, 150];
   const withAmc = [0, 12, 31, 58, 93, 133, 176, 219, 258, 292];
-  Plotly.newPlot("chartCumulative", [{ type: "scatter", mode: "lines", x: years, y: without, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x: years, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Cumulative avoided emissions (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Year", dtick: 1 }) }), CONFIG);
+  Plotly.newPlot("chartCumulative", [
+    { type: "scatter", mode: "lines", x: years, y: without, name: "Without AMC", showlegend: false,
+      line: { color: "#D1CCC2", width: 2.5 },
+      hovertemplate: "Year: %{x}<br>Without AMC: %{y} MtCO\u2082e<extra></extra>" },
+    { type: "scatter", mode: "lines", x: years, y: withAmc, name: "With AMC", showlegend: false,
+      fill: "tonexty", fillcolor: "rgba(122,61,4,0.07)",
+      line: { color: "#7A3D04", width: 2.5 },
+      hovertemplate: "Year: %{x}<br>With AMC: %{y} MtCO\u2082e<extra></extra>" }
+  ], makeLayout("", "Cumulative avoided emissions (MtCO\u2082e)", {
+    showlegend: false,
+    xaxis: Object.assign({}, AXIS_STYLE, { title: "Year", dtick: 1 }),
+    margin: { l: 56, r: 110, t: 74, b: 64 },
+    annotations: [
+      { x: 2035.1, y: 150, text: " Without AMC: 150 Mt", showarrow: false, xanchor: "left",
+        font: { size: 10, color: "#8A7D6B", family: "'JetBrains Mono', monospace" } },
+      { x: 2035.1, y: 292, text: " With AMC: 292 Mt", showarrow: false, xanchor: "left",
+        font: { size: 10, color: "#7A3D04", family: "'JetBrains Mono', monospace" } }
+    ]
+  }), CONFIG);
 }
 function drawEfficiency() {
   // Model: fixed cost $120M + variable cost scaling with adoption;
@@ -587,7 +699,12 @@ function drawEfficiency() {
     yaxis: Object.assign({}, AXIS_STYLE, { title: "Cost per tonne CO\u2082e avoided (USD)", tickprefix: "$" }),
     annotations: [
       { x: 25, y: cpt[baseIdx], text: "  Baseline: $" + cpt[baseIdx].toFixed(2) + "/t",
-        showarrow: false, xanchor: "left", font: { size: 11, color: "#B8620A", family: "'JetBrains Mono', monospace" } }
+        showarrow: false, xanchor: "left", font: { size: 11, color: "#B8620A", family: "'JetBrains Mono', monospace" } },
+      { xref: "paper", yref: "paper", x: 0.99, y: 0.99,
+        text: "Social cost of carbon: ~$190/t (EPA, 2023)",
+        showarrow: false, xanchor: "right", yanchor: "top",
+        font: { size: 9.5, color: "#8A7D6B", family: "'JetBrains Mono', monospace" },
+        bgcolor: "rgba(244,241,235,0.9)", borderpad: 3 }
     ]
   }), CONFIG);
 }
