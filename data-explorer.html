@@ -540,26 +540,26 @@ function makeLayout(title, yTitle, extra) {
 function drawPayoff() {
   const x = [], noAmc = [], withAmc = [];
   for (let p = -120; p <= 220; p += 3) { x.push(p); noAmc.push(Math.exp(-Math.pow((p - 20) / 70, 2))); const base = Math.exp(-Math.pow((p - 60) / 60, 2)); withAmc.push(p < -20 ? 0 : base); }
-  Plotly.newPlot("chartPayoff", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#1D9E75", width: 2.5 } }], makeLayout("", "Relative probability", { xaxis: Object.assign({}, AXIS_STYLE, { title: "R&D project payoff (M USD)" }) }), CONFIG);
+  Plotly.newPlot("chartPayoff", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Relative probability", { xaxis: Object.assign({}, AXIS_STYLE, { title: "R&D project payoff (M USD)" }) }), CONFIG);
 }
 function drawAdoption() {
   const x = [], noAmc = [], withAmc = [];
   for (let c = 20; c <= 200; c += 3) { x.push(c); noAmc.push(1 / (1 + Math.exp((c - 95) / 18))); withAmc.push(1 / (1 + Math.exp((c - 130) / 18))); }
-  Plotly.newPlot("chartAdoption", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#1D9E75", width: 2.5 } }], makeLayout("", "Adoption rate", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Farmer net cost per animal-year (USD)" }), yaxis: Object.assign({}, AXIS_STYLE, { title: "Adoption rate", tickformat: ".0%" }) }), CONFIG);
+  Plotly.newPlot("chartAdoption", [{ type: "scatter", mode: "lines", x, y: noAmc, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Adoption rate", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Farmer net cost per animal-year (USD)" }), yaxis: Object.assign({}, AXIS_STYLE, { title: "Adoption rate", tickformat: ".0%" }) }), CONFIG);
 }
 function drawMap() {
-  Plotly.newPlot("chartMap", [{ type: "choropleth", locationmode: "ISO-3", locations: ["BRA","USA","IND","CHN","AUS","ARG","MEX","ETH"], z: [96,72,88,55,78,60,46,38], colorscale: [[0, "#E0DDD4"], [0.3, "#9FCFB8"], [0.6, "#1D9E75"], [1, "#0F3D36"]], marker: { line: { color: "#FAFAF8", width: 0.8 } } }], { paper_bgcolor: "transparent", margin: { l: 0, r: 0, t: 8, b: 0 }, showlegend: false, geo: { projection: { type: "natural earth" }, bgcolor: "transparent", showframe: false, showcoastlines: true } }, CONFIG);
+  Plotly.newPlot("chartMap", [{ type: "choropleth", locationmode: "ISO-3", locations: ["BRA","USA","IND","CHN","AUS","ARG","MEX","ETH"], z: [96,72,88,55,78,60,46,38], colorscale: [[0, "#E0DDD4"], [0.3, "#D1B79A"], [0.6, "#B8620A"], [1, "#5A3000"]], marker: { line: { color: "#FAFAF8", width: 0.8 } } }], { paper_bgcolor: "transparent", margin: { l: 0, r: 0, t: 8, b: 0 }, showlegend: false, geo: { projection: { type: "natural earth" }, bgcolor: "transparent", showframe: false, showcoastlines: true } }, CONFIG);
 }
 function drawFunding() {
   const funding = [50, 100, 200, 300, 400, 550, 750, 950, 1200, 1500];
   const impact = [12, 35, 72, 102, 130, 168, 206, 230, 248, 260];
-  Plotly.newPlot("chartFunding", [{ type: "scatter", mode: "lines+markers", x: funding, y: impact, line: { color: "#1D9E75", width: 3 }, marker: { color: "#1D9E75", size: 7 } }], makeLayout("", "Cumulative abatement (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "AMC commitment size (M USD)" }) }), CONFIG);
+  Plotly.newPlot("chartFunding", [{ type: "scatter", mode: "lines+markers", x: funding, y: impact, line: { color: "#7A3D04", width: 3 }, marker: { color: "#7A3D04", size: 7 } }], makeLayout("", "Cumulative abatement (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "AMC commitment size (M USD)" }) }), CONFIG);
 }
 function drawCumulative() {
   const years = [2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035];
   const without = [0, 5, 14, 27, 43, 62, 83, 105, 128, 150];
   const withAmc = [0, 12, 31, 58, 93, 133, 176, 219, 258, 292];
-  Plotly.newPlot("chartCumulative", [{ type: "scatter", mode: "lines", x: years, y: without, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x: years, y: withAmc, name: "With AMC", line: { color: "#1D9E75", width: 2.5 } }], makeLayout("", "Cumulative avoided emissions (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Year", dtick: 1 }) }), CONFIG);
+  Plotly.newPlot("chartCumulative", [{ type: "scatter", mode: "lines", x: years, y: without, name: "Without AMC", line: { color: "#D1CCC2", width: 2.5 } }, { type: "scatter", mode: "lines", x: years, y: withAmc, name: "With AMC", line: { color: "#7A3D04", width: 2.5 } }], makeLayout("", "Cumulative avoided emissions (MtCO2e)", { xaxis: Object.assign({}, AXIS_STYLE, { title: "Year", dtick: 1 }) }), CONFIG);
 }
 function drawEfficiency() {
   // Model: fixed cost $120M + variable cost scaling with adoption;
@@ -576,10 +576,10 @@ function drawEfficiency() {
   var baseIdx = adoptPct.indexOf(25);
   Plotly.newPlot("chartEfficiency", [
     { type: "scatter", mode: "lines", x: adoptPct, y: cpt,
-      line: { color: "#1D9E75", width: 3 }, name: "Cost per tonne",
+      line: { color: "#7A3D04", width: 3 }, name: "Cost per tonne",
       hovertemplate: "%{x}% adoption<br><b>$%{y:.2f}/tCO\u2082e</b><extra></extra>" },
     { type: "scatter", mode: "markers", x: [25], y: [cpt[baseIdx]],
-      marker: { color: "#C9623F", size: 10, symbol: "circle" }, name: "Baseline (25%)",
+      marker: { color: "#B8620A", size: 10, symbol: "circle" }, name: "Baseline (25%)",
       hovertemplate: "Baseline scenario<br><b>$%{y:.2f}/tCO\u2082e</b><extra></extra>" }
   ], Object.assign({}, LAYOUT_BASE, {
     margin: { l: 72, r: 32, t: 20, b: 64 },
@@ -587,7 +587,7 @@ function drawEfficiency() {
     yaxis: Object.assign({}, AXIS_STYLE, { title: "Cost per tonne CO\u2082e avoided (USD)", tickprefix: "$" }),
     annotations: [
       { x: 25, y: cpt[baseIdx], text: "  Baseline: $" + cpt[baseIdx].toFixed(2) + "/t",
-        showarrow: false, xanchor: "left", font: { size: 11, color: "#C9623F", family: "'JetBrains Mono', monospace" } }
+        showarrow: false, xanchor: "left", font: { size: 11, color: "#B8620A", family: "'JetBrains Mono', monospace" } }
     ]
   }), CONFIG);
 }
